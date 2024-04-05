@@ -2,30 +2,69 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+/* .App-logo {
+  height: 50vmin;
   pointer-events: none;
-}
+} */
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 100s linear;
   }
-}
+} */
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
-.App-link {
-  color: #61dafb;
+/* .App-link {
+  color: #b7a4a4;
+} */
+
+.myPage{
+  display: flex;
+  background: rgb(120, 207, 120);
+  width: 100%;
+  color: white;
+  font-size: 15px;
+  padding-left: 100px;
+}
+
+div{
+  box-sizing: border-box;
+}
+
+.profile{
+  text-align: right;
+  padding-right: 400px;
+  border-bottom: 3px solid gray;
+}
+
+
+.medicine_title{ 
+  text-align: left;
+  padding-left: 20px;
+  border-bottom: 3px solid gray;
+}
+
+.medicine_list{
+  padding-left: 20px;
+  text-align: left;
+  border-bottom: 2px solid rgb(194, 194, 194)
+}
+
+.modal{
+  margin-top: 20px;
+  padding: 20px;
+  background: white;
+  text-align: left;
 }
 
 @keyframes App-logo-spin {
