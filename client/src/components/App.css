@@ -28,44 +28,6 @@
   color: #b7a4a4;
 } */
 
-.myPage{
-  display: flex;
-  background: rgb(120, 207, 120);
-  width: 100%;
-  color: white;
-  font-size: 15px;
-  padding-left: 100px;
-}
-
-div{
-  box-sizing: border-box;
-}
-
-.profile{
-  text-align: right;
-  padding-right: 400px;
-  border-bottom: 3px solid gray;
-}
-
-
-.medicine_title{ 
-  text-align: left;
-  padding-left: 20px;
-  border-bottom: 3px solid gray;
-}
-
-.medicine_list{
-  padding-left: 20px;
-  text-align: left;
-  border-bottom: 2px solid rgb(194, 194, 194)
-}
-
-.modal{
-  margin-top: 20px;
-  padding: 20px;
-  background: white;
-  text-align: left;
-}
 
 @keyframes App-logo-spin {
   from {

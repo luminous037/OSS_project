@@ -4,4 +4,8 @@ const app = express()
 
 app.use(cors())
 
-app.listen(3000)
+get('/MyPage',(res,req)=>{
+  
+})
+
+app.listen(4000)

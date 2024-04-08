@@ -1,6 +1,6 @@
 import './App.css';
 import {useState} from 'react';
-import './myPage.css'
+import './MyPage.css'
 
 function AddList(){ //이후 구현 예정
   console.log(1)
