@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './components/index.css';
 import App from './components/App';
 import reportWebVitals from './components/reportWebVitals';
+import Start from './components/Start';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    
+    <React.StrictMode>
     <App />
+    
+    </React.StrictMode>
+
   
 );
 

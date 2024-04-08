@@ -1,24 +1,14 @@
+// 예: src/pages/StartPage.js
 import React from 'react';
-import './Start.css'; //css 파일 임포트
-import './App.css';
-import chickimage from './chick.png'; //병아리 이미지 임포트
-
-
+import './Start.css';
+import chick from './chick.png'; // 병아리 이미지 경로에 맞게 수정하세요.
 
 function Start() {
-    return(
-        <div>
-            <nav>
-                <div className="nav-wrapper">
-                    <div> do it!</div>
-                </div>
-                <div className="chick-container">
-                    <img src={chickimage} alt="병아리"/>
-                </div>
- 
-            </nav>
-        </div>
-    );
+  return (
+    <div className="start-page">
+      <img src={chick} alt="chick" className="chick-animation" />
+    </div>
+  );
 }
 
 export default Start;
