@@ -1,0 +1,32 @@
+.App {
+    text-align: center;
+  }
+
+  body{
+    font-family: 'nanumsquare';
+  }
+
+  .black-nav{
+    background: black;
+    width: 100%;
+    display: flex;
+    color: white;
+    padding: 20px;
+    font-weight: 600;
+    font-size:20px;
+  }
+
+  .chick-container{
+    position:fixed;
+    bottom: 0;
+    left: 50%;  /* 중앙 정렬*/
+    transform: translateX(-50%); /*정확한 중앙 정렬을 위해서 작성*/
+    z-index: 100; /*다른 요소들 위에 표시되도록 하기 위해서 작성*/
+  }
+
+  .chick-container img{
+    width: 100px;
+    height: auto;
+  }
+
+  
