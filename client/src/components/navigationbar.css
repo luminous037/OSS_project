@@ -1,4 +1,4 @@
-.bottom-nav {
+/* .bottom-nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -18,5 +18,25 @@
   
   .bottom-nav-item:hover {
     background-color: #555;
-  }
+  } */
+
+/* NavigationBar.css */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-item {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
+}
+
+  
   
