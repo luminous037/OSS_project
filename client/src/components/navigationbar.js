@@ -6,7 +6,7 @@ import './NavigationBar.css'; // CSS 파일을 임포트합니다.
 const NavigationBar = () => {
   return (
     <div className="bottom-nav">
-      <Link to="./Start.js" className="nav-item">홈</Link>
+      <Link to="./Start" className="nav-item">홈</Link>
       <Link to="./Main.js" className="nav-item">집</Link>
       
       

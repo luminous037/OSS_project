@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavigationBar from './NavigationBar.js'; // NavigationBar 컴포넌트를 임포트합니다.
-import Start from './start.js'; // 홈 페이지 컴포넌트
+import Start from './Start.js'; // 홈 페이지 컴포넌트
 import Main from './Main.js';
 
 function App() {
