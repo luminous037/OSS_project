@@ -60,3 +60,15 @@
   z-index: 20; /* 물방울보다 상위에 위치하도록 z-index 설정 */
 }
 
+/*물울덩이 관련 css*/
+.puddle {
+  width: 100%;
+  height: 100px;
+  background-color: rgba(0,0,255,0.5);
+  position: absolute;
+  top:0;
+  left:0;
+  border-bottom: 5px solid rgba(0,0,255,0.8);
+  border-radius: 0 0 50px 50px;
+}
+
