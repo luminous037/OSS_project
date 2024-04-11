@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Start.css';
 import chick from './chick.png';
+import puddle from './puddle.png';
+
 
 function Drop() {
   const startX = Math.random() * window.innerWidth;
@@ -22,10 +24,10 @@ function Start() {
 
   return (
     <div className="start-page">
-      <div className="puddle"></div>
+      <img src={puddle} alt="puddle" className="puddle-animation" />
       <div className="logo">Meddy Baby</div>
       {drops}
-      <img src={chick} alt="chick" className="chick-animation" />
+      <img src={chick} alt="chick" className="chick" />
     </div>
   );
 }

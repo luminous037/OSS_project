@@ -1,15 +1,19 @@
+
 /*병아리 관련 css*/
 .start-page {
   position: relative;
-  height: 100vh;
+  object-fit: contain;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  background-color: rgb(183, 130, 59);
+  background-color: rgb(255, 255, 255);
   
 }
 
-.chick-animation {
+.chick{
+  position: fixed;
+  bottom: 0;
+  width: auto;
   animation: jumpUp 0.5s ease forwards;
 }
 
@@ -21,38 +25,43 @@
     transform: translateY(-30%);
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0%);
   }
 }
 
 /*물방울 관련 css*/
 @keyframes dropAnimation {
   0% {
-    transform: translateY(0px);
-    opacity: 1;
+    top: 10%; /* 시작 위치 */
   }
   100% {
-    transform: translateY(500px); /* 물방울이 떨어지는 간격 조정 */
-    opacity: 0;
+    top: 90%; /* 끝 위치, 화면 하단까지 내려오도록 설정 */
   }
 }
 
-.drop {
-  width: 10px;
-  height: 10px;
-  background-color: blue; /* 물방울 색상 추가 */
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  z-index: 10;
-  overflow: hidden; /*화면 바깥으로 나가는 물방울은 숨김*/
-  animation: dropAnimation 2s linear infinite; /* 애니메이션 지속 시간 및 반복 설정 */
-}
+
+
+
+  .drop {
+    width: 40px; 
+    height: 40px; 
+    background-image: url('./drop.png'); 
+    background-size: cover; 
+    border-radius: 50%; 
+    position: fixed;
+    top: 10%;
+    bottom: 100%;
+    z-index: 10;
+    overflow: hidden; /* 화면 바깥으로 나가는 물방울은 숨김 */
+    animation: dropAnimation 5s linear infinite; /* 애니메이션 지속 시간 및 반복 설정 */
+  }
+  
+
 
 /*로고 관련 css*/
 .logo {
   font-size: 2rem; /* 로고의 크기 조절 */
-  color: white; /* 로고의 색상 */
+  color: rgb(119, 73, 73); /* 로고의 색상 */
   position: absolute; /* 로고의 위치를 절대적으로 설정 */
   top: 50%;
   left: 50%;
@@ -62,13 +71,12 @@
 
 /*물울덩이 관련 css*/
 .puddle {
-  width: 100%;
-  height: 100px;
-  background-color: rgba(0,0,255,0.5);
+  width: 100%; /* 이미지 너비 조정 */
+  height: auto; /* 이미지 높이를 자동으로 설정하여 비율을 유지 */
   position: absolute;
-  top:0;
-  left:0;
-  border-bottom: 5px solid rgba(0,0,255,0.8);
-  border-radius: 0 0 50px 50px;
+  top: 0; /* 화면 상단에 위치 */
+  right: 0;
+  z-index: 5;
 }
+
 
