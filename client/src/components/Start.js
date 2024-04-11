@@ -1,23 +1,6 @@
-
-// import React from 'react';
-// import './Start.css';
-// import chick from './chick.png'; // 병아리 이미지 경로에 맞게 수정하세요.
-
-// function Start() {
-//   const startX = Math.random()*window.innerWidth;
-//   return (
-//     <div className="drop" style={{left:startX}}></div>,
-//     <div className="start-page">
-//       <img src={chick} alt="chick" className="chick-animation" />
-//     </div>
-//   );
-// }
-
-// export default Start;
-
 import React, { useState, useEffect } from 'react';
 import './Start.css';
-import chick from './chick.png'; // 병아리 이미지 경로에 맞게 수정하세요.
+import chick from './chick.png';
 
 function Drop() {
   const startX = Math.random() * window.innerWidth;
@@ -39,6 +22,8 @@ function Start() {
 
   return (
     <div className="start-page">
+      <div className="puddle"></div>
+      <div className="logo">Meddy Baby</div>
       {drops}
       <img src={chick} alt="chick" className="chick-animation" />
     </div>

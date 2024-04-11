@@ -1,3 +1,4 @@
+/*병아리 관련 css*/
 .start-page {
   position: relative;
   height: 100vh;
@@ -5,7 +6,7 @@
   justify-content: center;
   align-items: flex-end;
   background-color: rgb(183, 130, 59);
-  overflow: hidden; /* 화면 밖으로 나가는 물방울 숨김 처리 */
+  
 }
 
 .chick-animation {
@@ -24,6 +25,7 @@
   }
 }
 
+/*물방울 관련 css*/
 @keyframes dropAnimation {
   0% {
     transform: translateY(0px);
@@ -42,7 +44,19 @@
   border-radius: 50%;
   position: absolute;
   top: 0;
+  z-index: 10;
+  overflow: hidden; /*화면 바깥으로 나가는 물방울은 숨김*/
   animation: dropAnimation 2s linear infinite; /* 애니메이션 지속 시간 및 반복 설정 */
 }
 
+/*로고 관련 css*/
+.logo {
+  font-size: 2rem; /* 로고의 크기 조절 */
+  color: white; /* 로고의 색상 */
+  position: absolute; /* 로고의 위치를 절대적으로 설정 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%); /* 정확한 중앙 정렬을 위해 위치 조정 */
+  z-index: 20; /* 물방울보다 상위에 위치하도록 z-index 설정 */
+}
 
