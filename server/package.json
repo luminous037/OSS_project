@@ -1,0 +1,17 @@
+{
+    "name": "meddy",
+    "version": "1.0.0",
+    "scripts": {
+        "client": " cd .. && cd client && npm start",
+        "server": "nodemon Server.js",
+        "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "express": "^4.19.2",
+        "nodemon": "^3.1.0"
+    },
+    "devDependencies": {
+        "concurrently": "^4.0.1"
+    }
+}
