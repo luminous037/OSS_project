@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import './Start.css';
 import chick from './chick.png';
