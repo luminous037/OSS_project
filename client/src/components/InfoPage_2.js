@@ -110,7 +110,7 @@ function InfoPage_2() {
         Meddy Baby
 
         <div className="navigator">
-       <Link to="./Start" className="nav-item">다음</Link>
+       <Link to="./InfoPage_3" className="nav-item">다음</Link>
       </div>
 
       </div>
