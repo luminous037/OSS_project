@@ -27,7 +27,9 @@ function Start() {
 
   return (
     <div className="start-page">
+      
       <img src={puddle} alt="puddle" className="puddle-animation" />
+      <div class="puddle-top-box"></div>
       <div className="logo">Meddy Baby</div>
       {drops}
       <img src={chick} alt="chick" className="chick" />
