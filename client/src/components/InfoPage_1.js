@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate를 import합니다.
 import './App.css';
 import { Link } from 'react-router-dom';
-import Start from './Start';
+
 
 function InfoPage_1() {
   const [childName, setChildName] = useState('');

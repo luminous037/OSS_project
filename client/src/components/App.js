@@ -5,6 +5,7 @@ import NavigationBar from './NavigationBar.js'; // NavigationBar 컴포넌트를
 import Start from './Start.js'; // 홈 페이지 컴포넌트
 import InfoPage_1 from './InfoPage_1';
 import InfoPage_2 from './InfoPage_2';
+import InfoPage_3 from './InfoPage_3';
 import Main from './Main.js';
 
 
@@ -17,7 +18,8 @@ function App() {
           <Route path="/Start" element={<Start />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/InfoPage_1" element={<InfoPage_1 />} />
-          <Route path="/InfoPage_2" element={<InfoPage_2 />} />
+          <Route path="/InfoPage_1/InfoPage_2" element={<InfoPage_2 />} />
+          <Route path="/InfoPage_1/InfoPage_2/InfoPage_3" element={<InfoPage_3 />} />
       </Routes>
         <NavigationBar /> {/* 하단 네비게이션 바를 추가합니다. */}
       </div>
