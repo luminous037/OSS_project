@@ -1,5 +1,12 @@
 
-/*병아리 관련 css*/
+/* 로고 폰트*/
+@font-face {
+  font-family: "Continuous";
+  font-weight: 50;
+  src: url("../fonts/continuous.ttf");
+}
+
+
 .start-page {
   position: relative;
   object-fit: contain;
@@ -10,6 +17,7 @@
   
 }
 
+/*병아리 관련 css*/
 .chick{
   position: fixed;
   bottom: 0;
@@ -40,8 +48,6 @@
 }
 
 
-
-
   .drop {
     width: 40px; 
     height: 40px; 
@@ -60,23 +66,62 @@
 
 /*로고 관련 css*/
 .logo {
-  font-size: 2rem; /* 로고의 크기 조절 */
+  font-family: "Continuous";
+  font-size: 450%; /* 로고의 크기 조절 */
   color: rgb(119, 73, 73); /* 로고의 색상 */
-  position: absolute; /* 로고의 위치를 절대적으로 설정 */
+  position: fixed; /* 로고의 위치를 절대적으로 설정 */
   top: 50%;
+  bottom: 10%;
   left: 50%;
+  right: 15%;
   transform: translate(-50%,-50%); /* 정확한 중앙 정렬을 위해 위치 조정 */
   z-index: 20; /* 물방울보다 상위에 위치하도록 z-index 설정 */
+  animation: fadeIn 3s ease-in-out 1s forwards;
 }
 
-/*물울덩이 관련 css*/
-.puddle {
-  width: 100%; /* 이미지 너비 조정 */
-  height: auto; /* 이미지 높이를 자동으로 설정하여 비율을 유지 */
-  position: absolute;
-  top: 0; /* 화면 상단에 위치 */
-  right: 0;
-  z-index: 5;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
+
+
+
+/*물울덩이 관련 css*/
+
+/* WaveAnimation.css */
+.ocean {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+}
+
+.wave {
+  background: url('./puddle.png') repeat-x;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  height: 250px;
+  transform: translate3d(0, 0, 0);
+  animation: wave 5s linear infinite, swell 10s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50px, 0, 0); }
+}
+
+@keyframes swell {
+  0%, 100% { transform: translate3d(0, -25px, 0); }
+  50% { transform: translate3d(0, 5px, 0); }
+}
+
 
 
