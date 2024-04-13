@@ -8,13 +8,13 @@ import InfoPage_2 from './InfoPage_2';
 import InfoPage_3 from './InfoPage_3';
 import Main from './Main.js';
 
-
 function App() {
+
   return (
     <Router>
       <div>
-      <Routes>
-          <Route path="/App" element={<App />} />
+        <Routes>
+        <Route path="/App" element={<App />} />
           <Route path="/Start" element={<Start />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/InfoPage_1" element={<InfoPage_1 />} />
