@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Start from './Start';
 
 function InfoPage_2() {
     // 첫 번째 체크박스의 상태를 관리하는 useState 훅 사용

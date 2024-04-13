@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 function InfoPage_3() {
   // 각 버튼에 대한 모달 상태를 관리하는 useState 훅
@@ -100,6 +102,10 @@ function InfoPage_3() {
     alert("알람이 설정되었습니다.");
   };
 
+  const cancleAlarm = () => {
+    alert("알람을 사용하지 않습니다.");
+  };
+
   return (
     <div>
         Meddy Baby
@@ -176,8 +182,15 @@ function InfoPage_3() {
       <button onClick={setAlarm}>이대로 설정!</button>
     </div>
 
+    <div>
+      <button onClick={cancleAlarm}>알람을 사용하지 않을래요.</button>
+    </div>
 
+    (설정에서 설정 가능)
 
+    <div className="navigator">
+       <Link to="./Main" className="nav-item">다음</Link>
+      </div>
 
     </div>
   );
