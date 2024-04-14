@@ -8,18 +8,21 @@ import InfoPage_2 from './InfoPage_2';
 import InfoPage_3 from './InfoPage_3';
 import Main from './Main.js';
 
+import WeeklyCheck from './WeeklyCheck.js';
 
 function App() {
+
   return (
     <Router>
       <div>
-      <Routes>
-          <Route path="/App" element={<App />} />
+        <Routes>
+        <Route path="/App" element={<App />} />
           <Route path="/Start" element={<Start />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/InfoPage_1" element={<InfoPage_1 />} />
           <Route path="/InfoPage_1/InfoPage_2" element={<InfoPage_2 />} />
           <Route path="/InfoPage_1/InfoPage_2/InfoPage_3" element={<InfoPage_3 />} />
+          <Route path="WeeklyCheck" element={<WeeklyCheck />} />
       </Routes>
         <NavigationBar /> {/* 하단 네비게이션 바를 추가합니다. */}
       </div>
