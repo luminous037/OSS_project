@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import 'InfoPage.css';
+// import 'InfoPage.css';
 
 
 function InfoPage_1() {
