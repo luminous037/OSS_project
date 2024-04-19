@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Start from './Start';
 
 function InfoPage_2() {
     // 첫 번째 체크박스의 상태를 관리하는 useState 훅 사용
@@ -110,7 +109,7 @@ function InfoPage_2() {
         Meddy Baby
 
         <div className="navigator">
-       <Link to="./Start" className="nav-item">다음</Link>
+       <Link to="./InfoPage_3" className="nav-item">다음</Link>
       </div>
 
       </div>

@@ -3,9 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavigationBar from './NavigationBar.js'; // NavigationBar 컴포넌트를 임포트합니다.
 import Start from './Start.js'; // 홈 페이지 컴포넌트
-import InfoPage_1 from './InfoPage_1';
-import InfoPage_2 from './InfoPage_2';
-import InfoPage_3 from './InfoPage_3';
+import InfoPage_1 from './InfoPage/InfoPage_1.js';
+import InfoPage_2 from './InfoPage/InfoPage_2.js';
+import InfoPage_3 from './InfoPage/InfoPage_3.js';
 import Main from './Main.js';
 
 function App() {
