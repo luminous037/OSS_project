@@ -45,26 +45,18 @@
 /*로고 관련 css*/
 .logo {
   font-family: "Continuous";
-  font-size: 450%; /* 로고의 크기 조절 */
+  font-size: 500%; /* 로고의 크기 조절 */
   color: rgb(119, 73, 73); /* 로고의 색상 */
   position: fixed; /* 로고의 위치를 절대적으로 설정 */
-  top: 50%;
+  top: 45%;
   bottom: 10%;
   left: 50%;
   right: 15%;
   transform: translate(-50%,-50%); /* 정확한 중앙 정렬을 위해 위치 조정 */
   z-index: 20; /* 물방울보다 상위에 위치하도록 z-index 설정 */
-  animation: fadeIn 3s ease-in-out 1s forwards;
+ 
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
 
 /*병아리 관련 css*/
@@ -91,12 +83,12 @@
 
 /*물울덩이 관련 css*/
 .ocean {
-  height: 25%;
+  height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background: #ffffff;
+  background: url('./blue.png')
 }
 
 .wave {
