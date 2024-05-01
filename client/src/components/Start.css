@@ -1,4 +1,40 @@
 
+/* 레이아웃 관련 css */
+.start-page {
+  position: relative;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+ 
+  flex-direction: column;
+  
+}
+.top-section{
+  width: 100%;
+  height: 30%; /* 전체 화면의 절반 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  background-color:white; 
+
+}
+.middle-section{
+  width: 100%;
+  height: 30%; /* 전체 화면의 절반 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  background-color:white; 
+
+}
+.bottom-section{
+  width: 100%;
+  height: 40%; /* 전체 화면의 절반 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  background-color: white; 
+}
+
+
+
 /* 로고 폰트*/
 @font-face {
   font-family: "Continuous";
@@ -6,22 +42,29 @@
   src: url("../fonts/continuous.ttf");
 }
 
-
-.start-page {
-  position: relative;
-  object-fit: contain;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  background-color: rgb(255, 255, 255);
-  
+/*로고 관련 css*/
+.logo {
+  font-family: "Continuous";
+  font-size: 500%; /* 로고의 크기 조절 */
+  color: rgb(119, 73, 73); /* 로고의 색상 */
+  position: fixed; /* 로고의 위치를 절대적으로 설정 */
+  top: 45%;
+  bottom: 10%;
+  left: 50%;
+  right: 15%;
+  transform: translate(-50%,-50%); /* 정확한 중앙 정렬을 위해 위치 조정 */
+  z-index: 20; /* 물방울보다 상위에 위치하도록 z-index 설정 */
+ 
 }
+
+
 
 /*병아리 관련 css*/
 .chick{
-  position: fixed;
+  position: absolute;
+  left:0;
   bottom: 0;
-  width: auto;
+  width: 500px;
   animation: jumpUp 0.5s ease forwards;
 }
 
@@ -37,69 +80,15 @@
   }
 }
 
-/*물방울 관련 css*/
-@keyframes dropAnimation {
-  0% {
-    top: 10%; /* 시작 위치 */
-  }
-  100% {
-    top: 90%; /* 끝 위치, 화면 하단까지 내려오도록 설정 */
-  }
-}
-
-
-  .drop {
-    width: 40px; 
-    height: 40px; 
-    background-image: url('./drop.png'); 
-    background-size: cover; 
-    border-radius: 50%; 
-    position: fixed;
-    top: 10%;
-    bottom: 100%;
-    z-index: 10;
-    overflow: hidden; /* 화면 바깥으로 나가는 물방울은 숨김 */
-    animation: dropAnimation 5s linear infinite; /* 애니메이션 지속 시간 및 반복 설정 */
-  }
-  
-
-
-/*로고 관련 css*/
-.logo {
-  font-family: "Continuous";
-  font-size: 450%; /* 로고의 크기 조절 */
-  color: rgb(119, 73, 73); /* 로고의 색상 */
-  position: fixed; /* 로고의 위치를 절대적으로 설정 */
-  top: 50%;
-  bottom: 10%;
-  left: 50%;
-  right: 15%;
-  transform: translate(-50%,-50%); /* 정확한 중앙 정렬을 위해 위치 조정 */
-  z-index: 20; /* 물방울보다 상위에 위치하도록 z-index 설정 */
-  animation: fadeIn 3s ease-in-out 1s forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-
 
 /*물울덩이 관련 css*/
-
-/* WaveAnimation.css */
 .ocean {
   height: 100%;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background: #ffffff;
+  background: url('./blue.png')
 }
 
 .wave {
@@ -107,9 +96,10 @@
   position: fixed;
   width: 100%;
   top: 0;
-  right: 0;
+  left: 0;
   height: 250px;
   transform: translate3d(0, 0, 0);
+  z-index: 10; 
   animation: wave 5s linear infinite, swell 10s ease-in-out infinite;
 }
 
@@ -122,6 +112,28 @@
   0%, 100% { transform: translate3d(0, -25px, 0); }
   50% { transform: translate3d(0, 5px, 0); }
 }
+
+.puddle-top-box {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  right: 0;
+  height: 5px; 
+  background-color: #afd7fd; 
+  z-index: 1; 
+}
+
+/* 알약 관련 css */
+.pill1 { left: 10px; top: 500px; }
+.pill2 { left: 10px; top: 450px; }
+.pill3 { left: 30px; top: 450px; }
+.pill4 { left: 20px; top: 500px; }
+
+
+
+
+
+
 
 
 
