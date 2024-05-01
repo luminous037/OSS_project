@@ -5,7 +5,7 @@
     width: 100%;
     color: white;
     font-size: 15px;
-    padding-left: 100px;
+    padding-left: 50px;
   }
   
   div{
@@ -15,7 +15,7 @@
   .profile{
     text-align: right;
     height: 250px;
-    padding-right: 350px;
+    padding-right: 5px;
     border-bottom: 3px solid gray;
   }
   
