@@ -1,3 +1,39 @@
+/* Start.css */
+
+.start-page {
+  position: relative;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+ 
+  flex-direction: column;
+  
+}
+.top-section{
+  width: 100%;
+  height: 30%; /* 전체 화면의 절반 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  background-color:red; 
+
+}
+.middle-section{
+  width: 100%;
+  height: 30%; /* 전체 화면의 절반 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  background-color:rgb(92, 188, 79); 
+
+}
+.bottom-section{
+  width: 100%;
+  height: 40%; /* 전체 화면의 절반 */
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  background-color: #3498db; 
+}
+
+
 
 /* 로고 폰트*/
 @font-face {
@@ -31,21 +67,12 @@
 }
 
 
-.start-page {
-  position: relative;
-  object-fit: contain;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  background-color: rgb(255, 255, 255);
-  
-}
-
 /*병아리 관련 css*/
 .chick{
-  position: fixed;
+  position: absolute;
+  left:0;
   bottom: 0;
-  width: auto;
+  width: 500px;
   animation: jumpUp 0.5s ease forwards;
 }
 
@@ -61,36 +88,8 @@
   }
 }
 
-/*물방울 관련 css*/
-@keyframes dropAnimation {
-  0% {
-    top: 10%; /* 시작 위치 */
-  }
-  100% {
-    top: 90%; /* 끝 위치, 화면 하단까지 내려오도록 설정 */
-  }
-}
-
-
-  .drop {
-    width: 40px; 
-    height: 40px; 
-    background-image: url('./drop.png'); 
-    background-size: cover; 
-    border-radius: 50%; 
-    position: fixed;
-    top: 10%;
-    bottom: 100%;
-    z-index: 10;
-    overflow: hidden; /* 화면 바깥으로 나가는 물방울은 숨김 */
-    animation: dropAnimation 5s linear infinite; /* 애니메이션 지속 시간 및 반복 설정 */
-  }
-  
-
 
 /*물울덩이 관련 css*/
-
-/* WaveAnimation.css */
 .ocean {
   height: 100%;
   width: 100%;
@@ -131,5 +130,35 @@
   background-color: #afd7fd; 
   z-index: 1; 
 }
+
+
+
+/* 알약  */
+.pill {
+  position: relative;
+  width: 10%; 
+  transition: opacity 0.5s ease; 
+  z-index: 100;
+}
+
+/* 각 알약 이미지 위치 조정 예시 */
+.pill1 { left: 10px; top: 500px; }
+.pill2 { left: 160px; top: 400px; }
+.jam { left: 220px; top: 100px; }
+
+/* 보이지 않는 상태의 스타일 */
+.hidden {
+  opacity: 0;
+}
+
+/* 나타난 상태의 스타일 */
+.visible {
+  opacity: 1;
+}
+
+
+
+
+
 
 
