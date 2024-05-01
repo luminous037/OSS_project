@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import 'InfoPage.css';
+import './InfoPage_1.css';
 
 
 function InfoPage_1() {
@@ -21,7 +21,8 @@ function InfoPage_1() {
       </p>
       
       <div className="navigator">
-       <Link to="./InfoPage_2" className="nav-item">다음</Link>
+       <Link to="./InfoPage_2" className="nav-item">다음
+</Link>
       </div>
     </div>
   );
