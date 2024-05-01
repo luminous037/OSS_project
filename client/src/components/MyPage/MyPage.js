@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
 
 
-function CallList() {
+function CallList() { //마이페이지 내용 불러옴
+
   const [medicine, setMedicine] = useState(""); //약 이름 넣기
 
   useEffect(() => {
     callApi()
       .then(res => setMedicine(res))
-      .catch(err => console.log('error'));
+      .catch(err => console.log('error')); //에러
   }, []);
 
   const callApi = async () => { //비동기적으로 작동
@@ -37,7 +38,7 @@ function CallList() {
   )
 }
 
-function GoMediList() {
+function GoMediList() { //+버튼 누를 시 약 추가 화면 이동
   return (
     <div>
     <Link to="./AddMedi" style={{ textDecoration: 'none' }}>➕</Link>
@@ -45,12 +46,8 @@ function GoMediList() {
   );
 }
 
-function MyPage() {  
- 
-  // let [medicineName, mediNameChange] =useState(['감기약','복통약' ]); // 약 이름 저장, 아마 이후에 연결리스트로 구현할 듯
-
-  // let medicineList = <div className="medicine_list"><p>{medicineName[0]}</p></div>  //약 저장 박스, + 누를 때마다 추가되면 됨
-
+function MyPage() {  //마이페이지 기본 틀
+  
   return (
     <Router>
       <Routes>
@@ -79,13 +76,6 @@ function MyPage() {
   )
 }
 
-function Modal(){
-  return(
-    <div className="modal">
-      <h4> 약 이름 </h4>
-    </div>
-  )
-}
 
 
 export default MyPage;
