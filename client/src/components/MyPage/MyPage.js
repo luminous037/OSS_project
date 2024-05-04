@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
 
 
-function CallList() { //마이페이지 내용 불러옴
 
+
+function CallList() { //마이페이지 내용 불러옴
+  
   const [medicine, setMedicine] = useState(""); //약 이름 넣기
 
   useEffect(() => {
