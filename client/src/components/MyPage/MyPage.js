@@ -51,10 +51,7 @@ function GoMediList() { //+버튼 누를 시 약 추가 화면 이동
 function MyPage() {  //마이페이지 기본 틀
   
   return (
-    <Router>
-      <Routes>
-        <Route path="/AddMedi" element={<AddMedi />} />
-      </Routes>
+
       <div className="App">
 
         <div className="myPage">
@@ -74,7 +71,6 @@ function MyPage() {  //마이페이지 기본 틀
         <GoMediList />
 
       </div>
-    </Router>
   )
 }
 
