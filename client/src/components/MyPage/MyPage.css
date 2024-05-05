@@ -30,14 +30,15 @@
   }
   
   .medicine_list{
+    position:relative;
     padding-left: 20px;
     text-align: left;
-    border-bottom: 2px solid rgb(194, 194, 194)
+    border-bottom: 2px solid rgb(194, 194, 194);
   }
   
   .delete_button{
     position: absolute;
-    right: 15px;
+    right:60px;
     width: 40px;
     height: 30px;
     background-image: url('../../../public/delete_button.png');

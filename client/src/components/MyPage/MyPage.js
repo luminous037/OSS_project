@@ -1,13 +1,9 @@
 import '.././App.css';
-import AddMedi from './AddMedi'
 import './MyPage.css'
 import {useState} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
 import Switch from 'react-switch';
-
-
 
 
 function CallList() { //마이페이지 내용 불러옴
@@ -31,11 +27,12 @@ function CallList() { //마이페이지 내용 불러옴
       {medicine && (
         <ul>
           {medicine.map((item, index) => (
-            <div>
+            <div className="medicine_list">
             <li key={index}>
-              <p className="medicine_list">{item.mediName}</p>
+              <p >{item.mediName}
+               <button className="delete_button"></button>
+              </p>
             </li>
-            <button className="delete_button"></button>
             </div>
           ))}
         </ul>
