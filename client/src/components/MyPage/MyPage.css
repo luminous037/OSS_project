@@ -1,11 +1,12 @@
 
 .myPage{
     display: flex;
-    background: rgb(120, 207, 120);
+    background-image: url('../../../public/myPage_background.png');
     width: 100%;
-    color: white;
-    font-size: 15px;
-    padding-left: 50px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border-bottom: 3px solid rgb(96, 96, 96);
   }
   
   div{
@@ -14,8 +15,8 @@
   
   .profile{
     position:relative;
-    top: 10px;
-  
+    top: 1px;
+    background: rgba(255, 255, 255, 0.753);
     height: 250px;
     padding-right: 5px;
     border-bottom: 3px solid gray;
@@ -48,6 +49,35 @@
     background-color: transparent;
   }
 
-  .text_setting{
-    margin-left: 300px;
+  .name_setting{
+    margin-left: 220px;
+  }
+
+  .alarm_setting{
+    margin-left: 250px;
+  }
+
+  .switch {
+    float: right;
+    margin-right: 100px;
+  }
+
+  .profile_input{
+    background-color:rgba(255, 255, 255, 0.805);
+    border: 3px solid rgb(97, 150, 115); 
+    border-radius: 5px; 
+    padding: 5px; 
+    font-size: 17px;
+    text-align: center;
+    width: 140px;
+  }
+
+  .profile_input_button{
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    background-color: rgb(79, 135, 79);
+    color: #FFFFFF; /* 흰색 */
+    border: 3px solid rgb(79, 135, 79);
+    border-radius: 10px; 
   }

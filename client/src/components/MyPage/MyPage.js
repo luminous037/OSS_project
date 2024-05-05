@@ -5,6 +5,7 @@ import {useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
+import Switch from 'react-switch';
 
 
 function CallList() { //마이페이지 내용 불러옴
@@ -34,7 +35,6 @@ function CallList() { //마이페이지 내용 불러옴
             </li>
             <button className="delete_button"></button>
             </div>
-
           ))}
         </ul>
       )}
@@ -51,6 +51,12 @@ function GoMediList() { //+버튼 누를 시 약 추가 화면 이동
 }
 
 function MyPage() {  //마이페이지 기본 틀
+
+  const [checked, setChecked] = useState(false); //알람 설정 on/off 저장
+
+  const handleChange = (checked) => {
+    setChecked(checked);
+  };
   
   return (
     <Router>
@@ -60,21 +66,21 @@ function MyPage() {  //마이페이지 기본 틀
       <div className="App">
 
         <div className="myPage">
-          <h1>마이페이지</h1>
+          <h1></h1>
         </div>
 
         <div className="profile">
           <br></br>
-          <h1 className="text_setting">이름 <input></input></h1>
-          <br></br>
-          <h2 className="text_setting">알람 설정</h2>
-          <form className="text_setting">
-            <input type="radio" id="on" name="alarm" value="on"/>
-            <label for="on">켜기</label>
-            <input type="radio" id="off" name="alarm" value="off"/>
-            <label for="off">끄기</label>
-          </form>
+          <div  className="name_setting">
+            <h1>이름 <input className="profile_input"></input>
+            <button className="profile_input_button">저장</button>
+            </h1>
+          </div>
 
+          <br></br>
+          <div className="alarm_setting"><h2 >알람 설정<Switch onChange={handleChange} checked={checked} className="switch" /></h2></div>
+          
+          
         </div>
 
         <div className="medicine_title">
