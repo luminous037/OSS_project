@@ -4,11 +4,23 @@ import {useState} from 'react';
 import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
 import Switch from 'react-switch';
+import {useNavigate} from 'react-router-dom';
+
 
 
 function CallList() { //마이페이지 내용 불러옴
   
   const [medicine, setMedicine] = useState(""); //약 이름 넣기
+
+  const navigate=useNavigate();
+
+  const goDetailPage=()=>{ //상세 페이지 이동
+  navigate('/DetailPage');
+  };
+
+  const dataDelete=(index,e)=>{ //삭제
+    
+  };
 
   useEffect(() => {
     callApi()
@@ -27,10 +39,14 @@ function CallList() { //마이페이지 내용 불러옴
       {medicine && (
         <ul>
           {medicine.map((item, index) => (
-            <button className="medicine_list">
+            <button onClick={goDetailPage} className="medicine_list">
             <li key={index}>
               <p >{item.mediName}
-               <button className="delete_button"></button>
+               <button className="delete_button" onClick={(e)=>{
+                console.log('데이터 삭제');
+                e.stopPropagation(); //handClick이 실행되지 않도록
+                dataDelete(index,e);
+               }}></button>
               </p>
             </li>
             </button>
