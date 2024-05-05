@@ -8,8 +8,10 @@ import {useEffect} from 'react';
 import Switch from 'react-switch';
 
 
-function CallList() { //마이페이지 내용 불러옴
 
+
+function CallList() { //마이페이지 내용 불러옴
+  
   const [medicine, setMedicine] = useState(""); //약 이름 넣기
 
   useEffect(() => {
@@ -59,10 +61,7 @@ function MyPage() {  //마이페이지 기본 틀
   };
   
   return (
-    <Router>
-      <Routes>
-        <Route path="/AddMedi" element={<AddMedi />} />
-      </Routes>
+
       <div className="App">
 
         <div className="myPage">
@@ -91,7 +90,6 @@ function MyPage() {  //마이페이지 기본 틀
         <GoMediList />
 
       </div>
-    </Router>
   )
 }
 
