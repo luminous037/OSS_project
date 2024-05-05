@@ -29,9 +29,9 @@ function CallList() { //마이페이지 내용 불러옴
         <ul>
           {medicine.map((item, index) => (
             <div>
-            {/* <li key={index}>
+            <li key={index}>
               <p className="medicine_list">{item.mediName}</p>
-            </li> */}
+            </li>
             <button className="delete_button"></button>
             </div>
 
@@ -64,12 +64,21 @@ function MyPage() {  //마이페이지 기본 틀
         </div>
 
         <div className="profile">
-          <br></br><br></br>
-          <h1>이름 <input></input></h1> 
+          <br></br>
+          <h1 className="text_setting">이름 <input></input></h1>
+          <br></br>
+          <h2 className="text_setting">알람 설정</h2>
+          <form className="text_setting">
+            <input type="radio" id="on" name="alarm" value="on"/>
+            <label for="on">켜기</label>
+            <input type="radio" id="off" name="alarm" value="off"/>
+            <label for="off">끄기</label>
+          </form>
+
         </div>
 
         <div className="medicine_title">
-          <h2>약 목록</h2>
+          <h2 className="title">약 목록</h2>
         </div>
         <CallList/>
 
