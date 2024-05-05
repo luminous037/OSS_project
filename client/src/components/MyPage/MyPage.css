@@ -32,9 +32,16 @@
     border-bottom: 2px solid rgb(194, 194, 194)
   }
   
-  .modal{
-    margin-top: 20px;
-    padding: 20px;
-    background: white;
-    text-align: left;
+  .delete_button{
+    position: absolute;
+    right: 15px;
+    width: 40px;
+    height: 30px;
+    background-image: url('../../../public/delete_button.png');
+    background-size: 35px;
+    background-repeat: no-repeat;
+    background-position: center; 
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
   }
