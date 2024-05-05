@@ -27,13 +27,13 @@ function CallList() { //마이페이지 내용 불러옴
       {medicine && (
         <ul>
           {medicine.map((item, index) => (
-            <div className="medicine_list">
+            <button className="medicine_list">
             <li key={index}>
               <p >{item.mediName}
                <button className="delete_button"></button>
               </p>
             </li>
-            </div>
+            </button>
           ))}
         </ul>
       )}

@@ -31,23 +31,29 @@
   
   .medicine_list{
     position:relative;
+    left: -20px;
+    background-color:#FFFFFF;
+    border: none;
+    border-bottom: 3px solid black;
     padding-left: 20px;
     text-align: left;
-    border-bottom: 2px solid rgb(194, 194, 194);
+    width: 570px;
+    cursor: pointer;
   }
   
   .delete_button{
     position: absolute;
     right:60px;
+    top: 7px;
     width: 40px;
-    height: 30px;
+    height: 35px;
     background-image: url('../../../public/delete_button.png');
     background-size: 35px;
     background-repeat: no-repeat;
     background-position: center; 
-    border: none;
+    border: 3px solid rgb(107, 107, 107);
     cursor: pointer;
-    background-color: transparent;
+    background-color: white;
   }
 
   .name_setting{
