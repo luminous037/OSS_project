@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const { dbConnect, getDatabase } = require('./DbConnect');
 
+
 const port = process.env.PORT || 4000; //서버 포트 번호
 const fs =require('fs');
 
@@ -46,6 +47,7 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
         })        
         .then((result) => { //데이터 확인
             console.log(result);
+            res.status(200).send('Success');
         })
     .catch((err) => { //에러 발생 시
         console.error("약 추가 중 오류: ", err);

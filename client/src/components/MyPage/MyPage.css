@@ -1,40 +1,105 @@
-
 .myPage{
+  position: relative;
+  width: 100vw;
+  height: 100vw; /* 부모 요소의 고정된 높이 */
+}
+
+
+.myPage_top{
     display: flex;
-    background: rgb(120, 207, 120);
+    background-image: url('../../../public/myPage_background.png');
     width: 100%;
-    color: white;
-    font-size: 15px;
-    padding-left: 50px;
+    height: 17%;
+    background-repeat: no-repeat;
+    background-size: 100%;
   }
   
   div{
     box-sizing: border-box;
   }
+
   
   .profile{
-    text-align: right;
-    height: 250px;
-    padding-right: 5px;
-    border-bottom: 3px solid gray;
+    background: rgba(255, 255, 255, 0.753);
+    height: 55%;
+    padding-right: 4%;
+    border-bottom: 3px solid #8CD7F2;
   }
   
   
-  .medicine_title{ 
+  .medicine_title{
     text-align: left;
-    padding-left: 20px;
-    border-bottom: 3px solid gray;
+    padding-left: 5%;
+    margin-bottom:-3%;
+    border-bottom: 3px solid#8CD7F2;
   }
   
   .medicine_list{
-    padding-left: 20px;
-    text-align: left;
-    border-bottom: 2px solid rgb(194, 194, 194)
+    background-color:#FFFFFF;
+    margin-left: -8%;
+    border: none;
+    border-bottom: 2px solid  #8CD7F2;
+    width: 100vw;
+    height: 8vh;
+    text-align:left;
+    padding-left: 5%;
+    cursor: pointer;
+  }
+
+  
+  .list_setting{
+    list-style-type: none;
   }
   
-  .modal{
-    margin-top: 20px;
-    padding: 20px;
-    background: white;
-    text-align: left;
+  .name_setting{
+    font-size:large;
+    
+  }
+
+  .delete_button{
+    position: absolute;
+    left: 85%;
+    width: 8%;
+    height: 7%;
+    background-image: url('../../../public/delete_button.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center; 
+    border: none;
+    cursor: pointer;
+    background-color: white;
+  }
+
+  .text_setting{
+    margin-left: 60%;
+  }
+
+  .switch {
+    float: right;
+    margin-right: 70%;
+  }
+
+  .profile_input{
+    background-color:rgba(255, 255, 255, 0.805);
+    border: 3px solid #8CD7F2; 
+    border-radius: 5px; 
+    padding: 5px; 
+    font-size: 17px;
+    text-align: center;
+    width: 140px;
+  }
+
+  .profile_input_button{
+    position: relative;
+    left: 10px;
+    background-color: rgb(126, 197, 255);
+    color: #FFFFFF; /* 흰색 */
+    border: 3px solid  rgb(126, 197, 255);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .add_list_button{
+    position: relative;
+    left: 250px;
   }
