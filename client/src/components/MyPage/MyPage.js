@@ -88,7 +88,7 @@ function MyPage() {  //마이페이지 기본 틀
 
           <br></br>
           <div className="text_setting"><h2 >알람 설정</h2>
-          <Switch onChange={handleChange} checked={checked} className="switch" />
+          <Switch onChange={handleChange} checked={checked}  onColor="#8CD7F2" className="switch" />
           </div>
           
           

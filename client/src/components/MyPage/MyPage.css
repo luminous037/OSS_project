@@ -9,10 +9,9 @@
     display: flex;
     background-image: url('../../../public/myPage_background.png');
     width: 100%;
-    height: 18%;
+    height: 17%;
     background-repeat: no-repeat;
     background-size: 100%;
-    border-bottom: 3% solid rgb(96, 96, 96);
   }
   
   div{
@@ -24,7 +23,7 @@
     background: rgba(255, 255, 255, 0.753);
     height: 55%;
     padding-right: 4%;
-    border-bottom: 3px solid gray;
+    border-bottom: 3px solid #8CD7F2;
   }
   
   
@@ -32,14 +31,14 @@
     text-align: left;
     padding-left: 5%;
     margin-bottom:-3%;
-    border-bottom: 3px solid gray;
+    border-bottom: 3px solid#8CD7F2;
   }
   
   .medicine_list{
     background-color:#FFFFFF;
     margin-left: -8%;
     border: none;
-    border-bottom: 2px solid rgb(141, 141, 141);
+    border-bottom: 2px solid  #8CD7F2;
     width: 100vw;
     height: 8vh;
     text-align:left;
@@ -59,14 +58,14 @@
 
   .delete_button{
     position: absolute;
-    left: 80%;
+    left: 85%;
     width: 8%;
     height: 7%;
     background-image: url('../../../public/delete_button.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center; 
-    border: 2% solid rgb(107, 107, 107);
+    border: none;
     cursor: pointer;
     background-color: white;
   }
@@ -82,7 +81,7 @@
 
   .profile_input{
     background-color:rgba(255, 255, 255, 0.805);
-    border: 3px solid rgb(97, 150, 115); 
+    border: 3px solid #8CD7F2; 
     border-radius: 5px; 
     padding: 5px; 
     font-size: 17px;
@@ -93,9 +92,9 @@
   .profile_input_button{
     position: relative;
     left: 10px;
-    background-color: rgb(79, 135, 79);
+    background-color: rgb(126, 197, 255);
     color: #FFFFFF; /* 흰색 */
-    border: 3px solid rgb(79, 135, 79);
+    border: 3px solid  rgb(126, 197, 255);
     border-radius: 10px;
     cursor: pointer;
   }
