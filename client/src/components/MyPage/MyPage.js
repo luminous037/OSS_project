@@ -56,11 +56,6 @@ function CallList() { //마이페이지 내용 불러옴
   )
 }
 
-// function GoMediList() { //+버튼 누를 시 약 추가 화면 이동
-//   return (
-
-//   );
-// }
 
 function MyPage() {  //마이페이지 기본 틀
 

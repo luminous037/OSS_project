@@ -1,4 +1,5 @@
 import { useState} from 'react';
+import {PageCanvas} from './PageCanvas'
 
 function AddMedi() {
     
@@ -38,12 +39,7 @@ function AddMedi() {
     };
 
     return (
-        <div>
-            <input type="text" name="mediName" value={mediData.mediName} onChange={handleChange} />
-            <input type="text" name="time" value={mediData.time} onChange={handleChange} />
-            <input type="text" name="detail" value={mediData.detail} onChange={handleChange} />
-            <button onClick={fetchData}>확인</button> 
-        </div>  
+        <PageCanvas name='' time='' detail='' />
     );
 }
 
