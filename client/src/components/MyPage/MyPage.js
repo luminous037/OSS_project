@@ -1,4 +1,3 @@
-import '.././App.css';
 import './MyPage.css'
 import {useState} from 'react';
 import { Link } from 'react-router-dom';
@@ -37,19 +36,19 @@ function CallList() { //마이페이지 내용 불러옴
   return( //출력
     <div>
       {medicine && (
-        <ul>
+        <ul className="list_setting">
           {medicine.map((item, index) => (
-            <button onClick={goDetailPage} className="medicine_list">
-            <li key={index}>
-              <p >{item.mediName}
-               <button className="delete_button" onClick={(e)=>{
-                console.log('데이터 삭제');
-                e.stopPropagation(); //handClick이 실행되지 않도록
-                dataDelete(index,e);
-               }}></button>
-              </p>
-            </li>
-            </button>
+              <button onClick={goDetailPage} className="medicine_list" >
+                <li key={index}>
+                  <h4 className="name_setting">{item.mediName}
+                    <button className="delete_button" onClick={(e)=>{
+                    console.log('데이터 삭제');
+                    e.stopPropagation(); //handClick이 실행되지 않도록
+                    dataDelete(index,e);
+                    }}></button>
+                  </h4>
+                </li>
+              </button>
           ))}
         </ul>
       )}
@@ -57,13 +56,11 @@ function CallList() { //마이페이지 내용 불러옴
   )
 }
 
-function GoMediList() { //+버튼 누를 시 약 추가 화면 이동
-  return (
-    <div>
-    <Link to="./AddMedi" style={{ textDecoration: 'none' }}>➕</Link>
-  </div>
-  );
-}
+// function GoMediList() { //+버튼 누를 시 약 추가 화면 이동
+//   return (
+
+//   );
+// }
 
 function MyPage() {  //마이페이지 기본 틀
 
@@ -75,22 +72,24 @@ function MyPage() {  //마이페이지 기본 틀
   
   return (
 
-      <div className="App">
+      <div className="myPage">
 
-        <div className="myPage">
+        <div className="myPage_top">
           <h1></h1>
         </div>
 
         <div className="profile">
           <br></br>
-          <div  className="name_setting">
-            <h1>이름 <input className="profile_input"></input>
-            <button className="profile_input_button">저장</button>
-            </h1>
+          <div  className="text_setting">
+            <h1>이름</h1>
+            <input className="profile_input"></input>
+              <button className="profile_input_button">저장</button>
           </div>
 
           <br></br>
-          <div className="alarm_setting"><h2 >알람 설정<Switch onChange={handleChange} checked={checked} className="switch" /></h2></div>
+          <div className="text_setting"><h2 >알람 설정</h2>
+          <Switch onChange={handleChange} checked={checked} className="switch" />
+          </div>
           
           
         </div>
@@ -98,9 +97,12 @@ function MyPage() {  //마이페이지 기본 틀
         <div className="medicine_title">
           <h2 className="title">약 목록</h2>
         </div>
+
         <CallList/>
 
-        <GoMediList />
+        <div className="add_list_button">
+          <Link to="./AddMedi" style={{ textDecoration: 'none' }}>➕</Link>
+        </div>
 
       </div>
   )
