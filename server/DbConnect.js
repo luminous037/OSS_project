@@ -8,9 +8,8 @@ function dbConnect(){
         console.log("MongoDB에 연결")
         // 연결된 데이터베이스 및 컬렉션 참조
         database = client.db("MeddyBabyDB");
-
         }).catch((err)=>{ //연결 실패
-            console.log('dbConnect: ' ,err);
+            console.log('DB연결 실패 : ' ,err);
     })
 }
 
