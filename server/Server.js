@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const { dbConnect, getDatabase } = require('./DbConnect');
+const { ObjectId } = require('mongodb');
 
 
 const port = process.env.PORT || 4000; //서버 포트 번호
@@ -23,7 +24,7 @@ app.get('/list', (req, res) => {
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
-    mediListcollection.find({}, { projection: { _id: 0, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
+    mediListcollection.find({}, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
         .toArray()
         .then(queryResult => {
             res.send(queryResult);
@@ -32,6 +33,24 @@ app.get('/list', (req, res) => {
             console.error("약 목록 조회 오류: ", err);
         });
 });
+
+app.delete('/delete_list/:id', (req,res)=>{
+    const id = req.params.id;
+
+    const database = getDatabase(); //db 가져오기
+    const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    console.log( "현재 id: ", id);
+
+
+    mediListcollection.deleteOne({ _id: new ObjectId(id)})
+    .then(()=>{
+        res.status(200).send('Success');
+    })
+    .catch((err)=>{
+        console.log("삭제 오류: ", err, "현재 id: ", id);
+    })
+
+})
 
 
 app.post('/addList', (req, res)=>{ //약 추가할 때
