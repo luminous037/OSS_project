@@ -56,20 +56,30 @@ app.delete('/delete_list/:id', (req,res)=>{
 app.post('/addList', (req, res)=>{ //약 추가할 때
     const database = getDatabase();
 
-    const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    const mediListCollection = database.collection("medicineList"); //컬렉션 참조
+    //const userCollection = database.collection("user");
 
     const {mediName, time, detail}=req.body;
-    mediListcollection.insertOne({ //db에 내용 삽입
+    mediListCollection.insertOne({ //db에 내용 삽입
         'mediName' : mediName,
         'time' : time,
         'detail' : detail
-        })        
-        .then((result) => { //데이터 확인
-            console.log(result);
-            res.status(200).send('Success');
-        })
+    })        
+    .then((result) => { //데이터 확인
+        console.log(result);
+
+        // var medicineListObjectId = result.insertedId;
+
+        // return db.user.updateOne( // updateOne()의 반환값을 반환하여 다음 .then() 블록에서 사용할 수 있도록 함
+        // {"_id": userId},
+        // {$push: {"medicineLists": medicineListObjectId}}
+        // );
+    })
+    .then(()=>{
+        res.status(200).send('Success');
+    })
     .catch((err) => { //에러 발생 시
-        console.error("약 추가 중 오류: ", err);
+    console.error("약 추가 중 오류: ", err);
     });
 
 })
