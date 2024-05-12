@@ -1,0 +1,50 @@
+.detailPage{
+    position: relative;
+    display:grid;
+    width: 100vw;
+    height: 100vh; /* 부모 요소의 고정된 높이 */
+  }
+  
+  .detail_top{
+      background-color: rgb(115, 173, 226);
+      padding-top:2%;
+      text-align:left;
+      color: white;
+      padding-left: 5%;
+      width: 100%;
+      height: 70%;
+      border-bottom: 3px solid rgb(88, 148, 218);
+    }
+
+    .detail_list{
+        height:100%;
+        margin-top: -5%;
+    }
+    
+    .detail_text{
+      background: rgba(255, 255, 255, 0.753);
+      height: 30%;
+      text-align:left;
+      padding-left: 5%;
+      border-bottom: 3px solid rgb(195, 205, 218);
+    }
+
+    .detail_text_no-border{
+        background: rgba(255, 255, 255, 0.753);
+        height: 25%;
+        text-align:left;
+        padding-left: 5%;
+    }
+
+    .save_button{
+        background-color: rgb(115, 173, 226);
+        border: none;
+        border-bottom: 2px solid   rgb(88, 148, 218);
+        width: 100vw;
+        height: 7vh;
+        text-align:center;
+        color: white;
+        cursor: pointer;
+        grid-row-start: 6;
+    }
+    

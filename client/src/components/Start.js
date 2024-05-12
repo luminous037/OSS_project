@@ -1,42 +1,69 @@
-
 import React, { useState, useEffect } from 'react';
 import './Start.css';
 import chick from './chick.png';
 import puddle from './puddle.png';
-
-
-function Drop() {
-  const startX = Math.random() * window.innerWidth;
-  return (
-    <div className="drop" style={{ left: startX }}></div>
-  );
-}
+import pill1 from './pill1.png';
+import pill2 from './pill2.png';
+import jam from './jam.png';
+import flower from './flower.png';
 
 function Start() {
-  const [drops, setDrops] = useState([]);
+  const [state, setState] = useState({
+    visiblePills: [],
+    visibleLetters: []
+  });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDrops(drops => [...drops, <Drop key={drops.length} />]);
-    }, 2000); 
+    let vh = 0;
+    vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    const pillImages = [pill1, pill2, jam, flower];
+    let delay = 0;
 
-    return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 클리어
+    const text = 'Meddy\nBaby';
+
+    for (let i = 0; i < text.length; i++) {
+      setTimeout(() => {
+        setState((currentState) => ({
+          ...currentState,
+          visibleLetters: [...currentState.visibleLetters, text[i] === '\n' ? <br key={i}/> : <span key={i}>{text[i]}</span>]
+        }));
+      }, 1000 + delay);
+      delay += 200; // 500ms의 지연 시간을 각 글자에 적용
+    }
+
+    pillImages.forEach((pill, index) => {
+      setTimeout(() => {
+        setState((currentState) => ({
+          ...currentState,
+          visiblePills: [...currentState.visiblePills, <img key={index} src={pill} alt={`pill${index+1}`} className={`pill${index+1}`} style={{position: 'absolute', left: `${15 + 20*index}%`, bottom: '30%', width: '40px', height: '40px'}}/>]
+        }));
+      }, 1000 + delay);
+      delay += 500; // 이미지를 1초 간격으로 표시
+    });
+
   }, []);
-
-  
 
   return (
     <div className="start-page">
-      <img src={puddle} alt="puddle" className="puddle-animation" />
-      <div className="logo">Meddy Baby</div>
-      {drops}
-      <img src={chick} alt="chick" className="chick" />
-      <div className="ocean">
-      <div className="wave"></div>
-    </div>
+      <div className="top-section">
+        <div className="puddle-top-box"></div>
+        <img src={puddle} alt="puddle" className="puddle-animation" />
+        <div className="ocean">
+          <div className="wave"></div>
+        </div>
+      </div>
+
+      <div className="middle-section">
+        <div className="logo">{state.visibleLetters}</div>
+        {state.visiblePills}
+      </div>
+
+      <div className="bottom-section">
+        <img src={chick} alt="chick" className="chick" />
+      </div>
     </div>
   );
 }
 
 export default Start;
-

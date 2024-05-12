@@ -1,37 +1,55 @@
-.InfoPage_1 {
-    position: relative;
-    object-fit: contain;
-    display: flex;
-    flex-direction: column; /* 입력칸 아래에 이미지를 배치하기 위해 컨테이너를 column 방향으로 설정 */
-    justify-content: center;
-    align-items: center; /* 가운데 정렬 */
-    background-color: rgb(255, 255, 255);
-}
+
 
 .navigator {
-    background-image: url('../InfoPage/NevigatorImage.png');
-    background-repeat: no-repeat;
+
     background-size: contain; /* 이미지가 잘림없이 전체 표시되도록 설정 */
     width: 100%; /* 이미지의 너비를 컨테이너에 맞게 설정 */
     max-width: 400px; /* 이미지의 최대 너비 설정 */
-    height: auto; /* 이미지의 높이를 비율에 맞게 자동 조정 */
+    height: 10%; /* 이미지의 높이를 비율에 맞게 자동 조정 */
     margin-top: 20px; /* 이미지와 입력칸 사이의 간격 조정 */
+    position: absolute;
+    bottom: 10px; /* 원하는 위치로 조정 */
+    left: 125%;
+    transform: translateX(-50%);
+    
 }
 
-.input-container {
-    background-image: url('../InfoPage/NameBlank.png'); /* 입력칸 아래에 배경 이미지 설정 */
-    background-repeat: no-repeat;
-    background-position: center bottom; /* 배경 이미지를 입력칸 아래에 위치시킴 */
-    background-size: contain; /* 이미지가 잘림없이 전체 표시되도록 설정 */
-    width: 100%;
-    padding-top: 20px; /* 입력칸 위에 여백 추가 */
-}
 
 input[type="text"] {
     border: none; /* 테두리 제거 */
     outline: none; /* 포커스 효과 제거 */
-    padding-top: 10px;
-    padding-left: 10px;
+    padding-top: 40px;
+    padding-right: 30px;
     height: auto;
     max-width: 1000px;
+    border-bottom: 2px solid rgb(62, 197, 255); /* 밑줄 스타일 지정 */
 }
+
+.text1 { /*MeddyBaby*/
+    text-align: center;
+}
+  
+  .text2 label{ /*우리아이 이름은*/
+    position: absolute;
+    top: 19%;
+    left: 7%;
+
+    font-size: 20px;
+}
+
+.text3 label{ /*어린이*/
+  position: absolute;
+  top: 19%;
+  left: 80%;
+  font-size: 20px;
+}
+
+  
+.nameBlank {
+  position: absolute;
+  top: 120px; /* 원하는 위치로 조정 */
+  left: 60%;
+  transform: translateX(-50%);
+}
+
+  
