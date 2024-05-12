@@ -10,17 +10,33 @@
     justify-content: center;
     align-items: center;
   }
+  .all-section{
+        width: 100%;
+        height: 100%; /* 전체 화면의 절반 */
+        top: 20px;
+        
+        background-color: rgb(170, 112, 112); 
+        background-image: url('../image/what.jpeg');
+        background-repeat: no-repeat;
+        background-size: contain;
+        
+        
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      
 
   .middle-section{
-    width: 100%;
-    height: 80%; /* 전체 화면의 절반 */
+    width: 65%;
+    height: 60%; /* 전체 화면의 절반 */
     overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
     background-color:burlywood; 
+    margin-left: 40px; /* 왼쪽 여백 추가 */
   
   }
   
   .modalContent {
-    background-color: white;
+    background-color: beige;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -30,6 +46,28 @@
     overflow-y: auto;
   }
   
+  h2 {
+    margin-top: 35px; /* 위쪽 여백 추가 */
+    margin-left: 20px; /* 왼쪽 여백 추가 */
+    text-align: center;
+      
+  }
+
+  .container {
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    margin-left: 30px; /* 왼쪽 여백 추가 */
+  }
+  
+  .text {
+    margin-right: 200px; /* 텍스트와 이미지 사이의 간격 조정 */
+  }
+  .flower {
+    width: 20px; /* 이미지의 너비를 10px로 설정 */
+    height: 20px; /* 이미지의 높이를 10px로 설정 */
+  }
+  
+  
   .closeButton {
     float: right;
     background-color: transparent;
@@ -38,13 +76,12 @@
     cursor: pointer;
   }
   
-  .first{
-    position: absolute;
-    align-items: center;
-    top: 100;
-    width: 300px;
-    
+  .slideImage {
+    width: 300px; /* 너비를 200px로 설정 */
+    height: auto; /* 높이를 자동으로 조정 */
+    object-fit: cover;
   }
+  
 
 
   .buttonGroup {
