@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './Guidebook.css';
+import chick from '../image/chick.png';
 
 const slides = [
   '메인 페이지.',
@@ -21,17 +23,31 @@ const InstructionModalWithSlide = ({ isOpen, close }) => {
     setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
   };
 
-  return (
-    <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000 }}>
-      <h2>간단한 사용 설명서</h2>
-      <p>{slides[currentSlide]}</p>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-        <button onClick={prevSlide}>이전</button>
-        <button onClick={close}>닫기</button>
-        <button onClick={nextSlide}>다음</button>
+ // JSX 요소 내 스타일 적용 예시
+return (
+  isOpen && (
+    <div className="modalBackground">
+      <div className="modalContent">
+        <button className="closeButton" onClick={close}>&times;</button>
+        <h2>간단한 사용 설명서
+        </h2>
+        <p>{slides[currentSlide]}</p>
+        <div className="middle-section">
+       
+
+        </div>
+
+        
+        <div className="buttonGroup">
+          <button className="button" onClick={prevSlide}>Previous</button>
+          <button className="button" onClick={close}>Close</button>
+          <button className="button" onClick={nextSlide}>Next</button>
+        </div>
       </div>
     </div>
-  );
+  )
+);
+
 };
 
 export default InstructionModalWithSlide;

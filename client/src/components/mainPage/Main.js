@@ -4,6 +4,7 @@ import InstructionModal from './Guidebook.js';
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   useEffect(() => {
     // 페이지가 로드될 때 모달을 자동으로 열고 싶다면 아래 코드 활성화
