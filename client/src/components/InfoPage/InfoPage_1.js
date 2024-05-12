@@ -8,21 +8,21 @@ function InfoPage_1() {
   return (
     <div className="Page1">
       
-      <h1
-      style={{
-        color: "#f00",
-        borderRight: "10px",
-        marginBottom: "30px",
-        opacity: 1.0,
-      }}
-      >
+      <div className="text1">
+        <h1>
         MeddyBaby
       </h1>
-      <p>
-        우리아이 이름은
-      </p>
+      </div>
 
-      <div classNmae="nameBlank">
+      <div className="text2">
+
+      <h1>
+        우리아이 이름은
+        </h1>
+      
+      </div>
+
+      <div className="nameBlank">
       <input
           type="text"
           value={childName}
@@ -30,11 +30,15 @@ function InfoPage_1() {
           />
       </div>
 
-      <p>
-        어린이
-      </p>
+      <div className="text3">
+        <h1>
+          어린이
+        </h1>
+      </div>
+
 
       <div className="navigator">
+        
         <Link to="./InfoPage_2" className="nav-item">다음</Link>
       </div>
     </div>

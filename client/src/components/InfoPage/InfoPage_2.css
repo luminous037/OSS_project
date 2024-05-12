@@ -1,0 +1,34 @@
+.pillImage{
+    display: flex;
+    background-image: url('../../../public/pillImage.png');
+    width: 30%;
+    height: 17%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 90px; /* 원하는 위치로 조정 */
+    left: 20%;
+     transform: translateX(-50%);
+}
+
+.text1 { /*MeddyBaby*/
+    text-align: center;
+}
+
+.bokyongbub{
+    display: flex;
+    background-image: url('../../../public/bokyongbub.png');
+    width: 100%;
+    height: 17%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.edge{
+    display: flex;
+    background-image: url('../../../public/edge.png');
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}

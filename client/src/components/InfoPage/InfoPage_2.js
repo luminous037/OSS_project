@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './InfoPage_2.css';
 
 function InfoPage_2() {
     // 첫 번째 체크박스의 상태를 관리하는 useState 훅 사용
@@ -44,29 +45,43 @@ function InfoPage_2() {
     };
   
     return (
-      <div>
-        Meddy Baby <br />
-        먹는약 <br />
-        임수현 님<br />
-        복용법 <br />
 
-        {/* 아침 버튼 */}
+     <div className="Page2">
+       <div className="text1">
+        <h1>
+        MeddyBaby
+        </h1>
+
+      </div>
+
+      <div className="pillImage">
+        <h1></h1>
+      </div>
+
+      
+       <div className="buttons">
+        
+        <div className="morning">
         <button 
           onClick={toggleButton1} // 클릭 시 toggleButton 함수 호출
           style={{ backgroundColor: isButtonChecked1 ? 'green' : 'white', color: isButtonChecked1 ? 'white' : 'green' }} // 버튼 스타일 및 글자 색 동적으로 변경
         >
           아침
         </button>
+        </div>
 
-        {/* 점심 버튼 */}
+        <div calssName="lunch">
+
         <button 
           onClick={toggleButton2} // 클릭 시 toggleButton 함수 호출
           style={{ backgroundColor: isButtonChecked2 ? 'green' : 'white', color: isButtonChecked2 ? 'white' : 'green' }} // 버튼 스타일 및 글자 색 동적으로 변경
         >
           점심
         </button>
+        </div>
 
-        {/* 저녁 버튼 */}
+        <div className="dinner">
+
         <button 
           onClick={toggleButton3} // 클릭 시 toggleButton 함수 호출
           style={{ backgroundColor: isButtonChecked3 ? 'green' : 'white', color: isButtonChecked3 ? 'white' : 'green' }} // 버튼 스타일 및 글자 색 동적으로 변경
@@ -74,7 +89,13 @@ function InfoPage_2() {
           저녁
         </button>
 
-        <br />
+        </div>
+
+       </div>
+
+        
+
+        <div className="checkbox">
 
         <input
           type="checkbox" //체크박스1
@@ -91,8 +112,12 @@ function InfoPage_2() {
         />
         <label>식전 30분</label>
 
-        <br />
 
+
+        </div>
+
+        <div className="timeset">
+        
         매
 
         <input
@@ -104,15 +129,15 @@ function InfoPage_2() {
 
         시간마다 의사 지시대로 
 
-        <br />
-
-        Meddy Baby
+        </div>
+        
 
         <div className="navigator">
        <Link to="./InfoPage_3" className="nav-item">다음</Link>
       </div>
 
-      </div>
+     </div>
+
     );
 }
 

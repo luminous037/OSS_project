@@ -1,68 +1,50 @@
-.InfoPage_1 {
-    position: relative;
-    object-fit: contain;
-    display: flex;
-    flex-direction: column; /* 입력칸 아래에 이미지를 배치하기 위해 컨테이너를 column 방향으로 설정 */
-    justify-content: center;
-    align-items: center; /* 가운데 정렬 */
-    background-color: rgb(255, 255, 255);
-}
+
 
 .navigator {
-    background-image: url('../InfoPage/NevigatorImage.png');
-    background-repeat: no-repeat;
+
     background-size: contain; /* 이미지가 잘림없이 전체 표시되도록 설정 */
     width: 100%; /* 이미지의 너비를 컨테이너에 맞게 설정 */
     max-width: 400px; /* 이미지의 최대 너비 설정 */
     height: 10%; /* 이미지의 높이를 비율에 맞게 자동 조정 */
     margin-top: 20px; /* 이미지와 입력칸 사이의 간격 조정 */
+    position: absolute;
+    bottom: 10px; /* 원하는 위치로 조정 */
+    left: 125%;
+    transform: translateX(-50%);
+    
 }
 
-@font-face {
-    font-family: "Continuous";
-    font-weight: 50;
-    src: url("../InfoPage/continuous.ttf");
-  }
-  
 
 input[type="text"] {
     border: none; /* 테두리 제거 */
     outline: none; /* 포커스 효과 제거 */
-    padding-top: 10px;
+    padding-top: 40px;
     padding-right: 30px;
     height: auto;
     max-width: 1000px;
     border-bottom: 2px solid rgb(62, 197, 255); /* 밑줄 스타일 지정 */
 }
 
-.Page1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.text1 { /*MeddyBaby*/
     text-align: center;
-  }
+}
   
-  .Page2 {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    text-align: left;
+  .text2 { /*우리아이 이름은*/
+   text-align:left;
+}
+
+.text3{ /*어린이*/
+  text-align: right;
+  display: felx;
+  top: 20%;
 }
 
   
-  .nameBlank {
-    position: absolute;
-    top: 50px; /* 원하는 위치로 조정 */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .navigator {
-    position: absolute;
-    bottom: 20px; /* 원하는 위치로 조정 */
-    left: 50%;
-    transform: translateX(-50%);
-  }
+.nameBlank {
+  position: absolute;
+  top: 120px; /* 원하는 위치로 조정 */
+  left: 60%;
+  transform: translateX(-50%);
+}
+
   
