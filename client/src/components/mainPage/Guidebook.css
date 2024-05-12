@@ -38,6 +38,15 @@
     cursor: pointer;
   }
   
+  .first{
+    position: absolute;
+    align-items: center;
+    top: 100;
+    width: 300px;
+    
+  }
+
+
   .buttonGroup {
     display: flex;
     justify-content: space-between;
