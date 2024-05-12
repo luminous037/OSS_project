@@ -51,9 +51,14 @@ function InfoPage_2() {
     return (
 
      <div className="Page2">
+      <div className="text1">
+        <h1>
+        MeddyBaby
+      </h1>
+      </div>
       
   
-      <div className="background">
+      <div className="background2">
         <h1></h1>
       </div>
 
@@ -145,8 +150,6 @@ function InfoPage_2() {
         />
         <label>식전 30분</label>
        </div>
-
-
 
         </div>
 
