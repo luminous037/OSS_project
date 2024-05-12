@@ -29,14 +29,19 @@ input[type="text"] {
     text-align: center;
 }
   
-  .text2 { /*우리아이 이름은*/
-   text-align:left;
+  .text2 label{ /*우리아이 이름은*/
+    position: absolute;
+    top: 19%;
+    left: 7%;
+
+    font-size: 20px;
 }
 
-.text3{ /*어린이*/
-  text-align: right;
-  display: felx;
-  top: 20%;
+.text3 label{ /*어린이*/
+  position: absolute;
+  top: 19%;
+  left: 80%;
+  font-size: 20px;
 }
 
   

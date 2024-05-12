@@ -16,9 +16,9 @@ function InfoPage_1() {
 
       <div className="text2">
 
-      <h1>
+      <label>
         우리아이 이름은
-        </h1>
+        </label>
       
       </div>
 
@@ -30,10 +30,10 @@ function InfoPage_1() {
           />
       </div>
 
-      <div className="text3">
-        <h1>
+      <div className="text3">  
+        <label>
           어린이
-        </h1>
+        </label>
       </div>
 
 
