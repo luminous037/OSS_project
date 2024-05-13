@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Guidebook.css';
 
-import jam from '../image/jam.png';
 import flower from '../image/flower.png';
 import book2 from '../image/book2.png';
 import book1 from '../image/book1.png';
@@ -10,7 +9,7 @@ import book4 from '../image/book4.png';
 import book5 from '../image/book5.png';
 import book6 from '../image/book6.png';
 
-const mainPageSlides = [book2, book1,book6, book3, book5, book4, jam]; // 메인 페이지에서 사용될 이미지 배열
+const mainPageSlides = [book2, book1,book6, book3, book5, book4]; // 메인 페이지에서 사용될 이미지 배열
 
 // 이미지 슬라이더 컴포넌트 (기존에 제공된 코드)
 function ImageSlider({ images }) {
@@ -32,13 +31,20 @@ function ImageSlider({ images }) {
     <div>
       {images && images.length > 0 && (
         <>
-          <img
+        <div className='slide-button-box'>
+        <img
             src={images[currentImage]}
             alt={`Slide ${currentImage + 1}`}
             className="slideImage"
           />
-          <button onClick={prevImage}>이전</button>
-          <button onClick={nextImage}>다음</button>
+          <div className='boutton-box'>
+          <button className="click" onClick={prevImage}>이전</button>
+          <button className="click" onClick={nextImage}>다음</button>
+
+          </div>
+          
+        </div>
+        
         </>
       )}
     </div>
@@ -90,7 +96,11 @@ const InstructionModalWithSlide = ({ isOpen, close }) => {
           </div>
 
           <div className='tip-container'>
-            <div className='notice'>꿀팁</div>
+            <div className='flower-notice-box'>
+            <img src={flower} alt="flower" className="flower_1" style={{width: '40px', height: '40px'}} />
+            <div className='notice'>_꿀팁</div>
+            </div>
+            
             <div className='tip'>1. 정한 시간에 약을 잘 챙겨 먹는다.</div>
             <div className='tip'>2. 약을 먹고 clear 버튼을 누른다.</div>
             <div className='tip'>3. 약을 먹으면 구름이 차오른다.</div>

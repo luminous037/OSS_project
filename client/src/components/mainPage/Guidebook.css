@@ -15,7 +15,7 @@
         height: 80%; /* 전체 화면의 절반 */
         top: 20px;
         
-        background-color: rgb(32, 27, 79); 
+        background-color: beige; 
         background-image: url('../image/what.jpeg');
         background-repeat: no-repeat;
         background-size: contain;
@@ -57,7 +57,29 @@
     font-size:40px ;
   color: rgb(119, 73, 73); /* 로고의 색상 */
   }
-  
+/*모달 창에 있는 버튼이랑 이미지 슬라이드 세로로 정렬하기 위한 컨테이너*/
+  .slide-button-box{
+    width: 100%;
+    height: 100%;
+    display: flex; /* Flexbox 사용 */
+    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+  }
+
+ 
+  /*모달 창 안 버튼*/
+  .click{
+    margin-top: 8px;
+    margin-right: 150px;
+    margin-left: 50px;
+    background-color: #ead899;
+    font-family: "on";
+    border-radius: 10px;
+    
+  }
+ 
+ 
 
 /* Flexbox를 사용하여 세로 중앙 정렬 */
 .vertical-align {
@@ -90,7 +112,7 @@
   
   .text {
     font-size: 30px;
-    color: #998f6c;
+    color: rgb(119, 73, 73);
     margin-right: 200px; /* 텍스트와 이미지 사이의 간격 조정 */
     font-family: "on";
   }
@@ -103,16 +125,25 @@
   .slideImage {
     width: 300px; /* 너비를 200px로 설정 */
     height: 380px; /* 높이를 자동으로 조정 */
+    position:relative;
+    padding-right: 100px;
+    
+  }
+
+  .flower-notice-box{
+    display: flex; /* Flexbox 사용 */
+    flex-direction: row; /* 자식 요소들을 가로로 정렬 */
   }
 
   .tip-container{
     width: 100%;
     height: 400px;
-    background-color: rgb(236, 255, 255);
+    background-color: beige;
+    
     
   }
   .notice{
-    color: #b6424e;
+    color: #901927;
     font-family: "on";
     font-size: 50px;
   }
@@ -122,6 +153,9 @@
     font-family: "on";
     font-size:30px;
     color: rgb(119, 73, 73);
+    justify-content: space-between;
+    margin-top: 10px;/*위쪽 여백 추가*/
+    margin-left: 10px; /* 왼쪽 여백 추가 */
   }
   
   /*엑스 버튼*/
