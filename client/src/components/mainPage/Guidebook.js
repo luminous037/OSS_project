@@ -88,17 +88,18 @@ const InstructionModalWithSlide = ({ isOpen, close }) => {
             <h2 className="on">사용 설명서</h2>
             <div>{slides[currentSlide]}</div>
           </div>
+
           <div className='tip-container'>
-            <div>꿀팁</div>
-            <div className='tip'>1.정한 시간에 약을 잘 챙겨 먹는다.</div>
-            <div className='tip'>2.약을 먹고 clear 버튼을 누른다.</div>
-            <div className='tip'>3.약을 먹으면 구름이 차오른다.</div>
-            <div className='tip'>4.100%까지 채워진 구름을 눌러 비를 내린다.</div>
-            <div className='tip'>5.7번 물을 주어 심은 씨앗을 키운다.</div>
-            <div className='tip'>6.나무에 열린 보상들을 받는다.</div>
-            <div className='tip'>7.상점에서 즐겁게 쇼핑을 한다..</div>
-            
+            <div className='notice'>꿀팁</div>
+            <div className='tip'>1. 정한 시간에 약을 잘 챙겨 먹는다.</div>
+            <div className='tip'>2. 약을 먹고 clear 버튼을 누른다.</div>
+            <div className='tip'>3. 약을 먹으면 구름이 차오른다.</div>
+            <div className='tip'>4. 100%가 채워진 구름을 눌러 비를 내린다.</div>
+            <div className='tip'>5. 7번 물을 주어 심은 씨앗을 키운다.</div>
+            <div className='tip'>6. 나무에 열린 보상들을 받는다.</div>
+            <div className='tip'>7. 상점에서 즐겁게 쇼핑을 한다..</div>
             </div>
+
           <div className="buttonGroup">
             <button className="button" onClick={prevSlide}>Previous</button>
             <button className="button" onClick={close}>Close</button>
