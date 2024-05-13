@@ -12,10 +12,10 @@
   }
   .all-section{
         width: 100%;
-        height: 100%; /* 전체 화면의 절반 */
+        height: 80%; /* 전체 화면의 절반 */
         top: 20px;
         
-        background-color: beige; 
+        background-color: rgb(32, 27, 79); 
         background-image: url('../image/what.jpeg');
         background-repeat: no-repeat;
         background-size: contain;
@@ -75,8 +75,9 @@
   display: flex; /* Flexbox 사용 */
   flex-direction: column; /* 자식 요소들을 세로로 정렬 */
   align-items: center; /* 가로 중앙 정렬 */
-  width: 500px;
-  margin-left: 30px; /* 왼쪽 여백 추가 */
+  width: 600px;
+  top:-100px;
+  margin-left: 80px; /* 왼쪽 여백 추가 */
 }
 
 /* 꽃 이미지와 텍스트를 가로로 정렬하기 위한 새로운 클래스 추가 */
@@ -103,6 +104,16 @@
     width: 300px; /* 너비를 200px로 설정 */
     height: 380px; /* 높이를 자동으로 조정 */
   }
+
+  .tip-container{
+    width: 100%;
+    height: 180px;
+    background-color: aqua;
+  }
+
+  .tip{
+    top:100;
+  }
   
   /*엑스 버튼*/
   .closeButton {
@@ -112,8 +123,8 @@
     font-size: 1.5rem;
     cursor: pointer;
   }
-  
-  
+
+
 
  /* 버튼 */
   .buttonGroup {

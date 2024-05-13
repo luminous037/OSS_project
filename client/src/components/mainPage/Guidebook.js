@@ -4,8 +4,13 @@ import './Guidebook.css';
 import jam from '../image/jam.png';
 import flower from '../image/flower.png';
 import book2 from '../image/book2.png';
+import book1 from '../image/book1.png';
+import book3 from '../image/book3.png';
+import book4 from '../image/book4.png';
+import book5 from '../image/book5.png';
+import book6 from '../image/book6.png';
 
-const mainPageSlides = [book2, jam]; // 메인 페이지에서 사용될 이미지 배열
+const mainPageSlides = [book2, book1,book6, book3, book5, book4, jam]; // 메인 페이지에서 사용될 이미지 배열
 
 // 이미지 슬라이더 컴포넌트 (기존에 제공된 코드)
 function ImageSlider({ images }) {
@@ -77,16 +82,29 @@ const InstructionModalWithSlide = ({ isOpen, close }) => {
     isOpen && (
       <div className="modalBackground">
         <div className="modalContent">
+          
           <button className="closeButton" onClick={close}>&times;</button>
           <div className='all-section'>
             <h2 className="on">사용 설명서</h2>
             <div>{slides[currentSlide]}</div>
           </div>
+          <div className='tip-container'>
+            <div>꿀팁</div>
+            <div className='tip'>1.정한 시간에 약을 잘 챙겨 먹는다.</div>
+            <div className='tip'>2.약을 먹고 clear 버튼을 누른다.</div>
+            <div className='tip'>3.약을 먹으면 구름이 차오른다.</div>
+            <div className='tip'>4.100%까지 채워진 구름을 눌러 비를 내린다.</div>
+            <div className='tip'>5.7번 물을 주어 심은 씨앗을 키운다.</div>
+            <div className='tip'>6.나무에 열린 보상들을 받는다.</div>
+            <div className='tip'>7.상점에서 즐겁게 쇼핑을 한다..</div>
+            
+            </div>
           <div className="buttonGroup">
             <button className="button" onClick={prevSlide}>Previous</button>
             <button className="button" onClick={close}>Close</button>
             <button className="button" onClick={nextSlide}>Next</button>
           </div>
+          
         </div>
       </div>
     )
