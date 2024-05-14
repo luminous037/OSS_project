@@ -29,7 +29,7 @@ function PageCanvas({name ='', time = '', detail = ''}){ //detail에 나타나�
                 <br></br>
             <div className="detail_text_no-border">
                 <h2>복용법</h2>
-                <AddInfo/>
+                <AddInfoCanvas/>
             </div>
         </div>
     
@@ -39,7 +39,7 @@ function PageCanvas({name ='', time = '', detail = ''}){ //detail에 나타나�
     )
 }
 
-function AddInfo(){
+function AddInfoCanvas(){
 
   const [buttonStates, setButtonStates] = useState({
     morning: false,
@@ -101,4 +101,4 @@ function AddInfo(){
     );
 }
 
-export {PageCanvas, AddInfo};
+export {PageCanvas, AddInfoCanvas};

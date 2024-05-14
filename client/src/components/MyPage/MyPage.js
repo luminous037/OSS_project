@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom';
 
 
 
+
 function CallList() { //마이페이지 내용 불러옴
   
   const [medicine, setMedicine] = useState(""); //약 이름 넣기
@@ -24,7 +25,7 @@ function CallList() { //마이페이지 내용 불러옴
   useEffect(() => {
     callApi()
       .then(res => setMedicine(res))
-      .catch(err => console.log('error')); //에러
+      .catch(err => console.log('callApi오류: ',err)); //에러
   }, []);
 
   const callApi = async () => { //비동기적으로 작동
@@ -59,10 +60,10 @@ function CallList() { //마이페이지 내용 불러옴
 
 function MyPage() {  //마이페이지 기본 틀
 
-  const [checked, setChecked] = useState(false); //알람 설정 on/off 저장
+  const [alarmChecked, setAlarmChecked] = useState(false); //알람 설정 on/off 저장
 
   const handleChange = (checked) => {
-    setChecked(checked);
+    setAlarmChecked(checked);
   };
   
   return (
@@ -78,12 +79,12 @@ function MyPage() {  //마이페이지 기본 틀
           <div  className="text_setting">
             <h1>이름</h1>
             <input className="profile_input"></input>
-              <button className="profile_input_button">저장</button>
+              <button className="profile_input_button">수정</button>
           </div>
 
           <br></br>
           <div className="text_setting"><h2 >알람 설정</h2>
-          <Switch onChange={handleChange} checked={checked}  onColor="#8CD7F2" className="switch" />
+          <Switch onChange={handleChange} checked={alarmChecked}  onColor="#8CD7F2" className="switch" />
           </div>
           
           
@@ -95,8 +96,10 @@ function MyPage() {  //마이페이지 기본 틀
 
         <CallList/>
 
-        <div className="add_list_button">
-          <Link to="./AddMedi" style={{ textDecoration: 'none' }}>➕</Link>
+        <div  className="add_list_button">
+          <Link to="./AddMedi" style={{ textDecoration: 'none'}} >
+            <img src="/addButton.png" alt="Add Button"/>
+            </Link>
         </div>
 
       </div>

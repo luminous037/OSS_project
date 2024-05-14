@@ -1,6 +1,5 @@
 import { useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {AddInfo} from './PageCanvas';
 
 function AddMedi() {
     
@@ -66,5 +65,67 @@ function AddMedi() {
     </div> 
     );
 }
+
+function AddInfo(){
+
+    const [buttonStates, setButtonStates] = useState({
+      morning: false,
+      afternoon: false,
+      evening: false
+    });
+    
+    const toggleButton = (buttonName) => {
+      setButtonStates(prevState => ({
+        ...prevState,
+        [buttonName]: !prevState[buttonName]
+      }));
+    };
+  
+    const [checkBox, setcheckBox] = useState({
+      before: false,
+      after: false
+    })
+  
+    const toggleCheckBox = (checkBoxName)=>{
+      setcheckBox(prevState=> ({
+        ...prevState,
+        [checkBoxName]: !prevState[checkBoxName]
+      }));
+    };
+  
+      // 시간 입력을 위한 상태와 상태 변경 함수
+      const [time, setTime] = useState('');
+  
+      const handleTimeChange = (event) => {
+        setTime(event.target.value);
+      };
+    
+      return (
+        <div>
+          <button onClick={() => toggleButton('morning')} style={{ backgroundColor: buttonStates.morning ? ' rgb(88, 148, 218)' : 'white', color: buttonStates.morning ? 'white' : 'black' }}>
+            아침
+          </button>
+  
+          <button onClick={()=>toggleButton('afternoon')} style={{ backgroundColor: buttonStates.afternoon ? ' rgb(88, 148, 218)' : 'white', color: buttonStates.afternoon ? 'white' : 'black' }}>
+            점심
+          </button>
+  
+          <button onClick={()=>toggleButton('evening')} style={{ backgroundColor: buttonStates.evening ? ' rgb(88, 148, 218)' : 'white', color: buttonStates.evening ? 'white' : ' black' }}>
+            저녁
+          </button>
+          <br />
+  
+          <input type="checkbox" checked={checkBox.after} onChange={()=>toggleCheckBox('after')}/>
+          <label>식후 30분</label>
+  
+          <input type="checkbox" checked={checkBox.before} onChange={()=>toggleCheckBox('before')}/>
+          <label>식전 30분</label>
+  
+          <br /> 매<input type="text" value={time} onChange={handleTimeChange} placeholder="시간 입력" />
+          시간마다 의사 지시대로 
+  
+        </div>
+      );
+  }
 
 export default AddMedi;

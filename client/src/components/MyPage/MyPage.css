@@ -101,5 +101,6 @@
 
   .add_list_button{
     position: relative;
-    left: 50%;
+    left: 45%;
+    cursor: pointer;
   }
