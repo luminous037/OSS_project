@@ -6,11 +6,11 @@ import Start from './startPage/Start.js'; // 홈 페이지 컴포넌트
 import InfoPage_1 from './InfoPage/InfoPage_1.js';
 import InfoPage_2 from './InfoPage/InfoPage_2.js';
 import InfoPage_3 from './InfoPage/InfoPage_3.js';
-import Main from './Main.js';
+import Main from './mainPage/Main.js';
 import MyPage from './MyPage/MyPage.js';
 import AddMedi from './MyPage/AddMedi.js';
 import DetailPage from './MyPage/DetailPage.js';
-
+import WeeklyCheck from './WeeklyPage/WeeklyCheck.js';
 function App() {
 
   return (
@@ -26,6 +26,7 @@ function App() {
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/MyPage/AddMedi" element={<AddMedi />} />
           <Route path="/DetailPage" element={<DetailPage />} />
+          <Route path="/WeeklyCheck" element={<WeeklyCheck />} />
       </Routes>
         <NavigationBar /> {/* 하단 네비게이션 바를 추가합니다. */}
       </div>

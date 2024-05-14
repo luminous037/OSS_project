@@ -1,43 +1,57 @@
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
+import './WeeklyPage.css';
 
 function WeeklyCheck() {
-  // 출석 데이터 상태 설정 (예: [2024, 3, 10] -> 2024년 4월 10일 출석)
-  const [attendanceData, setAttendanceData] = useState([]);
+  const [days, setDays] = useState(0);
+  const [inputFields, setInputFields] = useState([]);
 
-  // 출석 데이터 추가 함수
-  function addAttendance(date) {
-    setAttendanceData([...attendanceData, date]);
-  }
+  const handleDaysChange = (e) => {
+    const value = e.target.value;
+    setDays(value);
+    updateInputFields(value);
+  };
 
-  // 달력 날짜 클릭 핸들러
-  function handleDateClick(date) {
-    // 이미 출석한 날짜인지 확인
-    const isAttended = attendanceData.some(d => d.getTime() === date.getTime());
-    if (!isAttended) {
-      addAttendance(date);
-    } else {
-      // 이미 출석한 날짜라면 출석 취소
-      setAttendanceData(attendanceData.filter(d => d.getTime() !== date.getTime()));
+  const updateInputFields = (numDays) => {
+    const newInputFields = [];
+    for (let i = 0; i < numDays; i++) {
+      newInputFields.push({ id: i, imageSrc: `image_${i + 1}.jpg` });
     }
-  }
+    setInputFields(newInputFields);
+  };
+
+  const handleInputChange = (index, value) => {
+    const newInputFields = [...inputFields];
+    newInputFields[index].imageSrc = value;
+    setInputFields(newInputFields);
+  };
 
   return (
     <div>
-      <h1>Meddy Check</h1>
-      <Calendar
-        onClickDay={handleDateClick}
-        tileClassName={({ date, view }) => {
-          // 날짜에 따라 스타일 지정
-          if (attendanceData.some(d => d.getTime() === date.getTime())) {
-            // 출석한 날짜는 초록색으로 표시
-            return 'attended';
-          } else {
-            // 출석하지 않은 날짜는 빨간색으로 표시
-            return 'absent';
-          }
-        }}
-      />
+      <div className="background">
+        <h1></h1>
+      </div>
+
+      <div className="howMuchStamp">
+        <input
+          type="number"
+          value={days}
+          onChange={handleDaysChange}
+          min="0"
+        />
+      </div>
+
+      <div className="input-fields">
+        {inputFields.map((field, index) => (
+          <div key={field.id}>
+            <img src={`/images/${field.imageSrc}`} alt={`Image ${index + 1}`} />
+            <input
+              type="text"
+              value={field.imageSrc}
+              onChange={(e) => handleInputChange(index, e.target.value)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
