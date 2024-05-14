@@ -46,6 +46,7 @@
     border-radius: 50%;
     background-color: rgba(115, 174, 242, 0.863); 
     animation: pulse 2s infinite;
+    
   }
 
   @keyframes pulse {
@@ -66,3 +67,8 @@
     padding-top: 100px;
   }
   
+ .wirting-box{
+    width: 100%;
+    padding-left: 70px;
+    background-color: aqua;
+ }
