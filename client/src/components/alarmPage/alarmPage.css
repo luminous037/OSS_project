@@ -4,6 +4,10 @@
     align-items: center;
     justify-content: space-around;
     height: 100vh;
+    background-image: url('../image/back.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    
   }
   
   .top-container{
@@ -12,7 +16,9 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: aquamarine;
+    width: 100%;
+    padding-top: 150px;
+   
   }
   .middle-container{
     flex: 1;
@@ -20,7 +26,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: blue;
+    background-color: antiquewhite;
+    
 
   }
   .bottom-container {
@@ -28,9 +35,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    background-color: blueviolet;
+    width: 10%;
+    background-color: brown;
 
   }
   
+  .animated-circle {
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    background-color: rgba(115, 174, 242, 0.863); 
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
   

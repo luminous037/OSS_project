@@ -6,13 +6,13 @@ const AlarmPage = () => {
     <div className="alarm-container">
 
       <div className="top-container">
+      <div className="animated-circle"> 
+        </div>
       </div>
       
 
       <div className="middle-container">
-        <div className="animated-circle">
-
-        </div>
+        
       </div>
       
       <div className="bottom-container">
