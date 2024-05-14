@@ -8,8 +8,11 @@ import book3 from '../image/book3.png';
 import book4 from '../image/book4.png';
 import book5 from '../image/book5.png';
 import book6 from '../image/book6.png';
+import book7 from '../image/book7.png';
+import book8 from '../image/book8.png';
 
 const mainPageSlides = [book2, book1,book6, book3, book5, book4]; // 메인 페이지에서 사용될 이미지 배열
+const shopPageSlides = [book7, book8];
 
 // 이미지 슬라이더 컴포넌트 (기존에 제공된 코드)
 function ImageSlider({ images }) {
@@ -37,7 +40,7 @@ function ImageSlider({ images }) {
             alt={`Slide ${currentImage + 1}`}
             className="slideImage"
           />
-          <div className='boutton-box'>
+          <div className='button-box'>
           <button className="click" onClick={prevImage}>이전</button>
           <button className="click" onClick={nextImage}>다음</button>
 
@@ -61,12 +64,21 @@ const slides = [
     <div className='con'>
       <ImageSlider images={mainPageSlides} />
       </div>
-    
   </div>
-
   </div>,
+
   // 여기에서 이미지 슬라이더를 사용
-  '상점 페이지.',
+  <div className='vertical-align'>
+    <div className="container">
+      <div className="flower-text-container">
+      <img src={flower} alt="flower" className="flower" />
+    <div className="text">_상점 페이지가 뭐야?</div>
+      </div>
+    <div className='con'>
+      <ImageSlider images={shopPageSlides} />
+      </div>
+  </div>
+  </div>,
   '설정 페이지.',
   '부가 페이지.'
 ];
@@ -111,9 +123,8 @@ const InstructionModalWithSlide = ({ isOpen, close }) => {
             </div>
 
           <div className="buttonGroup">
-            <button className="button" onClick={prevSlide}>Previous</button>
-            <button className="button" onClick={close}>Close</button>
-            <button className="button" onClick={nextSlide}>Next</button>
+            <button className="button" onClick={prevSlide}>이전</button>
+            <button className="button" onClick={nextSlide}>다음</button>
           </div>
           
         </div>
