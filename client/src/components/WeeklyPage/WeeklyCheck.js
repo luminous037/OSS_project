@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './WeeklyPage.css';
 import pannel from '../image/pannel.png';
 
 import chick1 from '../image/chick1.png';
 import chick2 from '../image/chick2.png';
 
+
+
+
 function WeeklyCheck() {
+
+
+  
   const [days, setDays] = useState(0);
   const [inputFields, setInputFields] = useState([]);
 
@@ -31,23 +38,32 @@ function WeeklyCheck() {
 
   return (
     <div>
-      <div className="background">
-        <h1></h1>
+
+      <div className="navigator">
+        <Link to="./Main" className="nav-item">이전</Link>
       </div>
 
-      <div className="title">
-        칭찬스티커
-      </div>
+        <div className="title">
+          <h1>칭찬스티커</h1>
+        </div>
 
-      <div className="pannelImage">
-        <img src={pannel} className="pannel" />
-      </div>
+      
+      <div className="Images">
+        <div className="background">
+          <h1></h1>
+        </div>
 
-      <div className="chick1">
-        <img src={chick1} className="chick1"/>
-      </div>
-      <div className="chick2">
-        <img src={chick2} className="chick2"/>
+        
+        <div className="pannelImage">
+          <img src={pannel} className="pannel" />
+        </div>
+
+        <div className="chick1">
+          <img src={chick1} className="chick1"/>
+        </div>
+        <div className="chick2">
+          <img src={chick2} className="chick2"/>
+        </div>
       </div>
 
 
