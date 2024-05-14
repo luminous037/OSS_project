@@ -1,5 +1,6 @@
 import './DetailPage.css';
 import {useNavigate} from 'react-router-dom';
+import { useState } from 'react';
 
 function PageCanvas({name ='', time = '', detail = ''}){
 
@@ -38,4 +39,76 @@ function PageCanvas({name ='', time = '', detail = ''}){
     )
 }
 
-export {PageCanvas};
+function AddInfo(){
+
+    // 첫 번째 체크박스의 상태를 관리하는 useState 훅 사용
+    const [isChecked1, setIsChecked1] = useState(false);
+  
+    // 첫 번째 체크박스 상태를 토글하는 함수
+    const toggleCheckbox1 = () => {
+      setIsChecked1(!isChecked1);
+    };
+
+    // 두 번째 체크박스의 상태를 관리하는 useState 훅 사용
+    const [isChecked2, setIsChecked2] = useState(false);
+  
+    // 두 번째 체크박스 상태를 토글하는 함수
+    const toggleCheckbox2 = () => {
+      setIsChecked2(!isChecked2);
+    };
+
+    // 각 버튼의 상태를 관리하는 useState 훅 사용
+    const [isButtonChecked1, setIsButtonChecked1] = useState(false);
+    const [isButtonChecked2, setIsButtonChecked2] = useState(false);
+    const [isButtonChecked3, setIsButtonChecked3] = useState(false);
+
+    // 각 버튼의 상태를 토글하는 함수
+    const toggleButton1 = () => {
+      setIsButtonChecked1(!isButtonChecked1);
+    };
+    
+    const toggleButton2 = () => {
+      setIsButtonChecked2(!isButtonChecked2);
+    };
+    
+    const toggleButton3 = () => {
+      setIsButtonChecked3(!isButtonChecked3);
+    };
+
+    // 시간 입력을 위한 상태와 상태 변경 함수
+    const [time, setTime] = useState('');
+
+    const handleTimeChange = (event) => {
+      setTime(event.target.value);
+    };
+  
+    return (
+      <div>
+        <button 
+          onClick={toggleButton1} style={{ backgroundColor: isButtonChecked1 ? 'green' : 'white', color: isButtonChecked1 ? 'white' : 'green' }}>
+          아침
+        </button>
+
+        <button onClick={toggleButton2} style={{ backgroundColor: isButtonChecked2 ? 'green' : 'white', color: isButtonChecked2 ? 'white' : 'green' }}>
+          점심
+        </button>
+
+        <button onClick={toggleButton3} style={{ backgroundColor: isButtonChecked3 ? 'green' : 'white', color: isButtonChecked3 ? 'white' : 'green' }}>
+          저녁
+        </button>
+        <br />
+
+        <input type="checkbox" checked={isChecked1} onChange={toggleCheckbox1}/>
+        <label>식후 30분</label>
+
+        <input type="checkbox" checked={isChecked2} onChange={toggleCheckbox2}/>
+        <label>식전 30분</label>
+
+        <br /> 매<input type="text" value={time} onChange={handleTimeChange} placeholder="시간 입력" />
+        시간마다 의사 지시대로 
+
+      </div>
+    );
+}
+
+export {PageCanvas, AddInfo};

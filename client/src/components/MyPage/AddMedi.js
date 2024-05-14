@@ -1,5 +1,6 @@
 import { useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {AddInfo} from './PageCanvas';
 
 function AddMedi() {
     
@@ -57,7 +58,7 @@ function AddMedi() {
                 <br></br>
             <div className="detail_text_no-border">
                 <h2>복용법</h2>
-                <input type="text" name="detail" value={mediData.detail} onChange={handleChange} />
+                <AddInfo/>
             </div>
         </div>
     

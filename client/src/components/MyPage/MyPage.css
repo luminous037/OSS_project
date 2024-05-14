@@ -83,10 +83,10 @@
     background-color:rgba(255, 255, 255, 0.805);
     border: 3px solid #8CD7F2; 
     border-radius: 5px; 
-    padding: 5px; 
+    padding: 2%; 
     font-size: 17px;
     text-align: center;
-    width: 140px;
+    width: 70%;
   }
 
   .profile_input_button{
@@ -101,5 +101,5 @@
 
   .add_list_button{
     position: relative;
-    left: 250px;
+    left: 50%;
   }
