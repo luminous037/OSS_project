@@ -1,5 +1,6 @@
 import React from 'react';
 import './alarmPage.css';
+import chick2 from '../image/chick2.png';
 
 const AlarmPage = () => {
   return (
@@ -7,6 +8,7 @@ const AlarmPage = () => {
 
       <div className="top-container">
       <div className="animated-circle"> 
+      <img src={chick2} alt="chick2" className="chick2" />
         </div>
       </div>
       
