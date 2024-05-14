@@ -10,9 +10,14 @@ import book5 from '../image/book5.png';
 import book6 from '../image/book6.png';
 import book7 from '../image/book7.png';
 import book8 from '../image/book8.png';
+import book9 from '../image/book9.png';
+import book10 from '../image/book10.png';
+import book11 from '../image/book11.png';
 
 const mainPageSlides = [book2, book1,book6, book3, book5, book4]; // 메인 페이지에서 사용될 이미지 배열
-const shopPageSlides = [book7, book8];
+const shopPageSlides = [book7, book8, book9];
+const stampPageSlides = [book10, book11];
+
 
 // 이미지 슬라이더 컴포넌트 (기존에 제공된 코드)
 function ImageSlider({ images }) {
@@ -79,7 +84,18 @@ const slides = [
       </div>
   </div>
   </div>,
-  '설정 페이지.',
+
+   <div className='vertical-align'>
+    <div className="container">
+      <div className="flower-text-container">
+      <img src={flower} alt="flower" className="flower" />
+    <div className="text">_칭찬 스티커 페이지가 뭐야?</div>
+      </div>
+    <div className='con'>
+      <ImageSlider images={stampPageSlides} />
+      </div>
+  </div>
+  </div>,
   '부가 페이지.'
 ];
 
