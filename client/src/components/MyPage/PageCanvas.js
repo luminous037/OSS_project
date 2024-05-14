@@ -5,7 +5,7 @@ import { useState } from 'react';
 function PageCanvas({name ='', time = '', detail = ''}){ //detail에 나타나는 이미 저장된 값
 
     const navigate=useNavigate();
-    const saveDetail=()=>{ //저장 후 마이페이지 이동
+    const goToMypage=()=>{ //저장 후 마이페이지 이동
         navigate('/MyPage');
     };
 
@@ -13,7 +13,9 @@ function PageCanvas({name ='', time = '', detail = ''}){ //detail에 나타나�
         <div className="detailPage">
 
         <div className="detail_top">
-          <h1>상세 정보</h1>
+          <h1>상세 정보 <button className="back_button" onClick={()=>goToMypage()}>
+            <img className="backButton_img" src="/backButton.png" alt="back Button"/></button>
+          </h1>
           <br></br>
         </div>
         <div className="detail_list">
@@ -33,7 +35,7 @@ function PageCanvas({name ='', time = '', detail = ''}){ //detail에 나타나�
             </div>
         </div>
     
-        <button onClick={saveDetail} className="save_button" ><h2>저장</h2></button>
+        <button onClick={goToMypage} className="save_button" ><h2>저장</h2></button>
     
     </div>
     )
@@ -100,5 +102,6 @@ function AddInfoCanvas(){
       </div>
     );
 }
+
 
 export {PageCanvas, AddInfoCanvas};

@@ -1,5 +1,6 @@
 import { useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import './DetailPage.css';
 
 function AddMedi() {
     
@@ -11,7 +12,7 @@ function AddMedi() {
 
 
     const navigate=useNavigate();
-    const saveDetail=()=>{ //저장 후 마이페이지 이동
+    const goToMypage=()=>{ //마이페이지 이동
         navigate('/MyPage');
     };
 
@@ -24,7 +25,7 @@ function AddMedi() {
             body: JSON.stringify(mediData) // 약 정보를 body에 저장
             
         })
-        .then( ()=>{saveDetail();})
+        .then( ()=>{goToMypage();})
         .catch(err => {
             console.error('fetchData 중 오류: ',err);
         });
@@ -41,7 +42,9 @@ function AddMedi() {
         <div className="detailPage">
 
         <div className="detail_top">
-          <h1>상세 정보</h1>
+          <h1>상세 정보<button className="back_button" onClick={()=>goToMypage()}>
+            <img className="backButton_img" src="/backButton.png" alt="back Button"/></button>
+          </h1>
           <br></br>
         </div>
         <div className="detail_list">
