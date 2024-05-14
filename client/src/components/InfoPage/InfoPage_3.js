@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import "./InfoPage_3.css"
 
 
 function InfoPage_3() {
@@ -103,19 +104,30 @@ function InfoPage_3() {
   };
 
   const cancleAlarm = () => {
-    alert("알람을 사용하지 않습니다.");
+    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
   };
 
   return (
     <div>
-        Meddy Baby
-        알람 설정
-      {/* 첫 번째 버튼 */}
+      <div className="text1">
+        <h1>
+        MeddyBaby
+        </h1>
+      </div>
+
+      <div className="background3">
+        <h1></h1>
+      </div>
+
+     <div className="alarmset">
+
+      <div className="set1">
       <button onClick={handleModalOpen1}>
         {`(${ampm1} ${hour1}:${minute1})`}
       </button>
+
       {modalOpen1 && (
-        <div className="modal">
+        <div className="modal1">
           <div className="modal-content">
             <label>
               <input type="radio" value="AM" checked={ampm1 === 'AM'} onChange={handleAMPMChange1} />
@@ -125,19 +137,24 @@ function InfoPage_3() {
               <input type="radio" value="PM" checked={ampm1 === 'PM'} onChange={handleAMPMChange1} />
               PM
             </label>
+
+            <div className="modalbox">
             <input type="number" value={hour1} onChange={handleHourChange1} /> 시
             <input type="number" value={minute1} onChange={handleMinuteChange1} /> 분
+            </div>
+
             <button onClick={handleConfirm1}>확인</button>
           </div>
         </div>
       )}
+      </div>
 
-      {/* 두 번째 버튼 */}
+      <div className="set2">
       <button onClick={handleModalOpen2}>
         {`(${ampm2} ${hour2}:${minute2})`}
       </button>
       {modalOpen2 && (
-        <div className="modal">
+        <div className="modal2">
           <div className="modal-content">
             <label>
               <input type="radio" value="AM" checked={ampm2 === 'AM'} onChange={handleAMPMChange2} />
@@ -147,19 +164,22 @@ function InfoPage_3() {
               <input type="radio" value="PM" checked={ampm2 === 'PM'} onChange={handleAMPMChange2} />
               PM
             </label>
-            <input type="number" value={hour2} onChange={handleHourChange2} /> 시
-            <input type="number" value={minute2} onChange={handleMinuteChange2} /> 분
+            <div className="modalbox">
+            <input type="number" value={hour1} onChange={handleHourChange2} /> 시
+            <input type="number" value={minute1} onChange={handleMinuteChange2} /> 분
+            </div>
             <button onClick={handleConfirm2}>확인</button>
           </div>
         </div>
       )}
+      </div>
 
-      {/* 세 번째 버튼 */}
+      <div className="set3">
       <button onClick={handleModalOpen3}>
         {`(${ampm3} ${hour3}:${minute3})`}
       </button>
       {modalOpen3 && (
-        <div className="modal">
+        <div className="modal3">
           <div className="modal-content">
             <label>
               <input type="radio" value="AM" checked={ampm3 === 'AM'} onChange={handleAMPMChange3} />
@@ -169,24 +189,25 @@ function InfoPage_3() {
               <input type="radio" value="PM" checked={ampm3 === 'PM'} onChange={handleAMPMChange3} />
               PM
             </label>
-            <input type="number" value={hour3} onChange={handleHourChange3} /> 시
-            <input type="number" value={minute3} onChange={handleMinuteChange3} /> 분
+
+            <div className="modalbox">
+            <input type="number" value={hour1} onChange={handleHourChange3} /> 시
+            <input type="number" value={minute1} onChange={handleMinuteChange3} /> 분
+            </div >
             <button onClick={handleConfirm3}>확인</button>
           </div>
         </div>
       )}
+      </div>
+     </div>
 
-      알람을 이대로 설정할까요?
-
-      <div>
+      <div className="confirm">
       <button onClick={setAlarm}>이대로 설정!</button>
     </div>
 
-    <div>
+    <div className="deny">
       <button onClick={cancleAlarm}>알람을 사용하지 않을래요.</button>
     </div>
-
-    (설정에서 설정 가능)
 
     <div className="navigator">
        <Link to="./Main" className="nav-item">다음</Link>
