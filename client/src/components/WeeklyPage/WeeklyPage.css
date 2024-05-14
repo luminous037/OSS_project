@@ -1,0 +1,27 @@
+
+body {height:100%; overflow:hidden;}
+.scene{height: 100%; position : relative}
+
+.background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('../../../public/week_BG.png')
+  }
+  .background {
+    background-size: auto 100%;
+  }
+  
+  .pannel{
+
+    position: absolute;
+    top: 120px;
+    height: 80%;
+    width: 100%;
+    
+  }
+
+  
+
