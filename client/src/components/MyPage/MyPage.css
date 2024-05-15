@@ -21,7 +21,7 @@
   
   .profile{
     background: rgba(255, 255, 255, 0.753);
-    height: 55%;
+    height: 65%;
     padding-right: 4%;
     border-bottom: 3px solid #8CD7F2;
   }
@@ -71,6 +71,8 @@
   }
 
   .text_setting{
+    position:relative;
+    bottom: 40%;
     margin-left: 60%;
   }
 
@@ -103,4 +105,11 @@
     position: relative;
     left: 45%;
     cursor: pointer;
+  }
+
+  .profile_image{
+    position:relative;
+    width: 30%;
+    left: 15%;
+    top: 15%;
   }

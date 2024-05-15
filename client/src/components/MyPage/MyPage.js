@@ -76,6 +76,7 @@ function MyPage() {  //마이페이지 기본 틀
 
         <div className="profile">
           <br></br>
+          <img className="profile_image" src="/myPage_profile1.png" alt="profile"/>
           <div  className="text_setting">
             <h1>이름</h1>
             <input className="profile_input"></input>
