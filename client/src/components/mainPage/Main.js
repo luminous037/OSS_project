@@ -28,7 +28,7 @@ const MainPage = () => {
 
       <div className='mainpage-middle-container'>
       <InstructionModal isOpen={isModalOpen} close={() => setIsModalOpen(false)} />
-        <div>middle</div>
+        <div className='bench-container'>bench</div>
       </div>
 
           
