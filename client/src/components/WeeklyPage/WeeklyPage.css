@@ -54,6 +54,19 @@ body {height:100%; overflow:hidden;}
     z-index: 0;
   }
 
+  .input {
+    position: absolute;
+    left: 0%;
+    transform: translate(-50%, -50%);
+
+  }
+  
+  .howMuchStamp{
+    position: absolute;
+    top:10px;
+    
+    z-index:1;
+  }
  @font-face {
     font-family: "on";
     font-weight: 50;
