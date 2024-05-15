@@ -18,6 +18,11 @@ const MainPage = () => {
         <button onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
       </div>
 
+
+      <div className='mainpage-middle-container'>
+        <div>middle</div>
+      </div>
+
     </div>
   );
 };
