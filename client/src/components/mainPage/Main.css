@@ -1,0 +1,15 @@
+.mainpage-all-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 전체 화면 높이 */
+  }
+  
+  
+  .mainpage-top-container {
+    background-color: #f8f9fa; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* 모든 컨테이너가 동일한 크기를 가지도록 설정 */
+    overflow-y: scroll;
+  }
