@@ -5,6 +5,7 @@ import pannel from '../image/pannel.png';
 import chick1 from '../image/chick1.png';
 import chick2 from '../image/chick2.png';
 import unstamped from '../image/unstamped.png';
+import stamp from '../image/stamp.png';
 
 function WeeklyCheck() {
   const [days, setDays] = useState(0);
@@ -26,7 +27,7 @@ function WeeklyCheck() {
 
   const handleInputChange = (index, value) => {
     const newInputFields = [...inputFields];
-    newInputFields[index].imageSrc = value;
+    newInputFields[index].imageSrc = value === '1' ? stamp : unstamped;
     setInputFields(newInputFields);
   };
 
@@ -67,11 +68,7 @@ function WeeklyCheck() {
         />
       </div>
 
-      <div className="input" 
-      style={{ display: 'flex', 
-
-      flexWrap: 'wrap', justifyContent: 'center' ,
-      transform: 'translateY(200px)'}}>
+      <div className="input" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(200px)' }}>
         {inputFields.map((field, index) => (
           <div
             key={field.id}
@@ -82,10 +79,10 @@ function WeeklyCheck() {
               margin: '6px',
             }}
           >
-            <img src={unstamped} alt={`Image ${index + 1}`} style={{ width: '90px', padding: days <= 4 ? '50px' : '0'}} />
+            <img src={field.imageSrc} alt={`Image ${index + 1}`} style={{ width: '90px', padding: days <= 4 ? '50px' : '0' }} />
             <input
               type="text"
-              value={field.imageSrc}
+              value={field.imageSrc === unstamped ? '' : '1'} // value 값이 입력되지 않은 경우 빈 문자열로 설정
               onChange={(e) => handleInputChange(index, e.target.value)}
               style={{ width: '50px', textAlign: 'center' }}
             />
@@ -95,5 +92,4 @@ function WeeklyCheck() {
     </div>
   );
 }
-
 export default WeeklyCheck;
