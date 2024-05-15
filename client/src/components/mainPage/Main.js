@@ -23,6 +23,11 @@ const MainPage = () => {
         <div>middle</div>
       </div>
 
+          
+          <div className='mainpage-bottom-container'>
+        <div>bottom</div>
+      </div>
+
     </div>
   );
 };
