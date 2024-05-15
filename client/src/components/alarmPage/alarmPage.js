@@ -1,13 +1,13 @@
 import React from 'react';
 import './alarmPage.css';
-import chick2 from '../image/chick2.png';
+import chick3 from '../image/chick3.png';
 
 const AlarmPage = () => {
 
     const textStyle = {
-        fontSize: '50px', 
+        fontSize: '40px', 
         fontFamily: 'on', 
-        color: 'black', 
+        color: '#5B5859', 
       };
 
   return (
@@ -15,20 +15,20 @@ const AlarmPage = () => {
 
       <div className="top-container">
       <div className="animated-circle"> 
-      <img src={chick2} alt="chick2" className="chick2" />
+      <img src={chick3} alt="chick3" className="chick3" />
       <div className='wirting-box'>
       <div className="writing" style={textStyle}>약 먹을 시간이에요!</div>
       </div>
-      
         </div>
       </div>
       
 
       <div className="middle-container">
-        
+      <button className="close-button">clear!</button>
       </div>
       
       <div className="bottom-container">
+      
       </div>
     </div>
   );
