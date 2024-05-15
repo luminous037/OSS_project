@@ -1,0 +1,74 @@
+
+body {height:100%; overflow:hidden;}
+.scene{height: 100%; position : relative}
+
+
+
+.title {
+    position: absolute;
+    top: 4%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 1;
+  }
+
+  .background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('../../../public/week_BG.png');
+    background-size: auto 100%;
+    z-index: 0; /* 추가된 부분 */
+  }
+  
+  
+  .pannel{
+
+    position: absolute;
+    top: 120px;
+    height: 80%;
+    width: 100%;
+    z-index: 0;
+  }
+  
+  .chick1{
+    position: absolute;
+    padding-right: 10%;
+    top:3%;
+    left: 18%; 
+    transform: scale(0.6);
+    z-index: 0;
+  }
+
+
+  .chick2{
+    position: absolute;
+    padding-left: 45%;
+    top:3%;
+    transform: scale(0.6);
+    z-index: 0;
+  }
+
+  .input {
+    position: absolute;
+    left: 0%;
+    transform: translate(-50%, -50%);
+
+  }
+  
+  .howMuchStamp{
+    position: absolute;
+    top:10px;
+    
+    z-index:1;
+  }
+ @font-face {
+    font-family: "on";
+    font-weight: 50;
+    src: url("../../fonts/온글잎 밑미.ttf");
+}
