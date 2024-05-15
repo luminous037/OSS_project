@@ -12,12 +12,16 @@ const MainPage = () => {
 
   return (
     <div className='mainpage-all-container'>
+
       <div className='mainpage-top-container'>
         <div className='logo-modal-container'>
         <div className='logo-sun-container'>
         <h1>메인 페이지</h1>
         </div>
         <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
+        </div>
+        <div className='cloud-container'>
+          <div>cloud</div>
         </div>
       </div>
 
