@@ -38,7 +38,12 @@ const MainPage = () => {
           
           <div className='mainpage-bottom-container'>
         <div className='seed-container'>seed</div>
+        <div className='sign-container'>sign</div>
       </div>
+
+      <div className='chick-conainer'>chick</div>
+
+
 
     </div>
   );

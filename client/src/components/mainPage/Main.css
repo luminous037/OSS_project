@@ -79,11 +79,28 @@
     height: 100px;
     justify-content: center;
     align-items: center;
+    position: relative;
+    top: -50px;
+  }
+
+  .sign-container{
+    background-color: #def0a0;
+    width: 100%;
+    height: 200px;
   }
 
   /*모달 창을 가장 위에 배치*/
   .first-container{
     z-index: 1000; /*쌓임 순서 지정 숫자가 높을 수록 위에 쌓임*/
+  }
+
+  .chick-conainer{
+    background-color: #e6a9e5;
+    position: absolute;
+    bottom: 250px;
+    right:30px;
+    width: 40%;
+    height: 200px;
   }
 
   
