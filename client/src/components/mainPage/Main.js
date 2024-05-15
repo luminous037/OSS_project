@@ -26,14 +26,18 @@ const MainPage = () => {
       </div>
 
 
-      <div className='mainpage-middle-container'>
+      <div className='first-container'>
       <InstructionModal isOpen={isModalOpen} close={() => setIsModalOpen(false)} />
+        </div>
+
+
+      <div className='mainpage-middle-container'>
         <div className='bench-container'>bench</div>
       </div>
 
           
           <div className='mainpage-bottom-container'>
-        <div>bottom</div>
+        <div className='seed-container'>seed</div>
       </div>
 
     </div>
