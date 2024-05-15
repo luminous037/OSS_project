@@ -2,9 +2,8 @@
     "name": "meddy",
     "version": "1.0.0",
     "scripts": {
-        "client": " cd .. && cd client && npm start",
         "server": "nodemon Server.js",
-        "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+        "dev": "concurrently --kill-others-on-fail \"npm run server\""
     },
     "dependencies": {
         "body-parser": "^1.18.3",
@@ -16,4 +15,5 @@
     "devDependencies": {
         "concurrently": "^4.1.2"
     }
+    
 }
