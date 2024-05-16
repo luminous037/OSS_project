@@ -4,7 +4,6 @@ import { Link} from 'react-router-dom';
 import {useRef} from 'react';
 import Switch from 'react-switch';
 import { createPortal } from 'react-dom';
-import { CallList } from './MyPageCP';
 import MyPageData from './MyPageData';
 
 function MyPage() {  //마이페이지 기본 틀

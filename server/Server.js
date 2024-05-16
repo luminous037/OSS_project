@@ -14,10 +14,32 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
 
+
 app.listen(port, () => {
     console.log("listen") // 정상 작동
     dbConnect(); //DB 연결
 }); 
+
+
+app.post('/saveName', (req, res) => {
+    const database = getDatabase();
+
+    const userCollection = database.collection("user");
+    const userName = req.body.userName;
+  
+    userCollection.insertOne({
+      'userName': userName
+    })
+    .then((result) => {
+      console.log(result);
+      res.status(200).send('Success');
+    })
+    .catch((err) => {
+      console.log('userName 삽입 중 에러: ', err);
+    });
+  });
+  
+
 
 
 app.get('/list', (req, res) => {
@@ -34,7 +56,7 @@ app.get('/list', (req, res) => {
         });
 });
 
-app.delete('/delete_list/:id', (req,res)=>{
+app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
     const id = req.params.id;
 
     const database = getDatabase(); //db 가져오기
@@ -45,6 +67,10 @@ app.delete('/delete_list/:id', (req,res)=>{
     mediListcollection.deleteOne({ _id: new ObjectId(id)})
     .then(()=>{
         res.status(200).send('Success');
+        return userCollection.updateOne( //userCollection에서도 삭제
+            { "medicineLists": new ObjectId(id) },
+            { $pull: { "medicineLists": new ObjectId(id) } }
+        );
     })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
@@ -57,7 +83,8 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     const database = getDatabase();
 
     const mediListCollection = database.collection("medicineList"); //컬렉션 참조
-    //const userCollection = database.collection("user");
+    const userCollection = database.collection("user");
+
 
     const {mediName, time, detail}=req.body;
     mediListCollection.insertOne({ //db에 내용 삽입
@@ -68,12 +95,12 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     .then((result) => { //데이터 확인
         console.log(result);
 
-        // var medicineListObjectId = result.insertedId;
+        var medicineListObjectId = result.insertedId;
 
-        // return db.user.updateOne( // updateOne()의 반환값을 반환하여 다음 .then() 블록에서 사용할 수 있도록 함
-        // {"_id": userId},
-        // {$push: {"medicineLists": medicineListObjectId}}
-        // );
+        return userCollection.updateOne(
+            {"_id": userId},
+            {$push: {"medicineLists": medicineListObjectId}}
+        );
     })
     .then(()=>{
         res.status(200).send('Success');
