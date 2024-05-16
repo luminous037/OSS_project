@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Start.css';
-import chick from './chick.png';
-import puddle from './puddle.png';
-import pill1 from './pill1.png';
-import pill2 from './pill2.png';
-import jam from './jam.png';
-import flower from './flower.png';
+import chick from '../image/chick.png';
+import puddle from '../image/puddle.png';
+import pill1 from '../image/pill1.png';
+import pill2 from '../image/pill2.png';
+import jam from '../image/jam.png';
+import flower from '../image/flower.png';
 
 function Start() {
   const [state, setState] = useState({
