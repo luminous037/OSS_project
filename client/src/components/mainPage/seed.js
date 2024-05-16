@@ -6,6 +6,8 @@ import sprout from '../image/chick2.png';
 function Seed() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedSeed, setSelectedSeed] = useState(null);
+    const [isSprouted, setIsSprouted] = useState(false);
+    const [isSeedPlanted, setIsSeedPlanted] = useState(false);
 
   const seeds = [
     { id: 1, name: '해바라기 씨앗', imageUrl: jam },
@@ -24,11 +26,15 @@ function Seed() {
     toggleModal();
   };
 
-
-
-
-
-
+    // 씨앗 심기 애니메이션이 끝난 후 새싹이 자라는 애니메이션 시작
+    useEffect(() => {
+      if (isSeedPlanted) {
+        setTimeout(() => {
+          setIsSprouted(true);
+          setIsSeedPlanted(false); // 애니메이션이 끝나면 씨앗 심기 상태를 false로 설정
+        }, 1000); // 씨앗 심기 애니메이션 지속 시간
+      }
+    }, [isSeedPlanted]);
 
 
   return (
