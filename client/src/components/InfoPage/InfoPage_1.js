@@ -8,10 +8,12 @@ function InfoPage_1() {
   });
 
   const navigate=useNavigate();
+
   const nameSave = ()=>{ //데이터베이스에 이름 저장
     fetch('http://localhost:4000/saveName', {
       method: 'POST',
       headers: {
+          credentials: 'include',
           'Content-Type': 'application/json' // JSON 형식으로 전송
       },
       body: JSON.stringify(childName) // 사용자 이름을 body에 저장      

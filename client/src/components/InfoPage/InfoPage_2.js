@@ -76,8 +76,6 @@ function InfoPage_2() {
       <div className="background2">
         <h1>{childName}</h1>
       </div>
-
-
       
        <div className="buttons">
         

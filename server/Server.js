@@ -32,6 +32,7 @@ app.post('/saveName', (req, res) => {
     })
     .then((result) => {
       console.log(result);
+      res.cookie('userId', result.insertedId, { expires: new Date(Date.now() + 900000), httpOnly: true }); //쿠키 설정
       res.status(200).send('Success');
     })
     .catch((err) => {
@@ -39,7 +40,7 @@ app.post('/saveName', (req, res) => {
     });
   });
 
-  
+
 app.get('/userProfile',(req,res)=>{
     const database=getDatabase();
     const userCollection = database.collection("user");
@@ -58,7 +59,9 @@ app.get('/list', (req, res) => {
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
-    mediListcollection.find({}, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
+    const userId = req.cookies.userId;
+
+    mediListcollection.find({ userId: userId }, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
         .toArray()
         .then(queryResult => {
             res.send(queryResult);
