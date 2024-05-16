@@ -39,7 +39,7 @@
 @font-face {
   font-family: "Continuous";
   font-weight: 50;
-  src: url("../fonts/continuous.ttf");
+  src: url("../../fonts/continuous.ttf");
 }
 
 /*로고 관련 css*/
@@ -88,11 +88,11 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: url('./blue.png')
+  background: url('../image/blue.png')
 }
 
 .wave {
-  background: url('./puddle.png') repeat-x;
+  background: url('../image/puddle.png') repeat-x;
   position: fixed;
   width: 100%;
   top: 0;
