@@ -53,23 +53,25 @@ function MyPageData() { //마이페이지 내용 불러옴
   }
 
   return( //출력
-    <div>
-      {medicine && (
-        <ul className="list_setting">
-          {medicine.map((item, index) => (
-              <button onClick={goDetailPage} className="medicine_list" >
-                <li key={index}>
-                  <h4 className="name_setting">{item.mediName}</h4>
-                    <button className="delete_button" onClick={(e)=>{
-                    e.stopPropagation(); //handClick이 실행되지 않도록
-                    dataDelete(item._id,e);
-                    }}></button>
-                </li>
-              </button>
-          ))}
-        </ul>
-      )}
-    </div>
+   <div>
+    {medicine && (
+      <ul className="list_setting">
+        {medicine.map((item, index) => (
+           <button onClick={goDetailPage} className="medicine_list" >
+             <li key={index}>
+               <h4 className="name_setting">{item.mediName}
+                <button className="delete_button" onClick={(e)=>{
+                 console.log('데이터 삭제');
+                 e.stopPropagation(); //handClick이 실행되지 않도록
+                  dataDelete(item._id,e);
+                 }}></button>
+                </h4>
+             </li>
+            </button>
+        ))}
+     </ul>
+  )}
+</div>
   )
 }
 

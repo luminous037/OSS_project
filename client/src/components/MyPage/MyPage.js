@@ -1,17 +1,11 @@
 import './MyPage.css'
 import {useState} from 'react';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-import Switch from 'react-switch';
-import MyPageData from './MyPageData';
-=======
 import { Link} from 'react-router-dom';
 import {useRef} from 'react';
 import Switch from 'react-switch';
 import { createPortal } from 'react-dom';
 import { CallList } from './MyPageCP';
->>>>>>> 5acfc86cec436cbb1c79445c7a87b1bad547fd29
-
+import MyPageData from './MyPageData';
 
 function MyPage() {  //마이페이지 기본 틀
 
@@ -74,13 +68,8 @@ function MyPage() {  //마이페이지 기본 틀
         <div className="medicine_title">
           <h2 className="title">약 목록</h2>
         </div>
-<<<<<<< HEAD
-
-        <MyPageData/>
-=======
         
-        <CallList/>
->>>>>>> 5acfc86cec436cbb1c79445c7a87b1bad547fd29
+        <MyPageData/>
 
         <div  className="add_list_button">
           <Link to="./AddMedi" style={{ textDecoration: 'none'}} >
