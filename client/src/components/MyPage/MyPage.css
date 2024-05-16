@@ -26,59 +26,22 @@
     border-bottom: 3px solid #8CD7F2;
   }
   
-  
-  .medicine_title{
-    text-align: left;
-    padding-left: 5%;
-    margin-bottom:-3%;
-    border-bottom: 3px solid#8CD7F2;
+  .profile_image{
+    position:relative;
+    width: 30%;
+    left: 15%;
+    top: 15%;
   }
   
-  .medicine_list{
-    background-color:#FFFFFF;
-    margin-left: -8%;
-    border: none;
-    border-bottom: 2px solid  #8CD7F2;
-    width: 100vw;
-    height: 8vh;
-    text-align:left;
-    padding-left: 5%;
-    cursor: pointer;
-  }
-
-  
-  .list_setting{
-    list-style-type: none;
-  }
-  
-  .name_setting{
-    font-size:large;
-    
-  }
-
-  .delete_button{
-    position: absolute;
-    left: 85%;
-    width: 8%;
-    height: 7%;
-    background-image: url('../../../public/delete_button.png');
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center; 
-    border: none;
-    cursor: pointer;
-    background-color: white;
-  }
-
   .text_setting{
     position:relative;
     bottom: 40%;
     margin-left: 60%;
   }
 
-  .switch {
-    float: right;
-    margin-right: 70%;
+    
+  .name_setting{
+    font-size:large;
   }
 
   .profile_input{
@@ -92,8 +55,10 @@
   }
 
   .profile_input_button{
-    position: relative;
-    left: 10px;
+    position: absolute;
+    width:36%;
+    height:40%;
+    left: 80%;
     background-color: rgb(126, 197, 255);
     color: #FFFFFF; /* 흰색 */
     border: 3px solid  rgb(126, 197, 255);
@@ -101,18 +66,71 @@
     cursor: pointer;
   }
 
-  .add_list_button{
-    position: relative;
-    left: 45%;
+  .alarm_text{
+    position: absolute;
+  }
+
+  .switch {
+    float: right;
+    margin-right: 70%;
+  }
+  
+  .medicine_title{
+    position: absolute;
+    width: 100%;
+    height:12%;
+    border-bottom: 3px solid#8CD7F2;
+  }
+
+  .title{
+    padding-right:40%;
+  }
+  
+  .medicine_list{
+    position: absolute;
+    background-color:#ffffff;
+    color: black;
+    border: none;
+    border-bottom: 3px solid  #8CD7F2;
+    width: 100%;
+    height: 10vh;
+    top:94%;
+    left:1%;
+    text-align:left;
+    padding-left: 5%;
+    padding-bottom: 5%;
     cursor: pointer;
   }
 
-  .profile_image{
-    position:relative;
-    width: 30%;
-    left: 15%;
-    top: 15%;
+  
+  .list_setting{
+    list-style-type: none;
   }
+
+
+  .delete_button{
+    position: absolute;
+    left: 85%;
+    bottom:0%;
+    width: 8%;
+    height: 100%;
+    background-image: url('../../../public/delete_button.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center; 
+    border: none;
+    cursor: pointer;
+    background-color: white;
+  }
+
+
+  .add_list_button{
+    position: absolute;
+    left: 45%;
+    bottom: -18%;
+    cursor: pointer;
+  }
+
 
   .btn_wrapper {
     display: flex;
@@ -121,9 +139,9 @@
   }
   
   .modal_close_button{
-    position: relative;
-    right: 38%;
-    top:30%;
+    position: absolute;
+    bottom: 40%;
+    right:43%;
     background-color: rgb(126, 197, 255);
     color: #FFFFFF; /* 흰색 */
     border: 3px solid  rgb(126, 197, 255);
@@ -148,7 +166,7 @@
     border: 3px solid  rgb(126, 197, 255);
     border-radius: 10px;
     width: 50%;
-    height: 20%;
+    height: 28%;
     padding: 15px;
   }
 

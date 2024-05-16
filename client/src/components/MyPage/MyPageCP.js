@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import {useEffect, useState} from 'react';
+import './MyPage.css'
 
 
 function CallList() { //마이페이지 내용 불러옴

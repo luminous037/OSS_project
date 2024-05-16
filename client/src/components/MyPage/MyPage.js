@@ -68,7 +68,7 @@ function MyPage() {  //마이페이지 기본 틀
         <div className="medicine_title">
           <h2 className="title">약 목록</h2>
         </div>
-
+        
         <CallList/>
 
         <div  className="add_list_button">
