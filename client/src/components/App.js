@@ -11,6 +11,9 @@ import MyPage from './MyPage/MyPage.js';
 import AddMedi from './MyPage/AddMedi.js';
 import DetailPage from './MyPage/DetailPage.js';
 import Alarm from './alarmPage/alarmPage.js';
+import Seed from './mainPage/seed.js';
+import Cloud from './mainPage/cloud.js';
+
 
 function App() {
 
@@ -21,7 +24,9 @@ function App() {
         <Route path="/App" element={<App />} />
           <Route path="/Start" element={<Start />} />
           <Route path="/Main" element={<Main />} />
+          <Route path="/Seed" element={<Seed />} />
           <Route path="/Alarm" element={<Alarm />} />
+          <Route path="/Cloud" element={<Cloud />} />
           <Route path="/InfoPage_1" element={<InfoPage_1 />} />
           <Route path="/InfoPage_1/InfoPage_2" element={<InfoPage_2 />} />
           <Route path="/InfoPage_1/InfoPage_2/InfoPage_3" element={<InfoPage_3 />} />
@@ -36,3 +41,4 @@ function App() {
 }
 
 export default App;
+

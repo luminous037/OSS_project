@@ -2,6 +2,8 @@ import React from 'react';
 import './alarmPage.css';
 import chick3 from '../image/chick3.png';
 
+
+
 const AlarmPage = () => {
 
     const textStyle = {
@@ -28,7 +30,7 @@ const AlarmPage = () => {
       </div>
       
       <div className="bottom-container">
-      
+    
       </div>
     </div>
   );
