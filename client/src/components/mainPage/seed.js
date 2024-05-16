@@ -56,6 +56,14 @@ function Seed() {
         </div>
       )}
 
+{selectedSeed && (
+        <div>
+          {isSeedPlanted && <img src={selectedSeed.imageUrl} alt="씨앗 이미지" className="seed-planted"/>}
+          {isSprouted && <img src={sprout} alt="새싹 이미지" className="sprout"/>}
+          <p>선택한 씨앗: {selectedSeed.name}</p>
+        </div>
+      )}
+
 </div>
   );
 
