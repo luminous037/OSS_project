@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './InfoPage_2.css';
 
@@ -47,6 +47,21 @@ function InfoPage_2() {
     const handleTimeChange = (event) => {
       setTime(event.target.value);
     };
+
+    const [childName, setUserName] = useState('');
+
+    useEffect(() => {
+      fetch('/userProfile')
+      .then(response => response.json())
+      .then(data => {
+        const userName = data.map(user => user.userName);     // 받은 데이터에서 이름만 추출
+        setUserName(userName);
+      })
+      .catch(error => {
+          console.error('유저 정보를 가져오는 중 에러:', error);
+      });
+    }, []);
+  
   
     return (
 
@@ -59,8 +74,9 @@ function InfoPage_2() {
       
   
       <div className="background2">
-        <h1></h1>
+        <h1>{childName}</h1>
       </div>
+
 
       
        <div className="buttons">

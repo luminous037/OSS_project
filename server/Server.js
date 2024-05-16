@@ -38,8 +38,20 @@ app.post('/saveName', (req, res) => {
       console.log('userName 삽입 중 에러: ', err);
     });
   });
-  
 
+  
+app.get('/userProfile',(req,res)=>{
+    const database=getDatabase();
+    const userCollection = database.collection("user");
+
+    userCollection.find({},{projection:{_id:0, userName:1}})
+    .toArray()
+    .then(result=>{
+        res.send(result);
+    }).catch(err=>{
+        console.log("유저 정보 전달 중 오류: ",err);
+    })
+})
 
 
 app.get('/list', (req, res) => {
