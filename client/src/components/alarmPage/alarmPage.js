@@ -1,10 +1,25 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import './alarmPage.css';
 import chick3 from '../image/chick3.png';
 
 
 
 const AlarmPage = () => {
+
+  const [percentage, setPercentage] = useState(() => {
+    const savedPercentage = localStorage.getItem('cloudPercentage');
+    return savedPercentage ? JSON.parse(savedPercentage) : 0;
+  });
+
+    // 퍼센테이지 상태가 변경될 때마다 로컬 스토리지에 저장
+    useEffect(() => {
+      localStorage.setItem('cloudPercentage', JSON.stringify(percentage));
+    }, [percentage]);
+
+    const handleClearClick = () => {
+      setPercentage(prev => Math.min(prev + 35, 100));
+    };
 
     const textStyle = {
         fontSize: '40px', 
@@ -26,7 +41,7 @@ const AlarmPage = () => {
       
 
       <div className="middle-container">
-      <button className="close-button">clear!</button>
+      <button className="close-button" onClick={handleClearClick}>clear!</button>
       </div>
       
       <div className="bottom-container">
