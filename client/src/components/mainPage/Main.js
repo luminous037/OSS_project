@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import InstructionModal from './Guidebook.js';
 import './Main.css';
-import Seed from './seed.js';
-import Cloud from './cloud.js';
+
 
 
 
@@ -25,7 +24,7 @@ const MainPage = () => {
         <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
         </div>
         <div className='cloud-container'>
-          <div><Cloud/></div>
+          
         </div>
       </div>
 
@@ -42,7 +41,7 @@ const MainPage = () => {
           
           <div className='mainpage-bottom-container'>
         <div className='seed-container'>seed</div>
-        <div className='sign-container'> <Seed /></div>
+        <div className='sign-container'> sign</div>
        
         
       </div>
