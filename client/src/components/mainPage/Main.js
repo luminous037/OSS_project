@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import InstructionModal from './Guidebook.js';
 import './Main.css';
+import Cloud from './cloud.js';
+import Seed from './seed.js';
 
 
 
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rainCount, setRainCount] = useState(0);
+
+  const handleRain = () => {
+    setRainCount(prevCount => prevCount + 1);
+  };
 
   useEffect(() => {
     // 페이지가 로드될 때 모달을 자동으로 열고 싶다면 아래 코드 활성화
@@ -40,7 +47,12 @@ const MainPage = () => {
 
           
           <div className='mainpage-bottom-container'>
-        <div className='seed-container'>seed</div>
+        <div className='seed-container'>
+        <div className="App">
+      <Cloud onRain={handleRain} />
+      <Seed rainCount={rainCount} />
+    </div>
+        </div>
         <div className='sign-container'> sign</div>
        
         

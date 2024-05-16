@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import './seed.css'; 
+import './seed.css';
 import jam from '../image/jam.png';
-import sprout from '../image/chick2.png'; 
+import sprout from '../image/chick2.png';
+import flower from '../image/flower.png';
+import tree from '../image/drop.png';
 
-function Seed() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedSeed, setSelectedSeed] = useState(null);
-    const [isSprouted, setIsSprouted] = useState(false);
-    const [isSeedPlanted, setIsSeedPlanted] = useState(false);
+function Seed({ rainCount }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSeed, setSelectedSeed] = useState(() => {
+    const savedSeed = localStorage.getItem('selectedSeed');
+    return savedSeed ? JSON.parse(savedSeed) : null;
+  });
+  const [seedStage, setSeedStage] = useState(() => {
+    const savedStage = localStorage.getItem('seedStage');
+    return savedStage ? savedStage : 'seed';
+  });
 
   const seeds = [
     { id: 1, name: '해바라기 씨앗', imageUrl: jam },
@@ -21,21 +28,41 @@ function Seed() {
 
   const selectSeed = (seed) => {
     setSelectedSeed(seed);
-    setIsSprouted(false);
-    setIsSeedPlanted(true); // 씨앗 심기 상태를 true로 설정
+    setSeedStage('seed');
     toggleModal();
   };
 
-    // 씨앗 심기 애니메이션이 끝난 후 새싹이 자라는 애니메이션 시작
-    useEffect(() => {
-      if (isSeedPlanted) {
-        setTimeout(() => {
-          setIsSprouted(true);
-          setIsSeedPlanted(false); // 애니메이션이 끝나면 씨앗 심기 상태를 false로 설정
-        }, 1000); // 씨앗 심기 애니메이션 지속 시간
+  useEffect(() => {
+    if (rainCount > 0 && selectedSeed) {
+      if (rainCount >= 3) {
+        setSeedStage('tree');
+      } else if (rainCount >= 2) {
+        setSeedStage('flower');
+      } else {
+        setSeedStage('sprout');
       }
-    }, [isSeedPlanted]);
+    }
+  }, [rainCount, selectedSeed]);
 
+  useEffect(() => {
+    if (selectedSeed) {
+      localStorage.setItem('selectedSeed', JSON.stringify(selectedSeed));
+    }
+    localStorage.setItem('seedStage', seedStage);
+  }, [selectedSeed, seedStage]);
+
+  const renderSeedStage = () => {
+    switch (seedStage) {
+      case 'sprout':
+        return <img src={sprout} alt="새싹 이미지" className="sprout" />;
+      case 'flower':
+        return <img src={flower} alt="꽃 이미지" className="flower" />;
+      case 'tree':
+        return <img src={tree} alt="나무 이미지" className="tree" />;
+      default:
+        return selectedSeed ? <img src={selectedSeed.imageUrl} alt="씨앗 이미지" className="seed-planted" /> : null;
+    }
+  };
 
   return (
     <div className="Seed">
@@ -56,18 +83,14 @@ function Seed() {
         </div>
       )}
 
-{selectedSeed && (
+      {selectedSeed && (
         <div>
-          {isSeedPlanted && <img src={selectedSeed.imageUrl} alt="씨앗 이미지" className="seed-planted"/>}
-          {isSprouted && <img src={sprout} alt="새싹 이미지" className="sprout"/>}
+          {renderSeedStage()}
           <p>선택한 씨앗: {selectedSeed.name}</p>
         </div>
       )}
-
-</div>
+    </div>
   );
-
-
 }
 
 export default Seed;

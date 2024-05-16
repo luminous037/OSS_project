@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './cloud.css';
 
-function Cloud() {
+function Cloud({ onRain }) {
     /*구름 퍼센테이지 관리*/
     const [percentage, setPercentage] = useState(() => {
         const savedPercentage = localStorage.getItem('cloudPercentage');
@@ -26,6 +26,7 @@ function Cloud() {
       setTimeout(() => {
         cloudElement.classList.remove('rain-animation');
         setPercentage(0);
+        onRain();
       }, 3000); // 애니메이션 지속 시간과 일치하도록 설정
     }
   };

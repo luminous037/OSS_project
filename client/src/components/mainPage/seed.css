@@ -52,7 +52,6 @@
   }
 }
 
-
 @keyframes plantSeedAnimation {
   0% {
     transform: translateY(0);
@@ -83,4 +82,3 @@
   width: 50px;
   animation: sproutAnimation 0.5s ease-in-out forwards;
 }
-
