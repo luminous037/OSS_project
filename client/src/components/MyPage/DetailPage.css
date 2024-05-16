@@ -48,3 +48,15 @@
         grid-row-start: 6;
     }
     
+  .back_button{
+    position: absolute;
+    border-color:white;
+    width: 20%;
+    background-color:  rgb(115, 173, 226);
+    left: 80%;
+    cursor: pointer;
+  }
+
+  .backButton_img{
+    width:30%;
+  }
