@@ -59,9 +59,9 @@ app.get('/list', (req, res) => {
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
-    const userId = req.cookies.userId;
+    //const userId = req.cookies.userId;
 
-    mediListcollection.find({ userId: userId }, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
+    mediListcollection.find({ }, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
         .toArray()
         .then(queryResult => {
             res.send(queryResult);
@@ -72,6 +72,7 @@ app.get('/list', (req, res) => {
 });
 
 app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
+
     const id = req.params.id;
 
     const database = getDatabase(); //db 가져오기
@@ -82,10 +83,10 @@ app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
     mediListcollection.deleteOne({ _id: new ObjectId(id)})
     .then(()=>{
         res.status(200).send('Success');
-        return userCollection.updateOne( //userCollection에서도 삭제
-            { "medicineLists": new ObjectId(id) },
-            { $pull: { "medicineLists": new ObjectId(id) } }
-        );
+        // return userCollection.updateOne( //userCollection에서도 삭제
+        //     { "medicineLists": new ObjectId(id) },
+        //     { $pull: { "medicineLists": new ObjectId(id) } }
+        // );
     })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
@@ -98,8 +99,9 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     const database = getDatabase();
 
     const mediListCollection = database.collection("medicineList"); //컬렉션 참조
-    const userCollection = database.collection("user");
+    //const userCollection = database.collection("user");
 
+    //const userId = req.cookies.userId;
 
     const {mediName, time, detail}=req.body;
     mediListCollection.insertOne({ //db에 내용 삽입
@@ -110,12 +112,12 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     .then((result) => { //데이터 확인
         console.log(result);
 
-        var medicineListObjectId = result.insertedId;
+        // var medicineListObjectId = result.insertedId;
 
-        return userCollection.updateOne(
-            {"_id": userId},
-            {$push: {"medicineLists": medicineListObjectId}}
-        );
+        // return userCollection.updateOne(
+        //     {"_id": userId},
+        //     {$push: {"medicineLists": medicineListObjectId}}
+        // );
     })
     .then(()=>{
         res.status(200).send('Success');
