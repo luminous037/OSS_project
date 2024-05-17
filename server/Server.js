@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const { dbConnect, getDatabase } = require('./DbConnect');
 const { ObjectId } = require('mongodb');
+const cookieParser = require('cookie-parser');
 
 
 const port = process.env.PORT || 4000; //서버 포트 번호
@@ -12,7 +13,7 @@ const fs =require('fs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
-
+app.use(cookieParser());
 
 
 app.listen(port, () => {
@@ -32,7 +33,7 @@ app.post('/saveName', (req, res) => {
     })
     .then((result) => {
       console.log(result);
-      res.cookie('userId', result.insertedId, { expires: new Date(Date.now() + 900000), httpOnly: true }); //쿠키 설정
+      res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
       res.status(200).send('Success');
     })
     .catch((err) => {
@@ -60,6 +61,11 @@ app.get('/list', (req, res) => {
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
     //const userId = req.cookies.userId;
+    // if (!userId) {
+    //     res.status(400).send('User ID not found in cookies');
+    //     console.log('쿠키 없음');
+    //     return;
+    // }
 
     mediListcollection.find({ }, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
         .toArray()
@@ -99,11 +105,18 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     const database = getDatabase();
 
     const mediListCollection = database.collection("medicineList"); //컬렉션 참조
-    //const userCollection = database.collection("user");
+    const userCollection = database.collection("user");
 
-    //const userId = req.cookies.userId;
+    // const userId = req.cookies.userId;
 
     const {mediName, time, detail}=req.body;
+
+    // if (!userId) {
+    //     res.status(400).send('User ID not found in cookies');
+    //     console.log('쿠키 없음');
+    //     return;
+    // }
+
     mediListCollection.insertOne({ //db에 내용 삽입
         'mediName' : mediName,
         'time' : time,
@@ -112,11 +125,11 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     .then((result) => { //데이터 확인
         console.log(result);
 
-        // var medicineListObjectId = result.insertedId;
+        var medicineListId = result.insertedId;
 
         // return userCollection.updateOne(
-        //     {"_id": userId},
-        //     {$push: {"medicineLists": medicineListObjectId}}
+        //     { _id: new ObjectId(userId) },
+        //     {$push: {"medicineLists": medicineListId}}
         // );
     })
     .then(()=>{
