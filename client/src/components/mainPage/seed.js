@@ -16,6 +16,10 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
     const savedStage = localStorage.getItem('seedStage');
     return savedStage ? savedStage : 'seed';
   });
+  const [money, setMoney] = useState(() => {
+    const savedMoney = localStorage.getItem('money');
+    return savedMoney ? JSON.parse(savedMoney) : 0;
+  });
 
   const seeds = [
     { id: 1, name: '해바라기 씨앗', imageUrl: jam },
@@ -53,9 +57,11 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
       localStorage.setItem('selectedSeed', JSON.stringify(selectedSeed));
     }
     localStorage.setItem('seedStage', seedStage);
-  }, [selectedSeed, seedStage]);
+    localStorage.setItem('money', JSON.stringify(money));
+  }, [selectedSeed, seedStage,money]);
 
   const handleHarvest = () => {
+    setMoney(money + 100); // 예시로 100의 돈을 추가
     setSelectedSeed(null);
     setSeedStage('seed');
     setRainCount(0); // 보상을 수확할 때 rainCount를 초기화
@@ -107,7 +113,9 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
           {renderSeedStage()}
           <p>선택한 씨앗: {selectedSeed.name}</p>
         </div>
+        
       )}
+      <p>보유 금액: {money}</p>
     </div>
   );
 }
