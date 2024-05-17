@@ -4,8 +4,9 @@ import jam from '../image/jam.png';
 import sprout from '../image/chick2.png';
 import flower from '../image/flower.png';
 import tree from '../image/drop.png';
+import rewardTree from '../image/cloud.png'; // 보상 열린 나무 이미지 추가
 
-function Seed({ rainCount }) {
+function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRainCount 함수를 prop으로 받음
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSeed, setSelectedSeed] = useState(() => {
     const savedSeed = localStorage.getItem('selectedSeed');
@@ -29,12 +30,15 @@ function Seed({ rainCount }) {
   const selectSeed = (seed) => {
     setSelectedSeed(seed);
     setSeedStage('seed');
+    setRainCount(0); // 새로운 씨앗을 심을 때 rainCount를 초기화
     toggleModal();
   };
 
   useEffect(() => {
-    if (rainCount > 0 && selectedSeed) {
-      if (rainCount >= 3) {
+    if (rainCount > 0 && selectedSeed && seedStage !== 'rewardTree') {
+      if (rainCount >= 4) {
+        setSeedStage('rewardTree');
+      } else if (rainCount >= 3) {
         setSeedStage('tree');
       } else if (rainCount >= 2) {
         setSeedStage('flower');
@@ -42,7 +46,7 @@ function Seed({ rainCount }) {
         setSeedStage('sprout');
       }
     }
-  }, [rainCount, selectedSeed]);
+  }, [rainCount, selectedSeed, seedStage]);
 
   useEffect(() => {
     if (selectedSeed) {
@@ -50,6 +54,14 @@ function Seed({ rainCount }) {
     }
     localStorage.setItem('seedStage', seedStage);
   }, [selectedSeed, seedStage]);
+
+  const handleHarvest = () => {
+    setSelectedSeed(null);
+    setSeedStage('seed');
+    setRainCount(0); // 보상을 수확할 때 rainCount를 초기화
+    localStorage.removeItem('selectedSeed');
+    localStorage.removeItem('seedStage');
+  };
 
   const renderSeedStage = () => {
     switch (seedStage) {
@@ -59,6 +71,13 @@ function Seed({ rainCount }) {
         return <img src={flower} alt="꽃 이미지" className="flower" />;
       case 'tree':
         return <img src={tree} alt="나무 이미지" className="tree" />;
+      case 'rewardTree':
+        return (
+          <div>
+            <img src={rewardTree} alt="보상 열린 나무 이미지" className="reward-tree" />
+            <button onClick={handleHarvest}>보상 수확</button>
+          </div>
+        );
       default:
         return selectedSeed ? <img src={selectedSeed.imageUrl} alt="씨앗 이미지" className="seed-planted" /> : null;
     }

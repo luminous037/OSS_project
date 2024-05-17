@@ -82,3 +82,12 @@
   width: 50px;
   animation: sproutAnimation 0.5s ease-in-out forwards;
 }
+
+.reward-tree {
+  width: 100px;
+}
+
+.reward-tree + button {
+  display: block;
+  margin-top: 10px;
+}

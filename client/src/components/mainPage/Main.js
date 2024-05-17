@@ -7,12 +7,13 @@ import Seed from './seed.js';
 
 
 
+
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rainCount, setRainCount] = useState(0);
 
   const handleRain = () => {
-    setRainCount(prevCount => prevCount + 1);
+    setRainCount((prevCount) => prevCount + 1);
   };
 
   useEffect(() => {
@@ -50,7 +51,8 @@ const MainPage = () => {
         <div className='seed-container'>
         <div className="App">
       <Cloud onRain={handleRain} />
-      <Seed rainCount={rainCount} />
+
+      <Seed rainCount={rainCount} setRainCount={setRainCount} />
     </div>
         </div>
         <div className='sign-container'> sign</div>
