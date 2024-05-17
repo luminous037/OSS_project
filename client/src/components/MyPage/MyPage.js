@@ -4,8 +4,7 @@ import { Link} from 'react-router-dom';
 import {useRef} from 'react';
 import Switch from 'react-switch';
 import { createPortal } from 'react-dom';
-import { CallList } from './MyPageCP';
-
+import MyPageData from './MyPageData';
 
 function MyPage() {  //마이페이지 기본 틀
 
@@ -69,7 +68,7 @@ function MyPage() {  //마이페이지 기본 틀
           <h2 className="title">약 목록</h2>
         </div>
         
-        <CallList/>
+        <MyPageData/>
 
         <div  className="add_list_button">
           <Link to="./AddMedi" style={{ textDecoration: 'none'}} >
