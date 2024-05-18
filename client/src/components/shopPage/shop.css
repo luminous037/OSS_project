@@ -1,3 +1,18 @@
 .chick4{
-    position : absolute;
-}
+    position: absolute;
+    padding-right: 10%;
+    top:3%;
+    left: 18%; 
+    transform: scale(0.6);
+    z-index: 0;
+  }
+
+  .items{
+    display: flex;
+    position: absolute;
+    top: 50%;
+  }
+
+  .modal{
+    position: absolute;
+  }
