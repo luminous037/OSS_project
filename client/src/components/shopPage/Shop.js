@@ -5,7 +5,7 @@ import pointBox from '../image/pointBox.png';
 
 function Shop() {
 
-    const [point, setPoint] = useState(10000); /*포인트*/
+    const [point, setPoint] = useState(5000); /*포인트*/
       
 
   const items = [
@@ -28,12 +28,18 @@ function Shop() {
   };
 
   const confirmPurchase = () => {
+    if (point < currentItem.price) {
+      setModalIsOpen(true);
+      setCurrentItem(null);
+      return;
+    }
     const newPoint = point - currentItem.price;
     setPoint(newPoint);
     setPurchaseStatus({ ...purchaseStatus, [currentItem.id]: true });
     setCharacterEquip({ ...characterEquip, [currentItem.id]: true });
     setModalIsOpen(false);
   };
+  
 
   const cancelPurchase = () => {
     setModalIsOpen(false);
@@ -85,17 +91,29 @@ function Shop() {
 
       {modalIsOpen && (
         <div className="modal">
-          <div className="modal-content">
-            <h2>구매 확인</h2>
-            <p>
-              '{currentItem?.name}'을(를) {currentItem?.price}원에 구매하시겠습니까?
-            </p>
-            <div className="modal-buttons">
-              <button onClick={confirmPurchase}>확인</button>
-              <button onClick={cancelPurchase}>취소</button>
-            </div>
-          </div>
+        <div className="modal-content">
+          {currentItem ? (
+            <>
+              <h2>구매 확인</h2>
+              <p>
+                '{currentItem?.name}'을(를) {currentItem?.price}원에 구매하시겠습니까?
+              </p>
+              <div className="modal-buttons">
+                <button onClick={confirmPurchase}>확인</button>
+                <button onClick={cancelPurchase}>취소</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h2>포인트 부족</h2>
+              <p>포인트가 부족하여 구매할 수 없습니다.</p>
+              <div className="modal-buttons">
+                <button onClick={() => setModalIsOpen(false)}>확인</button>
+              </div>
+            </>
+          )}
         </div>
+      </div>
       )}
     </div>
   );
