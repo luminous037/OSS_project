@@ -13,7 +13,6 @@ body {height:100%; overflow:hidden;}
     z-index: 0; 
   }
 
-
 .title{
     position: absolute;
     left: 20%;
@@ -22,8 +21,8 @@ body {height:100%; overflow:hidden;}
 .chick4{
     position: absolute;
     padding-right: 10%;
-    top:0%;
-    left:2%; 
+    top:-7%;
+    left:0%; 
     transform: scale(0.55);
     z-index: 0;
   }
@@ -36,21 +35,36 @@ body {height:100%; overflow:hidden;}
     transform: scale(0.3);
     z-index: 0;
   }
-  .point-display {
+
+  .point {
     position: absolute;
     top: 3.3%;
-    left: 89%;
+    left: 88%;
     transform: translate(-50%, -50%);
     color: rgb(0, 0, 0);
     font-size: 20px;
     font-weight: bold;
     z-index: 1;
+    display:flex;
+    z-index: 1;
+  }
+
+  .coin{
+    position: absolute;
+    top: -14.3%;
+    left: 37.5%;
+    transform: scale(0.08);
   }
 
   .items{
     display: flex;
+    flex-wrap: wrap;
     position: absolute;
-    top: 50%;
+    top: 39%;
+    left: 8%;
+    margin:55px;
+    margin-right: 60px;
+    gap: 20px; /*아이템 간격 조정*/
   }
 
   .modal{
@@ -71,3 +85,8 @@ body {height:100%; overflow:hidden;}
     margin: 0 10px;
   }
   
+.pannel{
+    position: absolute;
+    top: 37%;
+    height: 58%;
+}

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './shop.css';
 import chick4 from '../image/chick4.png';
 import pointBox from '../image/pointBox.png';
+import pannel from '../image/pannel.png';
+import coin from '../image/coin.png';
 
 function Shop() {
 
@@ -56,7 +58,9 @@ function Shop() {
             <img src ={pointBox} className="pointBox" />
         </div>
 
-        <div className="point-display">
+        <img src ={coin} className="coin"/>
+
+        <div className="point">
             <p>{point}</p>
         </div>
 
@@ -67,6 +71,11 @@ function Shop() {
         <div className="chick4">
             <img src={chick4} className="chick4" />
         </div>
+
+        <div className="pannelImage">
+          <img src={pannel} className="pannel" />
+        </div>
+
 
       <div className="items">
         {items.map((item) => (
