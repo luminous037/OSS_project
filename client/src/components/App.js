@@ -12,6 +12,8 @@ import AddMedi from './MyPage/AddMedi.js';
 import DetailPage from './MyPage/DetailPage.js';
 import Alarm from './alarmPage/alarmPage.js';
 import WeeklyCheck from './WeeklyPage/WeeklyCheck.js';
+import Shop from './shopPage/Shop.js';
+
 function App() {
   return (
     <Router>
@@ -28,6 +30,7 @@ function App() {
           <Route path="/MyPage/AddMedi" element={<AddMedi />} />
           <Route path="/DetailPage" element={<DetailPage />} />
           <Route path="/WeeklyCheck" element={<WeeklyCheck />} />
+          <Route path="/Shop" element={<Shop />} />
       </Routes>
         <NavigationBar /> {/* 하단 네비게이션 바를 추가합니다. */}
       </div>
