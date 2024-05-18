@@ -1,3 +1,23 @@
+body {height:100%; overflow:hidden;}
+.scene{height: 100%; position : relative}
+
+.background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('../image/background_shop.png');
+    background-size: auto 100%;
+    z-index: 0; 
+  }
+
+
+.title{
+    position: absolute;
+    left: 20%;
+}
+
 .chick4{
     position: absolute;
     padding-right: 10%;
@@ -6,6 +26,16 @@
     transform: scale(0.6);
     z-index: 0;
   }
+
+  .pointBox{
+    position: absolute;
+    padding-right: 90%;
+    top:-24%;
+
+    transform: scale(0.3);
+    z-index: 0;
+  }
+
 
   .items{
     display: flex;
@@ -16,3 +46,4 @@
   .modal{
     position: absolute;
   }
+
