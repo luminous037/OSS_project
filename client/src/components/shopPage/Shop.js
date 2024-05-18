@@ -4,6 +4,10 @@ import chick4 from '../image/chick4.png';
 import pointBox from '../image/pointBox.png';
 
 function Shop() {
+
+    const [point, setPoint] = useState(10000); /*포인트*/
+      
+
   const items = [
     { id: 1, name: '새싹모자', price: 100 },
     { id: 2, name: '산타모자', price: 500 },
@@ -24,6 +28,8 @@ function Shop() {
   };
 
   const confirmPurchase = () => {
+    const newPoint = point - currentItem.price;
+    setPoint(newPoint);
     setPurchaseStatus({ ...purchaseStatus, [currentItem.id]: true });
     setCharacterEquip({ ...characterEquip, [currentItem.id]: true });
     setModalIsOpen(false);
@@ -42,6 +48,10 @@ function Shop() {
 
         <div className="pointBoxImage">
             <img src ={pointBox} className="pointBox" />
+        </div>
+
+        <div className="point-display">
+            <p>{point}</p>
         </div>
 
         <div className="title">
