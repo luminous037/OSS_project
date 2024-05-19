@@ -29,8 +29,8 @@ function MyPageData() { //마이페이지 내용 불러옴
 
   const navigate=useNavigate();
 
-  const goDetailPage=()=>{ //상세 페이지 이동
-  navigate('/DetailPage');
+  const goDetailPage=(id)=>()=>{ //상세 페이지 이동
+    navigate(`/DetailPage?id=${id}`);
   };
 
   useEffect(() => {
@@ -52,12 +52,14 @@ function MyPageData() { //마이페이지 내용 불러옴
     console.log(id);
   }
 
+  console.log(medicine)
+  
   return( //출력
    <div>
     {medicine && (
       <ul className="list_setting">
         {medicine.map((item, index) => (
-           <button onClick={goDetailPage} className="medicine_list" >
+           <button onClick={goDetailPage(item._id)} className="medicine_list" >
              <li key={index}>
                <h4 className="name_setting">{item.mediName}
                 <button className="delete_button" onClick={(e)=>{

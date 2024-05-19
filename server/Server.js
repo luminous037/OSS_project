@@ -77,6 +77,21 @@ app.get('/list', (req, res) => {
         });
 });
 
+app.get('/list/:id',(req,res)=>{
+    const id =req.params.id;
+    const database = getDatabase(); //db 가져오기
+    const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+
+    mediListcollection.find({ _id: new ObjectId(id) },{projection: {_id:0, mediName : 1, time : 1, detail : 1}})
+    .toArray()
+    .then(queryResult=>{
+        res.send(queryResult);
+    })
+    .catch(err=>{
+        console.log("약 불러오기 실패: ",err);
+    })
+})
+
 app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
 
     const id = req.params.id;
@@ -96,8 +111,7 @@ app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
     })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
-    })
-
+    }) 
 })
 
 
