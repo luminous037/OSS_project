@@ -57,15 +57,31 @@ body {height:100%; overflow:hidden;}
   }
 
   .items{
-    display: flex;
-    flex-wrap: wrap;
+    display: flex; /* flexbox 사용 */
+    flex-wrap: wrap; /* 아이템들이 컨테이너 너비를 초과할 경우 다음 줄로 넘어감 */
     position: absolute;
     top: 39%;
     left: 8%;
-    margin:55px;
-    margin-right: 60px;
-    gap: 20px; /*아이템 간격 조정*/
+    width: 400px; /* 컨테이너의 너비 - 이 값을 조절하여 한 줄에 표시될 아이템 수 조절 */
+    margin: 55px;
+    font-size: 15px;
   }
+
+/* 아이템 이름과 가격 사이의 간격 추가 */
+.item h3{
+    margin-top:10px;
+    margin-bottom:90px;
+    margin-right:50px; /* 원하는 간격으로 조절하세요 */
+  }
+  
+  .item-image{
+    position: absolute;
+    transform: scale(0.2);
+    margin-top: -300px; 
+    margin-left:-240px;
+    margin-right:-50px;
+  }
+  
 
   .modal{
     position: absolute;
@@ -91,10 +107,7 @@ body {height:100%; overflow:hidden;}
     height: 58%;
 }
 
-.item-image{
-    position: absolute;
-    transform: scale(0.3);
-}
+
 
 .explode-animation {
     position: absolute;
