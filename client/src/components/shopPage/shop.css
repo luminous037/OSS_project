@@ -91,6 +91,11 @@ body {height:100%; overflow:hidden;}
     height: 58%;
 }
 
+.item-image{
+    position: absolute;
+    transform: scale(0.3);
+}
+
 .explode-animation {
     position: absolute;
     top: 40%;

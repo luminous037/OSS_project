@@ -90,25 +90,27 @@ function Shop() {
 
       <div className="items">
   {items.map((item) => (
-    <div key={item.id}>
+    <div key={item.id} className="item">
       <h3>{item.name}</h3>
-      {/* 구매 상태를 확인하여 '구매 완료' 또는 각각의 아이템 이미지를 보여줍니다. */}
+      <img src={
+        item.id === 1 ? plant :
+        item.id === 2 ? santa :
+        item.id === 3 ? dragon :
+        item.id === 4 ? witch :
+        item.id === 5 ? ribbon :
+        item.id === 6 ? crown :
+        null
+      } className="item-image" alt={item.name} onClick={() => handlePurchase(item)} />
+      {/* 구매 상태를 확인하여 '구매 완료' 텍스트 또는 아이템 가격을 보여줍니다. */}
       {purchaseStatus[item.id] ? (
-        <p>구매 완료</p>
+        <p className="purchased">구매 완료</p>
       ) : (
-        <img src={
-          item.id === 1 ? plant :
-          item.id === 2 ? santa :
-          item.id === 3 ? dragon :
-          item.id === 4 ? witch :
-          item.id === 5 ? ribbon :
-          item.id === 6 ? crown :
-          null
-        } className="item-image" alt="구매하기" onClick={() => handlePurchase(item)} />
+        <p className="price">{item.price} 포인트</p>
       )}
     </div>
   ))}
 </div>
+
 
 
       {modalIsOpen && (
