@@ -52,9 +52,9 @@ function Shop() {
   };
 
   const items = [
-    { id: 1, name: '새싹모자', price: 100 },
-    { id: 2, name: '산타모자', price: 500 },
-    { id: 3, name: '용머리띠', price: 500 },
+    { id: 1, name: '새싹모자', price: 100 ,nickname:'plant' },
+    { id: 2, name: '산타모자', price: 500,nickname:'santa' },
+    { id: 3, name: '용머리띠', price: 500 ,nickname:'dragon'},
     { id: 4, name: '마녀모자', price: 1000 },
     { id: 5, name: '분홍리본', price: 1000 },
     { id: 6, name: '황금왕관', price: 5000 },
@@ -89,25 +89,27 @@ function Shop() {
       </div>
 
       <div className="items">
-        {items.map((item) => (
-          <div key={item.id}>
-            <h3>{item.name}</h3>
-            <p> {item.price}</p>
-            <button
-              onClick={() => {
-                if (!purchaseStatus[item.id]) {
-                  handlePurchase(item);
-                } else {
-                  setCharacterEquip({ ...characterEquip, [item.id]: true });
-                }
-              }}
-              disabled={purchaseStatus[item.id]}
-            >
-              {purchaseStatus[item.id] ? '구매 완료' : '구매하기'}
-            </button>
-          </div>
-        ))}
-      </div>
+  {items.map((item) => (
+    <div key={item.id}>
+      <h3>{item.name}</h3>
+      {/* 구매 상태를 확인하여 '구매 완료' 또는 각각의 아이템 이미지를 보여줍니다. */}
+      {purchaseStatus[item.id] ? (
+        <p>구매 완료</p>
+      ) : (
+        <img src={
+          item.id === 1 ? plant :
+          item.id === 2 ? santa :
+          item.id === 3 ? dragon :
+          item.id === 4 ? witch :
+          item.id === 5 ? ribbon :
+          item.id === 6 ? crown :
+          null
+        } className="item-image" alt="구매하기" onClick={() => handlePurchase(item)} />
+      )}
+    </div>
+  ))}
+</div>
+
 
       {modalIsOpen && (
         <div className="modal">
