@@ -98,35 +98,48 @@ body {height:100%; overflow:hidden;}
     transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
-    background-image: url('../image/fireworks.png');
+    background-image: url('../image/fireworks.gif');
     background-size: contain;
     background-repeat: no-repeat;
-    animation: explode 0.55s ease-in-out, slideDown 0.55s ease-in-out 0.55s;
+    animation: explode 0.9s ease-in-out, slideDown 0.55s ease-in-out 0.55s;
     opacity: 0;
   }
+
   
   @keyframes explode {
     0% {
-      transform: translate(-50%, -50%) scale(0);
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 0.1;
+    }
+    10% {
+        transform: translate(-50%, -50%) scale(6);
+        opacity: 1;
+      }
+    80% {
+      transform: translate(-50%, -50%) scale(6);
       opacity: 1;
     }
-    80% {
-      transform: translate(-50%, -50%) scale(4);
-      opacity: 1;
+    90%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.5;
+    }
+    95%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.8;
     }
     100%{
-        transform: translate(-50%, -50%) scale(3);
-      opacity: 0.6;
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.1;
     }
   }
   
   @keyframes slideDown {
     0% {
-      transform: translateY(0);
-      opacity: 0.8;
+    transform: translate(-50%, -50%) scale(5);
+      opacity: 1;
     }
     100% {
-      transform: translateY(100%);
+        transform: translate(-50%, -50%) scale(5);
       opacity: 0;
     }
   }

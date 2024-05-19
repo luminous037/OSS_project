@@ -4,6 +4,12 @@ import chick4 from '../image/chick4.png';
 import pointBox from '../image/pointBox.png';
 import pannel from '../image/pannel.png';
 import coin from '../image/coin.png';
+import plant from '../image/plant.png';
+import santa from '../image/santa.png';
+import dragon from '../image/dragon.png';
+import witch from '../image/witch.png';
+import ribbon from '../image/ribbon.png';
+import crown from '../image/crown.png';
 
 function Shop() {
   const [point, setPoint] = useState(5000); /*포인트*/
@@ -38,10 +44,11 @@ function Shop() {
   const showExplosionAnimation = () => {
     const explodeAnimation = document.createElement('div');
     explodeAnimation.classList.add('explode-animation');
+    explodeAnimation.classList.add('congrate-animation');
     document.body.appendChild(explodeAnimation);
     setTimeout(() => {
       explodeAnimation.remove();
-    }, 500);
+    }, 1100);
   };
 
   const items = [
