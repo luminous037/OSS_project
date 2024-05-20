@@ -7,6 +7,17 @@ import MyPageData from './MyPageData';
 
 function MyPage() {  //마이페이지 기본 틀
 
+  const [userData, setUserData] =useState({ //유저 정보
+
+    userName:'',
+    alaram: false
+
+  }); 
+  
+  const [newName, setNewName] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalBackground = useRef();
+
   useEffect(() => { //유저 정보 불러오기
     fetch('/userProfile')
       .then(response => response.json())
@@ -23,27 +34,33 @@ function MyPage() {  //마이페이지 기본 틀
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-  }, []);
+  }, [userData]);
+ 
 
-
-  const [userData, setUserData] =useState({ //유저 정보
-
-    userName:'',
-    alaram: false
-
-  }); 
-
-  const handleChange = (checked) => {
+  const handleChange = (checked) => { //알람 설정 변경
     setUserData(prevUserData => ({
       ...prevUserData,
       alaram: checked
     }));
   };
-  
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const modalBackground = useRef();
-
+  const nameChange= () =>{ //이름 변경
+    fetch('http://localhost:4000/updateName', {
+      method: 'POST',
+      headers: {
+          credentials: 'include',
+          'Content-Type': 'application/json' // JSON 형식으로 전송
+      },
+      body: JSON.stringify({ currentName: userData.userName, updatedName: newName })
+    }).then(response =>{
+      if (response.ok) {
+        setModalOpen(false)
+      }
+    })
+    .catch(err => {
+       console.error('namePost 중 오류: ',err);
+    });
+  }
   
   return (
 
@@ -74,8 +91,8 @@ function MyPage() {  //마이페이지 기본 틀
                 }}>
                 <div className={'modal_content'}>
                   <h3 className={'modal_text'}>이름 수정</h3>
-                  <input className="modal_input"></input>
-                  <button className={'modal_close_button'} onClick={() => setModalOpen(false)}>
+                  <input className="modal_input"  onChange={e => setNewName(e.target.value)}></input>
+                  <button className={'modal_close_button'} onClick={() => nameChange()}>
                    저장
                   </button>
                 </div>
@@ -89,8 +106,6 @@ function MyPage() {  //마이페이지 기본 틀
           <div className="text_setting"><h2 >알람 설정</h2>
           <Switch onChange={handleChange} checked={userData.alaram}  onColor="#8CD7F2" className="switch" />
           </div>
-          
-          
         </div>
 
         <div className="medicine_title">

@@ -41,6 +41,26 @@ app.post('/saveName', (req, res) => {
     });
   });
 
+  app.post('/updateName', (req, res) => {
+    const database = getDatabase();
+    const userCollection = database.collection("user");
+    const currentName = req.body.currentName;
+    const updatedName = req.body.updatedName;
+  
+    userCollection.updateOne(
+      { userName: currentName }, // 기존 이름으로 문서 찾기
+      { $set: { userName: updatedName } } // 새로운 이름으로 업데이트
+    )
+    .then(() => {
+      res.status(200).send('Success');
+    })
+    .catch((err) => {
+      console.log('이름 업데이트 중 에러: ', err);
+      res.status(500).send('Error');
+    });
+  });
+  
+
 
 app.get('/userProfile',(req,res)=>{
     const database=getDatabase();
