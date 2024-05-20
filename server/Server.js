@@ -41,15 +41,17 @@ app.post('/saveName', (req, res) => {
     });
   });
 
-  app.post('/updateName', (req, res) => {
+  app.post('/updateData', (req, res) => {
     const database = getDatabase();
     const userCollection = database.collection("user");
-    const currentName = req.body.currentName;
-    const updatedName = req.body.updatedName;
+    const current = req.body.current;
+    const updated = req.body.updated;
   
     userCollection.updateOne(
-      { userName: currentName }, // 기존 이름으로 문서 찾기
-      { $set: { userName: updatedName } } // 새로운 이름으로 업데이트
+      { userName: current.userName }, // 기존 이름으로 문서 찾기
+      { $set: { userName: updated.newName
+        //, alaram: updated.changeAlarm 
+        } } // 새로운 이름으로 업데이트
     )
     .then(() => {
       res.status(200).send('Success');

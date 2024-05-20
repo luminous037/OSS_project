@@ -14,7 +14,12 @@ function MyPage() {  //마이페이지 기본 틀
 
   }); 
   
-  const [newName, setNewName] = useState('');
+  const [newData, setNewData] = useState({
+
+    newName:'',
+    changeAlarm: false
+  });
+
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
 
@@ -45,13 +50,13 @@ function MyPage() {  //마이페이지 기본 틀
   };
 
   const nameChange= () =>{ //이름 변경
-    fetch('http://localhost:4000/updateName', {
+    fetch('http://localhost:4000/updateData', {
       method: 'POST',
       headers: {
           credentials: 'include',
           'Content-Type': 'application/json' // JSON 형식으로 전송
       },
-      body: JSON.stringify({ currentName: userData.userName, updatedName: newName })
+      body: JSON.stringify({ current: userData, updated: newData })
     }).then(response =>{
       if (response.ok) {
         setModalOpen(false)
@@ -91,7 +96,7 @@ function MyPage() {  //마이페이지 기본 틀
                 }}>
                 <div className={'modal_content'}>
                   <h3 className={'modal_text'}>이름 수정</h3>
-                  <input className="modal_input"  onChange={e => setNewName(e.target.value)}></input>
+                  <input className="modal_input" onChange={e => setNewData({ ...newData, newName: e.target.value })}></input>
                   <button className={'modal_close_button'} onClick={() => nameChange()}>
                    저장
                   </button>
