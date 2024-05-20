@@ -5,9 +5,12 @@ import chick3 from '../image/chick3.png';
 
 
 
+
 const AlarmPage = () => {
 
+  /*구름 퍼센테이지 관리*/
   const [percentage, setPercentage] = useState(() => {
+    /*구름의 퍼센테이지를 로컬저장소에 저장해서 웹페이지를 종료하더라도 저장된 값이 남도록 함*/
     const savedPercentage = localStorage.getItem('cloudPercentage');
     return savedPercentage ? JSON.parse(savedPercentage) : 0;
   });
@@ -17,6 +20,7 @@ const AlarmPage = () => {
       localStorage.setItem('cloudPercentage', JSON.stringify(percentage));
     }, [percentage]);
 
+    /*clear 버튼을 누를 경우 퍼센테이지가 35씩 증가한다. 최대 100*/
     const handleClearClick = () => {
       setPercentage(prev => Math.min(prev + 35, 100));
     };
