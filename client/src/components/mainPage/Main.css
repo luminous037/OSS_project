@@ -3,18 +3,26 @@
   flex-direction: column;
   height: 100vh; /* 전체 화면 높이 */
   overflow-y: scroll; /* 섹션 내용이 넘칠 경우 스크롤 생성 */
-  
+  transition: background-color 0.5s ease;
 }
 
 /*화면 상단 요소*/
 .mainpage-top-container {
-  background-color: #f8f9fa; 
+  background-color: #2b6096; 
   display: flex;
   justify-content: left;
   align-items: center;
   flex-direction: row; /* 내용 가로 정렬 */
   height: 70vh; /* 각 섹션의 높이를 화면 높이의 50%로 설정 */
+  width: 50%;
+}
 
+.morning-background {
+  background-color: #B8E9FF; /* 아침 색상 */
+}
+
+.night-background {
+  background-color: #000000; /* 밤 색상 */
 }
 
 .logo-modal-container{
