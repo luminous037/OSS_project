@@ -8,13 +8,14 @@
 
 /*화면 상단 요소*/
 .mainpage-top-container {
-  background-color: #50962b; 
+  
   display: flex;
   justify-content: left;
   align-items: center;
   flex-direction: row; /* 내용 가로 정렬 */
-  height: 70vh; /* 각 섹션의 높이를 화면 높이의 50%로 설정 */
-  width: 50%;
+  height: 600px; /* 각 섹션의 높이를 화면 높이의 50%로 설정 */
+  width: 80%;
+  z-index: 200;
 }
 
 .morning-background {
@@ -74,10 +75,12 @@ h1{
 
 .cloud-container{
   position: relative;
+  margin-left: 100px;
+  
   bottom: -60px;
-  background-color: #e6a9e5;
-  width: 100%;
-  height: 300px;
+  background-color: transparent; /*배경색 투명*/
+  width: 600px;
+  height: 250px;
 }
 
 .button-hover {
@@ -96,13 +99,10 @@ h1{
 
 .bench-container{
   position:relative;
-  bottom:70px;
+  bottom:50px;
   background-color: #34506d;
   width: 100%;
   height: 150px;
-  z-index: 300;
-  
-  
   
 }
 .bench{

@@ -8,6 +8,7 @@ import sun from '../image/sun.png';
 import bench from '../image/bench.png';
 
 
+
 const MainPage = () => {
   /*사용 설명창 모둘을 관리*/
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +39,7 @@ const MainPage = () => {
     <div className={`mainpage-all-container ${isMorning ? 'morning-background' : 'night-background'}`}>
 
       <div className='mainpage-top-container'>
-      <Cloud onRain={handleRain} />
+      
         <div className='logo-modal-container'>
         <div className='logo-sun-container'>
         <div class="stack-container">
@@ -50,7 +51,7 @@ const MainPage = () => {
         <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
         </div>
         <div className='cloud-container'>
-          
+        <Cloud onRain={handleRain} />
         </div>
       </div>
 
