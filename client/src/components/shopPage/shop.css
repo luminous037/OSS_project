@@ -81,6 +81,32 @@ body {height:100%; overflow:hidden;}
     margin-left:-240px;
     margin-right:-50px;
   }
+
+  .equipped-plant {
+    position: absolute;
+    background-color: green;
+  }
+  
+  .equipped-santa {
+    background-color: red;
+  }
+  
+  .equipped-dragon {
+    background-color: yellow;
+  }
+  
+  .equipped-witch {
+    background-color: purple;
+  }
+  
+  .equipped-ribbon {
+    background-color: pink;
+  }
+  
+  .equipped-crown {
+    background-color: gold;
+  }
+  
   
 
   .modal{
@@ -149,6 +175,11 @@ body {height:100%; overflow:hidden;}
         transform: translate(-50%, -50%) scale(6);
       opacity: 0.1;
     }
+  }
+
+  .image-Selected1{
+    background-image: url('../image/plant.png');
+    position: absolute;
   }
   
   @keyframes slideDown {
