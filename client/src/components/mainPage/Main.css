@@ -195,15 +195,15 @@ h1{
 
 .chick4{
   position: absolute;
-  width: 100px; /* 병아리 이미지 크기 조절 */
+  width: 150px; /* 병아리 이미지 크기 조절 */
   padding-right: 25px;
   
 }
 
 .balloon {
   position: relative;
-  top: -80px; /* 말풍선 위치 조절 */
-  left: 50%;
+  top: -100px; /* 말풍선 위치 조절 */
+  left: 55%;
   transform: translateX(-50%);
 
   background: #fff;

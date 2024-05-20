@@ -102,14 +102,14 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
 
       {isseedModalOpen && (
         <div className="modal">
-          <h2>씨앗 선택</h2>
+          <h5> 🌱 씨앗 선택 🌱</h5>
           <ul>
             {seeds.map((seed) => (
               <li key={seed.id} onClick={() => selectSeed(seed)} className="seed-list-item">
                 <div className="seed-image-container">
                   <img src={seed.imageUrl} alt={`${seed.name} 이미지`} className="seed-image"/>
                 </div>
-                {seed.name}
+                <span>{seed.name}</span>
               </li>
             ))}
           </ul>

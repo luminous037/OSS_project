@@ -4,31 +4,48 @@
   align-items: center; /* 중앙 정렬을 원한다면 추가 */
 }
 
+
 .modal {
-  background-color: #8B4513;
+  
+  background-color: #C8A776;
   color: white;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 20px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+h5{
+font-family: "np";
+color: black;
+ font-size: 20px;
 }
 
+
 .seed-list-item {
+  
   display: flex;
   align-items: center;
   gap: 10px; /* 텍스트와 이미지 사이의 간격 */
   cursor: pointer;
   padding: 10px;
+  font-family: np;
+  color: black;
+
+ 
 }
 
 .seed-list-item:hover {
-  background-color: #A0522D;
+  background-color: #d9b682;
 }
 
 .seed-image-container {
+  border-radius: 5px;
   width: 50px; 
   height: 50px; 
   background-color: white; 
@@ -141,7 +158,7 @@
 }
 
 /* 꽃 이미지 크기 조절 */
-.flower {
+.flower5 {
   width: 100px; 
   height: 90px;
 }
