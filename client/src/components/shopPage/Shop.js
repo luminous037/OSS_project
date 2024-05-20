@@ -80,40 +80,89 @@ function Shop() {
   const showSelectImage = (imageSrc) => {
     // img 요소를 생성
     const imageSelected = document.createElement('img');
-    
-    // 생성된 img 요소에 클래스를 추가
-    if (imageSrc == 1) {
-        imageSelected.classList.add('image-Selected1');
-      }
-    else if (imageSrc == 2) {
-        imageSelected.classList.add('image-Selected2');
-      }
+  
+    // imageSrc 값에 따라 다른 이미지 파일 경로를 설정
+    let imagePath = '';
+    switch (imageSrc) {
+      case 1:
+        imagePath = plant;
+        break;
+      case 2:
+        imagePath = santa;
+        break;
+      case 3:
+        imagePath = dragon;
+        break;
+      case 4:
+        imagePath = witch;
+        break;
+      case 5:
+        imagePath = ribbon;
+        break;
+      case 6:
+        imagePath = crown;
+        break;
+      default:
+        console.log('유효하지 않은 imageSrc 값입니다.');
+        return; // 유효하지 않은 경우 함수 종료
+    }
+  
+    // 선택한 이미지 파일 경로로 img 요소의 src 속성 설정
+    imageSelected.src = imagePath;
 
-    else if (imageSrc == 3) {
-        imageSelected.classList.add('image-Selected3');
-      }
-    else if (imageSrc == 4) {
-        imageSelected.classList.add('image-Selected4');
-      }
-    else if (imageSrc == 5) {
-        imageSelected.classList.add('image-Selected5');
-      }
-    else if (imageSrc == 6) {
-        imageSelected.classList.add('image-Selected6');
-      }
-    
+    const showSelectImage = (imageSrc) => {
+        // img 요소를 생성
+        const imageSelected = document.createElement('img');
+      
+        // imageSrc 값에 따라 다른 이미지 파일 경로를 설정
+        let imagePath = '';
+        switch (imageSrc) {
+          case 1:
+            imagePath = plant;
+            break;
+          case 2:
+            imagePath = santa;
+            break;
+          case 3:
+            imagePath = dragon;
+            break;
+          case 4:
+            imagePath = witch;
+            break;
+          case 5:
+            imagePath = ribbon;
+            break;
+          case 6:
+            imagePath = crown;
+            break;
+          default:
+            console.log('유효하지 않은 imageSrc 값입니다.');
+            return; // 유효하지 않은 경우 함수 종료
+        }
+      
+        // 선택한 이미지 파일 경로로 img 요소의 src 속성 설정
+        imageSelected.src = imagePath;
+      
+        // 이미지에 스타일 클래스 추가
+        imageSelected.classList.add('img-custom-style');
+      
+        // 'Shop' 요소를 찾음
+        const shopElement = document.getElementById('Shop');
+      
+        // 생성된 img 요소를 Shop 페이지에 출력
+        shopElement.appendChild(imageSelected);
+      };
+      imageSelected.src = imagePath;
 
-    // img 요소의 src 속성을 인자로 받은 imageSrc로 설정
-    imageSelected.src = imageSrc;
-    
-    // 생성된 img 요소를 body에 추가
-    document.body.appendChild(imageSelected);
-    
+        imageSelected.classList.add('img-custom-style');
+  
+    // 생성된 img 요소를 Shop 페이지에 출력
+    document.getElementById('Shop').appendChild(imageSelected);
   };
   
 
   return (
-    <div>
+    <div id = "Shop">
       {equippedItemImages.length > 0 && equippedItemImages.map((item, index) => (
         <div key={index} className="equipped-item">
           <img src={item.image} className="equipped-item-image" alt={item.name} />

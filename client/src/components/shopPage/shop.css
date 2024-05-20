@@ -177,10 +177,14 @@ body {height:100%; overflow:hidden;}
     }
   }
 
-  .image-Selected1{
-    background-image: url('../image/plant.png');
+ /* 옷입히기 */
+.img-custom-style {
     position: absolute;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
   }
+  
   
   @keyframes slideDown {
     0% {
