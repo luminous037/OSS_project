@@ -36,10 +36,38 @@
   padding-left: 100px;
 }
 
+h1{
+  position: relative;
+    z-index: 1; /* h1이 이미지 위에 보이도록 설정 */
+  font-family: "on";
+  font-weight: 500;
+  font-size: 40px;
+}
+
+.stack-container{
+  width: 50px;
+  padding-left: 70px;
+  padding-top: 30px;
+  line-height: 35px;
+}
+
+.sun{
+  position: absolute;
+    top: 0%; /* h1 밑에 이미지가 쌓이는 위치 조정 */
+    left: 30%;
+    transform: translateX(-50%);
+    z-index: 0; /* 이미지가 h1 뒤에 보이도록 설정 */
+    
+}
+
+
 .logo-sun-container{
   margin-right: 160px;
   margin-left: -80px;
   background-color: #e6a9e5;
+  position: relative;
+  width: 100%;
+  text-align: center;
 }
 
 .cloud-container{

@@ -3,6 +3,8 @@ import InstructionModal from './Guidebook.js';
 import './Main.css';
 import Cloud from './cloud.js';
 import Seed from './seed.js';
+import moon from '../image/moon.png';
+import sun from '../image/sun.png';
 
 
 
@@ -40,8 +42,12 @@ const MainPage = () => {
       <div className='mainpage-top-container'>
         <div className='logo-modal-container'>
         <div className='logo-sun-container'>
-        <h1>메인 페이지</h1>
+        <div class="stack-container">
+        <h1>Meddy Baby</h1>
         </div>
+        <img src={sun} alt="sun" className="sun" />
+        </div>
+        
         <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
         </div>
         <div className='cloud-container'>
