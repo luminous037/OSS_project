@@ -45,4 +45,8 @@
       transform: translateY(100vh);
     }
   }
+
+  .what{
+    background-color: rgb(77, 47, 177);
+  }
   

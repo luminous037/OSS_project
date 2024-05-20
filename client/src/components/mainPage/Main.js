@@ -112,13 +112,10 @@ const MainPage = () => {
           <div className='mainpage-bottom-container'>
             
         <div className='seed-container'>
-        <div className="App">
-      
-        <button className="button-hover" onClick={() => setIsModalOpen(true)}></button>
-      <Seed rainCount={rainCount} setRainCount={setRainCount} />
-    </div>
+        <Seed rainCount={rainCount} setRainCount={setRainCount} />
         </div>
-        <div className='sign-container'> sign</div>
+        <div className='sign-container'> 
+     </div>
        
         
       </div>

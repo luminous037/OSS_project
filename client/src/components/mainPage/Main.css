@@ -114,6 +114,7 @@ h1{
   height: 90px;
   background-repeat: no-repeat;
   background-size: contain;
+  
 }
 
 /* 화면 중단 요소 */
@@ -128,7 +129,7 @@ h1{
 
 .bench-container{
   position:relative;
-  bottom:30px;
+  bottom:-10px;
   background-color: transparent;
   width: 100%;
   height: 150px;
@@ -144,30 +145,31 @@ h1{
 
 /*화면 하단 요소*/
 .mainpage-bottom-container {
-  background-color: #AFD485; 
+  background-color: #def0a0; 
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column; 
-  height: 50vh; 
+  height: 50%; 
   
 }
 
 .seed-container{
-  background-color: #925d91;
+  background-color: transparent;;
   width: 100%;
-  height: 100px;
+  height: 10px;
   justify-content: center;
   align-items: center;
   position: relative;
   top: -50px;
+  z-index: 500;
   
 }
 
 .sign-container{
   background-color: #def0a0;
   width: 100%;
-  height: 200px;
+  height: 120px;
 }
 
 /*모달 창을 가장 위에 배치*/
@@ -177,10 +179,10 @@ h1{
 
 
   .chick-conainer{
-    background-color: #e6a9e5;
+    background-color: transparent;;
     position: absolute;
     bottom: 300px;
-    right:2px;
+    right:15px;
     width: 40%;
     height: 100px;
     display: flex;

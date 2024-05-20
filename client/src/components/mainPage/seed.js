@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './seed.css';
-import jam from '../image/jam.png';
-import sprout from '../image/chick2.png';
-import flower from '../image/flower.png';
-import tree from '../image/drop.png';
-import rewardTree from '../image/cloud.png'; 
+import seed from '../image/seed.png';
+import sprout from '../image/sprout.png';
+import flower from '../image/flower5.png';
+import tree from '../image/tree.png';
+import rewardTree from '../image/reward.png'; 
+import InstructionModal from './Guidebook.js';
 
 
 function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRainCount 함수를 prop으로 받음
-  const [isModalOpen, setIsModalOpen] = useState(false); //설명창 모달
+  const [isseedModalOpen, setIsseedModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);//설명창 모달
   const [isMoneyModalOpen, setIsMoneyModalOpen] = useState(false); // 보유 금액 모달 상태 추가
   const [selectedSeed, setSelectedSeed] = useState(() => {
     const savedSeed = localStorage.getItem('selectedSeed');
@@ -24,13 +26,13 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
   });
 
   const seeds = [
-    { id: 1, name: '해바라기 씨앗', imageUrl: jam },
-    { id: 2, name: '장미 씨앗', imageUrl: jam },
-    { id: 3, name: '튤립 씨앗', imageUrl: jam }
+    { id: 1, name: '해바라기 씨앗', imageUrl: seed },
+    { id: 2, name: '장미 씨앗', imageUrl: seed },
+    { id: 3, name: '튤립 씨앗', imageUrl: seed }
   ];
 
   const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsseedModalOpen(!isseedModalOpen);
   };
   const toggleMoneyModal = () => {
     setIsMoneyModalOpen(!isMoneyModalOpen);
@@ -96,10 +98,9 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
 
   return (
     <div className="Seed">
-      <button className="plantbutton" onClick={toggleModal}></button>
-      <button className="moneybutton" onClick={toggleMoneyModal}></button> 
+     
 
-      {isModalOpen && (
+      {isseedModalOpen && (
         <div className="modal">
           <h2>씨앗 선택</h2>
           <ul>
@@ -127,11 +128,23 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
       {selectedSeed && (
         <div>
           {renderSeedStage()}
-          <p>선택한 씨앗: {selectedSeed.name}</p>
+          {/*<p>선택한 씨앗: {selectedSeed.name}</p>*/}
+          
+          
         </div>
         
       )}
-      <p>보유 금액: {money}</p>
+      
+      
+
+      <div className="sign-container">
+      <button className="plantbutton" onClick={toggleModal}></button>
+      <button className="moneybutton" onClick={toggleMoneyModal}></button> 
+      <InstructionModal isOpen={isModalOpen} close={() => setIsModalOpen(false)} />
+      <button className="button-hover" onClick={() => setIsModalOpen(true)}></button>
+      </div>
+      
+      
     </div>
   );
 }

@@ -1,3 +1,9 @@
+.Seed {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 중앙 정렬을 원한다면 추가 */
+}
+
 .modal {
   background-color: #8B4513;
   color: white;
@@ -98,14 +104,56 @@
   height: 90px;
   background-repeat: no-repeat;
   background-size: contain;
+  background-color: #def0a0;
 
 }
 
 .moneybutton{
   background-image: url('../image/bagsign.png');
+  background-color: #def0a0;
   width: 100px;
   height: 90px;
   background-repeat: no-repeat;
   background-size: contain;
 
+}
+
+.button-hover{
+  background-color: #def0a0;
+}
+
+.sign-container {
+  display: flex;
+  justify-content: center; /* 중앙 정렬을 원한다면 추가 */
+  gap: 60px; /* 버튼 사이의 간격 조정 */
+}
+
+
+/* 씨앗 이미지 크기 조절 */
+.seed-planted {
+  width: 50px; /* 원하는 크기로 조절 */
+  height: auto;
+}
+
+.sprout {
+  width: 100px; 
+  height: auto;
+}
+
+/* 꽃 이미지 크기 조절 */
+.flower {
+  width: 100px; 
+  height: 90px;
+}
+
+/* 나무 이미지 크기 조절 */
+.tree {
+  width: 150px; 
+  height: 120px;
+}
+
+/* 보상 열린 나무 이미지 크기 조절 */
+.reward-tree {
+  width: 100px; 
+  height: auto;
 }

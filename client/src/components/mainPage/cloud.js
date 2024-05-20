@@ -37,7 +37,7 @@ function Cloud({ onRain }) {
 
   return (
     <div className="App">
-      <button onClick={handleClearClick}>Clear</button>
+      <button className="what" onClick={handleClearClick}>Clear</button>
       <div className="cloud" onClick={handleCloudClick}>
         <img src={cloudImage} alt="Cloud" />
         <div className="cloud-percentage">{percentage}%</div> 
