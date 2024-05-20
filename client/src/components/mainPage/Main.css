@@ -186,7 +186,7 @@ h1{
 
 .balloon {
   position: absolute;
-  top: -50px; /* 말풍선 위치 조절 */
+  top: -80px; /* 말풍선 위치 조절 */
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
@@ -195,6 +195,33 @@ h1{
   padding: 10px;
   width: 200px; /* 말풍선 크기 조절 */
   text-align: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -22px; /* 말풍선 꼬리 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent; /* 말풍선 꼬리 색상 조절 */
+  display: block;
+  width: 0;
+}
+
+.balloon::before {
+  content: '';
+  position: absolute;
+  bottom: -26px; /* 말풍선 꼬리 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 12px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent; /* 말풍선 꼬리 테두리 색상 조절 */
+  display: block;
+  width: 0;
 }
 
 .balloon p {
