@@ -5,9 +5,7 @@ import Cloud from './cloud.js';
 import Seed from './seed.js';
 import moon from '../image/moon.png';
 import sun from '../image/sun.png';
-
-
-
+import bench from '../image/bench.png';
 
 
 const MainPage = () => {
@@ -40,12 +38,13 @@ const MainPage = () => {
     <div className={`mainpage-all-container ${isMorning ? 'morning-background' : 'night-background'}`}>
 
       <div className='mainpage-top-container'>
+      <Cloud onRain={handleRain} />
         <div className='logo-modal-container'>
         <div className='logo-sun-container'>
         <div class="stack-container">
         <h1>Meddy Baby</h1>
         </div>
-        <img src={sun} alt="sun" className="sun" />
+        <img src={isMorning ? sun : moon} alt={isMorning ? "sun" : "moon"} className="sun" />
         </div>
         
         <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
@@ -63,14 +62,16 @@ const MainPage = () => {
 
 
       <div className='mainpage-middle-container'>
-        <div className='bench-container'>bench</div>
+        <div className='bench-container'>
+        <img src={bench} alt="bench" className="bench" />
+        </div>
       </div>
 
           
           <div className='mainpage-bottom-container'>
         <div className='seed-container'>
         <div className="App">
-      <Cloud onRain={handleRain} />
+      
 
       <Seed rainCount={rainCount} setRainCount={setRainCount} />
     </div>
