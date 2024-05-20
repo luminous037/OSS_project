@@ -8,6 +8,7 @@ import sun from '../image/sun.png';
 import bench from '../image/bench.png';
 import star from '../image/star.png';
 import cloud5 from '../image/cloud5.png';
+import chick1 from '../image/chick1.png';
 
 
 
@@ -36,6 +37,38 @@ const MainPage = () => {
       setIsMorning(false);
     }
   }, []);
+
+  /*말풍선 대사*/
+  const phrases = [
+    "Hello!",
+    "The weather is nice today.",
+    "Have a happy day!",
+    "What are you doing now?",
+    "Nice to meet you!"
+  ];
+
+  const [currentPhrase, setCurrentPhrase] = useState('');
+
+  useEffect(() => {
+    // 대사를 처음 한 번 랜덤으로 설정합니다.
+    changePhrase();
+
+    // 5초마다 대사를 랜덤으로 변경합니다.
+    const intervalId = setInterval(() => {
+      changePhrase();
+    }, 5000);
+
+    // 컴포넌트가 언마운트될 때 인터벌을 정리합니다.
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const changePhrase = () => {
+    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    setCurrentPhrase(randomPhrase);
+  };
+
+
+
 
   return (
     <div className={`mainpage-all-container ${isMorning ? 'morning-background' : 'night-background'}`}>
@@ -90,10 +123,12 @@ const MainPage = () => {
         
       </div>
 
-      <div className='chick-conainer'>chick</div>
-
-
-
+      <div className='chick-conainer'>
+    <img src={chick1} alt="chick1" className="chick1" />
+        <div className="balloon">
+          <p>{currentPhrase}</p>
+        </div>
+    </div>
     </div>
   );
 };

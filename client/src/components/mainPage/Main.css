@@ -26,15 +26,17 @@
   background-color: #000000; /* 밤 색상 */
 }
 
+/*해와 로고를 함께 움직이고 싶을 때*/
 .logo-modal-container{
   position:absolute;
   top :0px;
   display: flex;
   flex-direction: row; /* 내용 가로 정렬 */
-  background-color: #c33545; 
+  background-color: transparent;
   width: 100%;
   align-items: center;
   padding-left: 100px;
+  padding-top: 10px;
 }
 
 h1{
@@ -43,6 +45,8 @@ h1{
   font-family: "on";
   font-weight: 500;
   font-size: 35px;
+  color:aliceblue;
+  
 }
 
 /*로고의 위치만 옮기기 위한 conainer*/
@@ -87,7 +91,7 @@ h1{
 .logo-sun-container{
   margin-right: 160px;
   margin-left: -80px;
-  background-color: #b3e6a9;
+  background-color: transparent;
   position: relative;
   width: 100%;
   text-align: center;
@@ -174,4 +178,25 @@ h1{
   right:30px;
   width: 40%;
   height: 200px;
+}
+
+.chick1{
+  width: 100px; /* 병아리 이미지 크기 조절 */
+}
+
+.balloon {
+  position: absolute;
+  top: -50px; /* 말풍선 위치 조절 */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px; /* 말풍선 크기 조절 */
+  text-align: center;
+}
+
+.balloon p {
+  margin: 0;
 }
