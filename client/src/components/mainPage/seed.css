@@ -1,0 +1,93 @@
+.modal {
+  background-color: #8B4513;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.seed-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 텍스트와 이미지 사이의 간격 */
+  cursor: pointer;
+  padding: 10px;
+}
+
+.seed-list-item:hover {
+  background-color: #A0522D;
+}
+
+.seed-image-container {
+  width: 50px; 
+  height: 50px; 
+  background-color: white; 
+  border: 1px solid #ddd; /* 사각형 테두리 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seed-image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.seed-plant-animation {
+  animation: plantSeed 0.5s forwards;
+}
+
+@keyframes plantSeed {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes plantSeedAnimation {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+
+.seed-planted {
+  animation: plantSeedAnimation 1s ease-in-out forwards;
+}
+
+@keyframes sproutAnimation {
+  from {
+    transform: scale(1);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.sprout {
+  width: 50px;
+  animation: sproutAnimation 0.5s ease-in-out forwards;
+}
+
+.reward-tree {
+  width: 100px;
+}
+
+.reward-tree + button {
+  display: block;
+  margin-top: 10px;
+}

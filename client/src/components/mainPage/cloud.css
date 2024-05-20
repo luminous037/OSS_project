@@ -1,0 +1,27 @@
+.cloud {
+    font-size: 50px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cloud.rain-animation::after {
+    content: '💧💧💧';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: rain 3s infinite;
+    z-index: 300;
+  }
+  
+  @keyframes rain {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+  
