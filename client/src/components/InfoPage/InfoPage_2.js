@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import './InfoPage_2.css';
 
 <img src="/edge.jpg"></img>
@@ -7,6 +7,77 @@ import './InfoPage_2.css';
 
 
 function InfoPage_2() {
+
+  const [mediData, setMediData] = useState({ //기본 데이터 저장 구조
+    mediName: '',
+    time: '',
+    detail: {
+        morning: false,
+        afternoon: false,
+        evening: false,
+        before: false,
+        after: false,
+        time: ''
+    }
+});
+
+const [childName, setUserName] = useState('');
+
+useEffect(() => {  //이름 출력
+  fetch('/userProfile')
+  .then(response => response.json())
+  .then(data => {
+    const userName = data.map(user => user.userName);     // 받은 데이터에서 이름만 추출
+    setUserName(userName);
+  })
+  .catch(error => {
+      console.error('유저 정보를 가져오는 중 에러:', error);
+  });
+}, []);
+
+const navigate=useNavigate();
+
+const fetchData = (data) => { //데이터 저장
+    fetch('http://localhost:4000/addList', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+      navigate('/InfoPage_1/InfoPage_2/InfoPage_3'); // 저장 후 페이지 이동
+    })
+    .catch(err => {
+        console.error('fetchData 중 오류: ', err);
+    });
+};
+
+const handleChange = (e) => { //medidata 이름
+    setMediData({
+        ...mediData,
+        mediname: e.target.value
+    });
+};
+
+const dataSave = () => { //medidata 복용법 수정
+    const infoData ={
+      morning: buttonStates.morning,
+      afternoon: buttonStates.afternoon,
+      evening: buttonStates.evening,
+      before: checkBox.before,
+      after: checkBox.after,
+      time: time
+    }
+    const updatedMediData = {
+      ...mediData,
+      detail: infoData
+    };
+    setMediData(updatedMediData);
+    console.log("약 정보: ",updatedMediData); // 업데이트된 mediData 객체를 콘솔에 출력
+    fetchData(updatedMediData); // 저장과 함께 이동
+};
+
   const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
     morning: false,
     afternoon: false,
@@ -38,20 +109,6 @@ const toggleCheckBox = (checkBoxName) => {
     const handleTimeChange = (event) => {
       setTime(event.target.value);
     };
-
-    const [childName, setUserName] = useState('');
-
-    useEffect(() => {
-      fetch('/userProfile')
-      .then(response => response.json())
-      .then(data => {
-        const userName = data.map(user => user.userName);     // 받은 데이터에서 이름만 추출
-        setUserName(userName);
-      })
-      .catch(error => {
-          console.error('유저 정보를 가져오는 중 에러:', error);
-      });
-    }, []);
   
   
     return (
@@ -175,7 +232,7 @@ const toggleCheckBox = (checkBoxName) => {
         
 
         <div className="navigator">
-       <Link to="./InfoPage_3" className="nav-item">다음</Link>
+        <button onClick={dataSave} className="nav-item">다음</button>
       </div>
 
      </div>

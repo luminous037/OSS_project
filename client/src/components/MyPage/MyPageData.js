@@ -49,11 +49,8 @@ function MyPageData() { //마이페이지 내용 불러옴
     const deleteData =DeleteReq(id); // 삭제 요청 보내기
     deleteData();
     setMedicine(prevMedicine => prevMedicine.filter(item => item._id !== id)) // UI에서 제거
-    console.log(id);
   }
 
-  console.log(medicine)
-  
   return( //출력
    <div>
     {medicine && (

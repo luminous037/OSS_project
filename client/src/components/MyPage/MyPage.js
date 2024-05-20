@@ -32,7 +32,6 @@ function MyPage() {  //마이페이지 기본 틀
             userName: data[0].userName,
             alaram: data[0].alaram
           };
-          console.log(userData);
           setUserData(userData);
         }
       })
