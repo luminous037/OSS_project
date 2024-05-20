@@ -109,7 +109,11 @@ h1{
 
 /*사용설명서 버튼*/
 .button-hover {
-  background-color: #925d91;
+  background-image: url('../image/exsign.png');
+  width: 100px;
+  height: 90px;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 /* 화면 중단 요소 */
@@ -176,7 +180,7 @@ h1{
     background-color: #e6a9e5;
     position: absolute;
     bottom: 300px;
-    right:0px;
+    right:2px;
     width: 40%;
     height: 100px;
     display: flex;

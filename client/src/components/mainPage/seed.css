@@ -91,3 +91,21 @@
   display: block;
   margin-top: 10px;
 }
+
+.plantbutton{
+  background-image: url('../image/seedsign.png');
+  width: 100px;
+  height: 90px;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+}
+
+.moneybutton{
+  background-image: url('../image/bagsign.png');
+  width: 100px;
+  height: 90px;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+}

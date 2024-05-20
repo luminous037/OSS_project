@@ -4,7 +4,8 @@ import jam from '../image/jam.png';
 import sprout from '../image/chick2.png';
 import flower from '../image/flower.png';
 import tree from '../image/drop.png';
-import rewardTree from '../image/cloud.png'; // 보상 열린 나무 이미지 추가
+import rewardTree from '../image/cloud.png'; 
+
 
 function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRainCount 함수를 prop으로 받음
   const [isModalOpen, setIsModalOpen] = useState(false); //설명창 모달
@@ -95,8 +96,8 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
 
   return (
     <div className="Seed">
-      <button onClick={toggleModal}>씨앗 심기</button>
-      <button onClick={toggleMoneyModal}>보유 금액 확인</button> {/* 보유 금액 확인 버튼 추가 */}
+      <button className="plantbutton" onClick={toggleModal}></button>
+      <button className="moneybutton" onClick={toggleMoneyModal}></button> 
 
       {isModalOpen && (
         <div className="modal">

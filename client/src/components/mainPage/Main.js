@@ -114,7 +114,7 @@ const MainPage = () => {
         <div className='seed-container'>
         <div className="App">
       
-        <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
+        <button className="button-hover" onClick={() => setIsModalOpen(true)}></button>
       <Seed rainCount={rainCount} setRainCount={setRainCount} />
     </div>
         </div>

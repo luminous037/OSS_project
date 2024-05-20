@@ -17,6 +17,14 @@
     transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위해 */
     color: black; /* 텍스트 색상은 배경에 맞게 조정 */
     font-weight: bold;
+    font-family: "np";
+    font-size:40px;
+  }
+
+  @font-face {
+    font-family: "np";
+    font-weight: bold;
+    src: url("../../fonts/NPSfont_bold.ttf");
   }
   
   .cloud.rain-animation::after {
