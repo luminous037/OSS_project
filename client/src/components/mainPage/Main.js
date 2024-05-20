@@ -8,7 +8,7 @@ import sun from '../image/sun.png';
 import bench from '../image/bench.png';
 import star from '../image/star.png';
 import cloud5 from '../image/cloud5.png';
-import chick1 from '../image/chick1.png';
+import chick4 from '../image/chick4.png';
 
 
 
@@ -40,11 +40,11 @@ const MainPage = () => {
 
   /*말풍선 대사*/
   const phrases = [
-    "Hello!",
-    "The weather is nice today.",
-    "Have a happy day!",
-    "What are you doing now?",
-    "Nice to meet you!"
+    "안녕!",
+    "좋은 하루 보내!",
+    "약 먹는 멋진 어린이!",
+    "오늘 기분 어때?",
+    "만나서 반가워!"
   ];
 
   const [currentPhrase, setCurrentPhrase] = useState('');
@@ -124,7 +124,7 @@ const MainPage = () => {
       </div>
 
       <div className='chick-conainer'>
-    <img src={chick1} alt="chick1" className="chick1" />
+    <img src={chick4} alt="chick4" className="chick4" />
         <div className="balloon">
           <p>{currentPhrase}</p>
         </div>

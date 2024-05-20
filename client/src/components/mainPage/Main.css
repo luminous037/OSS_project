@@ -171,24 +171,35 @@ h1{
   z-index: 1000; /*쌓임 순서 지정 숫자가 높을 수록 위에 쌓임*/
 }
 
-.chick-conainer{
-  background-color: #e6a9e5;
-  position: absolute;
-  bottom: 50px;
-  right:30px;
-  width: 40%;
-  height: 200px;
-}
 
-.chick1{
+  .chick-conainer{
+    background-color: #e6a9e5;
+    position: absolute;
+    bottom: 300px;
+    right:0px;
+    width: 40%;
+    height: 100px;
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 정렬 */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+
+.chick4{
+  position: absolute;
   width: 100px; /* 병아리 이미지 크기 조절 */
+  padding-right: 25px;
+  
 }
 
 .balloon {
-  position: absolute;
+  position: relative;
   top: -80px; /* 말풍선 위치 조절 */
   left: 50%;
   transform: translateX(-50%);
+
   background: #fff;
   border: 2px solid #000;
   border-radius: 10px;
@@ -196,6 +207,8 @@ h1{
   width: 200px; /* 말풍선 크기 조절 */
   text-align: center;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: "on";
+  font-size:25px;
 }
 
 .balloon::after {
