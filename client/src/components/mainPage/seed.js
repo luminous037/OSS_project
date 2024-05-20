@@ -7,7 +7,8 @@ import tree from '../image/drop.png';
 import rewardTree from '../image/cloud.png'; // 보상 열린 나무 이미지 추가
 
 function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRainCount 함수를 prop으로 받음
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); //설명창 모달
+  const [isMoneyModalOpen, setIsMoneyModalOpen] = useState(false); // 보유 금액 모달 상태 추가
   const [selectedSeed, setSelectedSeed] = useState(() => {
     const savedSeed = localStorage.getItem('selectedSeed');
     return savedSeed ? JSON.parse(savedSeed) : null;
@@ -29,6 +30,9 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+  const toggleMoneyModal = () => {
+    setIsMoneyModalOpen(!isMoneyModalOpen);
   };
 
   const selectSeed = (seed) => {
@@ -92,6 +96,8 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
   return (
     <div className="Seed">
       <button onClick={toggleModal}>씨앗 심기</button>
+      <button onClick={toggleMoneyModal}>보유 금액 확인</button> {/* 보유 금액 확인 버튼 추가 */}
+
       {isModalOpen && (
         <div className="modal">
           <h2>씨앗 선택</h2>
@@ -105,6 +111,15 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
               </li>
             ))}
           </ul>
+        </div>
+      )}
+
+
+{isMoneyModalOpen && (
+        <div className="modal">
+          <h2>보유 금액</h2>
+          <p>보유 금액: {money}</p>
+          <button onClick={toggleMoneyModal}>닫기</button> {/* 닫기 버튼 추가 */}
         </div>
       )}
 
