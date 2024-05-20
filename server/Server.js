@@ -46,7 +46,7 @@ app.get('/userProfile',(req,res)=>{
     const database=getDatabase();
     const userCollection = database.collection("user");
 
-    userCollection.find({},{projection:{_id:0, userName:1}})
+    userCollection.find({},{projection:{_id:0, userName:1, alarm:1}})
     .toArray()
     .then(result=>{
         res.send(result);

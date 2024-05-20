@@ -1,18 +1,45 @@
 import './MyPage.css'
-import {useState} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import { Link} from 'react-router-dom';
-import {useRef} from 'react';
 import Switch from 'react-switch';
 import { createPortal } from 'react-dom';
 import MyPageData from './MyPageData';
 
 function MyPage() {  //마이페이지 기본 틀
 
-  const [alarmChecked, setAlarmChecked] = useState(false); //알람 설정 on/off 저장
+  useEffect(() => { //유저 정보 불러오기
+    fetch('/userProfile')
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const userData = {
+            userName: data[0].userName,
+            alaram: data[0].alaram
+          };
+          console.log(userData);
+          setUserData(userData);
+        }
+      })
+      .catch(error => {
+        console.error('유저 정보를 가져오는 중 에러:', error);
+      });
+  }, []);
+
+
+  const [userData, setUserData] =useState({ //유저 정보
+
+    userName:'',
+    alaram: false
+
+  }); 
 
   const handleChange = (checked) => {
-    setAlarmChecked(checked);
+    setUserData(prevUserData => ({
+      ...prevUserData,
+      alaram: checked
+    }));
   };
+  
 
   const [modalOpen, setModalOpen] = useState(false);
   const modalBackground = useRef();
@@ -31,7 +58,9 @@ function MyPage() {  //마이페이지 기본 틀
           <img className="profile_image" src="/myPage_profile1.png" alt="profile"/>
           <div  className="text_setting">
             <h1>이름</h1>
-            <input className="profile_input"></input>
+            <div className="profile_input">
+              <h2>{userData.userName}</h2>
+            </div>
               <button className="profile_input_button" onClick={() => setModalOpen(true)}>수정</button>
           </div>
           <>
@@ -58,7 +87,7 @@ function MyPage() {  //마이페이지 기본 틀
           </>
           <br></br>
           <div className="text_setting"><h2 >알람 설정</h2>
-          <Switch onChange={handleChange} checked={alarmChecked}  onColor="#8CD7F2" className="switch" />
+          <Switch onChange={handleChange} checked={userData.alaram}  onColor="#8CD7F2" className="switch" />
           </div>
           
           
