@@ -31,7 +31,7 @@
     content: '💧💧💧';
     position: absolute;
     bottom: -20px;
-    left: 50%;
+    left: 25%;
     transform: translateX(-50%);
     animation: rain 3s infinite;
     z-index: 300;
@@ -42,7 +42,7 @@
       transform: translateY(0);
     }
     100% {
-      transform: translateY(100vh);
+      transform: translateY(40vh);
     }
   }
 

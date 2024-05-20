@@ -6,6 +6,8 @@ import flower from '../image/flower5.png';
 import tree from '../image/tree.png';
 import rewardTree from '../image/reward.png'; 
 import InstructionModal from './Guidebook.js';
+import star2 from '../image/star2.png';
+import flowerly from '../image/flower.png';
 
 
 function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRainCount 함수를 prop으로 받음
@@ -26,9 +28,9 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
   });
 
   const seeds = [
-    { id: 1, name: '해바라기 씨앗', imageUrl: seed },
-    { id: 2, name: '장미 씨앗', imageUrl: seed },
-    { id: 3, name: '튤립 씨앗', imageUrl: seed }
+    { id: 1, name: '평범한 씨앗', imageUrl: seed },
+    { id: 2, name: '별 씨앗', imageUrl: star2 },
+    { id: 3, name: '노란 씨앗', imageUrl: flowerly }
   ];
 
   const toggleModal = () => {
@@ -102,7 +104,8 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
 
       {isseedModalOpen && (
         <div className="modal">
-          <h5> 🌱 씨앗 선택 🌱</h5>
+          <p5>•--------------•</p5>
+          <p5> 🌱 씨앗 선택 🌱</p5>
           <ul>
             {seeds.map((seed) => (
               <li key={seed.id} onClick={() => selectSeed(seed)} className="seed-list-item">
@@ -111,17 +114,21 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
                 </div>
                 <span>{seed.name}</span>
               </li>
+              
             ))}
+            <button  className="seedcancelbutton" onClick={toggleModal}>[닫기]</button> 
           </ul>
+          
         </div>
       )}
 
 
 {isMoneyModalOpen && (
         <div className="modal">
-          <h2>보유 금액</h2>
-          <p>보유 금액: {money}</p>
-          <button onClick={toggleMoneyModal}>닫기</button> {/* 닫기 버튼 추가 */}
+          <p3>•--------------•</p3>
+          <h7>💰 보유 금액 💰</h7>
+          <p3>보유 금액: {money}</p3>
+          <button className="moneycancelbutton"onClick={toggleMoneyModal}>[닫기]</button> {/* 닫기 버튼 추가 */}
         </div>
       )}
 
