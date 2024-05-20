@@ -7,39 +7,30 @@ import './InfoPage_2.css';
 
 
 function InfoPage_2() {
-    // 첫 번째 체크박스의 상태를 관리하는 useState 훅 사용
-    const [isChecked1, setIsChecked1] = useState(false);
-  
-    // 첫 번째 체크박스 상태를 토글하는 함수
-    const toggleCheckbox1 = () => {
-      setIsChecked1(!isChecked1);
-    };
+  const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
+    morning: false,
+    afternoon: false,
+    evening: false 
+});
 
-    // 두 번째 체크박스의 상태를 관리하는 useState 훅 사용
-    const [isChecked2, setIsChecked2] = useState(false);
-  
-    // 두 번째 체크박스 상태를 토글하는 함수
-    const toggleCheckbox2 = () => {
-      setIsChecked2(!isChecked2);
-    };
+const toggleButton = (buttonName) => {
+    setButtonStates(prevState => ({
+        ...prevState,
+        [buttonName]: !prevState[buttonName]
+    }));
+};
 
-    // 각 버튼의 상태를 관리하는 useState 훅 사용
-    const [isButtonChecked1, setIsButtonChecked1] = useState(false);
-    const [isButtonChecked2, setIsButtonChecked2] = useState(false);
-    const [isButtonChecked3, setIsButtonChecked3] = useState(false);
+const [checkBox, setCheckBox] = useState({  //식 전후
+    before: false,
+    after: false
+});
 
-    // 각 버튼의 상태를 토글하는 함수
-    const toggleButton1 = () => {
-      setIsButtonChecked1(!isButtonChecked1);
-    };
-    
-    const toggleButton2 = () => {
-      setIsButtonChecked2(!isButtonChecked2);
-    };
-    
-    const toggleButton3 = () => {
-      setIsButtonChecked3(!isButtonChecked3);
-    };
+const toggleCheckBox = (checkBoxName) => { 
+    setCheckBox(prevState => ({
+        ...prevState,
+        [checkBoxName]: !prevState[checkBoxName]
+    }));
+};
 
     // 시간 입력을 위한 상태와 상태 변경 함수
     const [time, setTime] = useState('');
@@ -81,11 +72,11 @@ function InfoPage_2() {
         
         <div className="morning">
         <button 
-          onClick={toggleButton1}
+          onClick={() => toggleButton('morning')}
           style={{ 
-            backgroundColor: isButtonChecked1 ? '#87CEEB' : 'white', 
-            color: isButtonChecked1 ? 'white' : '#87CEEB',
-            border: isButtonChecked1 ? '2px solid #87CEEB' : '2px solid #87CEEB',
+            backgroundColor: buttonStates.morning ? '#87CEEB' : 'white', 
+            color: buttonStates.morning ? 'white' : '#87CEEB',
+            border: buttonStates.morning ? '2px solid #87CEEB' : '2px solid #87CEEB',
             borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
             padding: '0px 25px', 
             fontSize: '8px' // 폰트 크기 조절
@@ -102,11 +93,11 @@ function InfoPage_2() {
           
 
         <button 
-          onClick={toggleButton2}
+          onClick={() => toggleButton('afternoon')}
           style={{ 
-            backgroundColor: isButtonChecked2 ? '#87CEEB' : 'white', 
-            color: isButtonChecked2 ? 'white' : '#87CEEB',
-            border: isButtonChecked2 ? '2px solid #87CEEB' : '2px solid #87CEEB',
+            backgroundColor:  buttonStates.afternoon ? '#87CEEB' : 'white', 
+            color:  buttonStates.afternoon ? 'white' : '#87CEEB',
+            border:  buttonStates.afternoon ? '2px solid #87CEEB' : '2px solid #87CEEB',
             borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
             padding: '0px 25px', /* 내부 여백 조절 (위 아래 10px, 좌 우 20px) */
             fontSize: '8px'
@@ -122,11 +113,11 @@ function InfoPage_2() {
         <div className="dinner">
 
         <button 
-          onClick={toggleButton3}
+          onClick={() => toggleButton('evening')}
           style={{ 
-            backgroundColor: isButtonChecked3 ? '#87CEEB' : 'white', 
-            color: isButtonChecked3 ? 'white' : '#87CEEB',
-            border: isButtonChecked3 ? '2px solid #87CEEB' : '2px solid #87CEEB',
+            backgroundColor:  buttonStates.evening? '#87CEEB' : 'white', 
+            color:  buttonStates.evening ? 'white' : '#87CEEB',
+            border:  buttonStates.evening ? '2px solid #87CEEB' : '2px solid #87CEEB',
             borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
             padding: '0px 25px', 
             fontSize: '8px'
@@ -149,8 +140,8 @@ function InfoPage_2() {
         <div className="after">
         <input
           type="checkbox" //체크박스1
-          checked={isChecked1} // 현재 상태에 따라 체크 여부 결정
-          onChange={toggleCheckbox1} // 체크박스 상태 변경 시 호출되는 함수
+          checked={checkBox.after} // 현재 상태에 따라 체크 여부 결정
+          onChange={() => toggleCheckBox('after')} // 체크박스 상태 변경 시 호출되는 함수
         />
         <label>식후 30분</label>
         </div>
@@ -159,8 +150,8 @@ function InfoPage_2() {
        <div className="before">
          <input
           type="checkbox" //체크박스2
-          checked={isChecked2} 
-          onChange={toggleCheckbox2} 
+          checked={checkBox.before} 
+          onChange={() => toggleCheckBox('before')} 
         />
         <label>식전 30분</label>
        </div>
