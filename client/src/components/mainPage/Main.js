@@ -6,6 +6,8 @@ import Seed from './seed.js';
 import moon from '../image/moon.png';
 import sun from '../image/sun.png';
 import bench from '../image/bench.png';
+import star from '../image/star.png';
+import cloud5 from '../image/cloud5.png';
 
 
 
@@ -47,11 +49,16 @@ const MainPage = () => {
         </div>
         <img src={isMorning ? sun : moon} alt={isMorning ? "sun" : "moon"} className="sun" />
         </div>
-        
-        <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
+        <img src={isMorning ? cloud5 : star} alt={isMorning ? "cloud4" : "star"} className="star" />
         </div>
+
+
+        <img src={isMorning ? cloud5 : star} alt={isMorning ? "cloud5" : "star"} className="star1" />
+        
         <div className='cloud-container'>
+          
         <Cloud onRain={handleRain} />
+        <img src={isMorning ? cloud5 : star} alt={isMorning ? "cloud5" : "star"} className="star3" />
         </div>
       </div>
 
@@ -70,10 +77,11 @@ const MainPage = () => {
 
           
           <div className='mainpage-bottom-container'>
+            
         <div className='seed-container'>
         <div className="App">
       
-
+        <button className="button-hover" onClick={() => setIsModalOpen(true)}>사용 설명 보기</button>
       <Seed rainCount={rainCount} setRainCount={setRainCount} />
     </div>
         </div>

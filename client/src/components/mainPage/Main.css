@@ -48,7 +48,7 @@ h1{
 /*로고의 위치만 옮기기 위한 conainer*/
 .stack-container{
   width: 50px;
-  padding-left: 50px;
+  padding-left: 60px;
   padding-top: 20px;
   line-height: 35px;
 }
@@ -62,6 +62,26 @@ h1{
     z-index: 0; /* 이미지가 h1 뒤에 보이도록 설정 */
     
 }
+
+.star{
+  position: absolute;
+  padding-left: 350px;
+  width: 20px;
+}
+
+.star1{
+  position: absolute;
+  padding-left: 25px;
+  width: 20px;
+}
+
+.star3{
+  position: absolute;
+  padding-left: 320px;
+  padding-top: 20px;
+  width: 20px;
+}
+
 
 
 .logo-sun-container{
@@ -116,7 +136,7 @@ h1{
 
 /*화면 하단 요소*/
 .mainpage-bottom-container {
-  background-color: #B8E9FF; 
+  background-color: #AFD485; 
   display: flex;
   justify-content: center;
   align-items: center;
