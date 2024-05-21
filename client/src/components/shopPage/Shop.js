@@ -19,6 +19,10 @@ function Shop() {
     const [currentItem, setCurrentItem] = useState(null);
     const [equippedItemImages, setEquippedItemImages] = useState([]);
 
+    let lastImage = null; // 전역 변수로 lastImage 선언
+    let lock = false;//test
+    const shopElement = document.getElementById('Shop');
+
   const getItemImage = (id) => {
     switch(id) {
       case 1: return plant;
@@ -32,13 +36,16 @@ function Shop() {
   };
 
   const handlePurchase = (item) => {
-    if (purchaseStatus[item.id]) { // 구매 완료된 아이템을 클릭한 경우
+
+    if (purchaseStatus[item.id]) {// 구매 완료된 아이템을 클릭한 경우
       showSelectImage(item.id); // 여기서 showSelectImage 호출
-    } else {
+    } 
+    else {
       setCurrentItem(item);
       setModalIsOpen(true);
     }
   };
+
 
   const confirmPurchase = () => {
     if (point < currentItem.price) {
@@ -53,10 +60,12 @@ function Shop() {
     setCharacterEquip(prevEquip => ({ ...prevEquip, [currentItem.id]: true }));
     setModalIsOpen(false); // 모달 닫힘
     showExplosionAnimation(); // 폭죽 애니메이션 실행
+    lastImage=null;
   };
 
   const cancelPurchase = () => {
     setModalIsOpen(false);
+    setCurrentItem(null);
   };
 
   const showExplosionAnimation = () => {
@@ -77,11 +86,11 @@ function Shop() {
     { id: 6, name: '황금왕관', price: 5000 },
   ];
 
+  
+
   const showSelectImage = (imageSrc) => {
-    // img 요소를 생성
     const imageSelected = document.createElement('img');
   
-    // imageSrc 값에 따라 다른 이미지 파일 경로를 설정
     let imagePath = '';
     switch (imageSrc) {
       case 1:
@@ -107,59 +116,29 @@ function Shop() {
         return; // 유효하지 않은 경우 함수 종료
     }
   
-    // 선택한 이미지 파일 경로로 img 요소의 src 속성 설정
     imageSelected.src = imagePath;
-
-    const showSelectImage = (imageSrc) => {
-        // img 요소를 생성
-        const imageSelected = document.createElement('img');
-      
-        // imageSrc 값에 따라 다른 이미지 파일 경로를 설정
-        let imagePath = '';
-        switch (imageSrc) {
-          case 1:
-            imagePath = plant;
-            break;
-          case 2:
-            imagePath = santa;
-            break;
-          case 3:
-            imagePath = dragon;
-            break;
-          case 4:
-            imagePath = witch;
-            break;
-          case 5:
-            imagePath = ribbon;
-            break;
-          case 6:
-            imagePath = crown;
-            break;
-          default:
-            console.log('유효하지 않은 imageSrc 값입니다.');
-            return; // 유효하지 않은 경우 함수 종료
-        }
-      
-        // 선택한 이미지 파일 경로로 img 요소의 src 속성 설정
-        imageSelected.src = imagePath;
-      
-        // 이미지에 스타일 클래스 추가
-        imageSelected.classList.add('img-custom-style');
-      
-        // 'Shop' 요소를 찾음
-        const shopElement = document.getElementById('Shop');
-      
-        // 생성된 img 요소를 Shop 페이지에 출력
-        shopElement.appendChild(imageSelected);
-      };
-      imageSelected.src = imagePath;
-
-        imageSelected.classList.add('img-custom-style');
+    imageSelected.classList.add('img-custom-style');
   
-    // 생성된 img 요소를 Shop 페이지에 출력
-    document.getElementById('Shop').appendChild(imageSelected);
+    // 이전 이미지가 존재하면 제거
+    const lastImageId = localStorage.getItem('lastImageId');
+    if (lastImageId) {
+      const lastImageElement = document.getElementById(lastImageId);
+      if (lastImageElement) {
+        shopElement.removeChild(lastImageElement);
+      }
+    }
+  
+    // 새로운 이미지를 Shop 페이지에 출력
+    const newImageId = `image-${imageSrc}`;
+    imageSelected.id = newImageId;
+    shopElement.appendChild(imageSelected);
+  
+    // 마지막 이미지를 현재 이미지로 업데이트
+    localStorage.setItem('lastImageId', newImageId);
+    lock = true; //test
+  
+    console.log(imageSelected);
   };
-  
 
   return (
     <div id = "Shop">

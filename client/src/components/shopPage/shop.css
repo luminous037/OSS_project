@@ -180,8 +180,10 @@ body {height:100%; overflow:hidden;}
  /* 옷입히기 */
 .img-custom-style {
     position: absolute;
-    width: 200px;
-    height: 200px;
+    top:0%;
+    left:38%;
+    width: 100px;
+    height: 100px;
     margin: 10px;
   }
   
