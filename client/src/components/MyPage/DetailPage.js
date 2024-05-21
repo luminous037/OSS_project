@@ -1,11 +1,15 @@
 import './DetailPage.css';
-import {useState} from 'react';
-import {useEffect} from 'react';
+import { useLocation } from 'react-router-dom'; // useParams 추가
 import {PageCanvas} from './PageCanvas'
 
 function DetailPage(){
-    return (
-        <PageCanvas name='3' time={2} detail={3} />
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id'); // 쿼리 파라미터로부터 id 값을 가져옴
+
+    return(
+        <PageCanvas id={id} />
     );
 }
 

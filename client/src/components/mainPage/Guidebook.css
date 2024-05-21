@@ -194,9 +194,7 @@
     border-radius: 30px;
   }
   
-  .button:hover {
-    background-color: #70869e;
-  }
+
 
   /*폰트*/
   @font-face {

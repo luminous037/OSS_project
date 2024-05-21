@@ -22,7 +22,6 @@ function App() {
           <Route path="/App" element={<App />} />
           <Route path="/Start" element={<Start />} />
           <Route path="/Main" element={<Main />} />
-          <Route path="/Alarm" element={<Alarm />} />
           <Route path="/InfoPage_1" element={<InfoPage_1 />} />
           <Route path="/InfoPage_1/InfoPage_2" element={<InfoPage_2 />} />
           <Route path="/InfoPage_1/InfoPage_2/InfoPage_3" element={<InfoPage_3 />} />

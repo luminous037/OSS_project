@@ -21,28 +21,85 @@
   
   .profile{
     background: rgba(255, 255, 255, 0.753);
-    height: 55%;
+    height: 70%;
     padding-right: 4%;
     border-bottom: 3px solid #8CD7F2;
   }
   
+  .profile_image{
+    position:relative;
+    width: 30%;
+    left: 15%;
+    top: 15%;
+  }
+  
+  .text_setting{
+    position:relative;
+    bottom: 40%;
+    margin-left: 60%;
+  }
+
+    
+  .name_setting{
+    font-size:large;
+  }
+
+  .profile_input{
+    background-color:rgba(255, 255, 255, 0.805);
+    border: 3px solid #8CD7F2; 
+    border-radius: 15px; 
+    padding-right:10%;
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .profile_input_button{
+    position: absolute;
+    width:20%;
+    height:37%;
+    left: 80%;
+    font-size:small;
+    background-color: rgb(126, 197, 255);
+    color: #FFFFFF; /* 흰색 */
+    border: 3px solid  rgb(126, 197, 255);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .alarm_text{
+    position: absolute;
+  }
+
+  .switch {
+    float: right;
+    margin-right: 70%;
+  }
   
   .medicine_title{
-    text-align: left;
-    padding-left: 5%;
-    margin-bottom:-3%;
+    position: absolute;
+    bottom: -3%;
+    width: 100%;
+    height:12%;
     border-bottom: 3px solid#8CD7F2;
+  }
+
+  .title{
+    padding-right:40%;
   }
   
   .medicine_list{
-    background-color:#FFFFFF;
-    margin-left: -8%;
+    position: relative;
+    background-color:#ffffff;
+    color: black;
     border: none;
-    border-bottom: 2px solid  #8CD7F2;
-    width: 100vw;
+    border-bottom: 3px solid  #8CD7F2;
+    width: 110%;
     height: 8vh;
+    left:-8%;
     text-align:left;
     padding-left: 5%;
+    padding-bottom: 14%;
     cursor: pointer;
   }
 
@@ -50,17 +107,14 @@
   .list_setting{
     list-style-type: none;
   }
-  
-  .name_setting{
-    font-size:large;
-    
-  }
+
 
   .delete_button{
     position: absolute;
     left: 85%;
+    bottom:0%;
     width: 8%;
-    height: 7%;
+    height: 100%;
     background-image: url('../../../public/delete_button.png');
     background-size: 100%;
     background-repeat: no-repeat;
@@ -70,36 +124,69 @@
     background-color: white;
   }
 
-  .text_setting{
-    margin-left: 60%;
-  }
 
-  .switch {
-    float: right;
-    margin-right: 70%;
-  }
-
-  .profile_input{
-    background-color:rgba(255, 255, 255, 0.805);
-    border: 3px solid #8CD7F2; 
-    border-radius: 5px; 
-    padding: 5px; 
-    font-size: 17px;
-    text-align: center;
-    width: 140px;
-  }
-
-  .profile_input_button{
+  .add_list_button{
     position: relative;
-    left: 10px;
+    left: 45%;
+    bottom:-15%;
+    cursor: pointer;
+  }
+
+
+  .btn_wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+  }
+  
+  .modal_close_button{
+    position: absolute;
+    bottom: 40%;
+    right:43%;
     background-color: rgb(126, 197, 255);
     color: #FFFFFF; /* 흰색 */
     border: 3px solid  rgb(126, 197, 255);
     border-radius: 10px;
     cursor: pointer;
   }
+  
+  .modal_container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal_content {
+    background-color: #ffffff;
+    border: 3px solid  rgb(126, 197, 255);
+    border-radius: 10px;
+    width: 50%;
+    height: 28%;
+    padding: 15px;
+  }
 
-  .add_list_button{
+  .modal_input {
     position: relative;
-    left: 250px;
+    background-color:rgba(240, 240, 240, 0.805);
+    left:10%;
+    bottom: 5%;
+    border: 3px solid #7dd1f0; 
+    border-radius: 5px; 
+    padding: 3%; 
+    font-size: 17px;
+    text-align: center;
+    width: 70%;
+  }
+
+  .modal_text{
+    position:relative;
+    bottom: 5%;
+    left: 5%;
+    color:#395b68;
   }
