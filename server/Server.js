@@ -5,6 +5,7 @@ const cors = require('cors');
 const { dbConnect, getDatabase } = require('./DbConnect');
 const { ObjectId } = require('mongodb');
 const cookieParser = require('cookie-parser');
+require('dotenv').config(); //환경 변수
 
 
 const port = process.env.PORT || 4000; //서버 포트 번호
@@ -50,7 +51,7 @@ app.post('/saveName', (req, res) => {
     userCollection.updateOne(
       { userName: current.userName }, // 기존 이름으로 문서 찾기
       { $set: { userName: updated.newName
-        //, alaram: updated.changeAlarm 
+        //, alaram: updated.changeAlarm   //현재 프록시 오류로 인해 잠시 주석 처리
         } } // 새로운 이름으로 업데이트
     )
     .then(() => {
