@@ -29,8 +29,8 @@ function MyPageData() { //마이페이지 내용 불러옴
 
   const navigate=useNavigate();
 
-  const goDetailPage=()=>{ //상세 페이지 이동
-  navigate('/DetailPage');
+  const goDetailPage=(id)=>()=>{ //상세 페이지 이동
+    navigate(`/DetailPage?id=${id}`);
   };
 
   useEffect(() => {
@@ -49,7 +49,6 @@ function MyPageData() { //마이페이지 내용 불러옴
     const deleteData =DeleteReq(id); // 삭제 요청 보내기
     deleteData();
     setMedicine(prevMedicine => prevMedicine.filter(item => item._id !== id)) // UI에서 제거
-    console.log(id);
   }
 
   return( //출력
@@ -57,7 +56,7 @@ function MyPageData() { //마이페이지 내용 불러옴
     {medicine && (
       <ul className="list_setting">
         {medicine.map((item, index) => (
-           <button onClick={goDetailPage} className="medicine_list" >
+           <button onClick={goDetailPage(item._id)} className="medicine_list" >
              <li key={index}>
                <h4 className="name_setting">{item.mediName}
                 <button className="delete_button" onClick={(e)=>{
