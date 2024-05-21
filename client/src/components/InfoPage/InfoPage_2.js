@@ -109,6 +109,7 @@ const toggleCheckBox = (checkBoxName) => {
     const handleTimeChange = (event) => {
       setTime(event.target.value);
     };
+
   
   
     return (
@@ -123,6 +124,17 @@ const toggleCheckBox = (checkBoxName) => {
   
       <div className="background2">
         <h1>{childName}</h1>
+      </div>
+
+      <div className="nameofpill">
+
+        약 이름 : 
+        <input
+          type="text"
+          value={mediData}
+          onChange={mediData.mediName}
+          placeholder="약 이름 1"
+        />
       </div>
       
        <div className="buttons">
