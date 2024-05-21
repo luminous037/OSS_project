@@ -204,3 +204,10 @@ p3{
   width: 100px; 
   height: auto;
 }
+
+.accept{
+  background-color: rgb(213, 227, 149);
+  color: black;
+  font-size: 15px;
+  font-family: "np";
+}
