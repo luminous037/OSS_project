@@ -1,0 +1,201 @@
+body {height:100%; overflow:hidden;}
+.scene{height: 100%; position : relative}
+
+
+.background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('../image/background_shop.png');
+    background-size: auto 100%;
+    z-index: 0; 
+  }
+
+.title{
+    position: absolute;
+    left: 20%;
+}
+
+.chick4{
+    position: absolute;
+    padding-right: 10%;
+    top:-7%;
+    left:0%; 
+    transform: scale(0.55);
+    z-index: 0;
+  }
+
+  .pointBox{
+    position: absolute;
+    padding-right: 90%;
+    top:-24%;
+
+    transform: scale(0.3);
+    z-index: 0;
+  }
+
+  .point {
+    position: absolute;
+    top: 3.3%;
+    left: 88%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 1;
+    display:flex;
+    z-index: 1;
+  }
+
+  .coin{
+    position: absolute;
+    top: -14.3%;
+    left: 37.5%;
+    transform: scale(0.08);
+  }
+
+  .items{
+    display: flex; /* flexbox 사용 */
+    flex-wrap: wrap; /* 아이템들이 컨테이너 너비를 초과할 경우 다음 줄로 넘어감 */
+    position: absolute;
+    top: 39%;
+    left: 8%;
+    width: 400px; /* 컨테이너의 너비 - 이 값을 조절하여 한 줄에 표시될 아이템 수 조절 */
+    margin: 55px;
+    font-size: 15px;
+  }
+
+/* 아이템 이름과 가격 사이의 간격 추가 */
+.item h3{
+    margin-top:10px;
+    margin-bottom:90px;
+    margin-right:50px; /* 원하는 간격으로 조절하세요 */
+  }
+  
+  .item-image{
+    position: absolute;
+    transform: scale(0.2);
+    margin-top: -300px; 
+    margin-left:-240px;
+    margin-right:-50px;
+  }
+
+  .equipped-plant {
+    position: absolute;
+    background-color: green;
+  }
+  
+  .equipped-santa {
+    background-color: red;
+  }
+  
+  .equipped-dragon {
+    background-color: yellow;
+  }
+  
+  .equipped-witch {
+    background-color: purple;
+  }
+  
+  .equipped-ribbon {
+    background-color: pink;
+  }
+  
+  .equipped-crown {
+    background-color: gold;
+  }
+  
+  
+
+  .modal{
+    position: absolute;
+    top : 30%;
+    left: 20%;
+  }
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .modal-buttons button {
+    margin: 0 10px;
+  }
+  
+.pannel{
+    position: absolute;
+    top: 37%;
+    height: 58%;
+}
+
+
+
+.explode-animation {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-image: url('../image/fireworks.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: explode 0.9s ease-in-out, slideDown 0.55s ease-in-out 0.55s;
+    opacity: 0;
+  }
+
+  
+  @keyframes explode {
+    0% {
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 0.1;
+    }
+    10% {
+        transform: translate(-50%, -50%) scale(6);
+        opacity: 1;
+      }
+    80% {
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 1;
+    }
+    90%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.5;
+    }
+    95%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.8;
+    }
+    100%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.1;
+    }
+  }
+
+ /* 옷입히기 */
+.img-custom-style {
+    position: absolute;
+    top:0%;
+    left:38%;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+  }
+  
+  
+  @keyframes slideDown {
+    0% {
+    transform: translate(-50%, -50%) scale(5);
+      opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(5);
+      opacity: 0;
+    }
+  }
+  
