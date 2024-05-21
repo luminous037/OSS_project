@@ -128,7 +128,7 @@ const toggleCheckBox = (checkBoxName) => {
 
       <div className="nameofpill">
 
-        약 이름 : 
+        약 이름 :  
         <input
           type="text"
           value={mediData}
