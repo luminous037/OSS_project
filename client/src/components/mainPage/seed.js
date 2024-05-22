@@ -103,7 +103,7 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
      
 
       {isseedModalOpen && (
-        <div className="modal">
+        <div className="modaldal">
           <p5>•--------------•</p5>
           <p5> 🌱 씨앗 선택 🌱</p5>
           <ul>
@@ -124,7 +124,7 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
 
 
 {isMoneyModalOpen && (
-        <div className="modal">
+        <div className="modaldal">
           <p3>•--------------•</p3>
           <h7>💰 보유 금액 💰</h7>
           <p3>보유 금액: {money}</p3>
