@@ -8,7 +8,7 @@ import sun from '../image/sun.png';
 import bench from '../image/bench.png';
 import star from '../image/star.png';
 import cloud5 from '../image/cloud5.png';
-import chick4 from '../image/chick4.png';
+import chicken from '../image/chicken.png';
 
 
 
@@ -121,7 +121,7 @@ const MainPage = () => {
       </div>
 
       <div className='chick-conainer'>
-    <img src={chick4} alt="chick4" className="chick4" />
+    <img src={chicken} alt="chicken" className="chicken" />
         <div className="balloon">
           <p>{currentPhrase}</p>
         </div>

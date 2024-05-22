@@ -14,7 +14,7 @@ import Alarm from './alarmPage/alarmPage.js';
 import Seed from './mainPage/seed.js';
 import Cloud from './mainPage/cloud.js';
 import WeeklyCheck from './WeeklyPage/WeeklyCheck.js';
-
+import Shop from './shopPage/Shop.js';
 
 function App() {
   return (
@@ -24,9 +24,6 @@ function App() {
           <Route path="/App" element={<App />} />
           <Route path="/Start" element={<Start />} />
           <Route path="/Main" element={<Main />} />
-          <Route path="/Seed" element={<Seed />} />
-          <Route path="/Alarm" element={<Alarm />} />
-          <Route path="/Cloud" element={<Cloud />} />
           <Route path="/InfoPage_1" element={<InfoPage_1 />} />
           <Route path="/InfoPage_1/InfoPage_2" element={<InfoPage_2 />} />
           <Route path="/InfoPage_1/InfoPage_2/InfoPage_3" element={<InfoPage_3 />} />
@@ -34,6 +31,7 @@ function App() {
           <Route path="/MyPage/AddMedi" element={<AddMedi />} />
           <Route path="/DetailPage" element={<DetailPage />} />
           <Route path="/WeeklyCheck" element={<WeeklyCheck />} />
+          <Route path="/Shop" element={<Shop />} />
       </Routes>
         <NavigationBar /> {/* 하단 네비게이션 바를 추가합니다. */}
       </div>
@@ -42,4 +40,3 @@ function App() {
 }
 
 export default App;
-
