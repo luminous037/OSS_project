@@ -36,6 +36,14 @@ useEffect(() => {  //이름 출력
   });
 }, []);
 
+const handleInputChange = (event) => { //약 이름 받기 처리
+  const { name, value } = event.target;
+  setMediData({
+    ...mediData,
+    [name]: value
+  });
+};
+
 const navigate=useNavigate();
 
 const fetchData = (data) => { //데이터 저장
@@ -111,8 +119,6 @@ const toggleCheckBox = (checkBoxName) => {
       setTime(event.target.value);
     };
 
-  
-  
     return (
 
      <div className="Page2">
@@ -128,15 +134,16 @@ const toggleCheckBox = (checkBoxName) => {
       </div>
 
       <div className="nameofpill">
-
-        약 이름 :  
+      <label>
+        약 이름:
         <input
           type="text"
-          value={mediData}
-          onChange={mediData.mediName}
-          placeholder="약 이름 1"
+          name="mediName"
+          value={mediData.mediName}
+          onChange={handleInputChange}
         />
-      </div>
+      </label>
+    </div>
       
       
        <div className="buttons">
