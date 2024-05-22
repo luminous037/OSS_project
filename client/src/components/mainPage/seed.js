@@ -90,7 +90,7 @@ function Seed({ rainCount, setRainCount }) { // rainCount 상태와 함께 setRa
         return (
           <div>
             <img src={rewardTree} alt="보상 열린 나무 이미지" className="reward-tree" />
-            <button className="accept" onClick={handleHarvest}>보상 수확</button>
+            <button className="accept" onClick={handleHarvest}>보상 얻기</button>
           </div>
         );
       default:

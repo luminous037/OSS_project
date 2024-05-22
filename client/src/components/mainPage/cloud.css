@@ -46,7 +46,12 @@
     }
   }
 
+  /*메인 페이지 구름 위 clear 버튼*/
   .what{
-    background-color: rgb(77, 47, 177);
+    background-color: transparent;
+    font-family: "on";
+    font-size: 25px;
+    
+    
   }
   
