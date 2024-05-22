@@ -11,6 +11,7 @@ function InfoPage_2() {
   const [mediData, setMediData] = useState({ //기본 데이터 저장 구조
     mediName: '',
     time: '',
+    date:'',
     detail: {
         morning: false,
         afternoon: false,
@@ -137,6 +138,7 @@ const toggleCheckBox = (checkBoxName) => {
         />
       </div>
       
+      
        <div className="buttons">
         
         <div className="morning">
@@ -226,6 +228,17 @@ const toggleCheckBox = (checkBoxName) => {
        </div>
 
         </div>
+
+        <div className="date">
+  
+        <input
+          type="number"
+          value={mediData}
+          onChange={mediData.date}
+          placeholder="5"
+        />
+        일 동안 복용
+      </div>
 
         <div className="timeset">
         
