@@ -230,15 +230,17 @@ const toggleCheckBox = (checkBoxName) => {
         </div>
 
         <div className="date">
-  
-        <input
-          type="number"
-          value={mediData}
-          onChange={mediData.date}
-          placeholder="5"
-        />
-        일 동안 복용
-      </div>
+      <input
+        type="number"
+        min="1"
+        max="12"
+       value={mediData.date} // mediData 객체의 date 속성을 참조
+        onChange={(e) => setMediData({ ...mediData, date: e.target.value })} // mediData의 date 속성을 업데이트하는 함수로 대체
+        placeholder="5"
+       />
+          일 동안 복용
+        </div>
+
 
         <div className="timeset">
         

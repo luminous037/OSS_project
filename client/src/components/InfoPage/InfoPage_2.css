@@ -67,12 +67,21 @@
 .checkbox label {
     color: #3995b9; /* 원하는 색상으로 변경 */
   }
+
+  .date{ /* _일 동안 복용*/
+    font-family: "on";
+    font-size:25px;
+    position: absolute;
+    top: 68.5%;
+    left: 35%;
+    color: #3995b9;
+  }
   
 .timeset{ /*매 시간마다 의사 지시대로*/
     font-family: "on";
     font-size:25px;
     position: absolute;
-    top: 66%;
+    top: 72%;
     left: 16%;
     color: #3995b9;
 }
