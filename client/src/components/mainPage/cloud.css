@@ -5,12 +5,33 @@
     display: inline-block;
     transition: transform 0.3s ease-in-out;
   }
+
+  .cloud img {
+    width: 300px; /* 이미지 크기는 필요에 따라 조정 */
+  }
+
+  .cloud-percentage {
+    position: absolute;
+    top: 50%; /* 상위 요소 대비 상하 위치 */
+    left: 50%; /* 상위 요소 대비 좌우 위치 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위해 */
+    color: black; /* 텍스트 색상은 배경에 맞게 조정 */
+    font-weight: bold;
+    font-family: "np";
+    font-size:40px;
+  }
+
+  @font-face {
+    font-family: "np";
+    font-weight: bold;
+    src: url("../../fonts/NPSfont_bold.ttf");
+  }
   
   .cloud.rain-animation::after {
     content: '💧💧💧';
     position: absolute;
     bottom: -20px;
-    left: 50%;
+    left: 25%;
     transform: translateX(-50%);
     animation: rain 3s infinite;
     z-index: 300;
@@ -21,7 +42,16 @@
       transform: translateY(0);
     }
     100% {
-      transform: translateY(100vh);
+      transform: translateY(40vh);
     }
+  }
+
+  /*메인 페이지 구름 위 clear 버튼*/
+  .what{
+    background-color: transparent;
+    font-family: "on";
+    font-size: 25px;
+    
+    
   }
   

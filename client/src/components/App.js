@@ -11,6 +11,8 @@ import MyPage from './MyPage/MyPage.js';
 import AddMedi from './MyPage/AddMedi.js';
 import DetailPage from './MyPage/DetailPage.js';
 import Alarm from './alarmPage/alarmPage.js';
+import Seed from './mainPage/seed.js';
+import Cloud from './mainPage/cloud.js';
 import WeeklyCheck from './WeeklyPage/WeeklyCheck.js';
 import Shop from './shopPage/Shop.js';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Guidebook.css';
 
-import flower from '../image/flower.png';
+import flowerly from '../image/flower.png';
 import book2 from '../image/book2.png';
 import book1 from '../image/book1.png';
 import book3 from '../image/book3.png';
@@ -63,7 +63,7 @@ const slides = [
   <div className='vertical-align'>
     <div className="container">
       <div className="flower-text-container">
-      <img src={flower} alt="flower" className="flower" />
+      <img src={flowerly} alt="flowerly" className="flowerly" />
     <div className="text">_메인 페이지가 뭐야?</div>
       </div>
     <div className='con'>
@@ -76,7 +76,7 @@ const slides = [
   <div className='vertical-align'>
     <div className="container">
       <div className="flower-text-container">
-      <img src={flower} alt="flower" className="flower" />
+      <img src={flowerly} alt="flowerly" className="flowerly" />
     <div className="text">_상점 페이지가 뭐야?</div>
       </div>
     <div className='con'>
@@ -88,7 +88,7 @@ const slides = [
    <div className='vertical-align'>
     <div className="container">
       <div className="flower-text-container">
-      <img src={flower} alt="flower" className="flower" />
+      <img src={flowerly} alt="flowerly" className="flowerly" />
     <div className="text">_칭찬 스티커 페이지가 뭐야?</div>
       </div>
     <div className='con'>
@@ -125,7 +125,7 @@ const InstructionModalWithSlide = ({ isOpen, close }) => {
 
           <div className='tip-container'>
             <div className='flower-notice-box'>
-            <img src={flower} alt="flower" className="flower_1" style={{width: '40px', height: '40px'}} />
+            <img src={flowerly} alt="flowerly" className="flower_1" style={{width: '40px', height: '40px'}} />
             <div className='notice'>_꿀팁</div>
             </div>
             

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './cloud.css';
+import cloudImage from '../image/cloud3.png';
+
+
 
 function Cloud({ onRain }) {
     /*구름 퍼센테이지 관리*/
@@ -34,9 +37,10 @@ function Cloud({ onRain }) {
 
   return (
     <div className="App">
-      <button onClick={handleClearClick}>Clear</button>
+      <button className="what" onClick={handleClearClick}>✨ Have a nice day ✨</button>
       <div className="cloud" onClick={handleCloudClick}>
-        ☁️ {percentage}%
+        <img src={cloudImage} alt="Cloud" />
+        <div className="cloud-percentage">{percentage}%</div> 
       </div>
     </div>
   );
