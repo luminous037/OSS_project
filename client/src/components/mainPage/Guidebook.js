@@ -13,10 +13,13 @@ import book8 from '../image/book8.png';
 import book9 from '../image/book9.png';
 import book10 from '../image/book10.png';
 import book11 from '../image/book11.png';
+import book12 from '../image/book12.png';
+import book13 from '../image/book13.png';
 
 const mainPageSlides = [book2, book1,book6, book3, book5, book4]; // 메인 페이지에서 사용될 이미지 배열
 const shopPageSlides = [book7, book8, book9];
 const stampPageSlides = [book10, book11];
+const myPageSlides = [book12, book13];
 
 
 // 이미지 슬라이더 컴포넌트 (기존에 제공된 코드)
@@ -46,8 +49,8 @@ function ImageSlider({ images }) {
             className="slideImage"
           />
           <div className='button-box'>
-          <button className="click" onClick={prevImage}>이전</button>
-          <button className="click" onClick={nextImage}>다음</button>
+          <button className="click" onClick={prevImage}>←</button>
+          <button className="click" onClick={nextImage}>→</button>
 
           </div>
           
@@ -96,7 +99,18 @@ const slides = [
       </div>
   </div>
   </div>,
-  '부가 페이지.'
+
+<div className='vertical-align'>
+<div className="container">
+  <div className="flower-text-container">
+  <img src={flowerly} alt="flowerly" className="flowerly" />
+<div className="text">_마이 페이지가 뭐야?</div>
+  </div>
+<div className='con'>
+  <ImageSlider images={myPageSlides} />
+  </div>
+</div>
+</div>,
 ];
 
 const InstructionModalWithSlide = ({ isOpen, close }) => {
