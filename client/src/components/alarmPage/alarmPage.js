@@ -8,7 +8,7 @@ import chick3 from '../image/chick3.png';
 
 const AlarmPage = () => {
 
-  /*구름 퍼센테이지 관리*/
+  /*구름 퍼센테이지 관리하는 함수*/
   const [percentage, setPercentage] = useState(() => {
     /*구름의 퍼센테이지를 로컬저장소에 저장해서 웹페이지를 종료하더라도 저장된 값이 남도록 함*/
     const savedPercentage = localStorage.getItem('cloudPercentage');
@@ -25,12 +25,14 @@ const AlarmPage = () => {
       setPercentage(prev => Math.min(prev + 35, 100));
     };
 
+    /*구름 퍼센테이지 텍스트 css*/
     const textStyle = {
         fontSize: '40px', 
         fontFamily: 'on', 
         color: '#5B5859', 
       };
 
+      /*AlarmPage를 임포트 했을 경우 return되는 요소들*/
   return (
     <div className="alarm-container">
 

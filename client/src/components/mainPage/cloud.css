@@ -7,7 +7,7 @@
   }
 
   .cloud img {
-    width: 300px; /* 이미지 크기는 필요에 따라 조정 */
+    width: 300px; 
   }
 
   .cloud-percentage {
@@ -15,7 +15,7 @@
     top: 50%; /* 상위 요소 대비 상하 위치 */
     left: 50%; /* 상위 요소 대비 좌우 위치 */
     transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위해 */
-    color: black; /* 텍스트 색상은 배경에 맞게 조정 */
+    color: black; /* 텍스트 색상*/
     font-weight: bold;
     font-family: "np";
     font-size:40px;
