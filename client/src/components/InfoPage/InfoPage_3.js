@@ -97,15 +97,20 @@ function InfoPage_3() {
             <div className="modal_info3">
               <div className="modal-content">
                 <h2>시간 설정</h2>
+                <div className='setTime'>
+
                 <select value={timeSettings[`ampm${buttonId}`]} onChange={(e) => handleAMPMChange(buttonId, e)}>
                   <option value="AM">AM</option>
                   <option value="PM">PM</option>
                 </select>
                 <input type="number" value={timeSettings[`hour${buttonId}`]} onChange={(e) => handleHourChange(buttonId, e)} min="1" max="12" />
+                <span>:</span>
                 <input type="number" value={timeSettings[`minute${buttonId}`]} onChange={(e) => handleMinuteChange(buttonId, e)} min="0" max="59" />
+                
+              </div>
                 <button onClick={() => handleConfirm(buttonId)}>확인</button>
                 <button onClick={() => handleModalClose(buttonId)}>취소</button>
-              </div>
+                </div>
             </div>
           )}
         </div>

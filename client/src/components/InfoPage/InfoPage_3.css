@@ -33,11 +33,12 @@ input[type="number"] {
 }
 
 button {
+  font-family: on;
     background-color: #87CEEB; /* 배경색: 하늘색 */
     border: none; /* 테두리 제거 */
     border-radius: 20px; /* 둥근 모서리 */
     padding: 10px 20px; /* 내부 여백 */
-    font-size: 16px; /* 글꼴 크기 */
+    font-size: 25px; /* 글꼴 크기 */
     cursor: pointer; /* 마우스 커서를 포인터로 변경하여 버튼임을 나타냄 */
     color:#ffffff ;
   }
@@ -84,9 +85,13 @@ button {
   }
   
   .modal-content h2 {
+    font-family: on;
     margin-bottom: 20px;
   }
-
+  
+.setTime{
+  display:felx;
+}
   .modal-content select,
 .modal-content input {
   margin: 5px;
@@ -104,4 +109,10 @@ button {
   left: 10%;
   background-color: #c2c2c2;
   font-size: 12px; /* 글꼴 크기 */
+}
+
+@font-face {
+  font-family: "on";
+  font-weight: 50;
+  src: url("../../fonts/온글잎 밑미.ttf");
 }
