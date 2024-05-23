@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import "./InfoPage_3.css"
 import InfoPage_2 from './InfoPage_2';
 
@@ -19,6 +19,37 @@ function InfoPage_3() {
       time: ''
     }
   });
+
+
+const navigate=useNavigate();
+
+const fetchData = (data) => { //데이터 저장
+    fetch('http://localhost:4000/addList', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+      navigate('/Main'); // 저장 후 페이지 이동
+    })
+    .catch(err => {
+        console.error('fetchData 중 오류: ', err);
+    });
+};
+
+const dataSave = () => { //medidata 복용법 수정
+  const infoData ={
+    
+  }
+  const updatedMediData = {
+    ...mediData,
+    detail: infoData
+  };
+  setMediData(updatedMediData);
+  fetchData(updatedMediData); // 저장과 함께 이동
+};
 
   const [modalState, setModalState] = useState({
     modalOpen1: false,
@@ -146,7 +177,7 @@ function InfoPage_3() {
       </div>
 
       <div className="navigator">
-        <Link to="./Main" className="nav-item">다음</Link>
+        <button onClick={dataSave} className="nav-item">다음</button>
       </div>
     </div>
   );
