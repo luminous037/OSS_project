@@ -11,6 +11,7 @@ function InfoPage_2() {
   const [mediData, setMediData] = useState({ //기본 데이터 저장 구조
     mediName: '',
     time: '',
+    date:'',
     detail: {
         morning: false,
         afternoon: false,
@@ -35,6 +36,14 @@ useEffect(() => {  //이름 출력
   });
 }, []);
 
+const handleInputChange = (event) => { //약 이름 받기 처리
+  const { name, value } = event.target;
+  setMediData({
+    ...mediData,
+    [name]: value
+  });
+};
+
 const navigate=useNavigate();
 
 const fetchData = (data) => { //데이터 저장
@@ -53,12 +62,7 @@ const fetchData = (data) => { //데이터 저장
     });
 };
 
-const handleChange = (e) => { //medidata 이름
-    setMediData({
-        ...mediData,
-        mediname: e.target.value
-    });
-};
+
 
 const dataSave = () => { //medidata 복용법 수정
     const infoData ={
@@ -109,8 +113,7 @@ const toggleCheckBox = (checkBoxName) => {
     const handleTimeChange = (event) => {
       setTime(event.target.value);
     };
-  
-  
+
     return (
 
      <div className="Page2">
@@ -124,6 +127,19 @@ const toggleCheckBox = (checkBoxName) => {
       <div className="background2">
         <h1>{childName}</h1>
       </div>
+
+      <div className="nameofpill">
+      <label>
+        약 이름:
+        <input
+          type="text"
+          name="mediName"
+          value={mediData.mediName}
+          onChange={handleInputChange}
+        />
+      </label>
+    </div>
+      
       
        <div className="buttons">
         
@@ -214,6 +230,19 @@ const toggleCheckBox = (checkBoxName) => {
        </div>
 
         </div>
+
+        <div className="date">
+      <input
+        type="number"
+        min="1"
+        max="12"
+       value={mediData.date} // mediData 객체의 date 속성을 참조
+        onChange={(e) => setMediData({ ...mediData, date: e.target.value })} // mediData의 date 속성을 업데이트하는 함수로 대체
+        placeholder="5"
+       />
+          일 동안 복용
+        </div>
+
 
         <div className="timeset">
         
