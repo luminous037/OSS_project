@@ -11,6 +11,8 @@ import MyPage from './MyPage/MyPage.js';
 import AddMedi from './MyPage/AddMedi.js';
 import DetailPage from './MyPage/DetailPage.js';
 import Alarm from './alarmPage/alarmPage.js';
+import Seed from './mainPage/seed.js';
+import Cloud from './mainPage/cloud.js';
 import WeeklyCheck from './WeeklyPage/WeeklyCheck.js';
 import Shop from './shopPage/Shop.js';
 
@@ -20,6 +22,9 @@ function App() {
       <div>
       <Routes>
           <Route path="/App" element={<App />} />
+          <Route path="/Alarm" element={<Alarm />} />
+          <Route path="/Seed" element={<Seed />} />
+          <Route path="/Cloud" element={<Cloud />} />
           <Route path="/Start" element={<Start />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/InfoPage_1" element={<InfoPage_1 />} />

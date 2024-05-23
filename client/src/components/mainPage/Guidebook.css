@@ -71,11 +71,16 @@
   /*모달 창 안 버튼*/
   .click{
     margin-top: 8px;
-    margin-right: 150px;
+    margin-right: 170px;
     margin-left: 50px;
-    background-color: #ead899;
+    background-color: transparent;
     font-family: "on";
-    border-radius: 10px;
+    border-radius: 20px;
+   
+    width: 40px;
+    height: 30px;
+    color: #000;
+    font-size: 20px;
     
   }
  
@@ -116,7 +121,7 @@
     margin-right: 200px; /* 텍스트와 이미지 사이의 간격 조정 */
     font-family: "on";
   }
-  .flower {
+  .flowerly {
     width: 20px; /* 이미지의 너비를 10px로 설정 */
     height: 20px; /* 이미지의 높이를 10px로 설정 */
   }
@@ -166,6 +171,7 @@
     border: none;
     font-size: 2.5rem;
     cursor: pointer;
+    color: #000;
   }
 
 
