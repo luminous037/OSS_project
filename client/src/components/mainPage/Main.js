@@ -47,6 +47,7 @@ const MainPage = () => {
     "만나서 반가워!"
   ];
 
+  /*말풍선 대사 관리*/
   const [currentPhrase, setCurrentPhrase] = useState('');
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const MainPage = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  /*말풍선 대사를 랜덤으로 바꿔주는 함수*/
   const changePhrase = () => {
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     setCurrentPhrase(randomPhrase);
