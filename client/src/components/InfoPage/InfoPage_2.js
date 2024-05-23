@@ -62,12 +62,7 @@ const fetchData = (data) => { //데이터 저장
     });
 };
 
-const handleChange = (e) => { //medidata 이름
-    setMediData({
-        ...mediData,
-        mediname: e.target.value
-    });
-};
+
 
 const dataSave = () => { //medidata 복용법 수정
     const infoData ={

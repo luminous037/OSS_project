@@ -20,18 +20,16 @@ input[type="number"] {
     text-align: center;
 }
 
-.alarmset{
+.alarmButton{
     position: absolute;
-    top: 18%;
+    top: 20%;
     left: 9%;
-
 }
 
 .set1,
 .set2,
 .set3{
     margin-top: 50px; /* 버튼 사이의 간격 조절 */
-
 }
 
 button {
@@ -44,55 +42,66 @@ button {
     color:#ffffff ;
   }
   
-  .confirm{ /*이대로 설정!*/
-    position: absolute;
-    top: 70%;
-    left: 10%;
-  }
+  /*알람 설정 버튼*/
+.alarmset{
+  position: absolute;
+  top:25%;
+  left:10%;
+  margin-bottom: 20px;
 
-  .deny button{ /*알람을 설정하지 않을래요*/
-    position: absolute;
-    top: 78%;
-    left: 10%;
-    background-color: #c2c2c2;
-    font-size: 12px; /* 글꼴 크기 */
-  }
+  display:flex;
+  flex-direction: column;
+  gap:20px;
+}
 
 
-
-  .modal1{
+  /*시간 설정 모달창*/
+  .modal_info3{ 
+    font-size: 15px;
     position: absolute;
-    top: 19%;
-    left: 120%;
-    
-  }
-  .modal2{
-    position: absolute;
-    top: 52%;
-    left: 120%;
-  }
-  .modal3{
-    position: absolute;
-    top: 84%;
-    left: 120%;
+    width: 300%;
+    height: 20%;
+    top:20%;
+    left:20%;
   }
 
-  .modal1 button,
-  .modal2 button,
-  .modal3 button{
+  .modal_info3 button{
     background-color: #c2c2c2;
     font-size: 12px; /* 글꼴 크기 */
     color:#000000 ;
-
   }
 
-  .modal1 label,
-  .modal2 label,
-  .modal3 label{
+  .modal_info3 label{
     font-size: 10px; /* 글꼴 크기 */
     margin-right : 10px;
   }
 
-  .modalbox{
-    display: flex;
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
   }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+  }
+
+  .modal-content select,
+.modal-content input {
+  margin: 5px;
+}
+
+.confirm{ /*이대로 설정!*/
+  position: absolute;
+  top: 70%;
+  left: 10%;
+}
+
+.deny button{ /*알람을 설정하지 않을래요*/
+  position: absolute;
+  top: 78%;
+  left: 10%;
+  background-color: #c2c2c2;
+  font-size: 12px; /* 글꼴 크기 */
+}
