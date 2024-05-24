@@ -17,10 +17,8 @@ function InfoPage_1() {
           'Content-Type': 'application/json' // JSON 형식으로 전송
       },
       body: JSON.stringify(childName) // 사용자 이름을 body에 저장      
-    }).then(response =>{
-      if (response.ok) {
-        navigate('/InfoPage_1/InfoPage_2'); // 저장 후 페이지 이동
-      }
+    }).then(res =>{
+        navigate(`/InfoPage_1/InfoPage_2?userID=${res._id}`); // 저장 후 페이지 이동
     })
     .catch(err => {
        console.error('namePost 중 오류: ',err);

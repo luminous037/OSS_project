@@ -7,9 +7,12 @@ import InfoPage_2 from './InfoPage_2';
 function InfoPage_3() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get('id'); // 쿼리 파라미터로부터 id 값을 가져옴
+  const mediID = searchParams.get('mediID'); // 쿼리 파라미터로부터 id 값을 가져옴
+  const userID = searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
 
 const navigate=useNavigate();
+
+const [alarm, setalarm] = useState(false);
 
 const [mediData, setMediData] = useState({ //기존에 저장된 detail 값 필요
   mediName: '',
@@ -37,13 +40,13 @@ const [timeSettings, setTimeSettings] = useState({ //알람 시간
   minute3: 0,
 });
 
-const fetchData = () => { //데이터 저장
-    fetch(`http://localhost:4000/addAlarm/${id}`, {
+const updateAlarm = () => { //알람 시간 저장을 위한 fetch
+    fetch(`http://localhost:4000/addAlarm`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({updated: timeSettings}) //알람 시간 업데이트
+        body: JSON.stringify({mediID: mediID, userID: userID ,time: timeSettings, alarm: alarm}) //알람 시간 업데이트
     })
     .then(() => {
       console.log(timeSettings);
@@ -70,10 +73,10 @@ useEffect(() => { //이전 약 정보 불러옴
   };
 
   fetchData();
-}, [id]);
+}, [mediID]);
 
 const callApi = async () => {
-  const response = await fetch(`http://localhost:4000/list/${id}`);
+  const response = await fetch(`http://localhost:4000/list/${mediID}`);
   const body = await response.json();
   return body;
 };
@@ -126,10 +129,12 @@ const callApi = async () => {
 
   const setAlarm = () => {
     alert("알람이 설정되었습니다.");
+    setalarm(true);
   };
 
   const cancleAlarm = () => {
     alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
+    setalarm(false);
   };
 
   const renderButtonIfTrue = (condition, buttonId) => {
@@ -193,7 +198,7 @@ const callApi = async () => {
       </div>
 
       <div className="navigator">
-        <button onClick={fetchData} className="nav-item">다음</button>
+        <button onClick={updateAlarm} className="nav-item">다음</button>
       </div>
     </div>
   );

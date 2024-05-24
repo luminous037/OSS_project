@@ -42,7 +42,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     .then((result) => {
       console.log(result);
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
-      res.status(200).send('Success');
+      res.send({ _id: result.insertedId})
     })
     .catch((err) => {
       console.log('userName 삽입 중 에러: ', err);
@@ -187,16 +187,24 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
 
 })
 
-app.post('/addAlarm/:id', (req,res)=>{
-    const id =req.params.id;
+app.post('/addAlarm', (req,res)=>{
+    const mediID =req.body.mediID;
+    const userID =req.body.userID;
+    const updatedTime = req.body.time;
+    const updatedAlarm = req.body.alarm;
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
-    const updated = req.body
+    const userCollection = database.collection("user");
 
     mediListcollection.updateOne(
-        { _id: id}, // _id로 문서 찾기
-        { $set: { time: updated} } 
-      )
+        { _id: mediID}, // _id로 문서 찾기
+        { $set: { time: updatedTime} } 
+      ).then(()=>{
+        userCollection.updateOne(
+          { _id: userID},
+          { $set: { alarm: updatedAlarm}}
+        )
+      })
       .then(()=>{
         res.status(200).send('Success');
       })

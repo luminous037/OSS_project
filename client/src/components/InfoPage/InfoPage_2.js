@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import './InfoPage_2.css';
 
 <img src="/edge.jpg"></img>
@@ -7,6 +7,10 @@ import './InfoPage_2.css';
 
 
 function InfoPage_2() {
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const userID= searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
 
   const [mediData, setMediData] = useState({ //기본 데이터 저장 구조
     mediName: '',
@@ -58,7 +62,7 @@ const fetchData = (data) => { //데이터 저장
     .then((res) => {
       const id=res._id;
       console.log(id);
-      navigate(`/InfoPage_1/InfoPage_2/InfoPage_3?id=${id}`); // 저장 후 페이지 이동
+      navigate(`/InfoPage_1/InfoPage_2/InfoPage_3?mediID=${id}&userID=${userID}`); // 저장 후 페이지 이동
     })
     .catch(err => {
         console.error('fetchData 중 오류: ', err);
