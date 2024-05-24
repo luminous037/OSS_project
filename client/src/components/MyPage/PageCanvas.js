@@ -6,7 +6,7 @@ function PageCanvas({ id }) {
   const [loading, setLoading] = useState(true);
   const [mediData, setMediData] = useState({
     mediName: '',
-    time: '',
+    time: {},
     detail: {
       morning: false,
       afternoon: false,
@@ -47,6 +47,7 @@ function PageCanvas({ id }) {
     return body;
   };
 
+
   useEffect(() => { //mediData 업데이트 확인용
     console.log(mediData);
     console.log(loading);
@@ -75,7 +76,9 @@ function PageCanvas({ id }) {
         <br />
         <div className="detail_text">
           <h2>설정한 시간</h2>
-          <h4>{mediData.time}</h4>
+          <h4>{mediData.time.ampm1}</h4>
+          <h4>{mediData.time.ampm2}</h4>
+          <h4>{mediData.time.ampm3}</h4>
         </div>
         <br />
         <div className="detail_text_no-border">

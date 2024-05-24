@@ -9,12 +9,12 @@ function InfoPage_3() {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id'); // 쿼리 파라미터로부터 id 값을 가져옴
 
-
 const navigate=useNavigate();
 
-const [mediData, setMediData] = useState({
+const [mediData, setMediData] = useState({ //기존에 저장된 detail 값 필요
   mediName: '',
-  time: '',
+  time: {},
+  date:'',
   detail: {
     morning: false,
     afternoon: false,
@@ -25,7 +25,7 @@ const [mediData, setMediData] = useState({
   }
 });
 
-const [timeSettings, setTimeSettings] = useState({
+const [timeSettings, setTimeSettings] = useState({ //알람 시간
   ampm1: 'AM',
   hour1: 9,
   minute1: 0,
@@ -38,14 +38,15 @@ const [timeSettings, setTimeSettings] = useState({
 });
 
 const fetchData = () => { //데이터 저장
-    fetch(`http://localhost:4000/addAlarm${id}`, {
+    fetch(`http://localhost:4000/addAlarm/${id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ current: '', updated: timeSettings}) //알람 시간 업데이트
+        body: JSON.stringify({updated: timeSettings}) //알람 시간 업데이트
     })
     .then(() => {
+      console.log(timeSettings);
       navigate('/Main'); // 저장 후 페이지 이동
     })
     .catch(err => {

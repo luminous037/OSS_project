@@ -10,7 +10,7 @@ function InfoPage_2() {
 
   const [mediData, setMediData] = useState({ //기본 데이터 저장 구조
     mediName: '',
-    time: '',
+    time: {},
     date:'',
     detail: {
         morning: false,

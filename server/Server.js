@@ -112,7 +112,7 @@ app.get('/list/:id',(req,res)=>{ //Detail페이지에서 이용, 사용자가 �
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
-    mediListcollection.find({ _id: new ObjectId(id) },{projection: {_id:0, mediName : 1, time : 1, detail : 1}})
+    mediListcollection.find({ _id: new ObjectId(id) },{projection: {_id:0, mediName : 1, time : 1,date : 1, detail : 1}})
     .toArray()
     .then(queryResult=>{
         res.send(queryResult);
@@ -191,11 +191,10 @@ app.post('/addAlarm/:id', (req,res)=>{
     const id =req.params.id;
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
-    const current = req.body.current;
-    const updated = req.body.updated;
+    const updated = req.body
 
     mediListcollection.updateOne(
-        { time: current}, // 기존 이름으로 문서 찾기
+        { _id: id}, // _id로 문서 찾기
         { $set: { time: updated} } 
       )
       .then(()=>{
