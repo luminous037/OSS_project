@@ -146,7 +146,7 @@ app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이�
 })
 
 
-app.post('/addList', (req, res)=>{ //mtPage에서 이용, 약 추가할 때 사용
+app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사용
     const database = getDatabase();
 
     const mediListCollection = database.collection("medicineList"); //컬렉션 참조
@@ -154,7 +154,7 @@ app.post('/addList', (req, res)=>{ //mtPage에서 이용, 약 추가할 때 사�
 
     // const userId = req.cookies.userId; //쿠키에서 유저 아이디 추출
     let mediListId;
-    const {mediName, time, detail}=req.body;
+    const {mediName, time, date, detail}=req.body;
 
     // if (!userId) {
     //     res.status(400).send('User ID not found in cookies');
@@ -165,6 +165,7 @@ app.post('/addList', (req, res)=>{ //mtPage에서 이용, 약 추가할 때 사�
     mediListCollection.insertOne({ //db에 내용 삽입
         'mediName' : mediName,
         'time' : time,
+        'date' :date,
         'detail' : detail
     })        
     .then((result) => { //데이터 확인
@@ -187,7 +188,22 @@ app.post('/addList', (req, res)=>{ //mtPage에서 이용, 약 추가할 때 사�
 })
 
 app.post('/addAlarm/:id', (req,res)=>{
-    
+    const id =req.params.id;
+    const database = getDatabase(); //db 가져오기
+    const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    const current = req.body.current;
+    const updated = req.body.updated;
+
+    mediListcollection.updateOne(
+        { time: current}, // 기존 이름으로 문서 찾기
+        { $set: { time: updated} } 
+      )
+      .then(()=>{
+        res.status(200).send('Success');
+      })
+      .catch((err)=>{
+        console.log("알람 추가 중 오류:", err);
+      })
 })
 
 

@@ -57,6 +57,7 @@ const fetchData = (data) => { //데이터 저장
     .then(response => response.json()) 
     .then((res) => {
       const id=res._id;
+      console.log(id);
       navigate(`/InfoPage_1/InfoPage_2/InfoPage_3?id=${id}`); // 저장 후 페이지 이동
     })
     .catch(err => {

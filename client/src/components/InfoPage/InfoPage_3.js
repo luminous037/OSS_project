@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation,useNavigate } from 'react-router-dom'; // useParams 추가
 import "./InfoPage_3.css"
 import InfoPage_2 from './InfoPage_2';
@@ -10,30 +10,40 @@ function InfoPage_3() {
   const id = searchParams.get('id'); // 쿼리 파라미터로부터 id 값을 가져옴
 
 
-  const [mediData, setMediData] = useState({
-    mediName: '',
-    time: '',
-    date: '',
-    detail: {
-      morning: true,
-      afternoon: true,
-      evening: false,
-      before: false,
-      after: false,
-      time: ''
-    }
-  });
-
-
 const navigate=useNavigate();
 
-const fetchData = (data) => { //데이터 저장
+const [mediData, setMediData] = useState({
+  mediName: '',
+  time: '',
+  detail: {
+    morning: false,
+    afternoon: false,
+    evening: false,
+    before: false,
+    after: false,
+    time: ''
+  }
+});
+
+const [timeSettings, setTimeSettings] = useState({
+  ampm1: 'AM',
+  hour1: 9,
+  minute1: 0,
+  ampm2: 'PM',
+  hour2: 12,
+  minute2: 0,
+  ampm3: 'PM',
+  hour3: 6,
+  minute3: 0,
+});
+
+const fetchData = () => { //데이터 저장
     fetch(`http://localhost:4000/addAlarm${id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ current: '', updated: timeSettings}) //알람 시간 업데이트
     })
     .then(() => {
       navigate('/Main'); // 저장 후 페이지 이동
@@ -43,16 +53,28 @@ const fetchData = (data) => { //데이터 저장
     });
 };
 
-const dataSave = () => { //medidata 복용법 수정
-  const infoData ={
-    
-  }
-  const updatedMediData = {
-    ...mediData,
-    detail: infoData
+
+useEffect(() => { //이전 약 정보 불러옴
+  const fetchData = async () => {
+    try {
+      const res = await callApi(); //
+      if (Array.isArray(res) && res.length > 0) {
+        setMediData(res[0]); // 배열의 첫 번째 요소를 사용
+      } else {
+        setMediData(res);
+      }
+    } catch (err) {
+      console.log("클라이언트에서 약 불러오기 중: ", err);
+    }
   };
-  setMediData(updatedMediData);
-  fetchData(updatedMediData); // 저장과 함께 이동
+
+  fetchData();
+}, [id]);
+
+const callApi = async () => {
+  const response = await fetch(`http://localhost:4000/list/${id}`);
+  const body = await response.json();
+  return body;
 };
 
   const [modalState, setModalState] = useState({
@@ -61,17 +83,6 @@ const dataSave = () => { //medidata 복용법 수정
     modalOpen3: false,
   });
 
-  const [timeSettings, setTimeSettings] = useState({
-    ampm1: 'AM',
-    hour1: 9,
-    minute1: 0,
-    ampm2: 'PM',
-    hour2: 12,
-    minute2: 0,
-    ampm3: 'PM',
-    hour3: 6,
-    minute3: 0,
-  });
 
   const handleModalOpen = (buttonId) => {
     setModalState(prevState => ({
@@ -181,7 +192,7 @@ const dataSave = () => { //medidata 복용법 수정
       </div>
 
       <div className="navigator">
-        <button onClick={dataSave} className="nav-item">다음</button>
+        <button onClick={fetchData} className="nav-item">다음</button>
       </div>
     </div>
   );
