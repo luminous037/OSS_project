@@ -23,14 +23,21 @@ app.listen(port, () => {
 }); 
 
 
-app.post('/saveName', (req, res) => {
+app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     const database = getDatabase();
 
     const userCollection = database.collection("user");
     const userName = req.body.userName;
   
     userCollection.insertOne({
-      'userName': userName
+      'userName': userName,
+      'alarm' : false,
+      'points': 0,
+      'cloud': 0,
+      'stamp': 0,
+      'mediListID':'',
+      'itemID':'',
+      'seedID':''
     })
     .then((result) => {
       console.log(result);
@@ -42,7 +49,7 @@ app.post('/saveName', (req, res) => {
     });
   });
 
-  app.post('/updateData', (req, res) => {
+  app.post('/updateData', (req, res) => { //myPage에서 이용, 사용자 이름 및 알람 설정 변경사항 저장
     const database = getDatabase();
     const userCollection = database.collection("user");
     const current = req.body.current;
@@ -65,7 +72,7 @@ app.post('/saveName', (req, res) => {
   
 
 
-app.get('/userProfile',(req,res)=>{
+app.get('/userProfile',(req,res)=>{ //infoPage_2, myPage에서 이용, 사용자의 정보 불러옴
     const database=getDatabase();
     const userCollection = database.collection("user");
 
@@ -79,7 +86,7 @@ app.get('/userProfile',(req,res)=>{
 })
 
 
-app.get('/list', (req, res) => {
+app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록 불러옴
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
@@ -100,7 +107,7 @@ app.get('/list', (req, res) => {
         });
 });
 
-app.get('/list/:id',(req,res)=>{
+app.get('/list/:id',(req,res)=>{ //Detail페이지에서 이용, 사용자가 작성한 약에 대한 정보 제공
     const id =req.params.id;
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
@@ -115,7 +122,7 @@ app.get('/list/:id',(req,res)=>{
     })
 })
 
-app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
+app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이터 삭제
 
     const id = req.params.id;
 
@@ -134,18 +141,19 @@ app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
     })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
-    }) 
+    })
+
 })
 
 
-app.post('/addList', (req, res)=>{ //약 추가할 때
+app.post('/addList', (req, res)=>{ //mtPage에서 이용, 약 추가할 때 사용
     const database = getDatabase();
 
     const mediListCollection = database.collection("medicineList"); //컬렉션 참조
     const userCollection = database.collection("user");
 
-    // const userId = req.cookies.userId;
-
+    // const userId = req.cookies.userId; //쿠키에서 유저 아이디 추출
+    let mediListId;
     const {mediName, time, detail}=req.body;
 
     // if (!userId) {
@@ -162,15 +170,15 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     .then((result) => { //데이터 확인
         console.log(result);
 
-        var medicineListId = result.insertedId;
+        mediListId = result.insertedId;
 
-        // return userCollection.updateOne(
+        // return userCollection.updateOne( //해당 유저의 약 목록에 추가
         //     { _id: new ObjectId(userId) },
         //     {$push: {"medicineLists": medicineListId}}
         // );
     })
     .then(()=>{
-        res.status(200).send('Success');
+        res.send({ _id: mediListId}); // 생성된 _id 반환
     })
     .catch((err) => { //에러 발생 시
     console.error("약 추가 중 오류: ", err);
@@ -178,6 +186,8 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
 
 })
 
-
+app.post('/addAlarm/:id', (req,res)=>{
+    
+})
 
 

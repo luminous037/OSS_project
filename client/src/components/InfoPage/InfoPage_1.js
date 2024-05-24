@@ -27,7 +27,7 @@ function InfoPage_1() {
     });
 
   }
-
+  
   return (
     <div className="Page1">
       
@@ -46,7 +46,7 @@ function InfoPage_1() {
       </div>
 
       <div className="nameBlank">
-      <input
+        <input
           type="text"
           value={childName.userName}
           onChange={(e) => setChildName({ userName: e.target.value})}
@@ -55,11 +55,11 @@ function InfoPage_1() {
 
       <div className="text3">  
         <label>
-          어린이
+        어린이
         </label>
       </div>
 
-
+      
       <div className="navigator">
         
         <button onClick={nameSave} className="nav-item">다음</button>

@@ -54,8 +54,10 @@ const fetchData = (data) => { //데이터 저장
         },
         body: JSON.stringify(data)
     })
-    .then(() => {
-      navigate('/InfoPage_1/InfoPage_2/InfoPage_3'); // 저장 후 페이지 이동
+    .then(response => response.json()) 
+    .then((res) => {
+      const id=res._id;
+      navigate(`/InfoPage_1/InfoPage_2/InfoPage_3?id=${id}`); // 저장 후 페이지 이동
     })
     .catch(err => {
         console.error('fetchData 중 오류: ', err);

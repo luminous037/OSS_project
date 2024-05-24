@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom'; // useParams 추가
 import "./InfoPage_3.css"
 import InfoPage_2 from './InfoPage_2';
 
 
 function InfoPage_3() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get('id'); // 쿼리 파라미터로부터 id 값을 가져옴
+
 
   const [mediData, setMediData] = useState({
     mediName: '',
@@ -24,7 +28,7 @@ function InfoPage_3() {
 const navigate=useNavigate();
 
 const fetchData = (data) => { //데이터 저장
-    fetch('http://localhost:4000/addList', {
+    fetch(`http://localhost:4000/addAlarm${id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
