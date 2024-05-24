@@ -16,22 +16,24 @@ import book11 from '../image/book11.png';
 import book12 from '../image/book12.png';
 import book13 from '../image/book13.png';
 
-const mainPageSlides = [book2, book1,book6, book3, book5, book4]; // 메인 페이지에서 사용될 이미지 배열
+/* 이미지 슬라이드에 들어갈 이미지들 모음*/
+const mainPageSlides = [book2, book1,book6, book3, book5, book4]; 
 const shopPageSlides = [book7, book8, book9];
 const stampPageSlides = [book10, book11];
 const myPageSlides = [book12, book13];
 
 
-// 이미지 슬라이더 컴포넌트 (기존에 제공된 코드)
+// 이미지 슬라이더 컴포넌트 
 function ImageSlider({ images }) {
   const [currentImage, setCurrentImage] = useState(0);
 
+  /*<-버튼 기능 구현 함수*/
   const prevImage = () => {
     setCurrentImage((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
-
+/*->버튼 기능 구현 함수*/
   const nextImage = () => {
     setCurrentImage((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -61,7 +63,7 @@ function ImageSlider({ images }) {
     </div>
   );
 }
-
+ // 각 페이지에 대한 설명 이미지 슬라이더
 const slides = [
   <div className='vertical-align'>
     <div className="container">
@@ -75,7 +77,7 @@ const slides = [
   </div>
   </div>,
 
-  // 여기에서 이미지 슬라이더를 사용
+ 
   <div className='vertical-align'>
     <div className="container">
       <div className="flower-text-container">
@@ -113,15 +115,16 @@ const slides = [
 </div>,
 ];
 
+/*사용 설명서 모달창을 구현하기 위한 함수*/
 const InstructionModalWithSlide = ({ isOpen, close }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   if (!isOpen) return null;
-
+/*이전 버튼 구현 함수*/
   const nextSlide = () => {
     setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
   };
-
+/*다음 버튼 구현 함수*/
   const prevSlide = () => {
     setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
   };

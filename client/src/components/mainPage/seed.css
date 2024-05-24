@@ -34,9 +34,9 @@ color: black;
 }
 
 
-
+/*모달창에 커서를 가져갔을 때 색상 변화*/
 .seed-list-item:hover {
-  background-color: #d9b682;
+  background-color: #f4f4c6
 }
 
 /*씨앗 이미지랑 텍스트 옮기고 싶으면 여기*/

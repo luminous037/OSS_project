@@ -7,12 +7,15 @@ import pill2 from '../image/pill2.png';
 import jam from '../image/jam.png';
 import flower from '../image/flower.png';
 
+
+/*페이지를 시작했을 때 로고랑 알약 아이템들이 병아리 주변에 나타나도록 함*/
 function Start() {
   const [state, setState] = useState({
     visiblePills: [],
     visibleLetters: []
   });
 
+  /*알약들이 어느 위치에 나타나도록 할지 조절하는 함수*/
   useEffect(() => {
     let vh = 0;
     vh = window.innerHeight * 0.01;
@@ -20,8 +23,10 @@ function Start() {
     const pillImages = [pill1, pill2, jam, flower];
     let delay = 0;
 
+    /*로고*/
     const text = 'Meddy\nBaby';
 
+/*로고와 알약 등이 화면에 어떻게(위치, 속도) 나타나도록 할지 구현한 함수*/
     for (let i = 0; i < text.length; i++) {
       setTimeout(() => {
         setState((currentState) => ({
