@@ -3,6 +3,7 @@ input[type="number"] {
     width: 50px; /* 원하는 가로 너비로 조정 */
   }
 
+/*배경 이미지*/
 .background3{
     display: flex;
     background-image: url('../../../public/info3_background.png');
@@ -16,88 +17,74 @@ input[type="number"] {
      transform: translateX(-50%);
 }
 
-.text1_info{
-    text-align: center;
-}
-
-.alarmButton{
-    position: absolute;
-    top: 20%;
-    left: 9%;
-}
-
-.set1,
-.set2,
-.set3{
-    margin-top: 50px; /* 버튼 사이의 간격 조절 */
-}
-
-.button_info3 {
-  font-family: on;
-    background-color: #87CEEB; /* 배경색: 하늘색 */
-    border: none; /* 테두리 제거 */
-    border-radius: 20px; /* 둥근 모서리 */
-    padding: 10px 20px; /* 내부 여백 */
-    font-size: 25px; /* 글꼴 크기 */
-    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 버튼임을 나타냄 */
-    color:#ffffff ;
-  }
-  
-  /*알람 설정 버튼*/
-.alarmset{
-  position: absolute;
-  top:25%;
-  left:10%;
-  margin-bottom: 20px;
-
-  display:flex;
-  flex-direction: column;
-  gap:20px;
-}
-
 
   /*시간 설정 모달창*/
   .modal_info3{ 
     font-size: 15px;
     position: absolute;
-    width: 300%;
+    width: 60%;
     height: 20%;
     top:20%;
     left:20%;
   }
-
-  .modal_info3 button{
-    background-color: #c2c2c2;
-    font-size: 12px; /* 글꼴 크기 */
-    color:#000000 ;
-  }
-
+  /*모달 제목 "시간설정*/
   .modal_info3 label{
     font-size: 10px; /* 글꼴 크기 */
     margin-right : 10px;
   }
 
+  /*모달 요소들*/
   .modal-content {
-    background: white;
-    padding: 20px;
+    background: rgb(255, 255, 255);
+    padding: 40px;
     border-radius: 5px;
     text-align: center;
   }
-  
-  .modal-content h2 {
-    font-family: on;
-    margin-bottom: 20px;
+
+  .modal-content select,
+  .modal-content input {
+    margin: 5px;
+    left: 10%;
+    background-color: #c2c2c2;
+    font-size: 12px; /* 글꼴 크기 */
   }
+  
+  /*알람 설정 버튼들*/
+  .alarmset{
+    position: absolute;
+    top:23%;
+    left:10%;
+    margin-bottom: 20px;
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+  }
+
+.modal-content h5{
+  font-family: "on";
+  font-size: 20px;
+  color:#82d1ff;
+  text-align: center;
+}
   
 .setTime{
   display:felx;
 }
-  .modal-content select,
+
+.modal-content select,
 .modal-content input {
   margin: 5px;
 }
 
-.confirm{ /*이대로 설정!*/
+.confirm button{ /*이대로 설정!*/
+  font-family: on;
+  background-color: #82d1ff;
+  border: none; /* 테두리 제거 */
+  border-radius: 20px; /* 둥근 모서리 */
+  padding: 10px 20px; /* 내부 여백 */
+  font-size: 25px; /* 글꼴 크기 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경하여 버튼임을 나타냄 */
+  color:#ffffff ;
   position: absolute;
   top: 70%;
   left: 10%;
@@ -108,7 +95,13 @@ input[type="number"] {
   top: 78%;
   left: 10%;
   background-color: #c2c2c2;
-  font-size: 12px; /* 글꼴 크기 */
+  font-size: 15px; /* 글꼴 크기 */
+  font-family: on;
+    border: none; /* 테두리 제거 */
+    border-radius: 20px; /* 둥근 모서리 */
+    padding: 10px 20px; /* 내부 여백 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 버튼임을 나타냄 */
+    color:#ffffff ;
 }
 
 @font-face {

@@ -13,7 +13,7 @@ function InfoPage_3() {
     detail: {
       morning: true,
       afternoon: true,
-      evening: false,
+      evening: true,
       before: false,
       after: false,
       time: ''
@@ -112,10 +112,6 @@ const dataSave = () => { //medidata 복용법 수정
     alert("알람이 설정되었습니다.");
   };
 
-  const cancleAlarm = () => {
-    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
-  };
-
   const renderButtonIfTrue = (condition, buttonId) => {
     if (condition) {
       return (
@@ -127,7 +123,7 @@ const dataSave = () => { //medidata 복용법 수정
           {modalState[`modalOpen${buttonId}`] && (
             <div className="modal_info3">
               <div className="modal-content">
-                <h2>시간 설정</h2>
+                <h5>시간설정</h5>
                 <div className='setTime'>
 
                 <select value={timeSettings[`ampm${buttonId}`]} onChange={(e) => handleAMPMChange(buttonId, e)}>
@@ -139,8 +135,8 @@ const dataSave = () => { //medidata 복용법 수정
                 <input type="number" value={timeSettings[`minute${buttonId}`]} onChange={(e) => handleMinuteChange(buttonId, e)} min="0" max="59" />
                 
               </div>
-                <button onClick={() => handleConfirm(buttonId)}>확인</button>
-                <button onClick={() => handleModalClose(buttonId)}>취소</button>
+              <button onClick={() => handleModalClose(buttonId)}>취소</button>
+               <button onClick={() => handleConfirm(buttonId)}>확인</button>
                 </div>
             </div>
           )}
@@ -150,12 +146,14 @@ const dataSave = () => { //medidata 복용법 수정
     return null;
   };
 
+  const cancleAlarm = () => {
+    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
+  };
+
   return (
     <div>
-      <div className="text1_info">
-        <h1>
-          MeddyBaby
-        </h1>
+      <div className='title_info'>
+        MeddyBaby
       </div>
 
       <div className="background3">
