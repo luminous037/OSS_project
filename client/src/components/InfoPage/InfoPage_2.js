@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import './InfoPage_2.css';
 
 <img src="/edge.jpg"></img>
@@ -8,14 +8,18 @@ import './InfoPage_2.css';
 
 function InfoPage_2() {
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const userID= searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
+
   const [mediData, setMediData] = useState({ //기본 데이터 저장 구조
     mediName: '',
-    time: '',
+    time: {},
     date:'',
     detail: {
-        morning: true,
-        afternoon: true,
-        evening: true,
+        morning: false,
+        afternoon: false,
+        evening: false,
         before: false,
         after: false,
         time: ''
@@ -54,8 +58,10 @@ const fetchData = (data) => { //데이터 저장
         },
         body: JSON.stringify(data)
     })
-    .then(() => {
-      navigate('/InfoPage_1/InfoPage_2/InfoPage_3'); // 저장 후 페이지 이동
+    .then(response => response.json()) 
+    .then(data=>{
+      const id=data._id;
+      navigate(`/InfoPage_1/InfoPage_2/InfoPage_3?mediID=${id}&userID=${userID}`); // 저장 후 페이지 이동
     })
     .catch(err => {
         console.error('fetchData 중 오류: ', err);
@@ -83,9 +89,9 @@ const dataSave = () => { //medidata 복용법 수정
 };
 
   const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
-    morning: true,
-    afternoon: true,
-    evening: true 
+    morning: false,
+    afternoon: false,
+    evening: false 
 });
 
 const toggleButton = (buttonName) => {
@@ -117,10 +123,12 @@ const toggleCheckBox = (checkBoxName) => {
     return (
 
      <div className="Page2">
-
-      <div className='title_info'>
+      <div className="text1">
+        <h1>
         MeddyBaby
+      </h1>
       </div>
+      
   
       <div className="background2">
         <h1>{childName}</h1>
@@ -139,11 +147,19 @@ const toggleCheckBox = (checkBoxName) => {
     </div>
       
       
-       <div className="buttons_info">
+       <div className="buttons">
         
         <div className="morning">
         <button 
           onClick={() => toggleButton('morning')}
+          style={{ 
+            backgroundColor: buttonStates.morning ? '#87CEEB' : 'white', 
+            color: buttonStates.morning ? 'white' : '#87CEEB',
+            border: buttonStates.morning ? '2px solid #87CEEB' : '2px solid #87CEEB',
+            borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
+            padding: '0px 25px', 
+            fontSize: '8px' // 폰트 크기 조절
+          }}
         >
           <h1>
           아침
@@ -157,7 +173,14 @@ const toggleCheckBox = (checkBoxName) => {
 
         <button 
           onClick={() => toggleButton('afternoon')}
-
+          style={{ 
+            backgroundColor:  buttonStates.afternoon ? '#87CEEB' : 'white', 
+            color:  buttonStates.afternoon ? 'white' : '#87CEEB',
+            border:  buttonStates.afternoon ? '2px solid #87CEEB' : '2px solid #87CEEB',
+            borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
+            padding: '0px 25px', /* 내부 여백 조절 (위 아래 10px, 좌 우 20px) */
+            fontSize: '8px'
+          }}
         >
           <h1>
           점심
@@ -170,6 +193,14 @@ const toggleCheckBox = (checkBoxName) => {
 
         <button 
           onClick={() => toggleButton('evening')}
+          style={{ 
+            backgroundColor:  buttonStates.evening? '#87CEEB' : 'white', 
+            color:  buttonStates.evening ? 'white' : '#87CEEB',
+            border:  buttonStates.evening ? '2px solid #87CEEB' : '2px solid #87CEEB',
+            borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
+            padding: '0px 25px', 
+            fontSize: '8px'
+          }}
         >
           <h1>
           저녁
