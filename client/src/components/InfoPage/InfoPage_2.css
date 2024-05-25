@@ -12,8 +12,9 @@
 }
 
 
-.text1 { /*MeddyBaby*/
-    font-family: "on";
+.title_info { /*MeddyBaby*/
+  font-family:"on";
+  font-size: 40px;
     text-align: center;
 }
 
@@ -27,24 +28,28 @@
 }
 
 
-  .buttons{
+  .buttons_info{
     position: absolute;
     top: 52%; /* 원하는 위치로 조정 */
     left: 49%;
      transform: translateX(-50%);
-
      display: flex; /*가로로 배치*/
-    
-     
+     border: 2px;
+     border-radius: '30px';
+     padding: '0px 25px';
+     font-size: 10px;
   }
 
 .morning,
 .lunch,
 .dinner {
     font-family: "on";
+
+    border: 10px;
     border-color: '#87CEEB'; /* 테두리 색상 */
     margin-right: 10px; /* 버튼 사이의 간격 조절 */
     margin-left: 10px;
+
 }
 
 .checkbox{ /*식후, 식전 설정*/
@@ -60,7 +65,7 @@
 
 .after,
 .before{
-    margin-right: 20px; /* 버튼 사이의 간격 조절 */
+    margin-right: 20px; /* 체크 버튼 사이의 간격 조절 */
     margin-left: 10px;
 }
 

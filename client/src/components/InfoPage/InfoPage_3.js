@@ -152,7 +152,7 @@ const dataSave = () => { //medidata 복용법 수정
 
   return (
     <div>
-      <div className="text1">
+      <div className="text1_info">
         <h1>
           MeddyBaby
         </h1>
@@ -162,6 +162,7 @@ const dataSave = () => { //medidata 복용법 수정
         <h1></h1>
       </div>
 
+      <div className='button_info3'>
       <div className="alarmset">
         {renderButtonIfTrue(mediData.detail.morning, 1)}
         {renderButtonIfTrue(mediData.detail.afternoon, 2)}
@@ -174,6 +175,7 @@ const dataSave = () => { //medidata 복용법 수정
 
       <div className="deny">
         <button onClick={cancleAlarm}>알람을 사용하지 않을래요.</button>
+      </div>
       </div>
 
       <div className="navigator">

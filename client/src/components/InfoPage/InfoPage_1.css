@@ -25,11 +25,14 @@ input[type="text"] {
     border-bottom: 2px solid rgb(62, 197, 255); /* 밑줄 스타일 지정 */
 }
 
-.text1 { /*MeddyBaby*/
+.title_info { /*MeddyBaby*/
+  font-family:"on";
+  font-size: 40px;
     text-align: center;
 }
   
-  .text2 label{ /*우리아이 이름은*/
+  .text2{ /*우리아이 이름은*/
+    font-family: "on";
     position: absolute;
     top: 19%;
     left: 7%;
@@ -37,7 +40,8 @@ input[type="text"] {
     font-size: 20px;
 }
 
-.text3 label{ /*어린이*/
+.text3 { /*어린이*/
+  font-family: "on";
   position: absolute;
   top: 19%;
   left: 80%;
@@ -53,3 +57,8 @@ input[type="text"] {
 }
 
   
+@font-face {
+  font-family: "on";
+  font-weight: 50;
+  src: url("../../fonts/온글잎 밑미.ttf");
+}
