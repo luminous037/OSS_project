@@ -18,7 +18,7 @@
     box-sizing: border-box;
   }
 
-  
+  /*프로필 밑에 나누는 선*/
   .profile{
     background: rgba(255, 255, 255, 0.753);
     height: 70%;
@@ -26,45 +26,77 @@
     border-bottom: 3px solid #8CD7F2;
   }
   
+  /*프로필 이미지*/
   .profile_image{
-    position:relative;
-    width: 30%;
-    left: 15%;
-    top: 15%;
-  }
-  
-  .text_setting{
-    position:relative;
-    bottom: 40%;
-    margin-left: 60%;
+    position:absolute;
+    width: 40%;
+    height:40%;
+    left: 5%;
+    top: 20%;
   }
 
-    
+
+   
   .name_setting{
+    position: absolute;
+    top:20%;
     font-size:large;
   }
 
+  /*우리 아이 이름*/
+  .text_setting h3{
+    position:absolute;
+    top:20%;
+    left:50%;
+    font-size:30px;
+    font-family: on;
+    color:#494949;
+  }
+
+  /*알람설정 텍스트*/
+  .text_setting h2{
+    font-size:20px;
+    font-family: on;
+    position:absolute;
+    left: 5%;
+    top: 60%;
+    color:#494949;
+  }
+
+  /*알람 설정 버튼*/
+  .button_alarm_myPage{
+    position: absolute;
+    top:64%;
+    left:30%;
+  }
+
   .profile_input{
+    position: absolute;
+    top: 33%;
+    left:50%;
     background-color:rgba(255, 255, 255, 0.805);
     border: 3px solid #8CD7F2; 
     border-radius: 15px; 
     padding-right:10%;
-    font-size: 15px;
+    font-size: 40px;
     text-align: center;
-    width: 100%;
+    width: 40%;
+    height: 10%;
   }
 
+  /*이름 수정 버튼*/
   .profile_input_button{
     position: absolute;
-    width:20%;
-    height:37%;
+    width:18%;
+    height:10%;
     left: 80%;
-    font-size:small;
-    background-color: rgb(126, 197, 255);
+    top:33%;
+    background-color: #8CD7F2;
     color: #FFFFFF; /* 흰색 */
-    border: 3px solid  rgb(126, 197, 255);
+    border: 3px solid  #8CD7F2;
     border-radius: 10px;
     cursor: pointer;
+    font-size:20px;
   }
 
   .alarm_text{
@@ -162,6 +194,7 @@
     background: rgba(0, 0, 0, 0.5);
   }
   
+  /*모달 스타일 지정*/
   .modal_content {
     background-color: #ffffff;
     border: 3px solid  rgb(126, 197, 255);
