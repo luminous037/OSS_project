@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(cookieParser());
 
+let user_id;
 
 app.listen(port, () => {
     console.log("listen") // 정상 작동
@@ -23,35 +24,42 @@ app.listen(port, () => {
 }); 
 
 
-app.post('/saveName', (req, res) => {
+app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     const database = getDatabase();
 
     const userCollection = database.collection("user");
     const userName = req.body.userName;
   
     userCollection.insertOne({
-      'userName': userName
+      'userName': userName,
+      'alarm' : false,
+      'points': 0,
+      'cloud': 0,
+      'stamp': 0,
+      'mediListID':'',
+      'itemID':'',
+      'seedID':''
     })
     .then((result) => {
       console.log(result);
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
-      res.status(200).send('Success');
+      user_id=result.insertedId; //유저 id 설정
+      res.send({ _id: result.insertedId})
     })
     .catch((err) => {
       console.log('userName 삽입 중 에러: ', err);
     });
   });
 
-  app.post('/updateData', (req, res) => {
+  app.post('/updateData', (req, res) => { //myPage에서 이용, 사용자 이름 및 알람 설정 변경사항 저장
     const database = getDatabase();
     const userCollection = database.collection("user");
-    const current = req.body.current;
-    const updated = req.body.updated;
+    const { newName, alarmChange } = req.body;
   
     userCollection.updateOne(
-      { userName: current.userName }, // 기존 이름으로 문서 찾기
-      { $set: { userName: updated.newName
-        //, alaram: updated.changeAlarm   //현재 프록시 오류로 인해 잠시 주석 처리
+      { _id: user_id }, // 기존 이름으로 문서 찾기
+      { $set: { userName: newName
+        , alarm: alarmChange   //현재 프록시 오류로 인해 잠시 주석 처리
         } } // 새로운 이름으로 업데이트
     )
     .then(() => {
@@ -65,11 +73,11 @@ app.post('/saveName', (req, res) => {
   
 
 
-app.get('/userProfile',(req,res)=>{
+app.get('/userProfile',(req,res)=>{ //infoPage_2, myPage에서 이용, 사용자의 정보 불러옴
     const database=getDatabase();
     const userCollection = database.collection("user");
 
-    userCollection.find({},{projection:{_id:0, userName:1, alarm:1}})
+    userCollection.find({_id: user_id},{projection:{_id:0, userName:1, alarm:1}})
     .toArray()
     .then(result=>{
         res.send(result);
@@ -79,7 +87,7 @@ app.get('/userProfile',(req,res)=>{
 })
 
 
-app.get('/list', (req, res) => {
+app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록 불러옴
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
@@ -100,12 +108,12 @@ app.get('/list', (req, res) => {
         });
 });
 
-app.get('/list/:id',(req,res)=>{
+app.get('/list/:id',(req,res)=>{ //Detail페이지에서 이용, 사용자가 작성한 약에 대한 정보 제공
     const id =req.params.id;
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
 
-    mediListcollection.find({ _id: new ObjectId(id) },{projection: {_id:0, mediName : 1, time : 1, detail : 1}})
+    mediListcollection.find({ _id: new ObjectId(id) },{projection: {_id:0, mediName : 1, time : 1,date : 1, detail : 1}})
     .toArray()
     .then(queryResult=>{
         res.send(queryResult);
@@ -115,7 +123,7 @@ app.get('/list/:id',(req,res)=>{
     })
 })
 
-app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
+app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이터 삭제
 
     const id = req.params.id;
 
@@ -134,19 +142,20 @@ app.delete('/delete_list/:id', (req,res)=>{ //약 데이터 삭제
     })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
-    }) 
+    })
+
 })
 
 
-app.post('/addList', (req, res)=>{ //약 추가할 때
+app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사용
     const database = getDatabase();
 
     const mediListCollection = database.collection("medicineList"); //컬렉션 참조
     const userCollection = database.collection("user");
 
-    // const userId = req.cookies.userId;
-
-    const {mediName, time, detail}=req.body;
+    // const userId = req.cookies.userId; //쿠키에서 유저 아이디 추출
+    let mediListId;
+    const {mediName, time, date, detail}=req.body;
 
     // if (!userId) {
     //     res.status(400).send('User ID not found in cookies');
@@ -157,20 +166,21 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
     mediListCollection.insertOne({ //db에 내용 삽입
         'mediName' : mediName,
         'time' : time,
+        'date' :date,
         'detail' : detail
     })        
     .then((result) => { //데이터 확인
         console.log(result);
 
-        var medicineListId = result.insertedId;
+        mediListId = result.insertedId;
 
-        // return userCollection.updateOne(
+        // return userCollection.updateOne( //해당 유저의 약 목록에 추가
         //     { _id: new ObjectId(userId) },
         //     {$push: {"medicineLists": medicineListId}}
         // );
     })
     .then(()=>{
-        res.status(200).send('Success');
+        res.send({ _id: mediListId}); // 생성된 _id 반환
     })
     .catch((err) => { //에러 발생 시
     console.error("약 추가 중 오류: ", err);
@@ -178,6 +188,29 @@ app.post('/addList', (req, res)=>{ //약 추가할 때
 
 })
 
+app.post('/addAlarm', (req,res)=>{
+  const { mediID, userID, time, alarm } = req.body; // 요청 본문에서 데이터 추출
+    const database = getDatabase(); //db 가져오기
+    const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    const userCollection = database.collection("user");
 
+    const mediObjectId = new ObjectId(mediID);
+    const userObjectId = new ObjectId(userID);
 
+    mediListcollection.updateOne(
+        { _id: mediObjectId}, // _id로 문서 찾기
+        { $set: { time: time} } 
+      ).then(()=>{
+        userCollection.updateOne(
+          { _id: userObjectId },
+          { $set: { alarm: alarm}}
+        )
+      })
+      .then(()=>{
+        res.status(200).send('Success');
+      })
+      .catch((err)=>{
+        console.log("알람 추가 중 오류:", err);
+      })
+})
 

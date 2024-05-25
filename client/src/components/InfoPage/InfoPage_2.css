@@ -32,7 +32,6 @@
   top: 52%; /* 원하는 위치로 조정 */
   left: 49%;
    transform: translateX(-50%);
-
    display: flex; /*가로로 배치*/
   
    
@@ -85,6 +84,7 @@
   left: 16%;
   color: #3995b9;
 }
+
 
 
 
