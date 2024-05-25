@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(cookieParser());
 
+let user_id;
 
 app.listen(port, () => {
     console.log("listen") // 정상 작동
@@ -42,6 +43,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     .then((result) => {
       console.log(result);
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
+      user_id=result.insertedId; //유저 id 설정
       res.send({ _id: result.insertedId})
     })
     .catch((err) => {
@@ -52,13 +54,12 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
   app.post('/updateData', (req, res) => { //myPage에서 이용, 사용자 이름 및 알람 설정 변경사항 저장
     const database = getDatabase();
     const userCollection = database.collection("user");
-    const current = req.body.current;
-    const updated = req.body.updated;
+    const { newName, alarmChange } = req.body;
   
     userCollection.updateOne(
-      { userName: current.userName }, // 기존 이름으로 문서 찾기
-      { $set: { userName: updated.newName
-        //, alaram: updated.changeAlarm   //현재 프록시 오류로 인해 잠시 주석 처리
+      { _id: user_id }, // 기존 이름으로 문서 찾기
+      { $set: { userName: newName
+        , alarm: alarmChange   //현재 프록시 오류로 인해 잠시 주석 처리
         } } // 새로운 이름으로 업데이트
     )
     .then(() => {
@@ -76,7 +77,7 @@ app.get('/userProfile',(req,res)=>{ //infoPage_2, myPage에서 이용, 사용자
     const database=getDatabase();
     const userCollection = database.collection("user");
 
-    userCollection.find({},{projection:{_id:0, userName:1, alarm:1}})
+    userCollection.find({_id: user_id},{projection:{_id:0, userName:1, alarm:1}})
     .toArray()
     .then(result=>{
         res.send(result);
@@ -212,5 +213,4 @@ app.post('/addAlarm', (req,res)=>{
         console.log("알람 추가 중 오류:", err);
       })
 })
-
 
