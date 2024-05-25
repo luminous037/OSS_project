@@ -177,15 +177,18 @@
     margin-top: 5rem;
   }
   
+  /*모달 저장 버튼*/
   .modal_close_button{
-    position: absolute;
-    bottom: 40%;
-    right:43%;
+    position: relative;
+    top: 10%;
+    left:38%;
     background-color: rgb(126, 197, 255);
     color: #FFFFFF; /* 흰색 */
     border: 3px solid  rgb(126, 197, 255);
     border-radius: 10px;
     cursor: pointer;
+    font-size:20px;
+    padding: 5px 10px;
   }
   
   .modal_container {
@@ -210,10 +213,14 @@
     padding: 15px;
   }
 
+  /*모달 내 이름수정 텍스트*/
   .modal_content h3{
     font-family: on;
     font-size:25px;
     color:#494949;
+    text-align: center;
+    position:relative;
+    bottom:5%;
   }
 
   .modal_input {
@@ -221,7 +228,7 @@
     background-color:rgba(240, 240, 240, 0.805);
     left:10%;
     bottom: 5%;
-    border: 3px solid #7dd1f0; 
+    border: 3px solid  rgb(126, 197, 255);
     border-radius: 5px; 
     padding: 3%; 
     font-size: 17px;
@@ -229,9 +236,5 @@
     width: 70%;
   }
 
-  .modal_text{
-    position:relative;
-    bottom: 5%;
-    left: 5%;
-    color:#395b68;
-  }
+
+ 
