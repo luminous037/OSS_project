@@ -55,19 +55,19 @@
 
   /*알람설정 텍스트*/
   .text_setting h2{
-    font-size:20px;
+    font-size:25px;
     font-family: on;
     position:absolute;
-    left: 5%;
-    top: 60%;
+    left: 53%;
+    top: 45%;
     color:#494949;
   }
 
   /*알람 설정 버튼*/
   .button_alarm_myPage{
     position: absolute;
-    top:64%;
-    left:30%;
+    top:50%;
+    left:80%;
   }
 
   .profile_input{
@@ -108,10 +108,16 @@
     margin-right: 70%;
   }
   
-  .medicine_title{
+  /*약 목록*/
+  .medicine_title h2{
+    font-family: on;
+    font-size: 35px;
+    color:#494949;
     position: absolute;
+    left:-90%;
     bottom: -3%;
-    width: 100%;
+    top:85%;
+    width: 200%;
     height:12%;
     border-bottom: 3px solid#8CD7F2;
   }
@@ -202,6 +208,12 @@
     width: 50%;
     height: 28%;
     padding: 15px;
+  }
+
+  .modal_content h3{
+    font-family: on;
+    font-size:25px;
+    color:#494949;
   }
 
   .modal_input {

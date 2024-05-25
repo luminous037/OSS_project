@@ -118,7 +118,7 @@ function MyPage() {  //마이페이지 기본 틀
         </div>
 
         <div className="medicine_title">
-          <h2 className="title">약 목록</h2>
+          <h2>약 목록</h2>
         </div>
         
         <MyPageData/>
