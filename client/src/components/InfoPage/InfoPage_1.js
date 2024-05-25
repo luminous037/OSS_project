@@ -17,15 +17,13 @@ function InfoPage_1() {
           'Content-Type': 'application/json' // JSON 형식으로 전송
       },
       body: JSON.stringify(childName) // 사용자 이름을 body에 저장      
-    }).then(response =>{
-      if (response.ok) {
-        navigate('/InfoPage_1/InfoPage_2'); // 저장 후 페이지 이동
-      }
+    }) .then(res => res.json()) // 응답을 JSON으로 파싱
+    .then(data => {
+        navigate(`/InfoPage_1/InfoPage_2?userID=${data._id}`); // 파싱된 데이터에서 _id 사용
     })
     .catch(err => {
        console.error('namePost 중 오류: ',err);
     });
-
   }
 
   return (
