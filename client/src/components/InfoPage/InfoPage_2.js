@@ -59,9 +59,8 @@ const fetchData = (data) => { //데이터 저장
         body: JSON.stringify(data)
     })
     .then(response => response.json()) 
-    .then((res) => {
-      const id=res._id;
-      console.log(id);
+    .then(data=>{
+      const id=data._id;
       navigate(`/InfoPage_1/InfoPage_2/InfoPage_3?mediID=${id}&userID=${userID}`); // 저장 후 페이지 이동
     })
     .catch(err => {

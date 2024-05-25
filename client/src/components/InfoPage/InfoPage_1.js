@@ -17,15 +17,15 @@ function InfoPage_1() {
           'Content-Type': 'application/json' // JSON 형식으로 전송
       },
       body: JSON.stringify(childName) // 사용자 이름을 body에 저장      
-    }).then(res =>{
-        navigate(`/InfoPage_1/InfoPage_2?userID=${res._id}`); // 저장 후 페이지 이동
+    }) .then(res => res.json()) // 응답을 JSON으로 파싱
+    .then(data => {
+        navigate(`/InfoPage_1/InfoPage_2?userID=${data._id}`); // 파싱된 데이터에서 _id 사용
     })
     .catch(err => {
        console.error('namePost 중 오류: ',err);
     });
-
   }
-  
+
   return (
     <div className="Page1">
       
@@ -44,7 +44,7 @@ function InfoPage_1() {
       </div>
 
       <div className="nameBlank">
-        <input
+      <input
           type="text"
           value={childName.userName}
           onChange={(e) => setChildName({ userName: e.target.value})}
@@ -53,11 +53,11 @@ function InfoPage_1() {
 
       <div className="text3">  
         <label>
-        어린이
+          어린이
         </label>
       </div>
 
-      
+
       <div className="navigator">
         
         <button onClick={nameSave} className="nav-item">다음</button>

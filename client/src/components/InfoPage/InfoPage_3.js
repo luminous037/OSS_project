@@ -46,7 +46,7 @@ const updateAlarm = () => { //알람 시간 저장을 위한 fetch
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({mediID: mediID, userID: userID ,time: timeSettings, alarm: alarm}) //알람 시간 업데이트
+        body: JSON.stringify({ mediID, userID, time: timeSettings, alarm })
     })
     .then(() => {
       console.log(timeSettings);
@@ -57,6 +57,9 @@ const updateAlarm = () => { //알람 시간 저장을 위한 fetch
     });
 };
 
+useEffect(() => {
+  console.log(alarm);
+}, [alarm]); // alarm 상태가 변경될 때마다 호출
 
 useEffect(() => { //이전 약 정보 불러옴
   const fetchData = async () => {

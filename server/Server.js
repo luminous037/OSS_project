@@ -188,21 +188,21 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
 })
 
 app.post('/addAlarm', (req,res)=>{
-    const mediID =req.body.mediID;
-    const userID =req.body.userID;
-    const updatedTime = req.body.time;
-    const updatedAlarm = req.body.alarm;
+  const { mediID, userID, time, alarm } = req.body; // 요청 본문에서 데이터 추출
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
     const userCollection = database.collection("user");
 
+    const mediObjectId = new ObjectId(mediID);
+    const userObjectId = new ObjectId(userID);
+
     mediListcollection.updateOne(
-        { _id: mediID}, // _id로 문서 찾기
-        { $set: { time: updatedTime} } 
+        { _id: mediObjectId}, // _id로 문서 찾기
+        { $set: { time: time} } 
       ).then(()=>{
         userCollection.updateOne(
-          { _id: userID},
-          { $set: { alarm: updatedAlarm}}
+          { _id: userObjectId },
+          { $set: { alarm: alarm}}
         )
       })
       .then(()=>{
