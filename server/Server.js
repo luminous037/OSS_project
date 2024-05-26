@@ -34,6 +34,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'userName': userName,
       'alarm' : false,
       'points': 0,
+      'rain': 0,
       'cloud': 0,
       'stamp': 0,
       'mediListID':'',
@@ -84,6 +85,7 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
           userName:1,
           alarm:1,
           points: 1,
+          rain: 1,
           cloud: 1,
           stamp: 1,
           mediListID:1,
@@ -200,7 +202,7 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
 
 })
 
-app.post('/addAlarm', (req,res)=>{
+app.post('/addAlarm', (req,res)=>{ //알람 설정
   const { mediID, userID, time, alarm } = req.body; // 요청 본문에서 데이터 추출
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
@@ -226,14 +228,29 @@ app.post('/addAlarm', (req,res)=>{
       })
 })
 
-app.post('/rainUpdate',(req,res)=>{
-  const rain = req.body.rainCount;
+app.post('/rainUpdate',(req,res)=>{ //비 내린 횟수
+  const rainCount = req.body.rainCount;
   const database = getDatabase(); //db 가져오기
   const userCollection = database.collection("user");
 
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {cloud: rain} }
+    {$set: {rain: rainCount} }
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('rainCount 오류: ',err);
+  })
+})
+
+app.post('/cloudUpdate',(req,res)=>{ //구름 퍼센트
+  const cloud = req.body.cloudPercent;
+  const database = getDatabase(); //db 가져오기
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {cloud: cloud} }
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{

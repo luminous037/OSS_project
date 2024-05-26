@@ -10,20 +10,44 @@ const AlarmPage = () => {
 
   /*구름 퍼센테이지 관리하는 함수*/
   const [percentage, setPercentage] = useState(() => {
-    /*구름의 퍼센테이지를 로컬저장소에 저장해서 웹페이지를 종료하더라도 저장된 값이 남도록 함*/
-    const savedPercentage = localStorage.getItem('cloudPercentage');
-    return savedPercentage ? JSON.parse(savedPercentage) : 0;
   });
 
-    // 퍼센테이지 상태가 변경될 때마다 로컬 스토리지에 저장
-    useEffect(() => {
-      localStorage.setItem('cloudPercentage', JSON.stringify(percentage));
-    }, [percentage]);
+  useEffect(() => {
+    fetch('/userProfile')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
+      const userCloud = parseInt(data[0].cloud, 10);
+      setPercentage(userCloud);
+    })
+    .catch(error => {
+        console.error('유저 정보를 가져오는 중 에러:', error);
+    });
+  }, []);
 
-    /*clear 버튼을 누를 경우 퍼센테이지가 35씩 증가한다. 최대 100*/
-    const handleClearClick = () => {
-      setPercentage(prev => Math.min(prev + 35, 100));
-    };
+  /*구름을 클릭했을 경우 퍼센테이지가 상승함 최대 100*/
+  const handleClearClick = () => {
+    setPercentage(prev =>{
+      const newPercent=Math.min(prev + 35, 100)
+      updateCloud(newPercent);
+      return newPercent;
+    });
+  };
+
+  const updateCloud = (newPercent) => {
+    fetch(`http://localhost:4000/cloudUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(({ cloudPercent: newPercent }))
+    })
+    .then(() => {
+    })
+    .catch(err => {
+      console.error('rainUpdate중 오류: ', err);
+    });
+  };
 
     /*구름 퍼센테이지 텍스트 css*/
     const textStyle = {

@@ -20,13 +20,13 @@ const MainPage = () => {
   /*시간대를 관리*/
   const [isMorning, setIsMorning] = useState(true);
 
-  useEffect(() => {  //이름 출력
+  useEffect(() => {
     fetch('/userProfile')
     .then(response => response.json())
     .then(data => {
       console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
-      const userCloud = parseInt(data[0].cloud, 10); // 첫 번째 유저의 cloud 값을 정수로 변환     // 받은 데이터에서 이름만 추출
-      setRainCount(userCloud);
+      const userRain = parseInt(data[0].rain, 10); //정수로 변환  
+      setRainCount(userRain);
     })
     .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
