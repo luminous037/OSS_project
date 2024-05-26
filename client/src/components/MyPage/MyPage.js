@@ -79,15 +79,18 @@ function MyPage() {  //마이페이지 기본 틀
         <div className="profile">
           <br></br>
           <img className="profile_image" src="/myPage_profile1.png" alt="profile"/>
+
           <div  className="text_setting">
-            <h1>이름</h1>
+            <h3>우리 아이 이름</h3>
             <div className="profile_input">
               <h2>{userData.userName}</h2>
             </div>
+              <h4>
               <button className="profile_input_button" onClick={() => setModalOpen(true)}>수정</button>
+              </h4>
           </div>
           <>
-            { //이름 수정
+            { //이름 수정 모달
               createPortal(
               modalOpen && (
               <div className={'modal_container'} ref={modalBackground} onClick={e => {
@@ -110,12 +113,12 @@ function MyPage() {  //마이페이지 기본 틀
           </>
           <br></br>
           <div className="text_setting"><h2 >알람 설정</h2>
-          <Switch onChange={handleChange} checked={userData.alarm}  onColor="#8CD7F2" className="switch" />
-          </div>
+          <div className="button_alarm_myPage"><Switch onChange={handleChange} checked={userData.alarm}  onColor="#8CD7F2" className="switch" />
+          </div></div>
         </div>
 
         <div className="medicine_title">
-          <h2 className="title">약 목록</h2>
+          <h2>약 목록</h2>
         </div>
         
         <MyPageData/>

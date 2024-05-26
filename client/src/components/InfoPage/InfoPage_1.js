@@ -29,18 +29,14 @@ function InfoPage_1() {
   return (
     <div className="Page1">
       
-      <div className="text1">
-        <h1>
+      <div className='title_info'>
         MeddyBaby
-      </h1>
       </div>
 
       <div className="text2">
 
-      <label>
         우리아이 이름은
-        </label>
-      
+
       </div>
 
       <div className="nameBlank">
@@ -52,9 +48,7 @@ function InfoPage_1() {
       </div>
 
       <div className="text3">  
-        <label>
-          어린이
-        </label>
+        어린이
       </div>
 
 

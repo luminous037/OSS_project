@@ -17,9 +17,9 @@ function InfoPage_2() {
     time: {},
     date:'',
     detail: {
-        morning: false,
-        afternoon: false,
-        evening: false,
+        morning: true,
+        afternoon: true,
+        evening: true,
         before: false,
         after: false,
         time: ''
@@ -89,9 +89,9 @@ const dataSave = () => { //medidata 복용법 수정
 };
 
   const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
-    morning: false,
-    afternoon: false,
-    evening: false 
+    morning: true,
+    afternoon: true,
+    evening: true
 });
 
 const toggleButton = (buttonName) => {
@@ -123,10 +123,8 @@ const toggleCheckBox = (checkBoxName) => {
     return (
 
      <div className="Page2">
-      <div className="text1">
-        <h1>
+      <div className="title_info">
         MeddyBaby
-      </h1>
       </div>
       
   
@@ -157,13 +155,13 @@ const toggleCheckBox = (checkBoxName) => {
             color: buttonStates.morning ? 'white' : '#87CEEB',
             border: buttonStates.morning ? '2px solid #87CEEB' : '2px solid #87CEEB',
             borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
-            padding: '0px 25px', 
-            fontSize: '8px' // 폰트 크기 조절
+            padding: '10px 10px', 
+            fontSize: '25px' // 폰트 크기 조절
           }}
         >
-          <h1>
+
           아침
-          </h1>
+
 
         </button>
         </div>
@@ -178,13 +176,13 @@ const toggleCheckBox = (checkBoxName) => {
             color:  buttonStates.afternoon ? 'white' : '#87CEEB',
             border:  buttonStates.afternoon ? '2px solid #87CEEB' : '2px solid #87CEEB',
             borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
-            padding: '0px 25px', /* 내부 여백 조절 (위 아래 10px, 좌 우 20px) */
-            fontSize: '8px'
+            padding: '10px 10px', 
+            fontSize: '25px'
           }}
         >
-          <h1>
+
           점심
-          </h1>
+
 
         </button>
         </div>
@@ -198,13 +196,12 @@ const toggleCheckBox = (checkBoxName) => {
             color:  buttonStates.evening ? 'white' : '#87CEEB',
             border:  buttonStates.evening ? '2px solid #87CEEB' : '2px solid #87CEEB',
             borderRadius: '30px', // 테두리 둥글기 조절 // 테두리 색상을 동적으로 변경
-            padding: '0px 25px', 
-            fontSize: '8px'
+            padding: '10px 10px', 
+            fontSize: '25px'
           }}
         >
-          <h1>
+
           저녁
-          </h1>
 
         </button>
 
