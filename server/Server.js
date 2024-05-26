@@ -73,13 +73,25 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
   
 
 
-app.get('/userProfile',(req,res)=>{ //infoPage_2, myPage에서 이용, 사용자의 정보 불러옴
+app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
     const database=getDatabase();
     const userCollection = database.collection("user");
 
-    userCollection.find({_id: user_id},{projection:{_id:0, userName:1, alarm:1}})
+    console.log(user_id);
+    userCollection.find({_id: user_id},
+      {projection:
+        { _id:1,
+          userName:1,
+          alarm:1,
+          points: 1,
+          cloud: 1,
+          stamp: 1,
+          mediListID:1,
+          itemID:1,
+          seedID:1}})
     .toArray()
     .then(result=>{
+        console.log(result);
         res.send(result);
     }).catch(err=>{
         console.log("유저 정보 전달 중 오류: ",err);
@@ -214,3 +226,17 @@ app.post('/addAlarm', (req,res)=>{
       })
 })
 
+app.post('/rainUpdate',(req,res)=>{
+  const rain = req.body.rainCount;
+  const database = getDatabase(); //db 가져오기
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {cloud: rain} }
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('rainCount 오류: ',err);
+  })
+})
