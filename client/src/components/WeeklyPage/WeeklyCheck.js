@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './WeeklyPage.css';
 import pannel from '../image/pannel.png';
@@ -10,6 +10,8 @@ import stamp from '../image/stamp.png';
 function WeeklyCheck() {
   const [days, setDays] = useState(0);
   const [inputFields, setInputFields] = useState([]);
+
+  
 
   const handleDaysChange = (e) => {
     const value = e.target.value;
@@ -31,14 +33,46 @@ function WeeklyCheck() {
     setInputFields(newInputFields);
   };
 
+    /*말풍선 대사*/
+    const phrases = [
+      "잘했어!",
+      "스티커 모으기!",
+      "약 먹는 멋진 어린이!",
+      "너 진짜 멋진걸?",
+      "짱이다!"
+    ];
+  
+    /*말풍선 대사 관리*/
+    const [currentPhrase, setCurrentPhrase] = useState('');
+  
+    useEffect(() => {
+      // 대사를 처음 한 번 랜덤으로 설정합니다.
+      changePhrase();
+  
+      // 5초마다 대사를 랜덤으로 변경합니다.
+      const intervalId = setInterval(() => {
+        changePhrase();
+      }, 5000);
+  
+      // 컴포넌트가 언마운트될 때 인터벌을 정리합니다.
+      return () => clearInterval(intervalId);
+    }, []);
+  
+    /*말풍선 대사를 랜덤으로 바꿔주는 함수*/
+    const changePhrase = () => {
+      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+      setCurrentPhrase(randomPhrase);
+    };
+  
+
   return (
     <div>
       <div className="navigator">
         <Link to="./Main" className="nav-item">이전</Link>
       </div>
 
-      <div className="title">
-        <h1>칭찬스티커</h1>
+      <div className="title_weekly">
+        칭찬스티커
       </div>
 
       <div className="Images">
@@ -46,8 +80,8 @@ function WeeklyCheck() {
           <h1></h1>
         </div>
 
-        <div className="pannelImage">
-          <img src={pannel} className="pannel" />
+        <div className="pannel_image">
+          <img src={pannel} className="pannel_weekly" />
         </div>
 
         <div className="chick1">
@@ -57,6 +91,10 @@ function WeeklyCheck() {
           <img src={chick2} className="chick2" />
         </div>
       </div>
+
+      <div className="balloon_weekly">
+          <p>{currentPhrase}</p>
+        </div>
 
       <div className="howMuchStamp">
         <input

@@ -101,11 +101,14 @@ function Seed() { // rainCount 상태와 함께 setRainCount 함수를 prop으�
     if (userData.rain > 0 && userData.plant !== null && seedStage !== 'rewardTree') {
       if (userData.rain >= 4) {
         setSeedStage('rewardTree');
-      } else if (userData.rain >= 3) {
+      } 
+      else if (userData.rain >= 3) {
         setSeedStage('tree');
-      } else if (userData.rain >= 2) {
+      }
+     else if (userData.rain >= 2) {
         setSeedStage('flower');
-      } else {
+      } 
+      else {
         setSeedStage('sprout');
       }
     }
