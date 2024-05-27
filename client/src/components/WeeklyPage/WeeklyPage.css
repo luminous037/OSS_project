@@ -66,6 +66,59 @@ body {height:100%; overflow:hidden;}
     
     z-index:1;
   }
+
+  .balloon_weekly {
+    position: relative;
+    top: 20px; /* 말풍선 위치 조절 */
+    left: 80%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 40px;
+
+    width: 150px; /* 말풍선 크기 조절 */
+    height: 60px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: "on";
+    font-size:20px;
+    z-index: 1;
+  }
+  
+  .balloon_weekly::after {
+    content: '';
+    position: absolute;
+    top:56px;
+    left: 24%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent; 
+    display: block;
+    width: 0;
+    z-index: 1;
+  }
+  
+  /*말풍선 테두리*/
+  .balloon_weekly::before {
+    content: '';
+    position: absolute;
+    top:57px;
+    left: 24%;
+    transform: translateX(-50%);
+    border-width: 12px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent; 
+    display: block;
+    width: 0;
+    z-index: 1;
+  }
+  
+  .balloon p {
+    margin: 0;
+  }
+
+
  @font-face {
     font-family: "on";
     font-weight: 50;

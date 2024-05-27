@@ -1,6 +1,12 @@
-.background2{
+
+input[type="number"] {
+  width: 50px; /* 원하는 가로 너비로 조정 */
+}
+
+/*배경 이미지*/
+.background3{
   display: flex;
-  background-image: url('../../../public/info2_background.png');
+  background-image: url('../../../public/info3_background.png');
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
@@ -12,92 +18,94 @@
 }
 
 
-.text1 { /*MeddyBaby*/
-  font-family: "on";
+/*시간 설정 모달창*/
+.modal_info3{ 
+  font-size: 15px;
+  position: absolute;
+  width: 400%;
+  height: 20%;
+  top:20%;
+  left:20%;
+}
+/*모달 제목 "시간설정*/
+.modal_info3 label{
+  font-size: 10px; /* 글꼴 크기 */
+  margin-right : 10px;
+}
+
+/*모달 요소들*/
+.modal-content {
+  background: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 5px;
   text-align: center;
 }
 
-.nameofpill{ /* 약 이름 설정*/
-  font-family: "on";
-  font-size: 25px;
+.modal-content select,
+.modal-content input {
+  margin: 5px;
+  left: 10%;
+  background-color: #c2c2c2;
+  font-size: 12px; /* 글꼴 크기 */
+}
+
+/*알람 설정 버튼들*/
+.alarmset{
   position: absolute;
-  color: #3995b9;
-  top: 41%;
-  left:40%;
+  top:23%;
+  left:10%;
+  margin-bottom: 20px;
+  display:flex;
+  flex-direction: column;
+  gap:20px;
 }
 
-
-.buttons{
-  position: absolute;
-  top: 52%; /* 원하는 위치로 조정 */
-  left: 49%;
-   transform: translateX(-50%);
-   display: flex; /*가로로 배치*/
-  
-   
+.modal-content h5{
+font-family: "on";
+font-size: 20px;
+color:#82d1ff;
+text-align: center;
 }
 
-.morning,
-.lunch,
-.dinner {
-  font-family: "on";
-  border-color: '#87CEEB'; /* 테두리 색상 */
-  margin-right: 10px; /* 버튼 사이의 간격 조절 */
-  margin-left: 10px;
+.setTime{
+display:felx;
 }
 
-.checkbox{ /*식후, 식전 설정*/
-  font-family: "on";
-  position: absolute;
-  top: 63%; /* 원하는 위치로 조정 */
-  left: 50%;
-   transform: translateX(-50%);
-   display: flex;
-  font-size: 25px;
-
+.modal-content select,
+.modal-content input {
+margin: 5px;
 }
 
-.after,
-.before{
-  margin-right: 20px; /* 버튼 사이의 간격 조절 */
-  margin-left: 10px;
+.confirm button{ /*이대로 설정!*/
+font-family: on;
+background-color: #82d1ff;
+border: none; /* 테두리 제거 */
+border-radius: 20px; /* 둥근 모서리 */
+padding: 10px 20px; /* 내부 여백 */
+font-size: 25px; /* 글꼴 크기 */
+cursor: pointer; /* 마우스 커서를 포인터로 변경하여 버튼임을 나타냄 */
+color:#ffffff ;
+position: absolute;
+top: 70%;
+left: 10%;
 }
 
-.checkbox label {
-  color: #3995b9; /* 원하는 색상으로 변경 */
+.deny button{ /*알람을 설정하지 않을래요*/
+position: absolute;
+top: 78%;
+left: 10%;
+background-color: #c2c2c2;
+font-size: 15px; /* 글꼴 크기 */
+font-family: on;
+  border: none; /* 테두리 제거 */
+  border-radius: 20px; /* 둥근 모서리 */
+  padding: 10px 20px; /* 내부 여백 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경하여 버튼임을 나타냄 */
+  color:#ffffff ;
 }
-
-.date{ /* _일 동안 복용*/
-  font-family: "on";
-  font-size:25px;
-  position: absolute;
-  top: 68.5%;
-  left: 35%;
-  color: #3995b9;
-}
-
-.timeset{ /*매 시간마다 의사 지시대로*/
-  font-family: "on";
-  font-size:25px;
-  position: absolute;
-  top: 72%;
-  left: 16%;
-  color: #3995b9;
-}
-
-.child_name{
-  font-family: "on";
-  font-size: 45px;
-  position: absolute;
-  color: #3995b9;
-  top: 33%;
-  left:70%;
-}
-
-
 
 @font-face {
-  font-family: "on";
-  font-weight: 50;
-  src: url("../../fonts/온글잎 밑미.ttf");
+font-family: "on";
+font-weight: 50;
+src: url("../../fonts/온글잎 밑미.ttf");
 }

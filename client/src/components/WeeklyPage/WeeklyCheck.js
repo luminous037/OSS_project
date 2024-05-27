@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './WeeklyPage.css';
 import pannel from '../image/pannel.png';
@@ -10,6 +10,8 @@ import stamp from '../image/stamp.png';
 function WeeklyCheck() {
   const [days, setDays] = useState(0);
   const [inputFields, setInputFields] = useState([]);
+
+  
 
   const handleDaysChange = (e) => {
     const value = e.target.value;
@@ -33,11 +35,11 @@ function WeeklyCheck() {
 
     /*말풍선 대사*/
     const phrases = [
-      "안녕!",
-      "좋은 하루 보내!",
+      "잘했어!",
+      "스티커 모으기!",
       "약 먹는 멋진 어린이!",
-      "오늘 기분 어때?",
-      "만나서 반가워!"
+      "너 진짜 멋진걸?",
+      "짱이다!"
     ];
   
     /*말풍선 대사 관리*/
@@ -90,7 +92,7 @@ function WeeklyCheck() {
         </div>
       </div>
 
-      <div className="balloon">
+      <div className="balloon_weekly">
           <p>{currentPhrase}</p>
         </div>
 
