@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 import './InfoPage_2.css';
 
-<img src="/edge.jpg"></img>
-
-
-
 function InfoPage_2() {
 
   const location = useLocation();
@@ -107,10 +103,10 @@ const [checkBox, setCheckBox] = useState({  //식 전후
 });
 
 const toggleCheckBox = (checkBoxName) => { 
-    setCheckBox(prevState => ({
-        ...prevState,
-        [checkBoxName]: !prevState[checkBoxName]
-    }));
+    setCheckBox({
+        before: checkBoxName === 'before',
+        after: checkBoxName === 'after'
+    });
 };
 
     // 시간 입력을 위한 상태와 상태 변경 함수
@@ -133,7 +129,7 @@ const toggleCheckBox = (checkBoxName) => {
       </div>
 
       <div className='child_name'>
-      {childName}
+        {childName}
       </div>
 
       <div className="nameofpill">
