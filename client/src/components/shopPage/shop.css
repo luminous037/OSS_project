@@ -154,13 +154,7 @@ body {height:100%; overflow:hidden;}
     width: 520px;
 }
 
-.image-1 {
-  /* 이미지 1에 대한 스타일 */
-  position: absolute;
-  top: 37%;
-  height: 58%;
-  width: 520px;
-}
+
 
 .explode-animation {
     position: absolute;
@@ -204,14 +198,30 @@ body {height:100%; overflow:hidden;}
     }
   }
 
- /* 옷입히기 */
-.img-custom-style {
+
+/*새싹모자 착용시 이미지 조정*/
+  .image-1 {
     position: absolute;
-    top:0%;
-    left:38%;
+    top: 3%;
+    left: 42%;
+    height: 80px;;
+    width: 80px;
+  }
+  /*산타모자 착용시 이미지 조정*/
+  .image-2 {
+    position: absolute;
+    top: 3%;
+    left: 41%;
+    height: 100px;;
     width: 100px;
-    height: 100px;
-    margin: 10px;
+  }
+  /*용머리띠 착용시 이미지 조정*/
+  .image-3 {
+    position: absolute;
+    top: 4%;
+    left: 152px;
+    height: 150px;;
+    width: 204px;
   }
   
   
