@@ -6,15 +6,18 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #f8f9fa;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  box-shadow: 0 -2px 5px rgba(25, 44, 16, 0.1);
+  font-family: "on";
+  
+
 }
 
 .nav-item {
   padding: 10px 15px;
   text-decoration: none;
-  color: #007bff;
-  font-size: 16px;
+  color: #000000;
+  font-size: 20px;
 }
 
   
