@@ -12,14 +12,14 @@ body {height:100%; overflow:hidden;}
     background-size: auto 100%;
     z-index: 0; 
   }
-
+/*상점 타이틀*/
 .title_shop{
   font-family: on;
   font-size: 40px;
     position: absolute;
     left: 5%;
 }
-
+/*병아리 캐릭터*/
 .chick4{
     position: absolute;
     padding-right: 10%;
@@ -28,7 +28,7 @@ body {height:100%; overflow:hidden;}
     transform: scale(0.55);
     z-index: 0;
   }
-
+/*포인트 박스 이미지*/
   .pointBox{
     position: absolute;
     padding-right: 90%;
@@ -37,20 +37,20 @@ body {height:100%; overflow:hidden;}
     transform: scale(0.3);
     z-index: 0;
   }
-
+/*포인트 텍스트*/
   .point {
+    font-family: on;
     position: absolute;
     top: 3.3%;
     left: 88%;
     transform: translate(-50%, -50%);
     color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 25px;
     z-index: 1;
     display:flex;
     z-index: 1;
   }
-
+/*코인이미지*/
   .coin{
     position: absolute;
     top: -14.3%;
@@ -71,9 +71,12 @@ body {height:100%; overflow:hidden;}
 
 /* 아이템 이름과 가격 사이의 간격 추가 */
 .item h3{
-    margin-top:10px;
+  font-family: on;
+  font-size:25px;
+    margin-top:0px;
     margin-bottom:90px;
     margin-right:50px; /* 원하는 간격으로 조절하세요 */
+    font-weight: normal;
   }
   
   .item-image{
@@ -84,6 +87,12 @@ body {height:100%; overflow:hidden;}
     margin-right:-50px;
   }
 
+/*가격 텍스트*/
+  .price{
+    font-family: on;
+  font-size:20px;
+  font-weight: normal;
+  }
   .equipped-plant {
     position: absolute;
     background-color: green;
@@ -109,6 +118,13 @@ body {height:100%; overflow:hidden;}
     background-color: gold;
   }
   
+  /*구매완료 텍스트*/
+  .purchased{
+    font-family: on;
+    font-size:20px;
+    font-weight: normal;
+    color:gray;
+  }
   
 
   .modal{
@@ -118,6 +134,8 @@ body {height:100%; overflow:hidden;}
   }
 
   .modal-content {
+    font-family: on;
+  font-size:25px;
     background-color: white;
     padding: 20px;
     border-radius: 5px;
