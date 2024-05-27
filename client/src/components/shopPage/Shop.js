@@ -90,34 +90,56 @@ function Shop() {
 
   const showSelectImage = (imageSrc) => {
     const imageSelected = document.createElement('img');
-  
+    
     let imagePath = '';
+    let imageClass = ''; // 이미지에 추가될 클래스
+  
+    // 이미지가 이미 보여지고 있는지 여부를 추적하는 상태
+    const isImageVisible = !!document.getElementById(`image-${imageSrc}`);
+  
     switch (imageSrc) {
       case 1:
         imagePath = plant;
+        imageClass = 'image-1'; // 이미지 1에 해당하는 클래스
         break;
       case 2:
         imagePath = santa;
+        imageClass = 'image-2'; // 이미지 2에 해당하는 클래스
         break;
       case 3:
         imagePath = dragon;
+        imageClass = 'image-3'; // 이미지 3에 해당하는 클래스
         break;
       case 4:
         imagePath = witch;
+        imageClass = 'image-4'; // 이미지 4에 해당하는 클래스
         break;
       case 5:
         imagePath = ribbon;
+        imageClass = 'image-5'; // 이미지 5에 해당하는 클래스
         break;
       case 6:
         imagePath = crown;
+        imageClass = 'image-6'; // 이미지 6에 해당하는 클래스
         break;
       default:
         console.log('유효하지 않은 imageSrc 값입니다.');
         return; // 유효하지 않은 경우 함수 종료
     }
   
+    // 이미지가 이미 보여지고 있는 경우 해당 이미지를 숨김
+    if (isImageVisible) {
+      const imageToRemove = document.getElementById(`image-${imageSrc}`);
+      if (imageToRemove) {
+        shopElement.removeChild(imageToRemove);
+        localStorage.removeItem('lastImageId'); // 로컬 스토리지에서 해당 이미지 아이디 제거
+      }
+      return;
+    }
+  
     imageSelected.src = imagePath;
     imageSelected.classList.add('img-custom-style');
+    imageSelected.classList.add(imageClass); // 고유한 클래스 추가
   
     // 이전 이미지가 존재하면 제거
     const lastImageId = localStorage.getItem('lastImageId');
@@ -131,6 +153,7 @@ function Shop() {
     // 새로운 이미지를 Shop 페이지에 출력
     const newImageId = `image-${imageSrc}`;
     imageSelected.id = newImageId;
+    imageSelected.classList.add(`image-${imageSrc}`); // 클래스 추가
     shopElement.appendChild(imageSelected);
   
     // 마지막 이미지를 현재 이미지로 업데이트
@@ -139,6 +162,8 @@ function Shop() {
   
     console.log(imageSelected);
   };
+  
+  
 
   return (
     <div id = "Shop">
@@ -162,8 +187,8 @@ function Shop() {
         <p>{point}</p>
       </div>
 
-      <div className="title">
-        <h1>상점</h1>
+      <div className="title_shop">
+        상점
       </div>
 
       <div className="chick4">
@@ -171,7 +196,7 @@ function Shop() {
       </div>
 
       <div className="pannelImage">
-        <img src={pannel} className="pannel" />
+        <img src={pannel} className="pannel_shop" />
       </div>
 
       <div className="items">
@@ -208,7 +233,7 @@ function Shop() {
           <div className="modal-content">
             {currentItem ? (
               <>
-                <h2>구매 확인</h2>
+                구매 확인
                 <p>'{currentItem?.name}'을(를) {currentItem?.price}원에 구매하시겠습니까?</p>
                 <div className="modal-buttons">
                   <button onClick={confirmPurchase}>확인</button>
