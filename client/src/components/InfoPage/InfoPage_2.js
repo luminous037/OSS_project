@@ -7,7 +7,7 @@ function InfoPage_2() {
   const searchParams = new URLSearchParams(location.search);
   const userID = searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
 
-  const [mediData, setMediData] = useState({ //기본 데이터 저장 구조
+  const [mediData, setMediData] = useState({ // 기본 데이터 저장 구조
     mediName: '',
     time: {},
     date: '',
@@ -23,7 +23,7 @@ function InfoPage_2() {
 
   const [childName, setUserName] = useState('');
 
-  useEffect(() => {  //이름 출력
+  useEffect(() => {  // 이름 출력
     fetch('/userProfile')
       .then(response => response.json())
       .then(data => {
@@ -35,7 +35,7 @@ function InfoPage_2() {
       });
   }, []);
 
-  const handleInputChange = (event) => { //약 이름 받기 처리
+  const handleInputChange = (event) => { // 약 이름 받기 처리
     const { name, value } = event.target;
     setMediData({
       ...mediData,
@@ -45,7 +45,7 @@ function InfoPage_2() {
 
   const navigate = useNavigate();
 
-  const fetchData = (data) => { //데이터 저장
+  const fetchData = (data) => { // 데이터 저장
     fetch('http://localhost:4000/addList', {
       method: 'POST',
       headers: {
@@ -63,7 +63,7 @@ function InfoPage_2() {
       });
   };
 
-  const dataSave = () => { //medidata 복용법 수정
+  const dataSave = () => { // medidata 복용법 수정
     const infoData = {
       morning: buttonStates.morning,
       afternoon: buttonStates.afternoon,
@@ -81,7 +81,7 @@ function InfoPage_2() {
     fetchData(updatedMediData); // 저장과 함께 이동
   };
 
-  const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
+  const [buttonStates, setButtonStates] = useState({ // 아침 점심 저녁
     morning: true,
     afternoon: true,
     evening: true
@@ -94,7 +94,7 @@ function InfoPage_2() {
     }));
   };
 
-  const [checkBox, setCheckBox] = useState({  //식 전후
+  const [checkBox, setCheckBox] = useState({  // 식 전후
     before: false,
     after: false
   });
@@ -118,14 +118,15 @@ function InfoPage_2() {
   useEffect(() => {
     const validateForm = () => {
       const isMediNameFilled = mediData.mediName.trim() !== '';
-      const isCheckboxChecked = checkBox.before || checkBox.after;
+      const isTimeFilled = time.trim() !== '';
       const isDateFilled = mediData.date.trim() !== '';
+      const isCheckboxChecked = checkBox.before || checkBox.after;
 
-      return isMediNameFilled && isCheckboxChecked && isDateFilled;
+      return (isMediNameFilled && isDateFilled && (isTimeFilled || isCheckboxChecked));
     };
 
     setIsNextButtonDisabled(!validateForm());
-  }, [mediData.mediName, checkBox, mediData.date]);
+  }, [mediData.mediName, time, mediData.date, checkBox]);
 
   const areInputsDisabled = time.trim() !== '';
 
