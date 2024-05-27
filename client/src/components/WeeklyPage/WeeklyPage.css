@@ -4,14 +4,14 @@ body {height:100%; overflow:hidden;}
 
 
 
-.title {
+.title_weekly {
+  font-family: on;
+  font-size:40px;
     position: absolute;
-    top: 4%;
+    top: 3%;
     left: 30%;
     transform: translate(-50%, -50%);
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-weight: bold;
+    color: rgb(39, 39, 39);
     z-index: 1;
   }
 
@@ -27,8 +27,7 @@ body {height:100%; overflow:hidden;}
   }
   
   
-  .pannel{
-
+  .pannel_weekly{
     position: absolute;
     top: 120px;
     height: 80%;
@@ -54,11 +53,11 @@ body {height:100%; overflow:hidden;}
     z-index: 0;
   }
 
+  /*스탬프*/
   .input {
     position: absolute;
     left: 0%;
     transform: translate(-50%, -50%);
-
   }
   
   .howMuchStamp{

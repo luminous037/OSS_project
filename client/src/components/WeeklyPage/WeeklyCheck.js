@@ -37,8 +37,8 @@ function WeeklyCheck() {
         <Link to="./Main" className="nav-item">이전</Link>
       </div>
 
-      <div className="title">
-        <h1>칭찬스티커</h1>
+      <div className="title_weekly">
+        칭찬스티커
       </div>
 
       <div className="Images">
@@ -46,8 +46,8 @@ function WeeklyCheck() {
           <h1></h1>
         </div>
 
-        <div className="pannelImage">
-          <img src={pannel} className="pannel" />
+        <div className="pannel_image">
+          <img src={pannel} className="pannel_weekly" />
         </div>
 
         <div className="chick1">
