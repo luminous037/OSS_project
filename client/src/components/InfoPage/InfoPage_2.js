@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './InfoPage_2.css';
 
 function InfoPage_2() {
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userID = searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
@@ -128,6 +127,8 @@ function InfoPage_2() {
     setIsNextButtonDisabled(!validateForm());
   }, [mediData.mediName, checkBox, mediData.date]);
 
+  const areInputsDisabled = time.trim() !== '';
+
   return (
     <div className="Page2">
       <div className="title_info">
@@ -165,12 +166,13 @@ function InfoPage_2() {
               padding: '10px 10px',
               fontSize: '25px'
             }}
+            disabled={areInputsDisabled}
           >
             아침
           </button>
         </div>
 
-        <div calssName="lunch">
+        <div className="lunch">
           <button
             onClick={() => toggleButton('afternoon')}
             style={{
@@ -181,6 +183,7 @@ function InfoPage_2() {
               padding: '10px 10px',
               fontSize: '25px'
             }}
+            disabled={areInputsDisabled}
           >
             점심
           </button>
@@ -197,6 +200,7 @@ function InfoPage_2() {
               padding: '10px 10px',
               fontSize: '25px'
             }}
+            disabled={areInputsDisabled}
           >
             저녁
           </button>
@@ -209,6 +213,7 @@ function InfoPage_2() {
             type="checkbox"
             checked={checkBox.after}
             onChange={() => toggleCheckBox('after')}
+            disabled={areInputsDisabled}
           />
           <label>식후 30분</label>
         </div>
@@ -218,6 +223,7 @@ function InfoPage_2() {
             type="checkbox"
             checked={checkBox.before}
             onChange={() => toggleCheckBox('before')}
+            disabled={areInputsDisabled}
           />
           <label>식전 30분</label>
         </div>
