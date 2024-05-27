@@ -154,7 +154,13 @@ body {height:100%; overflow:hidden;}
     width: 520px;
 }
 
-
+.image-1 {
+  /* 이미지 1에 대한 스타일 */
+  position: absolute;
+  top: 37%;
+  height: 58%;
+  width: 520px;
+}
 
 .explode-animation {
     position: absolute;
