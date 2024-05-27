@@ -130,20 +130,29 @@ body {height:100%; overflow:hidden;}
   .modal{
     position: absolute;
     top : 30%;
-    left: 20%;
+    left: 15%;
   }
 
   .modal-content {
     font-family: on;
-  font-size:25px;
-    background-color: white;
+    font-size: 25px;
+    font-weight: normal;
+    background-color: #fff5d2;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(111, 111, 111, 0.5);
     text-align: center;
+    background-image: url('../image/what_shop.png');
+    background-repeat: no-repeat;
+    background-size: 380px 190px;
+    overflow-y: auto;
+    overflow-x: auto;
   }
   
   .modal-buttons button {
+    background-color: #ead899;
+    border: 2px solid black;
+    color:black;
     margin: 0 10px;
   }
   

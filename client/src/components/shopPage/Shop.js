@@ -233,7 +233,7 @@ function Shop() {
           <div className="modal-content">
             {currentItem ? (
               <>
-                <h2>구매 확인</h2>
+                구매 확인
                 <p>'{currentItem?.name}'을(를) {currentItem?.price}원에 구매하시겠습니까?</p>
                 <div className="modal-buttons">
                   <button onClick={confirmPurchase}>확인</button>
