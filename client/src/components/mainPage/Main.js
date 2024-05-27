@@ -20,9 +20,41 @@ const MainPage = () => {
   /*시간대를 관리*/
   const [isMorning, setIsMorning] = useState(true);
 
-  /*비 내린 횟수를 계산하는 함수*/
+  useEffect(() => {
+    fetch('/userProfile')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
+      const userRain = parseInt(data[0].rain, 10); //정수로 변환  
+      setRainCount(userRain);
+    })
+    .catch(error => {
+        console.error('유저 정보를 가져오는 중 에러:', error);
+    });
+  }, []);
+  
   const handleRain = () => {
-    setRainCount((prevCount) => prevCount + 1);
+    setRainCount((prevCount) => {
+      const newCount = prevCount + 1;
+      updateRain(newCount);
+      return newCount;
+    });
+    console.log(rainCount);
+  };
+  
+  const updateRain = (newCount) => {
+    fetch(`http://localhost:4000/rainUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(({ rainCount: newCount }))
+    })
+    .then(() => {
+    })
+    .catch(err => {
+      console.error('rainUpdate중 오류: ', err);
+    });
   };
 
   useEffect(() => {
