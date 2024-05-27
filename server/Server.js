@@ -31,17 +31,18 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     const userName = req.body.userName;
   
     userCollection.insertOne({
-      'userName': userName,
-      'alarm' : false,
-      'points': 0,
-      'cloud': 0,
-      'stamp': 0,
-      'mediListID':'',
-      'itemID':'',
-      'seedID':''
+      'userName': userName, //유저 이름
+      'alarm' : false, //알람 설정
+      'points': 0, //포인트
+      'plant' : 0, //씨앗 심은 상태
+      'rain': 0, //비 내린 횟수 = 씨앗 성장 상태
+      'cloud': 0, //구름 퍼센티지
+      'stamp': 0, //스탬프
+      'mediListID':'', // 약 정보
+      'itemID':'', //아이템 정보
+      'seedID':'' //씨앗 정보
     })
     .then((result) => {
-      console.log(result);
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
       user_id=result.insertedId; //유저 id 설정
       res.send({ _id: result.insertedId})
@@ -73,11 +74,25 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
   
 
 
-app.get('/userProfile',(req,res)=>{ //infoPage_2, myPage에서 이용, 사용자의 정보 불러옴
+app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
     const database=getDatabase();
     const userCollection = database.collection("user");
 
-    userCollection.find({_id: user_id},{projection:{_id:0, userName:1, alarm:1}})
+    console.log(user_id);
+    userCollection.find({_id: user_id},
+      {projection:
+        { _id:1,
+          userName:1,
+          alarm:1,
+          points: 1,
+          plant: 1,
+          rain: 1,
+          cloud: 1,
+          stamp: 1,
+          mediListID:1,
+          itemID:1,
+          seedID:1
+        }})
     .toArray()
     .then(result=>{
         res.send(result);
@@ -188,7 +203,7 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
 
 })
 
-app.post('/addAlarm', (req,res)=>{
+app.post('/addAlarm', (req,res)=>{ //알람 설정
   const { mediID, userID, time, alarm } = req.body; // 요청 본문에서 데이터 추출
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
@@ -214,3 +229,47 @@ app.post('/addAlarm', (req,res)=>{
       })
 })
 
+app.post('/rainUpdate',(req,res)=>{ //비 내린 횟수
+  const rainCount = req.body.rainCount;
+  const database = getDatabase(); //db 가져오기
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {rain: rainCount} }
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('rainCount 오류: ',err);
+  })
+})
+
+app.post('/cloudUpdate',(req,res)=>{ //구름 퍼센트
+  const cloud = req.body.cloudPercent;
+  const database = getDatabase(); //db 가져오기
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {cloud: cloud} }
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('rainCount 오류: ',err);
+  })
+})
+
+app.post('/plantUpdate', (req,res)=>{
+  const database =getDatabase();
+  const userCollection = database.collection("user");
+
+  const{plant, point}=req.body;
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {plant: plant, point:point}}
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('plant 오류: ', err);
+  })
+})
