@@ -11,8 +11,9 @@
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
         "express": "^4.19.2",
-        "mongoose": "^8.3.3",
-        "nodemon": "^3.1.0"
+        "mongoose": "^8.4.0",
+        "nodemon": "^3.1.0",
+        "react-router-dom": "^6.23.1"
     },
     "devDependencies": {
         "concurrently": "^4.1.2"
