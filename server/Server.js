@@ -78,7 +78,7 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
     const database=getDatabase();
     const userCollection = database.collection("user");
 
-    console.log(user_id);
+    //console.log(user_id);
     userCollection.find({_id: user_id},
       {projection:
         { _id:1,
@@ -263,10 +263,10 @@ app.post('/plantUpdate', (req,res)=>{
   const database =getDatabase();
   const userCollection = database.collection("user");
 
-  const{plant, point}=req.body;
+  const{plant, rain, point}=req.body;
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {plant: plant, point:point}}
+    {$set: {plant: plant, rain: rain, points: point, }}
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{
