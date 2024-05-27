@@ -44,6 +44,9 @@ function InfoPage_2() {
   };
 
   const navigate = useNavigate();
+  const navigateBack = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
 
   const fetchData = (data) => { // 데이터 저장
     fetch('http://localhost:4000/addList', {
@@ -255,6 +258,9 @@ function InfoPage_2() {
 
       <div className="navigator">
         <button onClick={dataSave} className="nav-item" disabled={isNextButtonDisabled}>다음</button>
+      </div>
+      <div className='navigator-back'>
+      <button onClick={navigateBack}>이전</button>
       </div>
     </div>
   );
