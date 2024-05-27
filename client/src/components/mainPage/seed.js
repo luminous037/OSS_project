@@ -91,14 +91,17 @@ function Seed() { // rainCount 상태와 함께 setRainCount 함수를 prop으�
   /*물을 준 횟수에 따른 씨앗의 상태 관리*/
   useEffect(() => {
     console.log(userData);
-    if (userData.rain > 0 && selectedSeed && seedStage !== 'rewardTree') {
+    if (userData.rain >= 0 && selectedSeed && seedStage !== 'rewardTree') {
       if (userData.rain >= 4) {
         setSeedStage('rewardTree');
-      } else if (userData.rain >= 3) {
+      } 
+      else if (userData.rain >= 3) {
         setSeedStage('tree');
-      } else if (userData.rain >= 2) {
+      }
+     else if (userData.rain >= 2) {
         setSeedStage('flower');
-      } else {
+      } 
+      else {
         setSeedStage('sprout');
       }
     }
