@@ -13,9 +13,11 @@ body {height:100%; overflow:hidden;}
     z-index: 0; 
   }
 
-.title{
+.title_shop{
+  font-family: on;
+  font-size: 40px;
     position: absolute;
-    left: 20%;
+    left: 5%;
 }
 
 .chick4{
@@ -127,10 +129,11 @@ body {height:100%; overflow:hidden;}
     margin: 0 10px;
   }
   
-.pannel{
+.pannel_shop{
     position: absolute;
     top: 37%;
     height: 58%;
+    width: 520px;
 }
 
 
@@ -199,3 +202,9 @@ body {height:100%; overflow:hidden;}
     }
   }
   
+
+  @font-face {
+    font-family: "on";
+    font-weight: 50;
+    src: url("../../fonts/온글잎 밑미.ttf");
+  }

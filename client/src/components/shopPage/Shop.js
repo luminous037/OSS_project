@@ -162,8 +162,8 @@ function Shop() {
         <p>{point}</p>
       </div>
 
-      <div className="title">
-        <h1>상점</h1>
+      <div className="title_shop">
+        상점
       </div>
 
       <div className="chick4">
@@ -171,7 +171,7 @@ function Shop() {
       </div>
 
       <div className="pannelImage">
-        <img src={pannel} className="pannel" />
+        <img src={pannel} className="pannel_shop" />
       </div>
 
       <div className="items">
