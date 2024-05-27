@@ -1,55 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation,useNavigate } from 'react-router-dom'; // useParams 추가
+import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import "./InfoPage_3.css"
 import InfoPage_2 from './InfoPage_2';
 
 
 function InfoPage_3() {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const mediID = searchParams.get('mediID'); // 쿼리 파라미터로부터 id 값을 가져옴
-  const userID = searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
+
+  const [mediData, setMediData] = useState({
+    mediName: '',
+    time: '',
+    date: '',
+    detail: {
+      morning: true,
+      afternoon: true,
+      evening: true,
+      before: false,
+      after: false,
+      time: ''
+    }
+  });
+
 
 const navigate=useNavigate();
+const navigateBack = () => {
+  navigate(-1); // 이전 페이지로 이동
+};
 
-const [alarm, setalarm] = useState(false);
-
-const [mediData, setMediData] = useState({ //기존에 저장된 detail 값 필요
-  mediName: '',
-  time: {},
-  date:'',
-  detail: {
-    morning: false,
-    afternoon: false,
-    evening: false,
-    before: false,
-    after: false,
-    time: ''
-  }
-});
-
-const [timeSettings, setTimeSettings] = useState({ //알람 시간
-  ampm1: 'AM',
-  hour1: 9,
-  minute1: 0,
-  ampm2: 'PM',
-  hour2: 12,
-  minute2: 0,
-  ampm3: 'PM',
-  hour3: 6,
-  minute3: 0,
-});
-
-const updateAlarm = () => { //알람 시간 저장을 위한 fetch
-    fetch(`http://localhost:4000/addAlarm`, {
+const fetchData = (data) => { //데이터 저장
+    fetch('http://localhost:4000/addList', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ mediID, userID, time: timeSettings, alarm })
+        body: JSON.stringify(data)
     })
     .then(() => {
-      console.log(timeSettings);
       navigate('/Main'); // 저장 후 페이지 이동
     })
     .catch(err => {
@@ -57,31 +42,16 @@ const updateAlarm = () => { //알람 시간 저장을 위한 fetch
     });
 };
 
-useEffect(() => {
-  console.log(alarm);
-}, [alarm]); // alarm 상태가 변경될 때마다 호출
-
-useEffect(() => { //이전 약 정보 불러옴
-  const fetchData = async () => {
-    try {
-      const res = await callApi(); //
-      if (Array.isArray(res) && res.length > 0) {
-        setMediData(res[0]); // 배열의 첫 번째 요소를 사용
-      } else {
-        setMediData(res);
-      }
-    } catch (err) {
-      console.log("클라이언트에서 약 불러오기 중: ", err);
-    }
+const dataSave = () => { //medidata 복용법 수정
+  const infoData ={
+    
+  }
+  const updatedMediData = {
+    ...mediData,
+    detail: infoData
   };
-
-  fetchData();
-}, [mediID]);
-
-const callApi = async () => {
-  const response = await fetch(`http://localhost:4000/list/${mediID}`);
-  const body = await response.json();
-  return body;
+  setMediData(updatedMediData);
+  fetchData(updatedMediData); // 저장과 함께 이동
 };
 
   const [modalState, setModalState] = useState({
@@ -90,6 +60,17 @@ const callApi = async () => {
     modalOpen3: false,
   });
 
+  const [timeSettings, setTimeSettings] = useState({
+    ampm1: 'AM',
+    hour1: 9,
+    minute1: 0,
+    ampm2: 'PM',
+    hour2: 12,
+    minute2: 0,
+    ampm3: 'PM',
+    hour3: 6,
+    minute3: 0,
+  });
 
   const handleModalOpen = (buttonId) => {
     setModalState(prevState => ({
@@ -132,12 +113,6 @@ const callApi = async () => {
 
   const setAlarm = () => {
     alert("알람이 설정되었습니다.");
-    setalarm(true);
-  };
-
-  const cancleAlarm = () => {
-    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
-    setalarm(false);
   };
 
   const renderButtonIfTrue = (condition, buttonId) => {
@@ -151,7 +126,7 @@ const callApi = async () => {
           {modalState[`modalOpen${buttonId}`] && (
             <div className="modal_info3">
               <div className="modal-content">
-                <h2>시간 설정</h2>
+                <h5>시간설정</h5>
                 <div className='setTime'>
 
                 <select value={timeSettings[`ampm${buttonId}`]} onChange={(e) => handleAMPMChange(buttonId, e)}>
@@ -163,8 +138,8 @@ const callApi = async () => {
                 <input type="number" value={timeSettings[`minute${buttonId}`]} onChange={(e) => handleMinuteChange(buttonId, e)} min="0" max="59" />
                 
               </div>
-                <button onClick={() => handleConfirm(buttonId)}>확인</button>
-                <button onClick={() => handleModalClose(buttonId)}>취소</button>
+              <button onClick={() => handleModalClose(buttonId)}>취소</button>
+               <button onClick={() => handleConfirm(buttonId)}>확인</button>
                 </div>
             </div>
           )}
@@ -174,18 +149,21 @@ const callApi = async () => {
     return null;
   };
 
+  const cancleAlarm = () => {
+    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
+  };
+
   return (
     <div>
-      <div className="text1">
-        <h1>
-          MeddyBaby
-        </h1>
+      <div className='title_info'>
+        MeddyBaby
       </div>
 
       <div className="background3">
         <h1></h1>
       </div>
 
+      <div className='button_info3'>
       <div className="alarmset">
         {renderButtonIfTrue(mediData.detail.morning, 1)}
         {renderButtonIfTrue(mediData.detail.afternoon, 2)}
@@ -199,9 +177,13 @@ const callApi = async () => {
       <div className="deny">
         <button onClick={cancleAlarm}>알람을 사용하지 않을래요.</button>
       </div>
+      </div>
 
       <div className="navigator">
-        <button onClick={updateAlarm} className="nav-item">다음</button>
+        <button onClick={dataSave} className="nav-item">다음</button>
+      </div>
+      <div className='navigator-back'>
+      <button onClick={navigateBack}>이전</button>
       </div>
     </div>
   );
