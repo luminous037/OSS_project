@@ -159,9 +159,9 @@ function InfoPage_2() {
           <button
             onClick={() => toggleButton('morning')}
             style={{
-              backgroundColor: buttonStates.morning ? '#87CEEB' : 'white',
-              color: buttonStates.morning ? 'white' : '#87CEEB',
-              border: buttonStates.morning ? '2px solid #87CEEB' : '2px solid #87CEEB',
+              backgroundColor: areInputsDisabled ? '#D3D3D3' : buttonStates.morning ? '#87CEEB' : 'white',
+              color: areInputsDisabled ? 'gray' : buttonStates.morning ? 'white' : '#87CEEB',
+              border: '2px solid #87CEEB',
               borderRadius: '30px',
               padding: '10px 10px',
               fontSize: '25px'
@@ -176,9 +176,9 @@ function InfoPage_2() {
           <button
             onClick={() => toggleButton('afternoon')}
             style={{
-              backgroundColor: buttonStates.afternoon ? '#87CEEB' : 'white',
-              color: buttonStates.afternoon ? 'white' : '#87CEEB',
-              border: buttonStates.afternoon ? '2px solid #87CEEB' : '2px solid #87CEEB',
+              backgroundColor: areInputsDisabled ? '#D3D3D3' : buttonStates.afternoon ? '#87CEEB' : 'white',
+              color: areInputsDisabled ? 'gray' : buttonStates.afternoon ? 'white' : '#87CEEB',
+              border: '2px solid #87CEEB',
               borderRadius: '30px',
               padding: '10px 10px',
               fontSize: '25px'
@@ -193,9 +193,9 @@ function InfoPage_2() {
           <button
             onClick={() => toggleButton('evening')}
             style={{
-              backgroundColor: buttonStates.evening ? '#87CEEB' : 'white',
-              color: buttonStates.evening ? 'white' : '#87CEEB',
-              border: buttonStates.evening ? '2px solid #87CEEB' : '2px solid #87CEEB',
+              backgroundColor: areInputsDisabled ? '#D3D3D3' : buttonStates.evening ? '#87CEEB' : 'white',
+              color: areInputsDisabled ? 'gray' : buttonStates.evening ? 'white' : '#87CEEB',
+              border: '2px solid #87CEEB',
               borderRadius: '30px',
               padding: '10px 10px',
               fontSize: '25px'
@@ -215,7 +215,7 @@ function InfoPage_2() {
             onChange={() => toggleCheckBox('after')}
             disabled={areInputsDisabled}
           />
-          <label>식후 30분</label>
+          <label style={{ color: areInputsDisabled ? 'gray' : '#3995b9' }}>식후 30분</label>
         </div>
 
         <div className="before">
@@ -225,7 +225,7 @@ function InfoPage_2() {
             onChange={() => toggleCheckBox('before')}
             disabled={areInputsDisabled}
           />
-          <label>식전 30분</label>
+          <label style={{ color: areInputsDisabled ? 'gray' : '#3995b9' }}>식전 30분</label>
         </div>
       </div>
 
