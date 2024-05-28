@@ -27,12 +27,13 @@ function MyPage() {  //마이페이지 기본 틀
       .then(response => response.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
-          const userData = {
+          const Data = {
             userName: data[0].userName,
             alarm: data[0].alarm
           };
-          console.log(userData);
-          setUserData(userData);
+          console.log(Data);
+          setUserData(Data);
+          setNewData(prev=>({...prev, newName:Data.userName, alarmChange:Data.alarm}))
         }
       })
       .catch(error => {
@@ -48,6 +49,9 @@ function MyPage() {  //마이페이지 기본 틀
           'Content-Type': 'application/json' // JSON 형식으로 전송
       },
       body: JSON.stringify(newData) //바뀐 내용을 전달
+    })
+    .then(()=>{
+      setUserData(prev=>({...prev, userName:newData.newName, alarm:newData.alarmChange}));
     })
     .catch(err => {
        console.error('userDataUpdate 중 오류: ',err);
