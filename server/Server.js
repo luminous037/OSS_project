@@ -33,7 +33,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     userCollection.insertOne({
       'userName': userName, //유저 이름
       'alarm' : false, //알람 설정
-      'points': 0, //포인트
+      'points': 5000, //포인트
       'plant' : 0, //씨앗 심은 상태
       'rain': 0, //비 내린 횟수 = 씨앗 성장 상태
       'cloud': 0, //구름 퍼센티지
@@ -113,6 +113,36 @@ app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록
     //     return;
     // }
 
+
+    // userCollection.findOne({ _id: new ObjectId(user_id) }) //사용자 정보 찾기
+    //     .then(user => {
+    //         if (!user) {
+    //             res.status(404).send('User not found');
+    //             return;
+    //         }
+
+    //         const mediListIDs = user.mediListID; // 사용자 정보에서 mediListID 배열 가져오기
+
+    //         if (!Array.isArray(mediListIDs) || mediListIDs.length === 0) {
+    //             res.status(404).send('약 정보 못 찾음');
+    //             return;
+    //         }
+
+    //         mediListcollection.find({ _id: { $in: mediListIDs.map(id => new ObjectId(id)) } }, { projection: { _id: 1, mediName: 1 } }) // mediListID 배열에 포함된 약 목록 찾기
+    //             .toArray()
+    //             .then(queryResult => {
+    //                 res.send(queryResult); // 조회된 약 목록
+    //             })
+    //             .catch(err => {
+    //                 console.error("약 목록 조회 오류: ", err);
+    //                 res.status(500).send('Error retrieving medicine list');
+    //             });
+    //     })
+    //     .catch(err => {
+    //         console.error("사용자 조회 오류: ", err);
+    //         res.status(500).send('Error retrieving user');
+    //     });
+
     mediListcollection.find({ }, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
         .toArray()
         .then(queryResult => {
@@ -148,13 +178,12 @@ app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이�
 
 
     mediListcollection.deleteOne({ _id: new ObjectId(id)})
-    .then(()=>{
-        res.status(200).send('Success');
-        // return userCollection.updateOne( //userCollection에서도 삭제
-        //     { "medicineLists": new ObjectId(id) },
-        //     { $pull: { "medicineLists": new ObjectId(id) } }
-        // );
-    })
+    .then(() => {
+      // return userCollection.updateOne(
+      //     { mediListID: new ObjectId(id) },
+      //     { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
+      // );
+  })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
     })
@@ -272,4 +301,94 @@ app.post('/plantUpdate', (req,res)=>{
   }).catch((err)=>{
     console.log('plant 오류: ', err);
   })
+})
+
+
+app.get('/item',(req,res)=>{
+  const database=getDatabase();
+  const userCollection=database.collection("user");
+  const itemCollection=database.collection("item");
+
+   userCollection.findOne({ _id: user_id }) //사용자 정보 찾기
+        .then(user => {
+            if (!user) {
+                res.status(404).send('User not found');
+                return;
+            }
+
+            const itemIDs = user.itemID;
+
+            if (itemIDs===null) { //아이템이 비어있을 시
+                res.status(404).send('아이템 정보 못 찾음');
+                console.log('아이템 정보 없음')
+                return;
+            }
+
+            itemCollection.find({ _id:itemIDs },(err, result)=>{
+              if (err) {
+                console.error('아이템 조회 오류:', err);
+                res.status(500).send('서버 오류');
+              } else {
+                res.json(reqesult);
+              }
+            })
+        })
+        .catch(err => {
+            console.error("사용자 조회 오류: ", err);
+            res.status(500).send('Error retrieving user');
+        })
+    })
+
+app.post('/updatePoint',(req,res)=>{
+  const database=getDatabase();
+  const userCollection=database.collection("user");
+  const itemCollection=database.collection("item");
+
+  const{ points, item }=req.body;
+  console.log(req.body);
+  userCollection.findOne({ _id: user_id}) //사용자 정보 찾기
+  .then(user => {
+      if (!user) {
+          res.status(404).send('User not found');
+          return;
+      }
+
+      userCollection.updateOne(
+        {_id: user_id},
+        {$set: {points: points}}
+      ).catch((err)=>{
+        console.log('point 저장 오류: ',err);
+      });
+
+      let itemIDs = user.itemID; //유저의 아이템ID
+      console.log('server 364:', itemIDs);
+
+      if (itemIDs===null) { //아이템이 비어있을 시
+        itemCollection.insertOne(item)
+        .then((result) => { //데이터 확인
+          console.log('server 368: ',result);
+          itemIDs = result.insertedId;
+  
+          return userCollection.updateOne( 
+              { _id: user_id },
+              {$set: {"itemID": itemIDs}}
+          );
+        })
+      }
+      else{
+      itemCollection.updateOne( //현재 아이템 목록
+        { _id: itemIDs },
+         { $set: item })
+         .then(()=>{
+          res.status(200).send('Success')
+        }).catch((err)=>{
+          console.log('아이템 저장 오류: ', err);
+        })
+      }
+  })
+  .catch(err => {
+      console.error("사용자 조회 오류: ", err);
+      res.status(500).send('Error retrieving user');
+  })
+
 })
