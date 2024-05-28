@@ -13,7 +13,14 @@ import crown from '../image/crown.png';
 
 function Shop() {
     const [point, setPoint] = useState(0);
-    const [purchaseStatus, setPurchaseStatus] = useState({});
+    const [purchaseStatus, setPurchaseStatus] = useState({
+      '1' : false,
+      '2' : false,
+      '3' : false,
+      '4' : false,
+      '5' : false,
+      '6' : false
+    });
     const [characterEquip, setCharacterEquip] = useState({});
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentItem, setCurrentItem] = useState(null);
@@ -51,8 +58,11 @@ function Shop() {
       fetch('http://localhost:4000/item')
       .then(response=>response.json())
       .then(data=>{
-        setPurchaseStatus(data);
+        setPurchaseStatus(prevStatus => ({ ...prevStatus, ...data }));
         console.log('구매한 아이템: ',data);
+      })
+      .catch((err)=>{
+        console.log('아이템 목록 조회 실패');
       })
     },[])
  
@@ -83,7 +93,7 @@ function Shop() {
     .catch(err => {
       console.error('PointUpdate 중 오류: ', err);
     });
-  }, [point, purchaseStatus]);
+  }, [purchaseStatus]);
 
   const handlePurchase = (item) => {
 
@@ -115,7 +125,6 @@ function Shop() {
     setModalIsOpen(false); // 모달 닫기
     showExplosionAnimation(); // 폭죽 애니메이션 실행
 
-    console.log(purchaseStatus);
     lastImage = null;
   };
 
@@ -133,9 +142,6 @@ function Shop() {
     }, 1100);
   };
 
-
-
-  
 
   const showSelectImage = (imageSrc) => {
     const imageSelected = document.createElement('img');

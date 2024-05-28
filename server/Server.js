@@ -40,7 +40,6 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'stamp': 0, //스탬프
       'mediListID':'', // 약 정보
       'itemID':'', //아이템 정보
-      'seedID':'' //씨앗 정보
     })
     .then((result) => {
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
@@ -318,19 +317,18 @@ app.get('/item',(req,res)=>{
 
             const itemIDs = user.itemID;
 
-            if (itemIDs===null) { //아이템이 비어있을 시
+            if (itemIDs==='') { //아이템이 비어있을 시
                 res.status(404).send('아이템 정보 못 찾음');
                 console.log('아이템 정보 없음')
                 return;
             }
-
-            itemCollection.find({ _id:itemIDs },(err, result)=>{
-              if (err) {
-                console.error('아이템 조회 오류:', err);
-                res.status(500).send('서버 오류');
-              } else {
-                res.json(reqesult);
-              }
+            itemCollection.findOne({ _id:itemIDs },
+              {projection: {_id:0, '1' : 1,  '2' : 1, '3' : 1,  '4' : 1,  '5' : 1,  '6' : 1}})
+              .then(queryResult=>{
+                res.send(queryResult);
+            })
+            .catch(err=>{
+                console.log("아이템 조회 실패: ",err);
             })
         })
         .catch(err => {
@@ -361,14 +359,11 @@ app.post('/updatePoint',(req,res)=>{
       });
 
       let itemIDs = user.itemID; //유저의 아이템ID
-      console.log('server 364:', itemIDs);
 
-      if (itemIDs===null) { //아이템이 비어있을 시
+      if (itemIDs=== '') { //아이템이 비어있을 시
         itemCollection.insertOne(item)
         .then((result) => { //데이터 확인
-          console.log('server 368: ',result);
           itemIDs = result.insertedId;
-  
           return userCollection.updateOne( 
               { _id: user_id },
               {$set: {"itemID": itemIDs}}
