@@ -164,7 +164,9 @@ const MainPage = () => {
           <p>{currentPhrase}</p>
         </div>
     </div>
+    
     </div>
+    
   );
 };
 
