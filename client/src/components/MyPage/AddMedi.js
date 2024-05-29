@@ -98,6 +98,27 @@ function AddMedi() {
         setTime(event.target.value);
     };
 
+    //시간 설정 모달 창
+    const [modalState, setModalState] = useState({
+        modalOpen1: false,
+        modalOpen2: false,
+        modalOpen3: false,
+      });
+    
+    
+      const handleModalOpen = (buttonId) => {
+        setModalState(prevState => ({
+          ...prevState,
+          [`modalOpen${buttonId}`]: true,
+        }));
+      };
+    
+      const handleModalClose = (buttonId) => {
+        setModalState(prevState => ({
+          ...prevState,
+          [`modalOpen${buttonId}`]: false,
+        }));
+      };
 
     return (
         <div className="detailPage">
