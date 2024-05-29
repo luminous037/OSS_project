@@ -167,6 +167,41 @@ function AddMedi() {
         setalarm(true);
       };
 
+      //info2에서 설정한 아침 점심 저녁이 true일 경우 알람 설정 버튼을 추가하는 함수
+      const renderButtonIfTrue = (condition, buttonId) => {
+        if (condition) {
+          return (
+            <div key={buttonId}>
+              <button onClick={() => handleModalOpen(buttonId)}>
+                {`(${timeSettings[`ampm${buttonId}`]} ${timeSettings[`hour${buttonId}`]}:${timeSettings[`minute${buttonId}`]})`}
+              </button>
+    
+              {modalState[`modalOpen${buttonId}`] && (
+                <div className="modal_info3">
+                  <div className="modal-content">
+                    <h5>시간설정</h5>
+                    <div className='setTime'>
+    
+                    <select value={timeSettings[`ampm${buttonId}`]} onChange={(e) => handleAMPMChange(buttonId, e)}>
+                      <option value="AM">AM</option>
+                      <option value="PM">PM</option>
+                    </select>
+                    <input type="number" value={timeSettings[`hour${buttonId}`]} onChange={(e) => handleHourChange(buttonId, e)} min="1" max="12" />
+                    <span>:</span>
+                    <input type="number" value={timeSettings[`minute${buttonId}`]} onChange={(e) => handleMinuteChange(buttonId, e)} min="0" max="59" />
+                    
+                  </div>
+                  <button onClick={() => handleModalClose(buttonId)}>취소</button>
+                   <button onClick={() => handleConfirm(buttonId)}>확인</button>
+                    </div>
+                </div>
+              )}
+            </div>
+          );
+        }
+        return null;
+      };
+
 
     return (
         <div className="detailPage">
