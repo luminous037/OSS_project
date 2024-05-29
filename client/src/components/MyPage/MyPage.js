@@ -39,9 +39,12 @@ function MyPage() {  //마이페이지 기본 틀
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-  },[userData]);
+  },[]);
 
   const updateUserData = () =>{ //데이터 업데이트
+
+    setUserData(prev=>({...prev, userName:newData.newName, alarm:newData.alarmChange}));
+    
     fetch('http://localhost:4000/updateData', {
       method: 'POST',
       headers: {
@@ -51,7 +54,6 @@ function MyPage() {  //마이페이지 기본 틀
       body: JSON.stringify(newData) //바뀐 내용을 전달
     })
     .then(()=>{
-      setUserData(prev=>({...prev, userName:newData.newName, alarm:newData.alarmChange}));
     })
     .catch(err => {
        console.error('userDataUpdate 중 오류: ',err);
@@ -59,12 +61,15 @@ function MyPage() {  //마이페이지 기본 틀
   }
 
 
+  useEffect(() => { // update userData when newData.alarmChange changes
+    setUserData(prev => ({ ...prev, alarm: newData.alarmChange }));
+  }, [newData.alarmChange]);
+
   const handleChange = (checked) => { //알람 설정 변경
     setNewData(prevData => ({
       ...prevData,
       alarmChange: checked
     }));
-    updateUserData(); //데이터 업데이트
   };
   
   const handleModalSave = ()=>{ //수정할 이름을 작성한 후 저장 버튼을 누를 시
