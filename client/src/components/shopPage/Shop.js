@@ -12,8 +12,15 @@ import ribbon from '../image/ribbon.png';
 import crown from '../image/crown.png';
 
 function Shop() {
-    const [point, setPoint] = useState(5000);
-    const [purchaseStatus, setPurchaseStatus] = useState({});
+    const [point, setPoint] = useState(0);
+    const [purchaseStatus, setPurchaseStatus] = useState({
+      '1' : false,
+      '2' : false,
+      '3' : false,
+      '4' : false,
+      '5' : false,
+      '6' : false
+    });
     const [characterEquip, setCharacterEquip] = useState({});
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentItem, setCurrentItem] = useState(null);
@@ -23,6 +30,42 @@ function Shop() {
     let lock = false;//test
     const shopElement = document.getElementById('Shop');
 
+    const items = [
+      { id: 1, name: '새싹모자', price: 100 },
+      { id: 2, name: '산타모자', price: 500 },
+      { id: 3, name: '용머리띠', price: 500 },
+      { id: 4, name: '마녀모자', price: 1000 },
+      { id: 5, name: '분홍리본', price: 1000 },
+      { id: 6, name: '황금왕관', price: 5000 },
+    ];
+
+    useEffect(() => { //유저 정보 불러오기
+      fetch('http://localhost:4000/userProfile')
+        .then(response => response.json())
+        .then(data => {
+          if (Array.isArray(data) && data.length > 0) {
+            const userPoint = data[0].points
+            console.log(userPoint);
+            setPoint(userPoint);
+          }
+        })
+        .catch(error => {
+          console.error('유저 정보를 가져오는 중 에러:', error);
+        });
+    },[]);
+
+    useEffect(()=>{ //구매한 아이템 정보 가져오기
+      fetch('http://localhost:4000/item')
+      .then(response=>response.json())
+      .then(data=>{
+        setPurchaseStatus(prevStatus => ({ ...prevStatus, ...data }));
+        console.log('구매한 아이템: ',data);
+      })
+      .catch((err)=>{
+        console.log('아이템 목록 조회 실패');
+      })
+    },[])
+ 
   const getItemImage = (id) => {
     switch(id) {
       case 1: return plant;
@@ -34,6 +77,23 @@ function Shop() {
       default: return null;
     }
   };
+
+  useEffect(() => { // 포인트 또는 구매 상태가 변경될 때마다 서버에 동기화
+    if (currentItem === null) return; // 구매 취소 시에는 동기화 하지 않음
+    fetch('http://localhost:4000/updatePoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ points: point, item: purchaseStatus })
+    })
+    .then(data => {
+      console.log('point, item 동기화 성공:', purchaseStatus);
+    })
+    .catch(err => {
+      console.error('PointUpdate 중 오류: ', err);
+    });
+  }, [purchaseStatus]);
 
   const handlePurchase = (item) => {
 
@@ -53,14 +113,19 @@ function Shop() {
       setCurrentItem(null);
       return;
     }
+
     const newPoint = point - currentItem.price;
+    const id = currentItem.id;
+    console.log(newPoint);
+
+    // 상태 업데이트 후 서버에 동기화는 useEffect에서 처리
     setPoint(newPoint);
-    // 객체 상태를 올바르게 업데이트
-    setPurchaseStatus(prevStatus => ({ ...prevStatus, [currentItem.id]: true }));
-    setCharacterEquip(prevEquip => ({ ...prevEquip, [currentItem.id]: true }));
-    setModalIsOpen(false); // 모달 닫힘
+    setPurchaseStatus(prevStatus => ({ ...prevStatus, [id]: true }));
+    setCharacterEquip(prevEquip => ({ ...prevEquip, [id]: true }));
+    setModalIsOpen(false); // 모달 닫기
     showExplosionAnimation(); // 폭죽 애니메이션 실행
-    lastImage=null;
+
+    lastImage = null;
   };
 
   const cancelPurchase = () => {
@@ -77,16 +142,6 @@ function Shop() {
     }, 1100);
   };
 
-  const items = [
-    { id: 1, name: '새싹모자', price: 100 },
-    { id: 2, name: '산타모자', price: 500 },
-    { id: 3, name: '용머리띠', price: 500 },
-    { id: 4, name: '마녀모자', price: 1000 },
-    { id: 5, name: '분홍리본', price: 1000 },
-    { id: 6, name: '황금왕관', price: 5000 },
-  ];
-
-  
 
   const showSelectImage = (imageSrc) => {
     const imageSelected = document.createElement('img');
