@@ -6,6 +6,7 @@ const { dbConnect, getDatabase } = require('./DbConnect');
 const { ObjectId } = require('mongodb');
 const cookieParser = require('cookie-parser');
 require('dotenv').config(); //환경 변수
+const admin = require('./FireBase');
 
 
 const port = process.env.PORT || 4000; //서버 포트 번호
@@ -22,6 +23,10 @@ app.listen(port, () => {
     dbConnect(); //DB 연결
 }); 
 
+app.post('/subscribe', (req, res) => { //클라이언트로 부터 토큰 받아옴
+    const subscription = req.body.token;
+
+  });
 
 app.post('/saveName', (req, res) => {
     const database = getDatabase();

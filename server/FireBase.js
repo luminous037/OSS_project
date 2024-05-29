@@ -1,5 +1,8 @@
-import { getToken } from 'firebase/messaging';
+// server/firebaseAdmin.js
+const admin = require('firebase-admin');
 
-const token = await getToken(messaging, {
-  vapidKey: process.env.REACT_APP_VAPID_KEY ,
+admin.initializeApp({
+  credential: admin.credential.applicationDefault()
 });
+
+module.exports = admin;
