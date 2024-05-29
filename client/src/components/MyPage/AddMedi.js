@@ -104,6 +104,19 @@ function AddMedi() {
         modalOpen2: false,
         modalOpen3: false,
       });
+
+      //시간설정
+      const [timeSettings, setTimeSettings] = useState({ //알람 시간
+        ampm1: 'AM',
+        hour1: 9,
+        minute1: 0,
+        ampm2: 'PM',
+        hour2: 12,
+        minute2: 0,
+        ampm3: 'PM',
+        hour3: 6,
+        minute3: 0,
+      });
     
     
       const handleModalOpen = (buttonId) => {
@@ -117,6 +130,27 @@ function AddMedi() {
         setModalState(prevState => ({
           ...prevState,
           [`modalOpen${buttonId}`]: false,
+        }));
+      };
+        //모달 창 내 오전 오후 설정 체크창
+      const handleAMPMChange = (buttonId, event) => {
+        setTimeSettings(prevState => ({
+          ...prevState,
+          [`ampm${buttonId}`]: event.target.value,
+        }));
+      };
+    // 시간 변경모듈
+      const handleHourChange = (buttonId, event) => {
+        setTimeSettings(prevState => ({
+          ...prevState,
+          [`hour${buttonId}`]: event.target.value,
+        }));
+      };
+    //분 변경 모듈
+      const handleMinuteChange = (buttonId, event) => {
+        setTimeSettings(prevState => ({
+          ...prevState,
+          [`minute${buttonId}`]: event.target.value,
         }));
       };
 
