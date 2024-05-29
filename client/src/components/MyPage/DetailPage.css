@@ -72,6 +72,7 @@
       background-color: aliceblue;
     }
 
+    /*복용법*/
     .detail_text_no-border h2{
       font-family: on;
       font-size:32px;
@@ -118,6 +119,11 @@
     width: 200px;
     height: 100px;
     left:108%;
-    top :-80%;
+    top :-130%;
   }
 
+.modal-detail-content h12{
+  font-family: on;
+  font-weight: normal;
+  font-size: 30px;
+}
