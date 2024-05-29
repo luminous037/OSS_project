@@ -164,8 +164,6 @@ function AddMedi() {
     const handleConfirm = (buttonId) => {
         handleModalClose(buttonId);
     };
-    
-    
 
     //info2에서 설정한 아침 점심 저녁이 true일 경우 알람 설정 버튼을 추가하는 함수
     const renderButtonIfTrue = (condition, buttonId) => {
@@ -213,15 +211,6 @@ function AddMedi() {
                     <input type="text" name="mediName" value={mediData.mediName} onChange={handleChange} />
                 </div>
                 <br />
-                <div className="detail_text">
-                    <h2>설정한 시간</h2>
-                    <div className="alarmset_detail">
-                        {renderButtonIfTrue(mediData.detail.morning, 1)}
-                        {renderButtonIfTrue(mediData.detail.afternoon, 2)}
-                        {renderButtonIfTrue(mediData.detail.evening, 3)}
-                    </div>
-                </div>
-                <br />
                 <div className="detail_text_no-border">
                     <h2>복용법</h2>
                     <div>
@@ -244,6 +233,16 @@ function AddMedi() {
                         시간마다 의사 지시대로
                     </div>
                 </div>
+                
+                </div>
+                <br />
+                <div className="detail_text_2">
+                    <h2>설정한 시간</h2>
+                    <div className="alarmset_detail">
+                        {renderButtonIfTrue(buttonStates.morning, 1)}
+                        {renderButtonIfTrue(buttonStates.afternoon, 2)}
+                        {renderButtonIfTrue(buttonStates.evening, 3)}
+                    </div>
             </div>
             <button onClick={handleSave} className="save_button"><h2>저장</h2></button>
         </div>
