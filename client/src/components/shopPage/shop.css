@@ -194,6 +194,7 @@ body {height:100%; overflow:hidden;}
     background-repeat: no-repeat;
     animation: explode 0.9s ease-in-out, slideDown 0.55s ease-in-out 0.55s;
     opacity: 0;
+    z-index: 1;
   }
 
   

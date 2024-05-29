@@ -12,6 +12,16 @@ function WeeklyCheck() {
   const [inputFields, setInputFields] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  /*폭죽*/
+  const showExplosionAnimation = () => {
+    const explodeAnimation = document.createElement('div');
+    explodeAnimation.classList.add('explode-animation');
+    document.body.appendChild(explodeAnimation);
+    setTimeout(() => {
+      explodeAnimation.remove();
+    }, 1100);
+  };
+
   /*스탬프 갯수*/
   const handleDaysChange = (e) => {
     const value = e.target.value;
@@ -37,11 +47,13 @@ function WeeklyCheck() {
     const allStamped = newInputFields.every(field => field.imageSrc === stamp);
     if (allStamped) {
       setShowModal(true);
+      showExplosionAnimation();
     }
   };
 
   const closeModal = () => {
     setShowModal(false);
+    
   };
 
   const phrases = [
