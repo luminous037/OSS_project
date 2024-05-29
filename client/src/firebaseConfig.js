@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
 export const requestForToken = () => {
-  return getToken(messaging, { vapidKey: REACT_APP_VAPID_KEY }).then((currentToken) => {
+  return getToken(messaging, { vapidKey:  process.env.REACT_APP_VAPID_KEY  }).then((currentToken) => {
     if (currentToken) {
       console.log('클라이언트 토큰 확인');
       return currentToken;
