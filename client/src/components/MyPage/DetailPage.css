@@ -21,6 +21,7 @@
         margin-top: -5%;
     }
     
+    /*칸 나누는 밑줄*/
     .detail_text{
       background: rgba(255, 255, 255, 0.753);
       height: 30%;
@@ -29,7 +30,11 @@
       border-bottom: 3px solid rgb(195, 205, 218);
     }
 
+    
     .detail_text_no-border{
+      font-family: on;
+      font-size:20px;
+      color:#494949;
         background: rgba(255, 255, 255, 0.753);
         height: 25%;
         text-align:left;
@@ -47,11 +52,19 @@
         cursor: pointer;
         grid-row-start: 6;
     }
+
+    /*먹는 약, 설정한 시간*/
+    .detail_text{
+      font-family: on;
+      font-size:20px;
+      color:#494949;
+    }
     
   .back_button{
     position: absolute;
+    bottom:40%;
     border-color:white;
-    width: 20%;
+    width: 30%;
     background-color:  rgb(115, 173, 226);
     left: 80%;
     cursor: pointer;

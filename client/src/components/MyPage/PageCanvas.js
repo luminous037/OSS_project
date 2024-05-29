@@ -6,7 +6,7 @@ function PageCanvas({ id }) {
   const [loading, setLoading] = useState(true);
   const [mediData, setMediData] = useState({
     mediName: '',
-    time: '',
+    time: {},
     detail: {
       morning: false,
       afternoon: false,
@@ -47,6 +47,7 @@ function PageCanvas({ id }) {
     return body;
   };
 
+
   useEffect(() => { //mediData 업데이트 확인용
     console.log(mediData);
     console.log(loading);
@@ -67,7 +68,6 @@ function PageCanvas({ id }) {
         </h1>
         <br />
       </div>
-      <div className="detail_list">
         <div className="detail_text">
           <h2>먹는 약</h2>
           <h4>{mediData.mediName}</h4>
@@ -75,28 +75,29 @@ function PageCanvas({ id }) {
         <br />
         <div className="detail_text">
           <h2>설정한 시간</h2>
-          <h4>{mediData.time}</h4>
+          <h4>{mediData.time.ampm1}</h4>
+          <h4>{mediData.time.ampm2}</h4>
+          <h4>{mediData.time.ampm3}</h4>
         </div>
         <br />
         <div className="detail_text_no-border">
           <h2>복용법</h2>
           <AddInfoCanvas medidetail={mediData.detail} />
         </div>
-      </div>
     </div>
   );
 }
 
 function AddInfoCanvas({ medidetail }) {
   const [buttonStates, setButtonStates] = useState({
-    morning: false,
-    afternoon: false,
-    evening: false,
+    morning: true,
+    afternoon: true,
+    evening: true,
   });
 
   const [checkBox, setCheckBox] = useState({
     before: false,
-    after: false,
+    after: true,
   });
 
   const [time, setTime] = useState('');
@@ -120,8 +121,9 @@ function AddInfoCanvas({ medidetail }) {
     <div>
       <button
         style={{
-          backgroundColor: buttonStates.morning ? 'rgb(88, 148, 218)' : 'white',
-          color: buttonStates.morning ? 'white' : 'black',
+          backgroundColor: buttonStates.morning ? '#87CEEB' : 'white',
+          color:  buttonStates.morning ? 'white' : '#87CEEB',
+          border:  buttonStates.morning ? '2px solid #87CEEB' : '2px solid #87CEEB',
         }}
       >
         아침
@@ -129,8 +131,9 @@ function AddInfoCanvas({ medidetail }) {
 
       <button
         style={{
-          backgroundColor: buttonStates.afternoon ? 'rgb(88, 148, 218)' : 'white',
-          color: buttonStates.afternoon ? 'white' : 'black',
+          backgroundColor: buttonStates.afternoon ? '#87CEEB' : 'white',
+          color:  buttonStates.afternoon ? 'white' : '#87CEEB',
+          border:  buttonStates.afternoon ? '2px solid #87CEEB' : '2px solid #87CEEB',
         }}
       >
         점심
@@ -138,8 +141,9 @@ function AddInfoCanvas({ medidetail }) {
 
       <button
         style={{
-          backgroundColor: buttonStates.evening ? 'rgb(88, 148, 218)' : 'white',
-          color: buttonStates.evening ? 'white' : 'black',
+          backgroundColor: buttonStates.evening ? '#87CEEB' : 'white',
+          color:  buttonStates.evening ? 'white' : '#87CEEB',
+          border:  buttonStates.evening ? '2px solid #87CEEB' : '2px solid #87CEEB',
         }}
       >
         저녁

@@ -10,14 +10,13 @@ function MyPage() {  //마이페이지 기본 틀
   const [userData, setUserData] =useState({ //유저 정보
 
     userName:'',
-    alaram: false
+    alarm: false
 
   }); 
-  
-  const [newData, setNewData] = useState({
 
+  const [ newData, setNewData] =useState({ //바뀐 내용 저장
     newName:'',
-    changeAlarm: false
+    alarmChange: false
   });
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,44 +27,56 @@ function MyPage() {  //마이페이지 기본 틀
       .then(response => response.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
-          const userData = {
+          const Data = {
             userName: data[0].userName,
-            alaram: data[0].alaram
+            alarm: data[0].alarm
           };
-          setUserData(userData);
+          console.log(Data);
+          setUserData(Data);
+          setNewData(prev=>({...prev, newName:Data.userName, alarmChange:Data.alarm}))
         }
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-  }, [userData]);
- 
+  },[]);
 
-  const handleChange = (checked) => { //알람 설정 변경
-    setUserData(prevUserData => ({
-      ...prevUserData,
-      alaram: checked
-    }));
-  };
+  const updateUserData = () =>{ //데이터 업데이트
 
-  const nameChange= () =>{ //이름 변경
+    setUserData(prev=>({...prev, userName:newData.newName, alarm:newData.alarmChange}));
+    
     fetch('http://localhost:4000/updateData', {
       method: 'POST',
       headers: {
           credentials: 'include',
           'Content-Type': 'application/json' // JSON 형식으로 전송
       },
-      body: JSON.stringify({ current: userData, updated: newData })
-    }).then(response =>{
-      if (response.ok) {
-        setModalOpen(false)
-      }
+      body: JSON.stringify(newData) //바뀐 내용을 전달
+    })
+    .then(()=>{
     })
     .catch(err => {
-       console.error('namePost 중 오류: ',err);
+       console.error('userDataUpdate 중 오류: ',err);
     });
   }
+
+
+  useEffect(() => { // update userData when newData.alarmChange changes
+    setUserData(prev => ({ ...prev, alarm: newData.alarmChange }));
+  }, [newData.alarmChange]);
+
+  const handleChange = (checked) => { //알람 설정 변경
+    setNewData(prevData => ({
+      ...prevData,
+      alarmChange: checked
+    }));
+  };
   
+  const handleModalSave = ()=>{ //수정할 이름을 작성한 후 저장 버튼을 누를 시
+    updateUserData(); //데이터 업데이트
+    setModalOpen(false);
+  }
+
   return (
 
       <div className="myPage">
@@ -77,15 +88,18 @@ function MyPage() {  //마이페이지 기본 틀
         <div className="profile">
           <br></br>
           <img className="profile_image" src="/myPage_profile1.png" alt="profile"/>
+
           <div  className="text_setting">
-            <h1>이름</h1>
+            <h3>우리 아이 이름</h3>
             <div className="profile_input">
               <h2>{userData.userName}</h2>
             </div>
+              <h4>
               <button className="profile_input_button" onClick={() => setModalOpen(true)}>수정</button>
+              </h4>
           </div>
           <>
-            { //이름 수정
+            { //이름 수정 모달
               createPortal(
               modalOpen && (
               <div className={'modal_container'} ref={modalBackground} onClick={e => {
@@ -95,8 +109,8 @@ function MyPage() {  //마이페이지 기본 틀
                 }}>
                 <div className={'modal_content'}>
                   <h3 className={'modal_text'}>이름 수정</h3>
-                  <input className="modal_input" onChange={e => setNewData({ ...newData, newName: e.target.value })}></input>
-                  <button className={'modal_close_button'} onClick={() => nameChange()}>
+                  <input className="modal_input" onChange={e => setNewData(prevData => ({...prevData, newName: e.target.value }))}></input>
+                  <button className={'modal_close_button'} onClick={() => handleModalSave()}>
                    저장
                   </button>
                 </div>
@@ -108,12 +122,12 @@ function MyPage() {  //마이페이지 기본 틀
           </>
           <br></br>
           <div className="text_setting"><h2 >알람 설정</h2>
-          <Switch onChange={handleChange} checked={userData.alaram}  onColor="#8CD7F2" className="switch" />
-          </div>
+          <div className="button_alarm_myPage"><Switch onChange={handleChange} checked={userData.alarm}  onColor="#8CD7F2" className="switch" />
+          </div></div>
         </div>
 
         <div className="medicine_title">
-          <h2 className="title">약 목록</h2>
+          <h2>약 목록</h2>
         </div>
         
         <MyPageData/>
