@@ -73,3 +73,19 @@
   .backButton_img{
     width:30%;
   }
+
+  .alarmset_detail{
+    position: absolute;
+    display: flex;
+    gap:10px;
+  }
+
+  .modal_detail{
+    position:absolute;
+    background-color: aliceblue;
+    width: 200px;
+    height: 100px;
+    left:108%;
+    top :-80%;
+  }
+

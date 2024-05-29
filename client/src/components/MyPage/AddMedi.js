@@ -7,9 +7,9 @@ function AddMedi() {
         mediName: '',
         time: '',
         detail: {
-            morning: false,
-            afternoon: false,
-            evening: false,
+            morning: true,
+            afternoon: true,
+            evening: true,
             before: false,
             after: false,
             time: ''
@@ -177,9 +177,9 @@ function AddMedi() {
               </button>
     
               {modalState[`modalOpen${buttonId}`] && (
-                <div className="modal_info3">
-                  <div className="modal-content">
-                    <h5>시간설정</h5>
+                <div className="modal_detail">
+                  <div className="modal-detail-content">
+                    시간설정
                     <div className='setTime'>
     
                     <select value={timeSettings[`ampm${buttonId}`]} onChange={(e) => handleAMPMChange(buttonId, e)}>
@@ -220,12 +220,12 @@ function AddMedi() {
                 <div className="detail_text">
                     <h2>설정한 시간</h2>
                     
-                    <div className="alarmset">
+                    <div className="alarmset_detail">
                         {renderButtonIfTrue(mediData.detail.morning, 1)}
                         {renderButtonIfTrue(mediData.detail.afternoon, 2)}
                         {renderButtonIfTrue(mediData.detail.evening, 3)}
                     </div>
-                    
+
                 </div>
                 <br />
                 <div className="detail_text_no-border">
