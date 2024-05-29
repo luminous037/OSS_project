@@ -18,4 +18,24 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const messaging = getMessaging(app);
+
+export const requestForToken = () => {
+  return getToken(messaging, { vapidKey: REACT_APP_VAPID_KEY }).then((currentToken) => {
+    if (currentToken) {
+      console.log('클라이언트 토큰 확인');
+      return currentToken;
+    } else {
+      console.log('권한 없음');
+    }
+  }).catch((err) => {
+    console.log('토큰 에러: ', err);
+  });
+};
+
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      resolve(payload);
+    });
+  });
