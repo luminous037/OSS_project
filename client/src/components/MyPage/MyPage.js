@@ -92,7 +92,7 @@ function MyPage() {  //마이페이지 기본 틀
           <div  className="text_setting">
             <h3>우리 아이 이름</h3>
             <div className="profile_input">
-              <h2>{userData.userName}</h2>
+              <div className='userName'>{userData.userName}</div>
             </div>
               <h4>
               <button className="profile_input_button" onClick={() => setModalOpen(true)}>수정</button>
