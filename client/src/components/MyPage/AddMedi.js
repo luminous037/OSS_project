@@ -219,7 +219,13 @@ function AddMedi() {
                 <br />
                 <div className="detail_text">
                     <h2>설정한 시간</h2>
-                    <input type="text" name="time" value={mediData.time} onChange={handleChange} />
+                    
+                    <div className="alarmset">
+                        {renderButtonIfTrue(mediData.detail.morning, 1)}
+                        {renderButtonIfTrue(mediData.detail.afternoon, 2)}
+                        {renderButtonIfTrue(mediData.detail.evening, 3)}
+                    </div>
+                    
                 </div>
                 <br />
                 <div className="detail_text_no-border">
