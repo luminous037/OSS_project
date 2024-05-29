@@ -39,25 +39,25 @@ function Seed() { // rainCount 상태와 함께 setRainCount 함수를 prop으�
     .then(data => {
       console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
       const user ={
-       plant: parseInt(data[0].plant,10),
-       rain: parseInt(data[0].cloud, 10),
-       point: parseInt(data[0].point, 10)
+       plant: data[0].plant,
+       rain: parseInt(data[0].rain, 10),
+       point: data[0].points !== null ? parseInt(data[0].points, 10) : 0
       } 
       setUserData(user);
-      console.log(user);
     })
     .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
     });
   }, []);
 
-  const updateUserData = (seed) => {
+  const updateUserData = (newData) => {
+    console.log('NewData: ',newData);
     fetch(`http://localhost:4000/plantUpdate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(({ plant: seed, point: userData.point }))
+      body: JSON.stringify(({ plant: newData.plant, rain: newData.rain ,point: newData.point }))
     })
     .then(() => {
     })
@@ -79,19 +79,26 @@ function Seed() { // rainCount 상태와 함께 setRainCount 함수를 prop으�
   const selectSeed = (seed) => {
     setSeedStage('seed'); //씨앗의 상태를 저장함
     setSelectedSeed(seed); // 선택된 씨앗을 상태에 저장
-    setUserData(prevState => ({
+    setUserData((prevState) => {
+      const newData={
       ...prevState, // 이전 상태를 복사
       rain : 0,
       plant : seed
-    }));
-    updateUserData(seed);
+    }
+      updateUserData(newData);
+      return newData;
+   });
     toggleModal(); //모달창
   };
 
   /*물을 준 횟수에 따른 씨앗의 상태 관리*/
   useEffect(() => {
-    console.log(userData);
-    if (userData.rain >= 0 && selectedSeed && seedStage !== 'rewardTree') {
+    // console.log('rain 상태: ',userData.rain);
+    // console.log('plant 상태: ',userData.plant);
+    // console.log('point 상태: ',userData.point);
+    // console.log('seedState 상태: ',seedStage);
+
+    if (userData.rain > 0 && userData.plant !== null && seedStage !== 'rewardTree') {
       if (userData.rain >= 4) {
         setSeedStage('rewardTree');
       } 
@@ -111,12 +118,16 @@ function Seed() { // rainCount 상태와 함께 setRainCount 함수를 prop으�
   /*물을 4번 준 후 보상을 얻을 수 있는 상태가 되었을 때 수행하는 과정을 나타내는 함수*/
   const handleHarvest = () => {
     setSeedStage('seed');
-    setUserData(prevUserData => ({
+    setUserData((prevUserData) => {
+      const newData={
       ...prevUserData, // 이전 상태를 복사
-      plant: 0,
+      plant: '',
       rain: 0,
       point: prevUserData.point + 100 // 이전 돈에 100 추가
-    }));
+      }
+      updateUserData(newData);
+      return newData;
+    });
   };
 
   /*물을 준 횟수에 따른 씨앗의 상태을 이미지로 나타내고 싶어 구현한 함수*/
@@ -178,7 +189,7 @@ function Seed() { // rainCount 상태와 함께 setRainCount 함수를 prop으�
         </div>
       )}
 
-      {selectedSeed && (
+      {userData.plant && (
         <div>
           {renderSeedStage()}
           {/*<p>선택한 씨앗: {selectedSeed.name}</p>*/}

@@ -34,6 +34,10 @@ const MainPage = () => {
   }, []);
   
   const handleRain = () => {
+    if(rainCount >=4 ){
+      setRainCount(0);
+      updateRain(0);
+    }
     setRainCount((prevCount) => {
       const newCount = prevCount + 1;
       updateRain(newCount);

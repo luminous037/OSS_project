@@ -27,20 +27,24 @@ function MyPage() {  //마이페이지 기본 틀
       .then(response => response.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
-          const userData = {
+          const Data = {
             userName: data[0].userName,
             alarm: data[0].alarm
           };
-          console.log(userData);
-          setUserData(userData);
+          console.log(Data);
+          setUserData(Data);
+          setNewData(prev=>({...prev, newName:Data.userName, alarmChange:Data.alarm}))
         }
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-  },[userData]);
+  },[]);
 
   const updateUserData = () =>{ //데이터 업데이트
+
+    setUserData(prev=>({...prev, userName:newData.newName, alarm:newData.alarmChange}));
+    
     fetch('http://localhost:4000/updateData', {
       method: 'POST',
       headers: {
@@ -49,18 +53,23 @@ function MyPage() {  //마이페이지 기본 틀
       },
       body: JSON.stringify(newData) //바뀐 내용을 전달
     })
+    .then(()=>{
+    })
     .catch(err => {
        console.error('userDataUpdate 중 오류: ',err);
     });
   }
 
 
+  useEffect(() => { // update userData when newData.alarmChange changes
+    setUserData(prev => ({ ...prev, alarm: newData.alarmChange }));
+  }, [newData.alarmChange]);
+
   const handleChange = (checked) => { //알람 설정 변경
     setNewData(prevData => ({
       ...prevData,
       alarmChange: checked
     }));
-    updateUserData(); //데이터 업데이트
   };
   
   const handleModalSave = ()=>{ //수정할 이름을 작성한 후 저장 버튼을 누를 시
