@@ -118,6 +118,8 @@ function AddMedi() {
         minute3: 0,
       });
     
+      //알람 설정 state
+      const [alarm, setalarm] = useState(false);
     
       const handleModalOpen = (buttonId) => {
         setModalState(prevState => ({
@@ -153,6 +155,18 @@ function AddMedi() {
           [`minute${buttonId}`]: event.target.value,
         }));
       };
+
+      //설정 확인 버튼
+      const handleConfirm = (buttonId) => {
+        handleModalClose(buttonId);
+      };
+    
+      //버튼 누를 시 알람 설정됨
+      const setAlarm = () => {
+        alert("알람이 설정되었습니다.");
+        setalarm(true);
+      };
+
 
     return (
         <div className="detailPage">
