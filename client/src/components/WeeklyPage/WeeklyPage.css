@@ -120,6 +120,9 @@ body {height:100%; overflow:hidden;}
 
   /*포인트 획득 css 추가 */
 .modal-backdrop {
+  font-family: on;
+  font-weight: normal;
+  font-size: 25px;
   position: fixed;
   top: 0;
   left: 0;
@@ -132,11 +135,18 @@ body {height:100%; overflow:hidden;}
   z-index: 1000;
 }
 
-.modal-content {
-  background-color: white;
+.modal-backdrop h2{
+  color:rgb(255, 0, 225);
+  
+}
+
+.modal-get-point {
+  background-color: rgb(255, 234, 0);
+  font-weight: normal;
   padding: 20px;
   border-radius: 5px;
   text-align: center;
+  width:300px;
 }
 
 

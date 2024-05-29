@@ -12,12 +12,14 @@ function WeeklyCheck() {
   const [inputFields, setInputFields] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  /*스탬프 갯수*/
   const handleDaysChange = (e) => {
     const value = e.target.value;
     setDays(value);
     updateInputFields(value);
   };
 
+  /*numDays=Info2에서 정한 복용일수*/
   const updateInputFields = (numDays) => {
     const newInputFields = [];
     for (let i = 0; i < numDays; i++) {
@@ -131,7 +133,7 @@ function WeeklyCheck() {
 
       {showModal && (
         <div className="modal-backdrop">
-          <div className="modal-content">
+          <div className="modal-get-point">
             <h2>다 모았다! <br></br>포인트 획득!</h2>
             <button onClick={closeModal}>획득</button>
           </div>
