@@ -21,7 +21,7 @@
   /*프로필 밑에 나누는 선*/
   .profile{
     background: rgba(255, 255, 255, 0.753);
-    height: 70%;
+    height: 50%;
     padding-right: 4%;
     border-bottom: 3px solid #8CD7F2;
   }
@@ -114,15 +114,13 @@
     margin-right: 70%;
   }
   
-  /*약 목록*/
-  .medicine_title h2{
+  /*추가 된 약 목록*/
+  .medicine_title{
     font-family: on;
     font-size: 35px;
+    font-weight: normal;
     color:#494949;
-    position: absolute;
-    left:-90%;
-    bottom: -3%;
-    top:85%;
+    position: relative;
     width: 200%;
     height:12%;
     border-bottom: 3px solid#8CD7F2;
@@ -133,6 +131,7 @@
   }
   
   .medicine_list{
+    
     position: relative;
     background-color:#ffffff;
     color: black;
@@ -154,13 +153,13 @@
 
 
   .delete_button{
-    position: absolute;
-    left: 85%;
+    position: relative;
+    left: 420px;
     bottom:0%;
     width: 8%;
     height: 100%;
     background-image: url('../../../public/delete_button.png');
-    background-size: 100%;
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center; 
     border: none;

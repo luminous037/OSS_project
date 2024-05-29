@@ -126,8 +126,9 @@ function MyPage() {  //마이페이지 기본 틀
           </div></div>
         </div>
 
+        <div className='MedicineList'>
         <div className="medicine_title">
-          <h2>약 목록</h2>
+          약 목록
         </div>
         
         <MyPageData/>
@@ -136,6 +137,7 @@ function MyPage() {  //마이페이지 기본 틀
           <Link to="./AddMedi" style={{ textDecoration: 'none'}} >
             <img src="/addButton.png" alt="Add Button"/>
             </Link>
+        </div>
         </div>
 
       </div>
