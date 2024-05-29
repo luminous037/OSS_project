@@ -10,8 +10,7 @@ import stamp from '../image/stamp.png';
 function WeeklyCheck() {
   const [days, setDays] = useState(0);
   const [inputFields, setInputFields] = useState([]);
-
-  
+  const [showModal, setShowModal] = useState(false);
 
   const handleDaysChange = (e) => {
     const value = e.target.value;
@@ -22,7 +21,7 @@ function WeeklyCheck() {
   const updateInputFields = (numDays) => {
     const newInputFields = [];
     for (let i = 0; i < numDays; i++) {
-      newInputFields.push({ id: i });
+      newInputFields.push({ id: i, imageSrc: unstamped });
     }
     setInputFields(newInputFields);
   };
@@ -31,39 +30,41 @@ function WeeklyCheck() {
     const newInputFields = [...inputFields];
     newInputFields[index].imageSrc = value === '1' ? stamp : unstamped;
     setInputFields(newInputFields);
+
+    // 모든 스탬프가 선택되었는지 확인합니다
+    const allStamped = newInputFields.every(field => field.imageSrc === stamp);
+    if (allStamped) {
+      setShowModal(true);
+    }
   };
 
-    /*말풍선 대사*/
-    const phrases = [
-      "잘했어!",
-      "스티커 모으기!",
-      "약 먹는 멋진 어린이!",
-      "너 진짜 멋진걸?",
-      "짱이다!"
-    ];
-  
-    /*말풍선 대사 관리*/
-    const [currentPhrase, setCurrentPhrase] = useState('');
-  
-    useEffect(() => {
-      // 대사를 처음 한 번 랜덤으로 설정합니다.
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const phrases = [
+    "잘했어!",
+    "스티커 모으기!",
+    "약 먹는 멋진 어린이!",
+    "너 진짜 멋진걸?",
+    "짱이다!"
+  ];
+
+  const [currentPhrase, setCurrentPhrase] = useState('');
+
+  useEffect(() => {
+    changePhrase();
+    const intervalId = setInterval(() => {
       changePhrase();
-  
-      // 5초마다 대사를 랜덤으로 변경합니다.
-      const intervalId = setInterval(() => {
-        changePhrase();
-      }, 5000);
-  
-      // 컴포넌트가 언마운트될 때 인터벌을 정리합니다.
-      return () => clearInterval(intervalId);
-    }, []);
-  
-    /*말풍선 대사를 랜덤으로 바꿔주는 함수*/
-    const changePhrase = () => {
-      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-      setCurrentPhrase(randomPhrase);
-    };
-  
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const changePhrase = () => {
+    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    setCurrentPhrase(randomPhrase);
+  };
 
   return (
     <div>
@@ -93,8 +94,8 @@ function WeeklyCheck() {
       </div>
 
       <div className="balloon_weekly">
-          <p>{currentPhrase}</p>
-        </div>
+        <p>{currentPhrase}</p>
+      </div>
 
       <div className="howMuchStamp">
         <input
@@ -120,14 +121,24 @@ function WeeklyCheck() {
             <img src={field.imageSrc} alt={`Image ${index + 1}`} style={{ width: '90px', padding: days <= 4 ? '50px' : '0' }} />
             <input
               type="text"
-              value={field.imageSrc === unstamped ? '' : '1'} // value 값이 입력되지 않은 경우 빈 문자열로 설정
+              value={field.imageSrc === unstamped ? '' : '1'}
               onChange={(e) => handleInputChange(index, e.target.value)}
               style={{ width: '50px', textAlign: 'center' }}
             />
           </div>
         ))}
       </div>
+
+      {showModal && (
+        <div className="modal-backdrop">
+          <div className="modal-content">
+            <h2>다 모았다! <br></br>포인트 획득!</h2>
+            <button onClick={closeModal}>획득</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 export default WeeklyCheck;
