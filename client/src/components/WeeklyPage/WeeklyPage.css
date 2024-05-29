@@ -118,6 +118,37 @@ body {height:100%; overflow:hidden;}
     margin: 0;
   }
 
+  /*포인트 획득 css 추가 */
+.modal-backdrop {
+  font-family: on;
+  font-weight: normal;
+  font-size: 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-backdrop h2{
+  color:rgb(255, 0, 225);
+  
+}
+
+.modal-get-point {
+  background-color: rgb(255, 247, 0);
+  font-weight: normal;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  width:300px;
+}
+
+
 
  @font-face {
     font-family: "on";

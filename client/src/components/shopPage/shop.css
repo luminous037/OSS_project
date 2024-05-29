@@ -155,6 +155,23 @@ body {height:100%; overflow:hidden;}
     color:black;
     margin: 0 10px;
   }
+
+  .modal-denied h2{
+    font-weight: normal;
+    position: absolute;
+    top :-3%;
+    left:30%;
+  }
+
+  .modal-denied p{
+    padding-top:10%;
+  }
+
+
+  .modal-denied{
+    width:340px;
+    height:120px;
+  }
   
 .pannel_shop{
     position: absolute;
@@ -177,6 +194,7 @@ body {height:100%; overflow:hidden;}
     background-repeat: no-repeat;
     animation: explode 0.9s ease-in-out, slideDown 0.55s ease-in-out 0.55s;
     opacity: 0;
+    z-index: 1;
   }
 
   
