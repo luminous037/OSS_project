@@ -297,10 +297,12 @@ function Shop() {
               </>
             ) : (
               <>
+                <div className='modal-denied'>
                 <h2>포인트 부족</h2>
                 <p>포인트가 부족하여 구매할 수 없습니다.</p>
                 <div className="modal-buttons">
                   <button onClick={() => setModalIsOpen(false)}>확인</button>
+                </div>
                 </div>
 
               </>
