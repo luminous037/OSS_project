@@ -17,6 +17,24 @@ function PageCanvas({ id }) {
     }
   });
 
+  const [timeSettings, setTimeSettings] = useState({ //알람 시간
+    ampm1: 'AM',
+    hour1: 9,
+    minute1: 0,
+    ampm2: 'PM',
+    hour2: 12,
+    minute2: 0,
+    ampm3: 'PM',
+    hour3: 6,
+    minute3: 0,
+});
+
+const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
+  morning: false,
+  afternoon: false,
+  evening: false 
+});
+
   const navigate = useNavigate();
 
   const goToMypage = () => {
@@ -56,7 +74,20 @@ function PageCanvas({ id }) {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  
+   //info2에서 설정한 아침 점심 저녁이 true일 경우 알람 설정 버튼을 추가하는 함수
+   const renderButtonIfTrue = (condition, buttonId) => {
+    if (condition) {
+        return (
+            <div key={buttonId}>
+                <button >
+                    {`(${timeSettings[`ampm${buttonId}`]} ${timeSettings[`hour${buttonId}`]}:${timeSettings[`minute${buttonId}`]})`}
+                </button>
+            </div>
+        );
+    }
+    return null;
+};
   return (
     <div className="detailPage">
       <div className="detail_top">
@@ -75,9 +106,9 @@ function PageCanvas({ id }) {
         <br />
         <div className="detail_text">
           <h2>설정한 시간</h2>
-          <h4>{mediData.time.ampm1}</h4>
-          <h4>{mediData.time.ampm2}</h4>
-          <h4>{mediData.time.ampm3}</h4>
+          {renderButtonIfTrue(buttonStates.morning, 1)}
+          {renderButtonIfTrue(buttonStates.afternoon, 2)}
+          {renderButtonIfTrue(buttonStates.evening, 3)}
         </div>
         <br />
         <div className="detail_text_no-border">
