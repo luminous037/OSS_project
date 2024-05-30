@@ -1,40 +1,59 @@
-import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation,useNavigate } from 'react-router-dom'; // useParams 추가
 import "./InfoPage_3.css"
 import InfoPage_2 from './InfoPage_2';
 
 
 function InfoPage_3() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const mediID = searchParams.get('mediID'); // 쿼리 파라미터로부터 id 값을 가져옴
+  const userID = searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
 
-  const [mediData, setMediData] = useState({
-    mediName: '',
-    time: '',
-    date: '',
-    detail: {
-      morning: true,
-      afternoon: true,
-      evening: true,
-      before: false,
-      after: false,
-      time: ''
-    }
-  });
+  const navigate=useNavigate();
+  const navigateBack = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
 
 
-const navigate=useNavigate();
-const navigateBack = () => {
-  navigate(-1); // 이전 페이지로 이동
-};
+const [alarm, setalarm] = useState(false);
 
-const fetchData = (data) => { //데이터 저장
-    fetch('http://localhost:4000/addList', {
+const [mediData, setMediData] = useState({ //기존에 저장된 detail 값 필요
+  mediName: '',
+  time: {},
+  date:'',
+  detail: {
+    morning: false,
+    afternoon: false,
+    evening: false,
+    before: false,
+    after: false,
+    time: ''
+  }
+});
+
+const [timeSettings, setTimeSettings] = useState({ //알람 시간
+  ampm1: 'AM',
+  hour1: 9,
+  minute1: 0,
+  ampm2: 'PM',
+  hour2: 12,
+  minute2: 0,
+  ampm3: 'PM',
+  hour3: 6,
+  minute3: 0,
+});
+
+const updateAlarm = () => { //알람 시간 저장을 위한 fetch
+    fetch(`http://localhost:4000/addAlarm`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ mediID, userID, time: timeSettings, alarm })
     })
     .then(() => {
+      console.log(timeSettings);
       navigate('/Main'); // 저장 후 페이지 이동
     })
     .catch(err => {
@@ -42,16 +61,31 @@ const fetchData = (data) => { //데이터 저장
     });
 };
 
-const dataSave = () => { //medidata 복용법 수정
-  const infoData ={
-    
-  }
-  const updatedMediData = {
-    ...mediData,
-    detail: infoData
+useEffect(() => {
+  console.log(alarm);
+}, [alarm]); // alarm 상태가 변경될 때마다 호출
+
+useEffect(() => { //이전 약 정보 불러옴
+  const fetchData = async () => {
+    try {
+      const res = await callApi(); //
+      if (Array.isArray(res) && res.length > 0) {
+        setMediData(res[0]); // 배열의 첫 번째 요소를 사용
+      } else {
+        setMediData(res);
+      }
+    } catch (err) {
+      console.log("클라이언트에서 약 불러오기 중: ", err);
+    }
   };
-  setMediData(updatedMediData);
-  fetchData(updatedMediData); // 저장과 함께 이동
+
+  fetchData();
+}, [mediID]);
+
+const callApi = async () => {
+  const response = await fetch(`http://localhost:4000/list/${mediID}`);
+  const body = await response.json();
+  return body;
 };
 
   const [modalState, setModalState] = useState({
@@ -60,17 +94,6 @@ const dataSave = () => { //medidata 복용법 수정
     modalOpen3: false,
   });
 
-  const [timeSettings, setTimeSettings] = useState({
-    ampm1: 'AM',
-    hour1: 9,
-    minute1: 0,
-    ampm2: 'PM',
-    hour2: 12,
-    minute2: 0,
-    ampm3: 'PM',
-    hour3: 6,
-    minute3: 0,
-  });
 
   const handleModalOpen = (buttonId) => {
     setModalState(prevState => ({
@@ -113,6 +136,12 @@ const dataSave = () => { //medidata 복용법 수정
 
   const setAlarm = () => {
     alert("알람이 설정되었습니다.");
+    setalarm(true);
+  };
+
+  const cancleAlarm = () => {
+    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
+    setalarm(false);
   };
 
   const renderButtonIfTrue = (condition, buttonId) => {
@@ -149,10 +178,6 @@ const dataSave = () => { //medidata 복용법 수정
     return null;
   };
 
-  const cancleAlarm = () => {
-    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
-  };
-
   return (
     <div>
       <div className='title_info'>
@@ -180,7 +205,7 @@ const dataSave = () => { //medidata 복용법 수정
       </div>
 
       <div className="navigator">
-        <button onClick={dataSave} className="nav-item">다음</button>
+        <button onClick={updateAlarm} className="nav-item">다음</button>
       </div>
       <div className='navigator-back'>
       <button onClick={navigateBack}>이전</button>
