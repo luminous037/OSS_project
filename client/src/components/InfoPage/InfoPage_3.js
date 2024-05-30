@@ -139,10 +139,7 @@ const callApi = async () => {
     setalarm(true);
   };
 
-  const cancleAlarm = () => {
-    alert("알람을 사용하지 않습니다. (설정에서 다시 알람을 다시 설정할 수 있습니다.)");
-    setalarm(false);
-  };
+ 
 
   const renderButtonIfTrue = (condition, buttonId) => {
     if (condition) {
@@ -199,9 +196,6 @@ const callApi = async () => {
         <button onClick={setAlarm}>이대로 설정!</button>
       </div>
 
-      <div className="deny">
-        <button onClick={cancleAlarm}>알람을 사용하지 않을래요.</button>
-      </div>
       </div>
 
       <div className="navigator">
