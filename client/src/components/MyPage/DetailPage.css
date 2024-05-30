@@ -21,10 +21,19 @@
         margin-top: -5%;
     }
     
-    /*칸 나누는 밑줄*/
+    /*칸 나누는 밑줄1*/
     .detail_text{
       background: rgba(255, 255, 255, 0.753);
-      height: 30%;
+      height: 40%;
+      text-align:left;
+      padding-left: 5%;
+      border-bottom: 3px solid rgb(195, 205, 218);
+    }
+
+    /*칸 나누는 밑줄2*/
+    .detail_text_2{
+      background: rgba(255, 255, 255, 0.753);
+      height: 0%;
       text-align:left;
       padding-left: 5%;
       border-bottom: 3px solid rgb(195, 205, 218);
@@ -36,7 +45,7 @@
       font-size:20px;
       color:#494949;
         background: rgba(255, 255, 255, 0.753);
-        height: 25%;
+        height: 30%;
         text-align:left;
         padding-left: 5%;
     }
@@ -53,11 +62,35 @@
         grid-row-start: 6;
     }
 
-    /*먹는 약, 설정한 시간*/
-    .detail_text{
+    /*먹는 약*/
+    .detail_text h2{
       font-family: on;
-      font-size:20px;
+      font-size:32px;
+      font-weight: normal;
       color:#494949;
+      padding-right:80%;
+      background-color: aliceblue;
+    }
+
+    /*복용법*/
+    .detail_text_no-border h2{
+      font-family: on;
+      font-size:32px;
+      font-weight: normal;
+      color:#494949;
+      padding-right:82%;
+      background-color: aliceblue;
+    }
+
+    /*설정한 시간*/
+    .detail_text_2 h2{
+      font-family: on;
+      font-size:32px;
+      font-weight: normal;
+      font-weight: normal;
+      color:#494949;
+      padding-right:72%;
+      background-color: aliceblue;
     }
     
   .back_button{
@@ -73,3 +106,59 @@
   .backButton_img{
     width:30%;
   }
+
+  .alarmset_detail{
+    position: absolute;
+    display: flex;
+    gap:10px;
+  }
+
+  .modal_detail{
+    position:absolute;
+    background-color: aliceblue;
+    width: 200px;
+    height: 100px;
+    left:108%;
+    top :-130%;
+  }
+
+.modal-detail-content h12{
+  font-family: on;
+  font-weight: normal;
+  font-size: 30px;
+}
+
+.which-medi{
+  font-family: on;
+  font-weight: normal;
+}
+
+.which-medi h10{
+  position: relative;
+  font-size: 30px;
+  background-color: aliceblue;
+  left:5%;
+}
+
+.which-medi h11{
+  position: relative;
+  font-size: 45px;
+  top: 5%;
+  left:10%;
+}
+
+.alarm-set-time{
+  font-family: on;
+  font-weight: normal;
+}
+
+.alarm-set-time h10{
+  position: relative;
+  font-size: 30px;
+  background-color: aliceblue;
+  left:5%;
+}
+
+.alarm-set-button{
+  position: absolute;
+}

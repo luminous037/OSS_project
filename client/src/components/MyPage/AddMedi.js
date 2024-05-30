@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DetailPage.css';
 
@@ -7,9 +7,9 @@ function AddMedi() {
         mediName: '',
         time: '',
         detail: {
-            morning: false,
-            afternoon: false,
-            evening: false,
+            morning: true,
+            afternoon: true,
+            evening: true,
             before: false,
             after: false,
             time: ''
@@ -59,7 +59,7 @@ function AddMedi() {
           detail: infoData
         };
         setMediData(updatedMediData);
-        console.log("약 정보: ",updatedMediData); // 업데이트된 mediData 객체를 콘솔에 출력
+        console.log("약 정보: ", updatedMediData); // 업데이트된 mediData 객체를 콘솔에 출력
         fetchData(updatedMediData); // 저장과 함께 이동
     };
 
@@ -89,8 +89,8 @@ function AddMedi() {
     };
 
     useEffect(() => {
-      console.log('현재 상태:', checkBox);
-  }, [checkBox]); // buttonStates 상태가 변경될 때마다 실행
+        console.log('현재 상태:', checkBox);
+    }, [checkBox]); // buttonStates 상태가 변경될 때마다 실행
 
     const [time, setTime] = useState(''); //매 time 시간마다
 
@@ -98,6 +98,104 @@ function AddMedi() {
         setTime(event.target.value);
     };
 
+    //시간 설정 모달 창
+    const [modalState, setModalState] = useState({
+        modalOpen1: false,
+        modalOpen2: false,
+        modalOpen3: false,
+    });
+
+    //시간설정
+    const [timeSettings, setTimeSettings] = useState({ //알람 시간
+        ampm1: 'AM',
+        hour1: 9,
+        minute1: 0,
+        ampm2: 'PM',
+        hour2: 12,
+        minute2: 0,
+        ampm3: 'PM',
+        hour3: 6,
+        minute3: 0,
+    });
+    
+    //알람 설정 state
+    const [alarm, setAlarm] = useState(false);
+    
+    const handleModalOpen = (buttonId) => {
+        setModalState({
+            modalOpen1: buttonId === 1,
+            modalOpen2: buttonId === 2,
+            modalOpen3: buttonId === 3,
+        });
+    };
+    
+    const handleModalClose = (buttonId) => {
+        setModalState(prevState => ({
+            ...prevState,
+            [`modalOpen${buttonId}`]: false,
+        }));
+    };
+
+    //모달 창 내 오전 오후 설정 체크창
+    const handleAMPMChange = (buttonId, event) => {
+        setTimeSettings(prevState => ({
+            ...prevState,
+            [`ampm${buttonId}`]: event.target.value,
+        }));
+    };
+
+    // 시간 변경모듈
+    const handleHourChange = (buttonId, event) => {
+        setTimeSettings(prevState => ({
+            ...prevState,
+            [`hour${buttonId}`]: event.target.value,
+        }));
+    };
+
+    //분 변경 모듈
+    const handleMinuteChange = (buttonId, event) => {
+        setTimeSettings(prevState => ({
+            ...prevState,
+            [`minute${buttonId}`]: event.target.value,
+        }));
+    };
+
+    //설정 확인 버튼
+    const handleConfirm = (buttonId) => {
+        handleModalClose(buttonId);
+    };
+
+    //info2에서 설정한 아침 점심 저녁이 true일 경우 알람 설정 버튼을 추가하는 함수
+    const renderButtonIfTrue = (condition, buttonId) => {
+        if (condition) {
+            return (
+                <div key={buttonId}>
+                    <button onClick={() => handleModalOpen(buttonId)}>
+                        {`(${timeSettings[`ampm${buttonId}`]} ${timeSettings[`hour${buttonId}`]}:${timeSettings[`minute${buttonId}`]})`}
+                    </button>
+                    {modalState[`modalOpen${buttonId}`] && (
+                        <div className="modal_detail">
+                            <div className="modal-detail-content">
+                                <h12>시간설정</h12>
+                                <div className='setTime'>
+                                    <select value={timeSettings[`ampm${buttonId}`]} onChange={(e) => handleAMPMChange(buttonId, e)}>
+                                        <option value="AM">AM</option>
+                                        <option value="PM">PM</option>
+                                    </select>
+                                    <input type="number" value={timeSettings[`hour${buttonId}`]} onChange={(e) => handleHourChange(buttonId, e)} min="1" max="12" />
+                                    <span>:</span>
+                                    <input type="number" value={timeSettings[`minute${buttonId}`]} onChange={(e) => handleMinuteChange(buttonId, e)} min="0" max="59" />
+                                </div>
+                                <button onClick={() => handleModalClose(buttonId)}>취소</button>
+                                <button onClick={() => handleConfirm(buttonId)}>확인</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+        return null;
+    };
 
     return (
         <div className="detailPage">
@@ -111,11 +209,6 @@ function AddMedi() {
                 <div className="detail_text">
                     <h2>먹는 약</h2>
                     <input type="text" name="mediName" value={mediData.mediName} onChange={handleChange} />
-                </div>
-                <br />
-                <div className="detail_text">
-                    <h2>설정한 시간</h2>
-                    <input type="text" name="time" value={mediData.time} onChange={handleChange} />
                 </div>
                 <br />
                 <div className="detail_text_no-border">
@@ -140,9 +233,19 @@ function AddMedi() {
                         시간마다 의사 지시대로
                     </div>
                 </div>
+                
+                </div>
+                <br />
+                <div className="detail_text_2">
+                    <h2>알람 설정</h2>
+                    <div className="alarmset_detail">
+                        {renderButtonIfTrue(buttonStates.morning, 1)}
+                        {renderButtonIfTrue(buttonStates.afternoon, 2)}
+                        {renderButtonIfTrue(buttonStates.evening, 3)}
+                    </div>
             </div>
-            <button onClick={handleSave} className="save_button" ><h2>저장</h2></button>
-        </div> 
+            <button onClick={handleSave} className="save_button"><h2>저장</h2></button>
+        </div>
     );
 }
 
