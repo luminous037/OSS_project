@@ -8,7 +8,7 @@ function PageCanvas({ id }) {
     mediName: '',
     time: {},
     detail: {
-      morning: false,
+      morning: true,
       afternoon: false,
       evening: false,
       before: false,
@@ -106,10 +106,17 @@ const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
         </div>
         <br />
         <div className="alarm-set-time">
-          <h2>설정한 시간</h2>
+          <h10>설정한 시간</h10>
+
+          <div className='alarm-set-button'>
           {renderButtonIfTrue(buttonStates.morning, 1)}
           {renderButtonIfTrue(buttonStates.afternoon, 2)}
           {renderButtonIfTrue(buttonStates.evening, 3)}
+          <h4>{mediData.time.ampm1}</h4>
+          <h4>{mediData.time.ampm2}</h4>
+          <h4>{mediData.time.ampm3}</h4>
+          </div>
+          
         </div>
         <br />
         <div className="detail_text_no-border">

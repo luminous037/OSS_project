@@ -146,3 +146,19 @@
   top: 5%;
   left:10%;
 }
+
+.alarm-set-time{
+  font-family: on;
+  font-weight: normal;
+}
+
+.alarm-set-time h10{
+  position: relative;
+  font-size: 30px;
+  background-color: aliceblue;
+  left:5%;
+}
+
+.alarm-set-button{
+  position: absolute;
+}
