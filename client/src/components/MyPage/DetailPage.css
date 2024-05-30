@@ -127,3 +127,22 @@
   font-weight: normal;
   font-size: 30px;
 }
+
+.which-medi{
+  font-family: on;
+  font-weight: normal;
+}
+
+.which-medi h10{
+  position: relative;
+  font-size: 30px;
+  background-color: aliceblue;
+  left:5%;
+}
+
+.which-medi h11{
+  position: relative;
+  font-size: 45px;
+  top: 5%;
+  left:10%;
+}

@@ -99,12 +99,13 @@ const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
         </h1>
         <br />
       </div>
-        <div className="detail_text">
-          <h2>먹는 약</h2>
-          <h4>{mediData.mediName}</h4>
+        <div className="which-medi">
+          <h10>먹는 약</h10>
+          <br></br>
+          <h11>{mediData.mediName}</h11>
         </div>
         <br />
-        <div className="detail_text">
+        <div className="alarm-set-time">
           <h2>설정한 시간</h2>
           {renderButtonIfTrue(buttonStates.morning, 1)}
           {renderButtonIfTrue(buttonStates.afternoon, 2)}
