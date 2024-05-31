@@ -1,4 +1,3 @@
-// server/firebaseAdmin.js
 const admin = require('firebase-admin');
 
 admin.initializeApp({

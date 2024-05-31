@@ -17,6 +17,7 @@ import WeeklyCheck from './WeeklyPage/WeeklyCheck.js';
 import Shop from './shopPage/Shop.js';
 
 function App() {
+
   return (
     <Router>
       <div>
