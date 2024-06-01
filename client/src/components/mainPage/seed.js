@@ -34,10 +34,10 @@ function Seed({ rainCount, setRainCount }) {
       .then(data => {
         console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
         const user = {
-          plant: parseInt(data[0].plant, 10),
-          rain: parseInt(data[0].cloud, 10),
-          point: parseInt(data[0].point, 10)
+          plant: data[0].plant,
+          point: parseInt(data[0].points, 10)
         };
+        setSelectedSeed(user.plant);
         setUserData(user);
         console.log(user);
       })
@@ -75,7 +75,6 @@ function Seed({ rainCount, setRainCount }) {
     setSelectedSeed(seed); // 선택된 씨앗을 상태에 저장
     setUserData(prevState => ({
       ...prevState, // 이전 상태를 복사
-      rain: 0,
       plant: seed.id
     }));
     updateUserData(seed.id);
@@ -96,15 +95,15 @@ function Seed({ rainCount, setRainCount }) {
         setSeedStage('seed');
       }
     }
-  }, [rainCount, selectedSeed, seedStage]);
+  }, [rainCount, seedStage]);
 
   const handleHarvest = () => {
     setSeedStage('seed');
+    setSelectedSeed(null);
     setRainCount(0); // reset rain count in parent component
     setUserData(prevUserData => ({
       ...prevUserData, // 이전 상태를 복사
-      plant: 0,
-      rain: 0,
+      plant: '',
       point: prevUserData.point + 100 // 이전 돈에 100 추가
     }));
   };
