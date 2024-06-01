@@ -18,7 +18,6 @@ function Seed({ rainCount, setRainCount }) {
 
   const [userData, setUserData] = useState({
     plant: '',
-    rain: 0,
     point: 0
   });
 
@@ -61,6 +60,11 @@ function Seed({ rainCount, setRainCount }) {
         console.error('userUpdate중 오류: ', err);
       });
   };
+
+  useEffect(()=>{
+    if(userData.point==0) return;
+    else updateUserData(userData.plant);
+  },[userData.point])
 
   const toggleModal = () => {
     setIsseedModalOpen(!isseedModalOpen);
