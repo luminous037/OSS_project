@@ -121,7 +121,7 @@ function MyPage() {  //마이페이지 기본 틀
 
           </>
           <br></br>
-          <div className="text_setting"><h2 >알람 설정</h2>
+          <div className="text_setting"><h2 >알람 소리 설정</h2>
           <div className="button_alarm_myPage"><Switch onChange={handleChange} checked={userData.alarm}  onColor="#8CD7F2" className="switch" />
           </div></div>
         </div>
