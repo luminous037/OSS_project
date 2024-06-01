@@ -347,10 +347,10 @@ app.post('/plantUpdate', (req,res)=>{
   const database =getDatabase();
   const userCollection = database.collection("user");
 
-  const{plant, rain, point}=req.body;
+  const{plant, point}=req.body;
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {plant: plant, rain: rain, points: point, }}
+    {$set: {plant: plant, points: point }}
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{

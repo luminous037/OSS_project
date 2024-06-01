@@ -50,6 +50,7 @@ const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
         } else {
           setMediData(res);
         }
+        console.log(res);
         setLoading(false); // 데이터 로딩 완료 후 로딩 상태를 false로 설정
       } catch (err) {
         console.log("클라이언트에서 약 불러오기 중: ", err);
@@ -68,7 +69,6 @@ const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
 
   useEffect(() => { //mediData 업데이트 확인용
     console.log(mediData);
-    console.log(loading);
   }, [mediData, loading]);
 
   if (loading) {
@@ -112,9 +112,17 @@ const [buttonStates, setButtonStates] = useState({ //아침 점심 저녁
           {renderButtonIfTrue(buttonStates.morning, 1)}
           {renderButtonIfTrue(buttonStates.afternoon, 2)}
           {renderButtonIfTrue(buttonStates.evening, 3)}
-          <h4>{mediData.time.ampm1}</h4>
-          <h4>{mediData.time.ampm2}</h4>
-          <h4>{mediData.time.ampm3}</h4>
+
+          {mediData.detail.morning && ( //조건부 렌더링
+           <h4>{mediData.time.ampm1} {mediData.time.hour1} : {mediData.time.minute1}</h4>
+          )}
+          {mediData.detail.afternoon &&(
+            <h4>{mediData.time.ampm2}  {mediData.time.hour2} : {mediData.time.minute2}</h4>
+          )}
+          {mediData.detail.evening && (
+            <h4>{mediData.time.ampm3}  {mediData.time.hour3} : {mediData.time.minute3}</h4>
+          )} 
+          
           </div>
           
         </div>

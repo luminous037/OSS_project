@@ -56,6 +56,7 @@ function AddMedi() {
         };
         const updatedMediData = {
           ...mediData,
+          time: timeSettings,
           detail: infoData
         };
         setMediData(updatedMediData);
