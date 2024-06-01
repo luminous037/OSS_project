@@ -36,7 +36,7 @@ function Seed({ rainCount, setRainCount }) {
         const user = {
           plant: parseInt(data[0].plant, 10),
           rain: parseInt(data[0].cloud, 10),
-          point: parseInt(data[0].point, 10)
+          point: parseInt(data[0].point, 10) //parseInt 정수로 바꾸는거
         };
         setUserData(user);
         console.log(user);
