@@ -94,6 +94,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'rain': 0, //비 내린 횟수 = 씨앗 성장 상태
       'cloud': 0, //구름 퍼센티지
       'stamp': 0, //스탬프
+      'clothes':0, //옷 착용 정보 (0은 기본상태)
       'mediListID':'', // 약 정보
       'itemID':'', //아이템 정보
     })
