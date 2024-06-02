@@ -23,4 +23,21 @@
   }
 
   
-  
+  .modal-content button{
+    animation: pulse 1.5s infinite;
+    padding: 15px 30px; 
+    color:rgb(255, 255, 255);
+    font-size: 20px;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(0.8);
+    }
+  }
