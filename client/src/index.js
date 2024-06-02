@@ -37,7 +37,6 @@ const initializeAppWithFirebase = () => {
       // 토큰 요청 및 서버에 푸시 알림 구독 요청
       requestForToken().then(token => {
         if (token) {
-          console.log(token);
           sendSubscriptionToServer(token);
         }
       });
