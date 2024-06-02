@@ -3,6 +3,7 @@ import InstructionModal from './Guidebook.js';
 import './Main.css';
 import Cloud from './cloud.js';
 import Seed from './seed.js';
+import PresentCheckModal from './present_check.js'; // 출석체크 모달 컴포넌트 임포트
 import moon from '../image/moon.png';
 import sun from '../image/sun.png';
 import bench from '../image/bench.png';
@@ -14,6 +15,9 @@ const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rainCount, setRainCount] = useState(null);
   const [isMorning, setIsMorning] = useState(true);
+  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false); //출석확인 모달창
+  const [isAttendanceChecked, setIsAttendanceChecked] = useState(false); //출석 상태 확인
+  const [presentCount, setPresentCount] = useState(0); // 출석 횟수 상태 추가
 
   useEffect(() => {
     fetch('/userProfile')
@@ -26,15 +30,29 @@ const MainPage = () => {
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
+
+    // 로컬스토리지에서 출석상태를 저장 (출석 후 하루동안 안띄우기 위해)
+    const lastAttendanceCheck = localStorage.getItem('lastAttendanceCheck');
+    if (lastAttendanceCheck) {
+      const now = new Date();
+      const lastCheckDate = new Date(lastAttendanceCheck);
+      const timeDifference = now - lastCheckDate;
+      const hoursDifference = timeDifference / (1000 * 60 * 60);
+
+      // 24시간동안 버튼 비활성화
+     if (hoursDifference < 24) {
+        setIsAttendanceChecked(true);
+      }
+    }
   }, []);
 
-  useEffect(()=>{
-    if(rainCount===null) return;
+  useEffect(() => {
+    if (rainCount === null) return;
     else updateRain(rainCount);
-  },[rainCount])
+  }, [rainCount]);
 
   const handleRain = () => {
-    if(rainCount >=4 ){
+    if (rainCount >= 4) {
       setRainCount(0);
       updateRain(0);
     }
@@ -71,7 +89,20 @@ const MainPage = () => {
     } else {
       setIsMorning(false);
     }
+
+    // 출석 체크 모달창을 설정
+    const lastAttendanceCheck = localStorage.getItem('lastAttendanceCheck');
+    if (!lastAttendanceCheck || new Date() - new Date(lastAttendanceCheck) > 24 * 60 * 60 * 1000) {
+      setIsAttendanceModalOpen(true);
+    }
   }, []);
+
+  const handleAttendanceCheck = () => {
+    setIsAttendanceChecked(true); //출석 체크 버튼이 비활성화되도록 하며, 사용자가 이미 출석 체크를 완료했음을 나타냅니다.
+    setIsAttendanceModalOpen(false);
+    setPresentCount(presentCount + 1);
+    localStorage.setItem('lastAttendanceCheck', new Date().toISOString());
+  };
 
   const phrases = [
     "안녕!",
@@ -134,6 +165,11 @@ const MainPage = () => {
           <p>{currentPhrase}</p>
         </div>
       </div>
+      <PresentCheckModal 
+        isOpen={isAttendanceModalOpen} 
+        onClose={() => setIsAttendanceModalOpen(false)}
+        onPresentCheck={handleAttendanceCheck}
+      />
     </div>
   );
 };

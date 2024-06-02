@@ -248,3 +248,9 @@ h1{
 .balloon p {
   margin: 0;
 }
+
+.attendance-button-container{
+  position: absolute;
+  top: 10%;
+  left: 60%;
+}
