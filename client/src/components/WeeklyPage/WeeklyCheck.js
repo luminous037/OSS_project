@@ -12,6 +12,24 @@ function WeeklyCheck() {
   const [inputFields, setInputFields] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+
+  useEffect(() => { //유저 정보 불러오기
+    fetch('/userProfile')
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const Data = data[0].stamp;
+          console.log(Data);
+          setDays(Data);
+        }
+      })
+      .catch(error => {
+        console.error('유저 정보를 가져오는 중 에러:', error);
+      });
+  },[]);
+
+
+
   /*폭죽*/
   const showExplosionAnimation = () => {
     const explodeAnimation = document.createElement('div');
@@ -30,9 +48,9 @@ function WeeklyCheck() {
   };
 
   /*numDays=Info2에서 정한 복용일수*/
-  const updateInputFields = (numDays) => {
+  const updateInputFields = () => {
     const newInputFields = [];
-    for (let i = 0; i < numDays; i++) {
+    for (let i = 0; i < 5; i++) {
       newInputFields.push({ id: i, imageSrc: unstamped });
     }
     setInputFields(newInputFields);

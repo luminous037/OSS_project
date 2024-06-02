@@ -117,9 +117,10 @@ const MainPage = () => {
   }, []);
 
   const handleAttendanceCheck = () => {
-    setIsAttendanceChecked(true); //출석 체크 버튼이 비활성화되도록 하며, 사용자가 이미 출석 체크를 완료했음을 나타냅니다.
+    setIsAttendanceChecked(true); //출석 체크 버튼이 비활성화되도록 하며, 사용자가 이미 출석 체크를 완료했음.
     setIsAttendanceModalOpen(false);
     setPresentCount(presentCount + 1);
+    presentCheck(1);
     localStorage.setItem('lastAttendanceCheck', new Date().toISOString());
   };
 
