@@ -7,7 +7,7 @@ const { ObjectId } = require('mongodb');
 const cookieParser = require('cookie-parser');
 require('dotenv').config(); //환경 변수
 const admin = require('./FireBase');
-const port = process.env.PORT || 4000; //서버 포트 번호
+const port = process.env.PORT; //서버 포트 번호
 const fs =require('fs');
 
 app.use(bodyParser.json());
@@ -18,35 +18,29 @@ app.use(cookieParser());
 let user_id;
 let token;
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId:process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId:process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-  vapidKey: process.env.REACT_APP_VAPID_KEY
+const firebaseConfig = { //firebase 설정 및 vapidKey
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId:process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId:process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+  //vapidKey: process.env.VAPID_KEY
 };
 
 app.listen(port, () => {
     console.log("listen") // 정상 작동
     dbConnect(); //DB 연결
-    console.log('API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
-    console.log('Auth Domain:', process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
-    console.log('Project ID:', process.env.REACT_APP_FIREBASE_PROJECT_ID);
-    console.log('Storage Bucket:', process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
-    console.log('Messaging Sender ID:', process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID);
-    console.log('App ID:', process.env.REACT_APP_FIREBASE_APP_ID);
-    console.log('Measurement ID:', process.env.REACT_APP_FIREBASE_MEASUREMENT_ID);
+    //console.log(firebaseConfig);
 }); 
 
 
-app.get('/firebase-config', (req, res) => { //firebase 구성 정보 보냄
+app.get("/firebase-config", (req, res) => { //firebase 구성 정보 보냄
   res.json(firebaseConfig);
 });
 
-app.post('/subscribe', (req, res) => { //토큰 저장
+app.post("/subscribe", (req, res) => { //토큰 저장
     token = req.body;
   res.status(200).send('토큰 저장 완료');
 });
