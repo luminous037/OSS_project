@@ -328,6 +328,21 @@ app.post('/rainUpdate',(req,res)=>{ //비 내린 횟수
   })
 })
 
+app.post('/presentUpdate',(req,res)=>{ // 출석정보 저장
+  const presentCount =req.body.presentCount;
+  const database = getDatabase();
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {stamp:presentCount} }
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('stamp 오류: ',err);
+  })
+})
+
 app.post('/cloudUpdate',(req,res)=>{ //구름 퍼센트
   const cloud = req.body.cloudPercent;
   const database = getDatabase(); //db 가져오기

@@ -12,7 +12,7 @@ const PresentCheckModal = ({ isOpen, onClose, onPresentCheck }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content-present">
         <img src={present_check_modal} className='present_check_image'></img>
         <button onClick={handlePresentCheck}>출석 체크!</button>
       </div>

@@ -11,7 +11,7 @@
     z-index: 1000;
   }
   
-  .modal-content {
+  .modal-content-present {
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -20,10 +20,11 @@
   
   .present_check_image{
     height: 400px;
+    padding-left: 20px;
   }
 
   
-  .modal-content button{
+  .modal-content-present button{
     animation: pulse 1.5s infinite;
     padding: 15px 30px; 
     color:rgb(255, 255, 255);

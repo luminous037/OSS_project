@@ -64,6 +64,8 @@ const MainPage = () => {
     console.log(rainCount);
   };
 
+
+
   const updateRain = (newCount) => {
     fetch(`http://localhost:4000/rainUpdate`, {
       method: 'POST',
@@ -77,6 +79,23 @@ const MainPage = () => {
       })
       .catch(err => {
         console.error('rainUpdate중 오류: ', err);
+      });
+  };
+
+  const presentCheck = (newCount) => { 
+    fetch(`http://localhost:4000/presentUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(({ presentCount: newCount }))
+    })
+      .then(() => {
+        console.log('present count updated');
+        console.log(newCount);
+      })
+      .catch(err => {
+        console.error('presentUpdate중 오류: ', err);
       });
   };
 
