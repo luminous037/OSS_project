@@ -25,6 +25,8 @@ function Shop() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentItem, setCurrentItem] = useState(null);
     const [equippedItemImages, setEquippedItemImages] = useState([]);
+    
+
 
     let lastImage = null; // 전역 변수로 lastImage 선언
     let lock = false;//test
@@ -121,7 +123,7 @@ function Shop() {
     // 상태 업데이트 후 서버에 동기화는 useEffect에서 처리
     setPoint(newPoint);
     setPurchaseStatus(prevStatus => ({ ...prevStatus, [id]: true }));
-    setCharacterEquip(prevEquip => ({ ...prevEquip, [id]: true }));
+    setCharacterEquip(prevEquip => ({ ...prevEquip, [id]: true })); //착용상태 저장 코드 추가 필요
     setModalIsOpen(false); // 모달 닫기
     showExplosionAnimation(); // 폭죽 애니메이션 실행
 
