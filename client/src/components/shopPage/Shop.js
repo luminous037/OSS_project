@@ -97,6 +97,8 @@ function Shop() {
     });
   }, [purchaseStatus]);
 
+
+
   const handlePurchase = (item) => {
 
     if (purchaseStatus[item.id]) {// 구매 완료된 아이템을 클릭한 경우
@@ -124,6 +126,26 @@ function Shop() {
     setPoint(newPoint);
     setPurchaseStatus(prevStatus => ({ ...prevStatus, [id]: true }));
     setCharacterEquip(prevEquip => ({ ...prevEquip, [id]: true })); //착용상태 저장 코드 추가 필요
+
+    fetch('http://localhost:4000/updateUserProfile', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      points: newPoint,
+      clothes: id // clothes 값을 구매한 아이템의 id로 업데이트
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('userProfile의 clothes 값 업데이트 완료:', data);
+  })
+  .catch(err => {
+    console.error('userProfile의 clothes 값 업데이트 중 오류: ', err);
+  });
+
+  
     setModalIsOpen(false); // 모달 닫기
     showExplosionAnimation(); // 폭죽 애니메이션 실행
 
@@ -215,10 +237,59 @@ function Shop() {
   
     // 마지막 이미지를 현재 이미지로 업데이트
     localStorage.setItem('lastImageId', newImageId);
-    lock = true; //test
-  
     console.log(imageSelected);
+
+    // 착용 상태를 저장하고 서버에 업데이트
+    setCharacterEquip(prevEquip => {
+      const newEquip = { ...prevEquip, [imageSrc]: true };
+      fetch('http://localhost:4000/updateUserProfile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          points: point,
+          clothes: imageSrc, // 착용한 아이템의 id를 업데이트
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('userProfile의 clothes 값 업데이트 완료:', data);
+      })
+      .catch(err => {
+        console.error('userProfile의 clothes 값 업데이트 중 오류: ', err);
+      });
+      return newEquip;
+    });
   };
+
+  useEffect(() => {
+    // 착용 상태가 false인 경우 clothes 값을 0으로 설정
+    const unequipItems = Object.keys(characterEquip).filter(key => !characterEquip[key]);
+    if (unequipItems.length > 0) {
+      fetch('http://localhost:4000/updateUserProfile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          points: point,
+          clothes: 0 // 착용 상태가 false인 경우 clothes 값을 0으로 업데이트
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('userProfile의 clothes 값 업데이트 완료:', data);
+      })
+      .catch(err => {
+        console.error('userProfile의 clothes 값 업데이트 중 오류: ', err);
+      });
+    }
+  }, [characterEquip]);
+
+  
+   
+  
   
   
 
