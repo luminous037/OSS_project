@@ -20,3 +20,21 @@
 2. mongoDB 연결
 ```sh
 ```
+
+
+#의존성
+<h10>OS</h10>
+windows Mac Linux
+
+<h10>Library</h10>
+Node.js / React
+
+<h10>DB</h10>
+mongoDB
+
+#실행 방법
+```sh
+~$ git clone https://github.com/luminous037/OSS_project.git
+~$ cd server
+~$ yarn dev
+```
