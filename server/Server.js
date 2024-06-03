@@ -9,6 +9,8 @@ require('dotenv').config(); //환경 변수
 const admin = require('./FireBase');
 const port = process.env.PORT; //서버 포트 번호
 const fs =require('fs');
+const scheduleNotifications = require('./PushAlarm');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,6 +34,7 @@ const firebaseConfig = { //firebase 설정 및 vapidKey
 app.listen(port, () => {
     console.log("listen") // 정상 작동
     dbConnect(); //DB 연결
+    scheduleNotifications();
     //console.log(firebaseConfig);
 }); 
 
@@ -49,7 +52,6 @@ app.post("/subscribe", (req, res) => { //토큰 저장
 
 app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     const database = getDatabase();
-
     const userCollection = database.collection("user");
     const userName = req.body.userName;
   
