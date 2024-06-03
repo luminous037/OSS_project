@@ -92,7 +92,7 @@ function MyPage() {  //마이페이지 기본 틀
           <div  className="text_setting">
             <h3>우리 아이 이름</h3>
             <div className="profile_input">
-              <h2>{userData.userName}</h2>
+              <div className='userName'>{userData.userName}</div>
             </div>
               <h4>
               <button className="profile_input_button" onClick={() => setModalOpen(true)}>수정</button>
@@ -121,13 +121,14 @@ function MyPage() {  //마이페이지 기본 틀
 
           </>
           <br></br>
-          <div className="text_setting"><h2 >알람 설정</h2>
+          <div className="text_setting"><h2 >알람 소리 설정</h2>
           <div className="button_alarm_myPage"><Switch onChange={handleChange} checked={userData.alarm}  onColor="#8CD7F2" className="switch" />
           </div></div>
         </div>
 
+        <div className='MedicineList'>
         <div className="medicine_title">
-          <h2>약 목록</h2>
+          약 목록
         </div>
         
         <MyPageData/>
@@ -136,6 +137,7 @@ function MyPage() {  //마이페이지 기본 틀
           <Link to="./AddMedi" style={{ textDecoration: 'none'}} >
             <img src="/addButton.png" alt="Add Button"/>
             </Link>
+        </div>
         </div>
 
       </div>

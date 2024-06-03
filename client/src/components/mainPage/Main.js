@@ -12,7 +12,7 @@ import chicken from '../image/chicken.png';
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rainCount, setRainCount] = useState(0);
+  const [rainCount, setRainCount] = useState(null);
   const [isMorning, setIsMorning] = useState(true);
 
   useEffect(() => {
@@ -27,6 +27,11 @@ const MainPage = () => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
   }, []);
+
+  useEffect(()=>{
+    if(rainCount===null) return;
+    else updateRain(rainCount);
+  },[rainCount])
 
   const handleRain = () => {
     if(rainCount >=4 ){
