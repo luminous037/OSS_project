@@ -5,35 +5,38 @@
 
 # 설치 방법
 
-0. node.js 설치
+**1. node.js 설치**
 ```sh
 ~$ node -v
 ```
 => node.js 버전 확인하기
 
-1. react 설치
+**2 react 설치**
 ```sh
 ~$ npx create-react-app blog
-
+```
+```sh
 ~$ sudo npx create-react-app blog
 ```
 => macos에서 permission error 발생 시 입력하기
 
-2. mongoDB 연결
+**3. mongoDB 연결**
 ```sh
 ```
-
+<p><br></p>
 
 # 의존성
 
-<h10>OS</h10>
-windows Mac Linux
+<h10>**OS**</h10>
+<p>windows Mac Linux</p>
 
-<h10>Library</h10>
-Node.js / React
+<h10>**Library**</h10>
+<p>Node.js / React</p>
 
-<h10>DB</h10>
-mongoDB
+<h10>**DB**</h10>
+<p>mongoDB</p>
+
+<p><br></p>
 
 # 실행 방법
 
@@ -42,6 +45,7 @@ mongoDB
 ~$ cd server
 ~$ yarn dev
 ```
+<p><br></p>
 
 
 # 구성원
