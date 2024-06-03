@@ -6,9 +6,10 @@ const { dbConnect, getDatabase } = require('./DbConnect');
 const { ObjectId } = require('mongodb');
 const cookieParser = require('cookie-parser');
 require('dotenv').config(); //환경 변수
-const admin = require('./FireBase');
-const port = process.env.PORT || 4000; //서버 포트 번호
+const port = process.env.PORT; //서버 포트 번호
 const fs =require('fs');
+const scheduleNotifications = require('./PushAlarm');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,71 +19,38 @@ app.use(cookieParser());
 let user_id;
 let token;
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId:process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId:process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-  vapidKey: process.env.REACT_APP_VAPID_KEY
+const firebaseConfig = { //firebase 설정 및 vapidKey
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId:process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId:process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+  //vapidKey: process.env.VAPID_KEY
 };
 
 app.listen(port, () => {
     console.log("listen") // 정상 작동
     dbConnect(); //DB 연결
-    console.log('API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
-    console.log('Auth Domain:', process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
-    console.log('Project ID:', process.env.REACT_APP_FIREBASE_PROJECT_ID);
-    console.log('Storage Bucket:', process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
-    console.log('Messaging Sender ID:', process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID);
-    console.log('App ID:', process.env.REACT_APP_FIREBASE_APP_ID);
-    console.log('Measurement ID:', process.env.REACT_APP_FIREBASE_MEASUREMENT_ID);
+    //scheduleNotifications();
+    //console.log(firebaseConfig);
 }); 
 
 
-app.get('/firebase-config', (req, res) => { //firebase 구성 정보 보냄
+app.get("/firebase-config", (req, res) => { //firebase 구성 정보 보냄
   res.json(firebaseConfig);
 });
 
-app.post('/subscribe', (req, res) => { //토큰 저장
+app.post("/subscribe", (req, res) => { //토큰 저장
     token = req.body;
+   // console.log('토큰: ', token);
   res.status(200).send('토큰 저장 완료');
 });
-
-  // const sendPushNotifications = () => { //푸시알람
-  //   const message = {
-  //     notification: {
-  //       title: 'MeddyBaby',
-  //       body: '약 먹을 시간이에요!'
-  //     },
-  //     tokens: token //토큰 설정하기
-  //   };
-  
-  //   admin.messaging().sendMulticast(message)
-  //     .then((response) => {
-  //       console.log('메세지 전송 선공:', response);
-  //     })
-  //     .catch((error) => {
-  //       console.error('메세지 전송 실패:', error);
-  //     });
-  // };
-  
-  // cron.schedule('0 9 * * *', () => {
-  //   //첫 번째 요소(분):
-  //   // 두 번째 요소(시간): 
-  //   // 세 번째 요소(일): 모든 날짜를 나타내는 * 기호
-  //   // 네 번째 요소(월): 모든 달을 나타내는 * 기호
-  //   // 다섯 번째 요소(요일): 모든 요일을 나타내는 * 기호
-  //   // '0 9 * * *' => "매일 오전 9시"
-  //   sendPushNotifications();
-  // });
   
 
 app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     const database = getDatabase();
-
     const userCollection = database.collection("user");
     const userName = req.body.userName;
   
