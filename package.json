@@ -3,6 +3,7 @@
     "@react-navigation/bottom-tabs": "^6.5.20",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.1",
+    "react-cookie": "^7.1.4",
     "sweetalert2": "^11.10.7"
   }
 }
