@@ -8,27 +8,15 @@ import unstamped from '../image/unstamped.png';
 import stamp from '../image/stamp.png';
 
 function WeeklyCheck() {
-  const [days, setDays] = useState(0);
-  const [inputFields, setInputFields] = useState([]);
+  const [stampStatus, setStampStatus] = useState({
+    '1': false,
+    '2': false,
+    '3': false,
+    '4': false,
+    '5': false,
+  });
+
   const [showModal, setShowModal] = useState(false);
-
-
-  useEffect(() => { //유저 정보 불러오기
-    fetch('/userProfile')
-      .then(response => response.json())
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          const Data = data[0].stamp;
-          console.log(Data);
-          setDays(Data);
-        }
-      })
-      .catch(error => {
-        console.error('유저 정보를 가져오는 중 에러:', error);
-      });
-  },[]);
-
-
 
   /*폭죽*/
   const showExplosionAnimation = () => {
@@ -40,29 +28,12 @@ function WeeklyCheck() {
     }, 1100);
   };
 
-  /*스탬프 갯수*/
-  const handleDaysChange = (e) => {
-    const value = e.target.value;
-    setDays(value);
-    updateInputFields(value);
-  };
-
-  /*numDays=Info2에서 정한 복용일수*/
-  const updateInputFields = () => {
-    const newInputFields = [];
-    for (let i = 0; i < 5; i++) {
-      newInputFields.push({ id: i, imageSrc: unstamped });
-    }
-    setInputFields(newInputFields);
-  };
-
   const handleInputChange = (index, value) => {
-    const newInputFields = [...inputFields];
-    newInputFields[index].imageSrc = value === '1' ? stamp : unstamped;
-    setInputFields(newInputFields);
+    const newStampStatus = { ...stampStatus, [index]: value === '1' };
+    setStampStatus(newStampStatus);
 
     // 모든 스탬프가 선택되었는지 확인합니다
-    const allStamped = newInputFields.every(field => field.imageSrc === stamp);
+    const allStamped = Object.values(newStampStatus).every(status => status === true);
     if (allStamped) {
       setShowModal(true);
       showExplosionAnimation();
@@ -71,7 +42,6 @@ function WeeklyCheck() {
 
   const closeModal = () => {
     setShowModal(false);
-    
   };
 
   const phrases = [
@@ -129,20 +99,10 @@ function WeeklyCheck() {
         <p>{currentPhrase}</p>
       </div>
 
-      <div className="howMuchStamp">
-        <input
-          type="number"
-          value={days}
-          onChange={handleDaysChange}
-          min="0"
-          style={{ width: '50px', textAlign: 'center' }}
-        />
-      </div>
-
       <div className="input" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(200px)' }}>
-        {inputFields.map((field, index) => (
+        {[1, 2, 3, 4, 5].map(index => (
           <div
-            key={field.id}
+            key={index}
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -150,12 +110,14 @@ function WeeklyCheck() {
               margin: '6px',
             }}
           >
-            <img src={field.imageSrc} alt={`Image ${index + 1}`} style={{ width: '90px', padding: days <= 4 ? '50px' : '0' }} />
+            <img src={stampStatus[index] ? stamp : unstamped} alt={`Image ${index}`} style={{ width: '90px', padding: '0' }} />
             <input
               type="text"
-              value={field.imageSrc === unstamped ? '' : '1'}
+              value={stampStatus[index] ? '1' : ''}
               onChange={(e) => handleInputChange(index, e.target.value)}
-              style={{ width: '50px', textAlign: 'center' }}
+              style={{ width: '50px',
+               textAlign: 'center'
+              }}
             />
           </div>
         ))}
@@ -164,7 +126,7 @@ function WeeklyCheck() {
       {showModal && (
         <div className="modal-backdrop">
           <div className="modal-get-point">
-            <h2>다 모았다! <br></br>포인트 획득!</h2>
+            <h2>다 모았다! <br />포인트 획득!</h2>
             <button onClick={closeModal}>획득</button>
           </div>
         </div>
