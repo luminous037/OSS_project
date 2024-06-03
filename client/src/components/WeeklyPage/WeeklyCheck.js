@@ -8,6 +8,8 @@ import unstamped from '../image/unstamped.png';
 import stamp from '../image/stamp.png';
 
 function WeeklyCheck() {
+  const [isAttendanceChecked,setIsAttendanceChecked] = useState();
+  const [stamp,setStamp]=useState();
   const [stampStatus, setStampStatus] = useState({
     '1': false,
     '2': false,
@@ -15,6 +17,20 @@ function WeeklyCheck() {
     '4': false,
     '5': false,
   });
+
+  useEffect(() => {
+    fetch('/userProfile')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
+        const stampStatusValue = data[0].stamp; // userProfile에서 stampStatus 값 가져오기
+       setStampStatus(stampStatusValue); //DB 에서 불러온 stamp를 stampStatus의 인덱스로 사용
+      })
+      .catch(error => {
+        console.error('유저 정보를 가져오는 중 에러:', error);
+      });
+
+  }, []);
 
   const [showModal, setShowModal] = useState(false);
 
