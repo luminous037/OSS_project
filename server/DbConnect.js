@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://Gaudul:ab213466@meddybaby.plkzmsm.mongodb.net/"; // MongoDB 연결 URI
+const uri = "mongodb+srv://Gaudul:ab213466@meddybaby.plkzmsm.mongodb.net/"
 let database = null;
 
 function dbConnect(){
