@@ -6,7 +6,6 @@ const { dbConnect, getDatabase } = require('./DbConnect');
 const { ObjectId } = require('mongodb');
 const cookieParser = require('cookie-parser');
 require('dotenv').config(); //환경 변수
-const admin = require('./FireBase');
 const port = process.env.PORT; //서버 포트 번호
 const fs =require('fs');
 const scheduleNotifications = require('./PushAlarm');
@@ -34,7 +33,7 @@ const firebaseConfig = { //firebase 설정 및 vapidKey
 app.listen(port, () => {
     console.log("listen") // 정상 작동
     dbConnect(); //DB 연결
-    scheduleNotifications();
+    //scheduleNotifications();
     //console.log(firebaseConfig);
 }); 
 
