@@ -1,8 +1,10 @@
-#Meddy Baby
+# Meddy Baby
+
 <b>약 먹기 싫어하는 아이들을 위한 도우미 서비스</b>
 <p><br></p>
 
-#설치 방법
+# 설치 방법
+
 0. node.js 설치
 ```sh
 ~$ node -v
@@ -22,7 +24,8 @@
 ```
 
 
-#의존성
+# 의존성
+
 <h10>OS</h10>
 windows Mac Linux
 
@@ -32,7 +35,8 @@ Node.js / React
 <h10>DB</h10>
 mongoDB
 
-#실행 방법
+# 실행 방법
+
 ```sh
 ~$ git clone https://github.com/luminous037/OSS_project.git
 ~$ cd server
@@ -40,9 +44,9 @@ mongoDB
 ```
 
 
-#구성원
+# 구성원
 | **엄지현 (팀장)** | **민선주** | **임수현** | 
-|:---:|:---:|:---:|:---:|
-| ![luminous037](https://avatars.githubusercontent.com/u/135002121?v=4) | ![minseonju](https://github.com/minseonju.png) | ![GAUDUL](https://avatars.githubusercontent.com/u/137772044?v=4) |
-| <a href="mailto:luminous037@gmail.com"><img src="https://img.shields.io/badge/EMAIL-F0F0F0?style=flat-square&logo=Gmail&logoColor=orange&link=mailto:16alexandros57@gmail.com"/></a> | <a href="mailto:10sc1108@naver.com"><img src="https://img.shields.io/badge/EMAIL-F0F0F0?style=flat-square&logo=Gmail&logoColor=orange&link=mailto:10sc1108@naver.com"/></a> | <a href="mailto:limjsu12@naver.com"><img src="https://img.shields.io/badge/EMAIL-F0F0F0?style=flat-square&logo=Gmail&logoColor=orange&link=mailto:sinsohi4280@gmail.com"/></a> | 
-| <a href="https://github.com/luminous037"> | <a href="https://github.com/minseonju"> | <a herf="https://github.com/GAUDUL">
+|:---:|:---:|:---:|
+| <img src="https://avatars.githubusercontent.com/u/135002121?v=4" width="100" height="100"> | <img src="https://github.com/minseonju.png" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/137772044?v=4" width="100" height="100"> |
+| <a href="mailto:luminous037@gmail.com"><img src="https://img.shields.io/badge/EMAIL-F0F0F0?style=flat-square&logo=Gmail&logoColor=orange&link=mailto:luminous037@gmail.com"/></a> | <a href="mailto:10sc1108@naver.com"><img src="https://img.shields.io/badge/EMAIL-F0F0F0?style=flat-square&logo=Gmail&logoColor=orange&link=mailto:10sc1108@naver.com"/></a> | <a href="mailto:limjsu12@naver.com"><img src="https://img.shields.io/badge/EMAIL-F0F0F0?style=flat-square&logo=Gmail&logoColor=orange&link=mailto:limjsu12@naver.com"/></a> |
+| <a href="https://github.com/luminous037">GitHub</a> | <a href="https://github.com/minseonju">GitHub</a> | <a href="https://github.com/GAUDUL">GitHub</a> |
