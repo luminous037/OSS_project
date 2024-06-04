@@ -25,15 +25,14 @@ const MainPage = () => {
       .then(data => {
         console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
         const userRain = parseInt(data[0].rain, 10); // 정수로 변환  
-        const isAttendanceChecked = data[0].attendanceCheck;
+        const PCheck = data[0].attendanceCheck;
         setRainCount(userRain);
-        setIsAttendanceChecked(isAttendanceChecked); // 출석 상태 설정
-        setIsAttendanceModalOpen(!isAttendanceChecked); // 출석 상태에 따라 모달창 열기
+        setIsAttendanceChecked(PCheck); // 출석 상태 설정
+        setIsAttendanceModalOpen(!PCheck); // 출석 상태에 따라 모달창 열기
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-
   }, []);
 
   useEffect(() => {
@@ -70,16 +69,16 @@ const MainPage = () => {
       });
   };
 
-  const presentCheck = () => { //출석상태 지정
+  const presentCheck = (check) => { //출석상태 지정
     fetch(`http://localhost:4000/presentUpdate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ attendanceCheck: true })
+      body: JSON.stringify(check)
     })
       .then(() => {
-        console.log('present count updated');
+        console.log('출석체크: ', check.presentCount);
       })
       .catch(err => {
         console.error('presentUpdate중 오류: ', err);
@@ -117,7 +116,7 @@ const MainPage = () => {
 
   
   useEffect(() => {
-    setIsModalOpen(true);
+    setIsModalOpen(false);
 
     const currentHour = new Date().getHours();
     if (currentHour >= 6 && currentHour < 18) {
@@ -128,10 +127,13 @@ const MainPage = () => {
   }, []);
 
   const handleAttendanceCheck = () => {
-    setIsAttendanceChecked(true); //출석 체크 버튼이 비활성화되도록 하며, 사용자가 이미 출석 체크를 완료했음.
+    setIsAttendanceChecked((prev)=>{
+      const newCheck=!prev
+      presentCheck({ presentCount: newCheck }); // 모달창 초기화를 위한 출석체크 상태 저장
+      return newCheck;
+    }); //출석 체크 버튼이 비활성화되도록 하며, 사용자가 이미 출석 체크를 완료했음.
     setIsAttendanceModalOpen(false);
     handleStamp(); //스탬프 갯수 추가
-    presentCheck(); // 모달창 초기화를 위한 출석체크 상태 저장
   };
 
   const phrases = [

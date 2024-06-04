@@ -1,4 +1,5 @@
 const express = require('express');
+const cron = require('node-cron');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
@@ -318,17 +319,17 @@ app.post('/rainUpdate',(req,res)=>{ //비 내린 횟수
 })
 
 app.post('/presentUpdate',(req,res)=>{ // 출석정보 저장
-  const presentCount =req.body.presentCount;
+  const { presentCount } = req.body;
   const database = getDatabase();
   const userCollection = database.collection("user");
-
+  console.log('출석 확인',presentCount);
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {stamp:presentCount} }
+    {$set: {attendanceCheck : presentCount} }
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{
-    console.log('stamp 오류: ',err);
+    console.log('present 오류: ',err);
   })
 })
 
@@ -395,6 +396,21 @@ app.get('/item',(req,res)=>{
             console.error("사용자 조회 오류: ", err);
             res.status(500).send('Error retrieving user');
         })
+    })
+
+    app.post('/updateUserProfile',(req,res)=>{ //옷 업데이트
+      const changeClothes =req.body.changeClothes;
+      const database = getDatabase(); //db 가져오기
+      const userCollection = database.collection("user");
+    
+      userCollection.updateOne(
+        {_id:user_id},
+        {$set: {clothes: changeClothes} }
+      ).then(()=>{
+        res.status(200).send('Clothes 업데이트 Success')
+      }).catch((err)=>{
+        console.log('Clothes 업데이트 오류: ',err);
+      })
     })
 
 app.post('/updatePoint',(req,res)=>{

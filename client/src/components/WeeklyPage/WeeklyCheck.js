@@ -19,11 +19,15 @@ function WeeklyCheck() {
   });
 
   useEffect(() => {
-    fetch('/userProfile')
+    fetch('http://localhost:4000/userProfile')
       .then(response => response.json())
       .then(data => {
         console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
         const stampStatusValue = data[0].stamp; // userProfile에서 stampStatus 값 가져오기
+        const newStampStatus = {};
+        for (let i = 1; i <= 5; i++) {
+        newStampStatus[i] = i <= stampStatusValue;
+        }
        setStampStatus(stampStatusValue); //DB 에서 불러온 stamp를 stampStatus의 인덱스로 사용
       })
       .catch(error => {
