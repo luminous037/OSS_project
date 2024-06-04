@@ -189,15 +189,16 @@ app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이�
 
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    const userCollection  = database.collection("user");
     console.log( "현재 id: ", id);
 
 
     mediListcollection.deleteOne({ _id: new ObjectId(id)})
     .then(() => {
-      // return userCollection.updateOne(
-      //     { mediListID: new ObjectId(id) },
-      //     { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
-      // );
+      return userCollection.updateOne(
+          { _id: user_id },
+          { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
+      );
   })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
