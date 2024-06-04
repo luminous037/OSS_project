@@ -412,7 +412,7 @@ app.get('/item',(req,res)=>{
     })
 
     app.post('/updateUserProfile',(req,res)=>{ //옷 업데이트
-      const changeClothes =req.body.changeClothes;
+      const changeClothes =req.body.clothes;
       const database = getDatabase(); //db 가져오기
       const userCollection = database.collection("user");
     

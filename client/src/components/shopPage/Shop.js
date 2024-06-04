@@ -26,8 +26,6 @@ function Shop() {
     const [currentItem, setCurrentItem] = useState(null);
     const [equippedItemImages, setEquippedItemImages] = useState([]);
     
-
-
     let lastImage = null; // 전역 변수로 lastImage 선언
     const shopElement = document.getElementById('Shop');
 
@@ -45,8 +43,8 @@ function Shop() {
         .then(response => response.json())
         .then(data => {
           if (Array.isArray(data) && data.length > 0) {
-            const userPoint = data[0].points
-            const userClothes = data[0].clothes
+            const userPoint = data[0].points;
+            const userClothes = data[0].clothes;
             console.log(userPoint);
             console.log(userClothes);
             setPoint(userPoint);
@@ -88,10 +86,7 @@ function Shop() {
     });
   }, [purchaseStatus]);
 
-
-
   const handlePurchase = (item) => {
-
     if (purchaseStatus[item.id]) {// 구매 완료된 아이템을 클릭한 경우
       showSelectImage(item.id); // 여기서 showSelectImage 호출
     } 
@@ -100,7 +95,6 @@ function Shop() {
       setModalIsOpen(true);
     }
   };
-
 
   const confirmPurchase = () => {
     if (point < currentItem.price) {
@@ -118,25 +112,6 @@ function Shop() {
     setPurchaseStatus(prevStatus => ({ ...prevStatus, [id]: true }));
     setCharacterEquip(prevEquip => ({ ...prevEquip, [id]: true })); //착용상태 저장 코드 추가 필요
 
-  //   fetch('http://localhost:4000/updateUserProfile', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     points: newPoint,
-  //     clothes: id // clothes 값을 구매한 아이템의 id로 업데이트
-  //   })
-  // })
-  // .then(response => response.json())
-  // .then(data => {
-  //   console.log('userProfile의 clothes 값 업데이트 완료:', data);
-  // })
-  // .catch(err => {
-  //   console.error('userProfile의 clothes 값 업데이트 중 오류: ', err);
-  // });
-
-  
     setModalIsOpen(false); // 모달 닫기
     showExplosionAnimation(); // 폭죽 애니메이션 실행
 
@@ -157,33 +132,33 @@ function Shop() {
     }, 1100);
   };
 
-  const changeClothes = (id) => {
 
+
+  const changeClothes = (itemId) => {
     // 착용 상태를 저장하고 서버에 업데이트
-    setCharacterEquip(prevEquip => {
-      const newEquip = { ...prevEquip, [id]: true };
-      fetch('http://localhost:4000/updateUserProfile', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          clothes: id, // 착용한 아이템의 id를 업데이트
-        })
+    const newEquip = itemId;
+    fetch('http://localhost:4000/updateUserProfile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        clothes: newEquip, // 착용한 아이템의 ID를 업데이트
       })
-      .then(response => response.json())
-      .then(data => {
-        console.log('userProfile의 clothes 값 업데이트 완료:', data);
-      })
-      .catch(err => {
-        console.error('userProfile의 clothes 값 업데이트 중 오류: ', err);
-      });
-      return newEquip;
+    })
+    .then(response => {
+      response.json()
+      console.log(newEquip);
+    })
+    .then(itemId => {
+      console.log('userProfile의 clothes 값 업데이트 완료:', itemId);
+    })
+    .catch(err => {
+      console.error('userProfile의 clothes 값 업데이트 중 오류: ', err);
     });
-
+    return newEquip;
   }
-
-
+  
   const showSelectImage = (imageSrc) => {
     const imageSelected = document.createElement('img');
     
@@ -229,6 +204,7 @@ function Shop() {
       if (imageToRemove) {
         shopElement.removeChild(imageToRemove);
         localStorage.removeItem('lastImageId'); // 로컬 스토리지에서 해당 이미지 아이디 제거
+        changeClothes(0); // 기본상태는 clothes 를 0으로 전달
       }
       return;
     }
@@ -243,7 +219,7 @@ function Shop() {
       const lastImageElement = document.getElementById(lastImageId);
       if (lastImageElement) {
         shopElement.removeChild(lastImageElement);
-        changeClothes();
+        changeClothes(0); // 기본상태는 clothes 를 0으로 전달
       }
     }
   
@@ -256,10 +232,9 @@ function Shop() {
     // 마지막 이미지를 현재 이미지로 업데이트
     localStorage.setItem('lastImageId', newImageId);
     console.log(imageSelected);
-    changeClothes(imageSrc);
-
+    changeClothes(imageSrc); // 현재 이미지의 ID 전달
   };
-
+  
   
 
   return (
