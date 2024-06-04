@@ -31,13 +31,12 @@ function MyPage() {  //마이페이지 기본 틀
             userName: data[0].userName,
             alarm: data[0].alarm
           };
-          console.log(Data);
           setUserData(Data);
           setNewData(prev=>({...prev, newName:Data.userName, alarmChange:Data.alarm}))
         }
       })
       .catch(error => {
-        console.error('유저 정보를 가져오는 중 에러:', error);
+        //console.error('유저 정보를 가져오는 중 에러:', error);
       });
   },[]);
 

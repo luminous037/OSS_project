@@ -318,7 +318,7 @@ app.post('/plantUpdate', (req,res)=>{
   const{plant, point}=req.body;
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {plant: plant, points: point }}
+    {$set: {plant: plant, points: point, }}
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{

@@ -80,7 +80,7 @@ function InfoPage_2() {
       detail: infoData
     };
     setMediData(updatedMediData);
-    console.log("약 정보: ", updatedMediData); // 업데이트된 mediData 객체를 콘솔에 출력
+    //console.log("약 정보: ", updatedMediData); // 업데이트된 mediData 객체를 콘솔에 출력
     fetchData(updatedMediData); // 저장과 함께 이동
   };
 
