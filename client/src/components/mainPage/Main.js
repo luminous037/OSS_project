@@ -10,6 +10,12 @@ import bench from '../image/bench.png';
 import star from '../image/star.png';
 import cloud5 from '../image/cloud5.png';
 import chicken from '../image/chicken.png';
+import plant from '../image/plant.png';
+import santa from '../image/santa.png';
+import dragon from '../image/dragon.png';
+import witch from '../image/witch.png';
+import ribbon from '../image/ribbon.png';
+import crown from '../image/crown.png';
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +63,8 @@ const MainPage = () => {
     });
     console.log(rainCount);
   };
+
+  
 
   const updateRain = (newCount) => {
     fetch(`http://localhost:4000/rainUpdate`, {
