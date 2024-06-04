@@ -62,7 +62,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'rain': 0, //비 내린 횟수 = 씨앗 성장 상태
       'cloud': 0, //구름 퍼센티지
       'stamp': 0, //스탬프
-      'mediListID':'', // 약 정보
+      'mediListID':[], // 약 정보
       'itemID':'', //아이템 정보
     })
     .then((result) => {
@@ -128,6 +128,7 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
 app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록 불러옴
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    const userCollection = database.collection("user");// 유저 컬렉션
 
     //const userId = req.cookies.userId;
     // if (!userId) {
@@ -137,42 +138,33 @@ app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록
     // }
 
 
-    // userCollection.findOne({ _id: new ObjectId(user_id) }) //사용자 정보 찾기
-    //     .then(user => {
-    //         if (!user) {
-    //             res.status(404).send('User not found');
-    //             return;
-    //         }
+    userCollection.findOne({ _id: user_id }) //사용자 정보 찾기
+        .then(user => { //유저 정보
+            if (!user) {
+                res.status(404).send('User not found');
+                return;
+            }
 
-    //         const mediListIDs = user.mediListID; // 사용자 정보에서 mediListID 배열 가져오기
+            const mediIDs = user.mediListID; // 사용자 정보에서 mediListID 배열 가져오기
 
-    //         if (!Array.isArray(mediListIDs) || mediListIDs.length === 0) {
-    //             res.status(404).send('약 정보 못 찾음');
-    //             return;
-    //         }
+            if (!Array.isArray(mediIDs) || mediIDs.length === 0) { //약 정보가 없을 경우
+                res.status(404).send('약 정보 못 찾음');
+                return;
+            }
 
-    //         mediListcollection.find({ _id: { $in: mediListIDs.map(id => new ObjectId(id)) } }, { projection: { _id: 1, mediName: 1 } }) // mediListID 배열에 포함된 약 목록 찾기
-    //             .toArray()
-    //             .then(queryResult => {
-    //                 res.send(queryResult); // 조회된 약 목록
-    //             })
-    //             .catch(err => {
-    //                 console.error("약 목록 조회 오류: ", err);
-    //                 res.status(500).send('Error retrieving medicine list');
-    //             });
-    //     })
-    //     .catch(err => {
-    //         console.error("사용자 조회 오류: ", err);
-    //         res.status(500).send('Error retrieving user');
-    //     });
-
-    mediListcollection.find({ }, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
-        .toArray()
-        .then(queryResult => {
-            res.send(queryResult);
+            mediListcollection.find({ _id: { $in: mediIDs.map(id => new ObjectId(id)) } }, { projection: { _id: 1, mediName: 1 } }) // mediListID 배열에 포함된 약 목록 찾기
+                .toArray()
+                .then(queryResult => {
+                    res.send(queryResult); // 조회된 약 목록
+                })
+                .catch(err => {
+                    console.error("약 목록 조회 오류: ", err);
+                    res.status(500).send('Error retrieving medicine list');
+                });
         })
         .catch(err => {
-            console.error("약 목록 조회 오류: ", err);
+            console.error("사용자 조회 오류: ", err);
+            res.status(500).send('Error retrieving user');
         });
 });
 
@@ -221,7 +213,7 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
     const userCollection = database.collection("user");
 
     // const userId = req.cookies.userId; //쿠키에서 유저 아이디 추출
-    let mediListId;
+    let mediId;
     const {mediName, time, date, detail}=req.body;
 
     // if (!userId) {
@@ -237,17 +229,17 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
         'detail' : detail
     })        
     .then((result) => { //데이터 확인
-        console.log(result);
+        //console.log(result);
 
-        mediListId = result.insertedId;
+        mediId = result.insertedId; //추가된 약 데이터의 _id
 
-        // return userCollection.updateOne( //해당 유저의 약 목록에 추가
-        //     { _id: new ObjectId(userId) },
-        //     {$push: {"medicineLists": medicineListId}}
-        // );
+        return userCollection.updateOne( //해당 유저의 약 목록에 추가
+            { _id: user_id },
+            {$push: {mediListID: mediId}}
+        );
     })
     .then(()=>{
-        res.send({ _id: mediListId}); // 생성된 _id 반환
+        res.send({ _id: mediId}); // 생성된 _id 반환
     })
     .catch((err) => { //에러 발생 시
     console.error("약 추가 중 오류: ", err);
@@ -318,7 +310,7 @@ app.post('/plantUpdate', (req,res)=>{
   const{plant, point}=req.body;
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {plant: plant, points: point }}
+    {$set: {plant: plant, points: point, }}
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{
