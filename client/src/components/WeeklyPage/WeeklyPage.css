@@ -56,14 +56,14 @@ body {height:100%; overflow:hidden;}
   /*스탬프*/
   .input {
     position: absolute;
-    left: 0%;
+    left: 10%;
+    width: 80%;
     transform: translate(-50%, -50%);
   }
   
   .howMuchStamp{
     position: absolute;
     top:10px;
-    
     z-index:1;
   }
 
@@ -140,7 +140,7 @@ body {height:100%; overflow:hidden;}
 }
 
 .modal-get-point {
-  background-color: rgb(255, 247, 0);
+  background-color: rgb(255, 255, 255);
   font-weight: normal;
   padding: 20px;
   border-radius: 5px;
