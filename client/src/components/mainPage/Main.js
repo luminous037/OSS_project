@@ -10,12 +10,7 @@ import bench from '../image/bench.png';
 import star from '../image/star.png';
 import cloud5 from '../image/cloud5.png';
 import chicken from '../image/chicken.png';
-import plant from '../image/plant.png';
-import santa from '../image/santa.png';
-import dragon from '../image/dragon.png';
-import witch from '../image/witch.png';
-import ribbon from '../image/ribbon.png';
-import crown from '../image/crown.png';
+
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +20,7 @@ const MainPage = () => {
   const [isAttendanceChecked, setIsAttendanceChecked] = useState(false); //출석 상태 확인
   const [stampCount, setStampCount] = useState(0); // 출석 횟수 상태 추가
   const [userId, setUserId] = useState(null); // 사용자 ID 상태 추가
+  const [clothesId, setClotesId] = useState();
 
   useEffect(() => {
     fetch('/userProfile')
@@ -35,6 +31,8 @@ const MainPage = () => {
         const PCheck = data[0].attendanceCheck;
         const stamp = data[0].stamp;
         const id = data[0]._id; // 스탬프에 제대로 전달하려고 추가
+        const clothesId = data[0].clothes; 
+        clothesId(clothesId);
         setRainCount(userRain);
         setStampCount(stamp); //DB 의 stamp 값을 코드에서 설정할 수 있도록
         setIsAttendanceChecked(PCheck); // 출석 상태 설정
@@ -159,6 +157,58 @@ const MainPage = () => {
     "만나서 반가워!"
   ];
 
+  const showSelectImage = (imageSrc) => {
+    const imageSelected = document.createElement('img');
+    
+    let imagePath = '';
+    let imageClass = ''; // 이미지에 추가될 클래스
+  
+  
+    switch (imageSrc) {
+      case 1:
+        imagePath = plant;
+        imageClass = 'image-1-main'; // 이미지 1에 해당하는 클래스
+        break;
+      case 2:
+        imagePath = santa;
+        imageClass = 'image-2-main'; // 이미지 2에 해당하는 클래스
+        break;
+      case 3:
+        imagePath = dragon;
+        imageClass = 'image-3-main'; // 이미지 3에 해당하는 클래스
+        break;
+      case 4:
+        imagePath = witch;
+        imageClass = 'image-4-main'; // 이미지 4에 해당하는 클래스
+        break;
+      case 5:
+        imagePath = ribbon;
+        imageClass = 'image-5-main'; // 이미지 5에 해당하는 클래스
+        break;
+      case 6:
+        imagePath = crown;
+        imageClass = 'image-6-main'; // 이미지 6에 해당하는 클래스
+        break;
+      default:
+        console.log('유효하지 않은 imageSrc 값입니다.');
+        return; // 유효하지 않은 경우 함수 종료
+    }
+  
+  
+    imageSelected.src = imagePath;
+    imageSelected.classList.add('img-custom-style');
+    imageSelected.classList.add(imageClass); // 고유한 클래스 추가
+
+  
+    // 새로운 이미지를 Shop 페이지에 출력
+    const newImageId = `image-${imageSrc}`;
+    imageSelected.id = newImageId;
+    imageSelected.classList.add(`image-${imageSrc}`); // 클래스 추가
+    shopElement.appendChild(imageSelected);
+  
+
+  };
+
   const [currentPhrase, setCurrentPhrase] = useState('');
 
   useEffect(() => {
@@ -217,7 +267,27 @@ const MainPage = () => {
         onClose={() => setIsAttendanceModalOpen(false)}
         onPresentCheck={handleAttendanceCheck}
       />
+      <div className='clothes'>
+        <div key={item.id} className="item">
+            <img 
+              src={
+                item.id === 1 ? plant :
+                item.id === 2 ? santa :
+                item.id === 3 ? dragon :
+                item.id === 4 ? witch :
+                item.id === 5 ? ribbon :
+                item.id === 6 ? crown :
+                null
+              } 
+              className="item-image" 
+              alt={item.name} 
+            />
+          </div>
+      </div>
     </div>
+
+    
+
   );
 };
 
