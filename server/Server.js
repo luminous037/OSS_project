@@ -128,7 +128,7 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
     })
 })
 
-cron.schedule('0 6 * * *', () => {
+cron.schedule('0 22 * * *', () => {
   const database = getDatabase();
     const userCollection = database.collection("user");
     userCollection.updateOne(
