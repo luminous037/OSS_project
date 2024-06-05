@@ -15,29 +15,38 @@ function WeeklyCheck() {
     4: false,
     5: false,
   });
+  const [stampStatusValue, setStampStatusValue] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [userID, setUserID] = useState();
 
   useEffect(() => {
     fetch('http://localhost:4000/userProfile')
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
-        const stampStatusValue = data[0].stamp; // userProfile에서 stampStatus 값 가져오기
+        console.log('Fetched user data:', data);
+        const stampStatusValue = data[0].stamp;
+        const userId = data[0].user_id;
         const newStampStatus = {};
         if (stampStatusValue !== 0) {
           for (let i = 1; i <= stampStatusValue; i++) {
             newStampStatus[i] = true;
           }
         }
-        setStampStatus(newStampStatus); // DB에서 불러온 stamp를 stampStatus의 인덱스로 사용
+        setStampStatus(newStampStatus);
+        setStampStatusValue(stampStatusValue);
+        setUserID(userId);
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-  }, []);
+  }, [stampStatusValue, stampStatus]);
 
-  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    if (stampStatusValue === 5) {
+      setShowModal(true);
+    }
+  }, [stampStatusValue]);
 
-  /*폭죽*/
   const showExplosionAnimation = () => {
     const explodeAnimation = document.createElement('div');
     explodeAnimation.classList.add('explode-animation');
@@ -47,8 +56,35 @@ function WeeklyCheck() {
     }, 1100);
   };
 
+  const resetStamp = () => {
+    fetch('http://localhost:4000/stampUpdate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ stampCount : 0 , userID}) // stamp를 0으로 설정
+    })
+      .then(response => response.json()) // 서버 응답을 JSON으로 파싱
+      .then(data => {
+        console.log('reset Stamp 성공:', data);
+        setStampStatus({
+          1: false,
+          2: false,
+          3: false,
+          4: false,
+          5: false,
+        });
+        setStampStatusValue(0);
+      })
+      .catch(err => {
+        console.error('스탬프 리셋중 오류: ', err);
+      });
+  };
+
   const closeModal = () => {
     setShowModal(false);
+    resetStamp();
+    showExplosionAnimation();
   };
 
   const phrases = [
