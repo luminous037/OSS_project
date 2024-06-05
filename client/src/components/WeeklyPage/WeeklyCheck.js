@@ -8,28 +8,31 @@ import unstamped from '../image/unstamped.png';
 import stamp from '../image/stamp.png';
 
 function WeeklyCheck() {
-  const [isAttendanceChecked,setIsAttendanceChecked] = useState();
-  const [stamp,setStamp]=useState();
   const [stampStatus, setStampStatus] = useState({
-    '1': false,
-    '2': false,
-    '3': false,
-    '4': false,
-    '5': false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
   });
 
   useEffect(() => {
-    fetch('/userProfile')
+    fetch('http://localhost:4000/userProfile')
       .then(response => response.json())
       .then(data => {
         console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
         const stampStatusValue = data[0].stamp; // userProfile에서 stampStatus 값 가져오기
-       setStampStatus(stampStatusValue); //DB 에서 불러온 stamp를 stampStatus의 인덱스로 사용
+        const newStampStatus = {};
+        if (stampStatusValue !== 0) {
+          for (let i = 1; i <= stampStatusValue; i++) {
+            newStampStatus[i] = true;
+          }
+        }
+        setStampStatus(newStampStatus); // DB에서 불러온 stamp를 stampStatus의 인덱스로 사용
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-
   }, []);
 
   const [showModal, setShowModal] = useState(false);
@@ -42,18 +45,6 @@ function WeeklyCheck() {
     setTimeout(() => {
       explodeAnimation.remove();
     }, 1100);
-  };
-
-  const handleInputChange = (index, value) => {
-    const newStampStatus = { ...stampStatus, [index]: value === '1' };
-    setStampStatus(newStampStatus);
-
-    // 모든 스탬프가 선택되었는지 확인합니다
-    const allStamped = Object.values(newStampStatus).every(status => status === true);
-    if (allStamped) {
-      setShowModal(true);
-      showExplosionAnimation();
-    }
   };
 
   const closeModal = () => {
@@ -115,7 +106,7 @@ function WeeklyCheck() {
         <p>{currentPhrase}</p>
       </div>
 
-      <div className="input" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(200px)' }}>
+      <div className="stamp-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(200px)' }}>
         {[1, 2, 3, 4, 5].map(index => (
           <div
             key={index}
@@ -126,15 +117,7 @@ function WeeklyCheck() {
               margin: '6px',
             }}
           >
-            <img src={stampStatus[index] ? stamp : unstamped} alt={`Image ${index}`} style={{ width: '90px', padding: '0' }} />
-            <input
-              type="text"
-              value={stampStatus[index] ? '1' : ''}
-              onChange={(e) => handleInputChange(index, e.target.value)}
-              style={{ width: '50px',
-               textAlign: 'center'
-              }}
-            />
+            <img src={stampStatus[index] ? stamp : unstamped} alt={`Stamp ${index}`} style={{ width: '90px', padding: '0' }} />
           </div>
         ))}
       </div>

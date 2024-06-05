@@ -254,3 +254,57 @@ h1{
   top: 10%;
   left: 60%;
 }
+
+.item1-image-main{
+  position: absolute;
+  z-index:900;
+  width: 40px;
+  height: 40px;
+  top:370px;
+  left:374px;
+}
+
+.item2-image-main{
+  position: absolute;
+  z-index:900;
+  width: 44px;
+  height: 40px;
+  top:373px;
+  left:374px;
+}
+
+.item3-image-main{
+  position: absolute;
+  z-index:900;
+  width: 69px;
+  height: 40px;
+  top:387px;
+  left:359px;
+}
+.item4-image-main{
+  position: absolute;
+  z-index:900;
+  width: 69px;
+  height: 55px;
+  top:365px;
+  left:359px;
+}
+.item5-image-main{
+  position: absolute;
+  z-index:900;
+  width: 30px;
+  height: 30px;
+  top:388px;
+  left:390px;
+}
+.item6-image-main{
+  position: absolute;
+  z-index:900;
+  width: 69px;
+  height: 50px;
+  top:370px;
+  left:359px;
+}
+
+
+
