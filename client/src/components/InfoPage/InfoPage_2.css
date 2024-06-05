@@ -11,6 +11,11 @@
    transform: translateX(-50%);
 }
 
+.choidea{
+  position: absolute;
+  font-family: "on";
+  color: gray;
+}
 
 .text1 { /*MeddyBaby*/
   font-family: "on";
@@ -87,8 +92,8 @@
   font-family: "on";
   font-size:50px;
   position: absolute;
-  top: 33%;
-  left: 70%;
+  top: 32%;
+  left: 49%;
   color: #3995b9;
 }
 /*이전 버튼*/

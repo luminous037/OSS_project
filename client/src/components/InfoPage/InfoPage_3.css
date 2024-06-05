@@ -34,18 +34,22 @@ input[type="number"] {
 }
 
 /*모달 요소들*/
-.modal-content {
-  background: rgb(255, 255, 255);
+.modal-content-info3 {
+  font-weight: normal;
+  font-size: 30px;
+  background: rgb(215, 243, 254);
   padding: 40px;
   border-radius: 5px;
   text-align: center;
 }
 
+
+
 .modal-content select,
 .modal-content input {
   margin: 5px;
   left: 10%;
-  background-color: #c2c2c2;
+  background-color: #badfff;
   font-size: 12px; /* 글꼴 크기 */
 }
 
