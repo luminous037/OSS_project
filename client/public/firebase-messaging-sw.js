@@ -1,49 +1,37 @@
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
+self.addEventListener("install", function (e) {
+  console.log("Service Worker installed");
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", function (e) {
+  console.log("Service Worker activated");
+});
+
+// 푸시 알림을 클릭했을 때 실행됩니다.
+self.addEventListener("notificationclick", function (event) {
+  const url = "http://localhost:3000/Alarm"; // 이동할 URL 설정
+  event.notification.close();
+  event.waitUntil(clients.openWindow(url)); // 클라이언트 창을 열고 URL로 이동합니다.
+});
+
 fetch('/firebase-config')
   .then(response => response.json())
   .then(firebaseConfig => {
-    firebase.initializeApp({
-      apiKey: firebaseConfig.apiKey,
-      authDomain: firebaseConfig.authDomain,
-      projectId: firebaseConfig.projectId,
-      storageBucket: firebaseConfig.storageBucket,
-      messagingSenderId: firebaseConfig.messagingSenderId,
-      appId: firebaseConfig.appId,
-      measurementId: firebaseConfig.measurementId
-    });
-
+    //console.log(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     const messaging = firebase.messaging();
 
-    self.addEventListener("install", function (e) {
-      console.log("Service Worker installed");
-      self.skipWaiting();
-    });
-
-    self.addEventListener("activate", function (e) {
-      console.log("Service Worker activated");
-    });
-
-    self.addEventListener("push", function (e) {
-      if (!e.data.json()) return;
-
-      const resultData = e.data.json().notification;
-      const notificationTitle = resultData.title;
+    messaging.onBackgroundMessage((payload) => {
+      //console.log('[firebase-messaging-sw.js] Received background message ', payload);
+      const notificationTitle = payload.notification.title;
       const notificationOptions = {
-        body: resultData.body,
-        icon: resultData.image,
-        tag: resultData.tag,
-        ...resultData,
+        body: payload.notification.body,
+        icon: payload.notification.icon
       };
-
       self.registration.showNotification(notificationTitle, notificationOptions);
-    });
-
-    self.addEventListener("notificationclick", function (event) {
-      const url = "/";
-      event.notification.close();
-      event.waitUntil(clients.openWindow(url));
     });
   })
   .catch(error => {

@@ -1,12 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './InfoPage_1.css';
+import { initializeFirebase } from './../../PushAlarmSetting';
+
+
 
 function InfoPage_1() {
   const [childName, setChildName] = useState({
     userName: ''
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const sendSubscriptionToServer = async (token) => {
+    await fetch('http://localhost:4000/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token })
+    });
+  };
+  
+  
+  // Firebase 구성 정보를 받아와서 Firebase 초기화 및 관련 작업 수행
+  fetch('/firebase-config')
+    .then(response => response.json())
+    .then(firebaseConfig => {
+      // Firebase 초기화
+      const { requestForToken, onMessageListener } = initializeFirebase(firebaseConfig);
+  
+      // 토큰 요청 및 서버에 푸시 알림 구독 요청
+      requestForToken().then(token => {
+        if (token) {
+          sendSubscriptionToServer(token);
+        }
+      });
+  
+      // 메시지 수신 리스너 등록
+      onMessageListener().then(payload => {
+        //console.log('Message received. ', payload);
+      });
+  
+    })
+    .catch(error => {
+      console.error('Firebase Config Fetch 오류:', error);
+    });
+  
 
   const navigate = useNavigate();
 

@@ -1,24 +1,32 @@
 const cron = require('node-cron');
-const admin = require('firebase-admin');
+var admin = require('firebase-admin');
 const { getDatabase } = require('./DbConnect');
 const { ObjectId } = require('mongodb');
-
+var serviceAccount = require("./serviceAccountKey.json");
 
 admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
+  credential: admin.credential.cert(serviceAccount)
 });
 
 
 // 푸시 알림 보내는 함수
 const sendPushNotifications = (token) => {
+  console.log(token);
   const message = {
     notification: {
       title: 'MeddyBaby',
-      body: '약 먹을 시간이에요!'
+      body: '약 먹을 시간이에요!',
+    },
+    webpush: {
+      fcm_options: {
+        link: 'http://localhost:3000/Alarm', // 사용자가 알림을 클릭했을 때 이동할 링크
+      },
+      notification: {
+        icon: '/favicon.ico', // 아이콘 경로
+      },
     },
     token: token
   };
-
   admin.messaging().send(message)
     .then((response) => {
       console.log('메세지 전송 성공:', response);
@@ -79,7 +87,7 @@ const scheduleNotifications = async (user_id, medi_id) => {
         try {
           // 스케줄링된 작업과 관련된 정보를 배열에 추가
           const result = await scheduleCollection.insertOne({
-            taskId: task,
+            taskId: task.id,
             mediId: new ObjectId(medi_id),
             time: cronExpression
           });
@@ -89,7 +97,7 @@ const scheduleNotifications = async (user_id, medi_id) => {
           // 사용자 문서 업데이트
           await userCollection.updateOne(
             { _id: user_id}, // 기존 이름으로 문서 찾기
-            { $set: { scheduleID: schedule_id } }
+            { $push: { scheduleID: schedule_id } }
           );
 
           console.log('알림 설정 완료');
@@ -109,19 +117,27 @@ const cancelAndDeleteSchedules = async (medi_id) => {
     const database = getDatabase();
     const scheduleCollection = database.collection("schedule");
 
-    const schedules = await scheduleCollection.find({ mediId: new ObjectId(medi_id) }).toArray();
+    const schedules = await scheduleCollection.find({ mediId: medi_id }).toArray();
 
-      if (schedules.taskId) {  // 작업 중지
-        schedules.taskId.stop();
-        console.log(`스케줄 작업 중지`);
+    schedules.forEach(async (schedule) => {
+      // 작업 중지
+      const task = cron.getTask(schedule.taskId);
+      if (task) {
+        task.destroy();
+        console.log(`스케줄 작업 중지: ${schedule.taskId}`);
       }
+
       // 데이터베이스에서 스케줄링 정보 삭제
-      await scheduleCollection.deleteOne({ _id: new ObjectId(schedules._id) });
-      console.log(`스케줄 삭제`);
+      await scheduleCollection.deleteOne({ _id: schedule._id })
+        .then(() => {
+          console.log(`스케줄 삭제: ${schedule._id}`);
+        })
+    });
   } catch (err) {
     console.error('알림 스케줄링 삭제 중 오류 발생:', err);
   }
 };
+
 
 const initializeScheduledTasks = async (data) => {
   try {
@@ -146,7 +162,7 @@ const initializeScheduledTasks = async (data) => {
       cron.schedule(schedule.time, () => {
         sendPushNotifications(data); // 주어진 토큰을 푸시 알림에 사용
       });
-      console.log(`알림 설정 완료 for schedule ${schedule._id}`);
+      console.log('알림 설정 완료');
     });
   } catch (error) {
     console.error('Error initializing scheduled tasks:', error);
