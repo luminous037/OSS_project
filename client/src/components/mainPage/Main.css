@@ -281,5 +281,22 @@ h1{
   top:387px;
   left:359px;
 }
+.item4-image-main{
+  position: absolute;
+  z-index:900;
+  width: 69px;
+  height: 55px;
+  top:365px;
+  left:359px;
+}
+.item5-image-main{
+  position: absolute;
+  z-index:900;
+  width: 30px;
+  height: 30px;
+  top:388px;
+  left:390px;
+}
+
 
 
