@@ -15,29 +15,41 @@ function WeeklyCheck() {
     4: false,
     5: false,
   });
+  const [stampStatusValue, setStampStatusValue] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [userID, setUserID] = useState();
+  const [addPoint, setAddPoint] = useState ();
 
   useEffect(() => {
     fetch('http://localhost:4000/userProfile')
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
-        const stampStatusValue = data[0].stamp; // userProfile에서 stampStatus 값 가져오기
+        console.log('Fetched user data:', data);
+        const stampStatusValue = data[0].stamp;
+        const userId = data[0].user_id;
+        const points = data[0].points;
         const newStampStatus = {};
         if (stampStatusValue !== 0) {
           for (let i = 1; i <= stampStatusValue; i++) {
             newStampStatus[i] = true;
           }
         }
-        setStampStatus(newStampStatus); // DB에서 불러온 stamp를 stampStatus의 인덱스로 사용
+        setAddPoint(points);
+        setStampStatus(newStampStatus);
+        setStampStatusValue(stampStatusValue);
+        setUserID(userId);
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
-  }, []);
+  }, [stampStatusValue, stampStatus]);
 
-  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    if (stampStatusValue === 5) {
+      setShowModal(true);
+    }
+  }, [stampStatusValue]);
 
-  /*폭죽*/
   const showExplosionAnimation = () => {
     const explodeAnimation = document.createElement('div');
     explodeAnimation.classList.add('explode-animation');
@@ -47,8 +59,55 @@ function WeeklyCheck() {
     }, 1100);
   };
 
+  const setPoint = (newP) => {
+    fetch('http://localhost:4000/givePoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ points : newP }) 
+    })
+      .then(response => response.json())
+      .catch(err => {
+        console.error('포인트 부여 오류: ', err);
+      });
+  }
+
+  const givePoint =() => {
+    const newpoint = addPoint + 500 ;
+    setPoint(newpoint);
+  }
+
+  const resetStamp = () => {
+    fetch('http://localhost:4000/stampUpdate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ stampCount : 0 , userID}) // stamp를 0으로 설정
+    })
+      .then(response => response.json()) // 서버 응답을 JSON으로 파싱
+      .then(data => {
+        console.log('reset Stamp 성공:', data);
+        setStampStatus({
+          1: false,
+          2: false,
+          3: false,
+          4: false,
+          5: false,
+        });
+        setStampStatusValue(0);
+      })
+      .catch(err => {
+        console.error('스탬프 리셋중 오류: ', err);
+      });
+  };
+
   const closeModal = () => {
     setShowModal(false);
+    resetStamp();
+    showExplosionAnimation();
+    givePoint();
   };
 
   const phrases = [
@@ -106,7 +165,7 @@ function WeeklyCheck() {
         <p>{currentPhrase}</p>
       </div>
 
-      <div className="stamp-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(200px)' }}>
+      <div className="stamp-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(220px)' }}>
         {[1, 2, 3, 4, 5].map(index => (
           <div
             key={index}
@@ -117,7 +176,7 @@ function WeeklyCheck() {
               margin: '6px',
             }}
           >
-            <img src={stampStatus[index] ? stamp : unstamped} alt={`Stamp ${index}`} style={{ width: '90px', padding: '0' }} />
+            <img src={stampStatus[index] ? stamp : unstamped} alt={`Stamp ${index}`} style={{ width: '120px', padding: '0' }} />
           </div>
         ))}
       </div>
