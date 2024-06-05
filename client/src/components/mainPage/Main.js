@@ -3,6 +3,7 @@ import InstructionModal from './Guidebook.js';
 import './Main.css';
 import Cloud from './cloud.js';
 import Seed from './seed.js';
+import PresentCheckModal from './present_check.js'; // 출석체크 모달 컴포넌트 임포트
 import moon from '../image/moon.png';
 import sun from '../image/sun.png';
 import bench from '../image/bench.png';
@@ -14,6 +15,9 @@ const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rainCount, setRainCount] = useState(null);
   const [isMorning, setIsMorning] = useState(true);
+  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false); //출석확인 모달창
+  const [isAttendanceChecked, setIsAttendanceChecked] = useState(false); //출석 상태 확인
+  const [stampCount, setStampCount] = useState(0); // 출석 횟수 상태 추가
 
   useEffect(() => {
     fetch('/userProfile')
@@ -21,20 +25,24 @@ const MainPage = () => {
       .then(data => {
         console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
         const userRain = parseInt(data[0].rain, 10); // 정수로 변환  
+        const isAttendanceChecked = data[0].attendanceCheck;
         setRainCount(userRain);
+        setIsAttendanceChecked(isAttendanceChecked); // 출석 상태 설정
+        setIsAttendanceModalOpen(!isAttendanceChecked); // 출석 상태에 따라 모달창 열기
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
+
   }, []);
 
-  useEffect(()=>{
-    if(rainCount===null) return;
+  useEffect(() => {
+    if (rainCount === null) return;
     else updateRain(rainCount);
-  },[rainCount])
+  }, [rainCount]);
 
   const handleRain = () => {
-    if(rainCount >=4 ){
+    if (rainCount >= 4) {
       setRainCount(0);
       updateRain(0);
     }
@@ -62,6 +70,52 @@ const MainPage = () => {
       });
   };
 
+  const presentCheck = () => { //출석상태 지정
+    fetch(`http://localhost:4000/presentUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ attendanceCheck: true })
+    })
+      .then(() => {
+        console.log('present count updated');
+      })
+      .catch(err => {
+        console.error('presentUpdate중 오류: ', err);
+      });
+  };
+
+  const handleStamp = () => {
+    if (rainCount >= 5) {
+      setStampCount(0);
+      giveStamp(0);
+    }
+    setStampCount((Count) => {
+      const newCount = Count + 1;
+      giveStamp(newCount);
+      return newCount;
+    });
+    console.log(stampCount);
+  };
+
+  const giveStamp = (count) => { //스탬프 갯수 추가
+    fetch(`http://localhost:4000/presentUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ stamp : count })
+    })
+      .then(() => {
+        console.log('present count updated');
+      })
+      .catch(err => {
+        console.error('presentUpdate중 오류: ', err);
+      });
+  };
+
+  
   useEffect(() => {
     setIsModalOpen(true);
 
@@ -72,6 +126,13 @@ const MainPage = () => {
       setIsMorning(false);
     }
   }, []);
+
+  const handleAttendanceCheck = () => {
+    setIsAttendanceChecked(true); //출석 체크 버튼이 비활성화되도록 하며, 사용자가 이미 출석 체크를 완료했음.
+    setIsAttendanceModalOpen(false);
+    handleStamp(); //스탬프 갯수 추가
+    presentCheck(); // 모달창 초기화를 위한 출석체크 상태 저장
+  };
 
   const phrases = [
     "안녕!",
@@ -134,6 +195,11 @@ const MainPage = () => {
           <p>{currentPhrase}</p>
         </div>
       </div>
+      <PresentCheckModal 
+        isOpen={isAttendanceModalOpen} 
+        onClose={() => setIsAttendanceModalOpen(false)}
+        onPresentCheck={handleAttendanceCheck}
+      />
     </div>
   );
 };

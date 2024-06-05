@@ -64,6 +64,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'stamp': 0, //스탬프
       'mediListID':[], // 약 정보
       'itemID':'', //아이템 정보
+      'attendanceCheck': false //출석상태 체크
     })
     .then((result) => {
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
@@ -114,7 +115,8 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
           stamp: 1,
           mediListID:1,
           itemID:1,
-          seedID:1
+          seedID:1,
+          attendanceCheck:1
         }})
     .toArray()
     .then(result=>{
@@ -123,6 +125,24 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
         console.log("유저 정보 전달 중 오류: ",err);
     })
 })
+
+cron.schedule('0 6 * * *', () => {
+  const database = getDatabase();
+    const userCollection = database.collection("user");
+    userCollection.updateOne(
+      { _id: user_id }, // 기존 이름으로 문서 찾기
+      { $set: { attendanceCheck: false} // 6시에 출석 초기화
+      })
+    .then(() => {
+      res.status(200).send('Success');
+      console.log('출석 체크 상태가 초기화되었습니다.');
+    })
+    .catch((err) => {
+      console.log('출첵 오류: ', err);
+      res.status(500).send('Error');
+    });
+
+});
 
 
 app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록 불러옴
@@ -286,6 +306,21 @@ app.post('/rainUpdate',(req,res)=>{ //비 내린 횟수
     res.status(200).send('Success')
   }).catch((err)=>{
     console.log('rainCount 오류: ',err);
+  })
+})
+
+app.post('/presentUpdate',(req,res)=>{ // 출석정보 저장
+  const presentCount =req.body.presentCount;
+  const database = getDatabase();
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {stamp:presentCount} }
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('stamp 오류: ',err);
   })
 })
 
