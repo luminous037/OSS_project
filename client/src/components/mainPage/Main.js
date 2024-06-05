@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import InstructionModal from './Guidebook.js';
 import './Main.css';
 import Cloud from './cloud.js';
@@ -10,17 +10,24 @@ import bench from '../image/bench.png';
 import star from '../image/star.png';
 import cloud5 from '../image/cloud5.png';
 import chicken from '../image/chicken.png';
+import item1 from '../image/plant.png';
+import item2 from '../image/santa.png';
+import item3 from '../image/dragon.png';
+import item4 from '../image/witch.png';
+import item5 from '../image/ribbon.png';
+import item6 from '../image/crown.png';
 
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rainCount, setRainCount] = useState(null);
   const [isMorning, setIsMorning] = useState(true);
-  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false); //출석확인 모달창
-  const [isAttendanceChecked, setIsAttendanceChecked] = useState(false); //출석 상태 확인
+  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false); // 출석확인 모달창
+  const [isAttendanceChecked, setIsAttendanceChecked] = useState(false); // 출석 상태 확인
   const [stampCount, setStampCount] = useState(0); // 출석 횟수 상태 추가
   const [userId, setUserId] = useState(null); // 사용자 ID 상태 추가
-  const [clothesId, setClotesId] = useState();
+  const [clothesId, setClothesId] = useState(null); 
+
 
   useEffect(() => {
     fetch('/userProfile')
@@ -32,17 +39,40 @@ const MainPage = () => {
         const stamp = data[0].stamp;
         const id = data[0]._id; // 스탬프에 제대로 전달하려고 추가
         const clothesId = data[0].clothes; 
-        clothesId(clothesId);
+        setClothesId(clothesId); // setClothesId 함수를 호출하여 clothesId 설정
         setRainCount(userRain);
-        setStampCount(stamp); //DB 의 stamp 값을 코드에서 설정할 수 있도록
+        setStampCount(stamp); // DB 의 stamp 값을 코드에서 설정할 수 있도록
         setIsAttendanceChecked(PCheck); // 출석 상태 설정
         setIsAttendanceModalOpen(!PCheck); // 출석 상태에 따라 모달창 열기
         setUserId(id); // 사용자 ID 설정
+        console.log('colthes 불러옴:', clothesId);
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
   }, []);
+
+
+  const checkAndPrintClothes = () => {
+    let imageSrc = null;
+    let imageClassName = null;
+  
+    if (clothesId === 1) {
+      imageSrc = item1; imageClassName = 'item1-image-main';
+    } else if (clothesId === 2) {
+      imageSrc = item2;imageClassName = 'item2-image-main';
+    } else if (clothesId === 3) {
+      imageSrc = item3;imageClassName = 'item3-image-main';
+    } else if (clothesId === 4) {
+      imageSrc = item4;imageClassName = 'item4-image-main';
+    } else if (clothesId === 5) {
+      imageSrc = item5;imageClassName = 'item5-image-main';
+    } else if (clothesId === 6) {
+      imageSrc = item6;imageClassName = 'item6-image-main';
+    } 
+  
+    return <img src={imageSrc} alt={`Image${clothesId}`} className={imageClassName} />;
+  };
 
   useEffect(() => {
     if (rainCount === null) return;
@@ -62,8 +92,6 @@ const MainPage = () => {
     console.log(rainCount);
   };
 
-  
-
   const updateRain = (newCount) => {
     fetch(`http://localhost:4000/rainUpdate`, {
       method: 'POST',
@@ -80,7 +108,7 @@ const MainPage = () => {
       });
   };
 
-  const presentCheck = (check) => { //출석상태 지정
+  const presentCheck = (check) => { // 출석상태 지정
     fetch(`http://localhost:4000/presentUpdate`, {
       method: 'POST',
       headers: {
@@ -96,7 +124,7 @@ const MainPage = () => {
       });
   };
 
-  const handleStamp = () => { //스탬프 부여
+  const handleStamp = () => { // 스탬프 부여
     setStampCount((prevStampCount) => {
       const newCount = prevStampCount >= 5 ? 0 : prevStampCount + 1;
       giveStamp(newCount);
@@ -105,7 +133,7 @@ const MainPage = () => {
     console.log(stampCount);
   };
 
-  const giveStamp = (count) => { //스탬프 불러오기
+  const giveStamp = (count) => { // 스탬프 불러오기
     fetch(`http://localhost:4000/stampUpdate`, {
       method: 'POST',
       headers: {
@@ -121,7 +149,6 @@ const MainPage = () => {
       });
   };
 
-  
   useEffect(() => {
     setIsModalOpen(false);
 
@@ -138,9 +165,9 @@ const MainPage = () => {
       const newCheck = !prev;
       presentCheck({ presentCount: newCheck }); // 모달창 초기화를 위한 출석체크 상태 저장
       return newCheck;
-    }); //출석 체크 버튼이 비활성화되도록 하며, 사용자가 이미 출석 체크를 완료했음.
+    }); 
     setIsAttendanceModalOpen(false);
-    handleStamp(); //스탬프 갯수 추가 함수 실행
+    handleStamp(); // 스탬프 갯수 추가 함수 실행
   };
 
   const checkAttendanceState = () => {
@@ -156,58 +183,6 @@ const MainPage = () => {
     "오늘 기분 어때?",
     "만나서 반가워!"
   ];
-
-  const showSelectImage = (imageSrc) => {
-    const imageSelected = document.createElement('img');
-    
-    let imagePath = '';
-    let imageClass = ''; // 이미지에 추가될 클래스
-  
-  
-    switch (imageSrc) {
-      case 1:
-        imagePath = plant;
-        imageClass = 'image-1-main'; // 이미지 1에 해당하는 클래스
-        break;
-      case 2:
-        imagePath = santa;
-        imageClass = 'image-2-main'; // 이미지 2에 해당하는 클래스
-        break;
-      case 3:
-        imagePath = dragon;
-        imageClass = 'image-3-main'; // 이미지 3에 해당하는 클래스
-        break;
-      case 4:
-        imagePath = witch;
-        imageClass = 'image-4-main'; // 이미지 4에 해당하는 클래스
-        break;
-      case 5:
-        imagePath = ribbon;
-        imageClass = 'image-5-main'; // 이미지 5에 해당하는 클래스
-        break;
-      case 6:
-        imagePath = crown;
-        imageClass = 'image-6-main'; // 이미지 6에 해당하는 클래스
-        break;
-      default:
-        console.log('유효하지 않은 imageSrc 값입니다.');
-        return; // 유효하지 않은 경우 함수 종료
-    }
-  
-  
-    imageSelected.src = imagePath;
-    imageSelected.classList.add('img-custom-style');
-    imageSelected.classList.add(imageClass); // 고유한 클래스 추가
-
-  
-    // 새로운 이미지를 Shop 페이지에 출력
-    const newImageId = `image-${imageSrc}`;
-    imageSelected.id = newImageId;
-    imageSelected.classList.add(`image-${imageSrc}`); // 클래스 추가
-    shopElement.appendChild(imageSelected);
-  
-
-  };
 
   const [currentPhrase, setCurrentPhrase] = useState('');
 
@@ -258,6 +233,7 @@ const MainPage = () => {
       </div>
       <div className='chick-conainer'>
         <img src={chicken} alt="chicken" className="chicken" />
+        
         <div className="balloon">
           <p>{currentPhrase}</p>
         </div>
@@ -267,27 +243,11 @@ const MainPage = () => {
         onClose={() => setIsAttendanceModalOpen(false)}
         onPresentCheck={handleAttendanceCheck}
       />
-      <div className='clothes'>
-        <div key={item.id} className="item">
-            <img 
-              src={
-                item.id === 1 ? plant :
-                item.id === 2 ? santa :
-                item.id === 3 ? dragon :
-                item.id === 4 ? witch :
-                item.id === 5 ? ribbon :
-                item.id === 6 ? crown :
-                null
-              } 
-              className="item-image" 
-              alt={item.name} 
-            />
-          </div>
+
+      <div>
+        {checkAndPrintClothes()}
       </div>
     </div>
-
-    
-
   );
 };
 

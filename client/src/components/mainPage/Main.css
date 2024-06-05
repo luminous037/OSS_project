@@ -254,3 +254,9 @@ h1{
   top: 10%;
   left: 60%;
 }
+
+.img-custom-style{
+  position: absolute;
+  z-index:900;
+}
+

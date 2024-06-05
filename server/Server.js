@@ -118,7 +118,8 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
           mediListID:1,
           itemID:1,
           seedID:1,
-          attendanceCheck:1
+          attendanceCheck:1,
+          clothes:1,
         }})
     .toArray()
     .then(result=>{
@@ -128,7 +129,7 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
     })
 })
 
-cron.schedule('0 22 * * *', () => {
+cron.schedule('0 6 * * *', () => {
   const database = getDatabase();
     const userCollection = database.collection("user");
     userCollection.updateOne(
