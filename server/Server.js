@@ -332,7 +332,7 @@ app.post('/stampUpdate', (req, res) => { // 스탬프 정보 저장
   const database = getDatabase();
   const userCollection = database.collection("user");
 
-  console.log('스탬프 카운트 스탬스개수', stampCount);
+  console.log('스탬프 카운트 스탬스', stampCount);
   console.log('스탬프 카운트 유저아이디',user_id);
 
   userCollection.updateOne(
@@ -476,4 +476,19 @@ app.post('/updatePoint',(req,res)=>{
       res.status(500).send('Error retrieving user');
   })
 
+})
+
+app.post('/givePoint',(req,res)=>{ //위클리 포인트 업데이트
+  const point =req.body.points;
+  const database = getDatabase(); //db 가져오기
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {points: point} }
+  ).then(()=>{
+    res.status(200).send('Point 업데이트 Success')
+  }).catch((err)=>{
+    console.log('Point 업데이트 오류: ',err);
+  })
 })

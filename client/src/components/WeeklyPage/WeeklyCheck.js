@@ -60,7 +60,7 @@ function WeeklyCheck() {
   };
 
   const setPoint = (newP) => {
-    fetch('http://localhost:4000/updatePoint', {
+    fetch('http://localhost:4000/givePoint', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ function WeeklyCheck() {
   }
 
   const givePoint =() => {
-    const newpoint = points + 500 ;
+    const newpoint = addPoint + 500 ;
     setPoint(newpoint);
   }
 
@@ -107,6 +107,7 @@ function WeeklyCheck() {
     setShowModal(false);
     resetStamp();
     showExplosionAnimation();
+    givePoint();
   };
 
   const phrases = [
@@ -164,7 +165,7 @@ function WeeklyCheck() {
         <p>{currentPhrase}</p>
       </div>
 
-      <div className="stamp-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(200px)' }}>
+      <div className="stamp-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', transform: 'translateY(220px)' }}>
         {[1, 2, 3, 4, 5].map(index => (
           <div
             key={index}
@@ -175,7 +176,7 @@ function WeeklyCheck() {
               margin: '6px',
             }}
           >
-            <img src={stampStatus[index] ? stamp : unstamped} alt={`Stamp ${index}`} style={{ width: '90px', padding: '0' }} />
+            <img src={stampStatus[index] ? stamp : unstamped} alt={`Stamp ${index}`} style={{ width: '120px', padding: '0' }} />
           </div>
         ))}
       </div>
