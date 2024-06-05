@@ -264,3 +264,22 @@ h1{
   left:374px;
 }
 
+.item2-image-main{
+  position: absolute;
+  z-index:900;
+  width: 44px;
+  height: 40px;
+  top:373px;
+  left:374px;
+}
+
+.item3-image-main{
+  position: absolute;
+  z-index:900;
+  width: 69px;
+  height: 40px;
+  top:387px;
+  left:359px;
+}
+
+
