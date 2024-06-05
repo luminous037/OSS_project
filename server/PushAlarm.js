@@ -1,13 +1,12 @@
 const cron = require('node-cron');
 const admin = require('firebase-admin');
+const { getDatabase } = require('./DbConnect');
+const { ObjectId } = require('mongodb');
 
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
 });
-
-
-//토큰 받는 함수 추가해야함
 
 
 // 푸시 알림 보내는 함수
@@ -30,26 +29,129 @@ const sendPushNotifications = (token) => {
 };
 
 // 알림 스케줄링 함수
-const scheduleNotifications = async () => {
-
+const scheduleNotifications = async (user_id, medi_id) => {
+  try {
     const database = getDatabase();
     const userCollection = database.collection("user");
-    const collection = database.collection('alarms');
+    const mediListCollection = database.collection("medicineList");
+    const scheduleCollection = database.collection("schedule");
 
-    const alarms = await collection.find({}).toArray();
+    // 사용자 정보 가져오기
+    const user = await userCollection.findOne({ _id: user_id });
+    if (!user) {
+      //console.error('사용자 정보를 찾을 수 없습니다.');
+      return;
+    }
 
-    alarms.forEach(alarm => {
-      const [hour, minute] = alarm.alarm_time.split(':');
-      const cronExpression = `${minute} ${hour} * * *`;
+    // mediListID 배열에 포함된 약 목록 찾기
+    const mediList = await mediListCollection.find({ _id: new ObjectId(medi_id) }).toArray();
 
-      cron.schedule(cronExpression, () => {
-        sendPushNotifications(alarm.token);
+    mediList.forEach(medi => {
+      const times = [
+       medi.detail.morning ? { ampm: medi.time.ampm1, hour: parseInt(medi.time.hour1,10), minute: parseInt(medi.time.minute1,10)} : null,
+       medi.detail. afternoon ? { ampm: medi.time.ampm2, hour: parseInt(medi.time.hour2,10), minute: parseInt(medi.time.minute2,10) } : null,
+       medi.detail. evening ?  { ampm: medi.time.ampm3, hour: parseInt(medi.time.hour3,10), minute: parseInt(medi.time.minute3,10) } : null
+      ].filter(time => time !== null);
+
+      times.forEach(async time => {
+        if(time===null || !time.ampm) return;
+        //console.log(time);
+        let { ampm, hour, minute } = time;
+
+        if (ampm === "PM" && hour < 12) {
+          hour += 12;
+        } else if (ampm === "AM" && hour === 12) {
+          hour = 0;
+        }
+
+        // 유효한 hour 값 확인
+        if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+          console.error('잘못된 시간 값:', { hour, minute });
+          return;
+        }
+
+        const cronExpression = `${minute} ${hour} * * *`;
+
+        const task = cron.schedule(cronExpression, () => {
+          sendPushNotifications(user.token); // 사용자의 토큰으로 푸시 알림 전송
+        });
+
+        try {
+          // 스케줄링된 작업과 관련된 정보를 배열에 추가
+          const result = await scheduleCollection.insertOne({
+            taskId: task,
+            mediId: new ObjectId(medi_id),
+            time: cronExpression
+          });
+
+          const schedule_id = result.insertedId;
+
+          // 사용자 문서 업데이트
+          await userCollection.updateOne(
+            { _id: user_id}, // 기존 이름으로 문서 찾기
+            { $set: { scheduleID: schedule_id } }
+          );
+
+          console.log('알림 설정 완료');
+        } catch (dbError) {
+          //console.error('데이터베이스 작업 중 오류 발생:', dbError);
+        }
       });
-
-      console.log(`사용자 ${alarm.user_id}에 대한 알림이 ${alarm.alarm_time}에 스케줄링되었습니다.`);
-    }).catch((err)=>{
-        
-    })
+    });
+  } catch (err) {
+    console.error('알람 스케줄링 중 오류 발생:', err);
+  }
 };
 
-module.exports = scheduleNotifications;
+
+const cancelAndDeleteSchedules = async (medi_id) => {
+  try {
+    const database = getDatabase();
+    const scheduleCollection = database.collection("schedule");
+
+    const schedules = await scheduleCollection.find({ mediId: new ObjectId(medi_id) }).toArray();
+
+      if (schedules.taskId) {  // 작업 중지
+        schedules.taskId.stop();
+        console.log(`스케줄 작업 중지`);
+      }
+      // 데이터베이스에서 스케줄링 정보 삭제
+      await scheduleCollection.deleteOne({ _id: new ObjectId(schedules._id) });
+      console.log(`스케줄 삭제`);
+  } catch (err) {
+    console.error('알림 스케줄링 삭제 중 오류 발생:', err);
+  }
+};
+
+const initializeScheduledTasks = async (data) => {
+  try {
+    const database = getDatabase();
+    const scheduleCollection = database.collection("schedules");
+    const userCollection = database.collection("user");
+
+    // 주어진 토큰을 사용하여 사용자 찾기
+    const users = await userCollection.find({ token: data }, { projection: { _id: 0, scheduleId: 1 } }).toArray();
+    
+    if (users.length === 0) {
+      console.error('사용자 없음');
+      return;
+    }
+
+    const scheduleIds = users.map(user => user.scheduleId);
+
+    // scheduleIds를 사용하여 일정 가져오기
+    const schedules = await scheduleCollection.find({ _id: { $in: scheduleIds.map(id => new ObjectId(id)) } }).toArray();
+
+    schedules.forEach(schedule => {
+      cron.schedule(schedule.time, () => {
+        sendPushNotifications(data); // 주어진 토큰을 푸시 알림에 사용
+      });
+      console.log(`알림 설정 완료 for schedule ${schedule._id}`);
+    });
+  } catch (error) {
+    console.error('Error initializing scheduled tasks:', error);
+  }
+}
+
+
+module.exports = { scheduleNotifications, cancelAndDeleteSchedules, initializeScheduledTasks }

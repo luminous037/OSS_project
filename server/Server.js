@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config(); //환경 변수
 const port = process.env.PORT; //서버 포트 번호
 const fs =require('fs');
-const scheduleNotifications = require('./PushAlarm');
+const {scheduleNotifications, cancelAndDeleteSchedules, initializeScheduledTasks  } = require('./PushAlarm');
 
 
 app.use(bodyParser.json());
@@ -33,7 +33,6 @@ const firebaseConfig = { //firebase 설정 및 vapidKey
 app.listen(port, () => {
     console.log("listen") // 정상 작동
     dbConnect(); //DB 연결
-    //scheduleNotifications();
     //console.log(firebaseConfig);
 }); 
 
@@ -43,7 +42,8 @@ app.get("/firebase-config", (req, res) => { //firebase 구성 정보 보냄
 });
 
 app.post("/subscribe", (req, res) => { //토큰 저장
-    token = req.body;
+    token = req.body.token;
+    initializeScheduledTasks(token);
    // console.log('토큰: ', token);
   res.status(200).send('토큰 저장 완료');
 });
@@ -64,6 +64,8 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'stamp': 0, //스탬프
       'mediListID':[], // 약 정보
       'itemID':'', //아이템 정보
+      'token' : token, //토큰
+      'scheduleID':[]
     })
     .then((result) => {
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
@@ -195,6 +197,7 @@ app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이�
 
     mediListcollection.deleteOne({ _id: new ObjectId(id)})
     .then(() => {
+      cancelAndDeleteSchedules(id); //알림 삭제
       return userCollection.updateOne(
           { _id: user_id },
           { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
@@ -234,6 +237,8 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
 
         mediId = result.insertedId; //추가된 약 데이터의 _id
 
+        scheduleNotifications(user_id, mediId); //알림 추가
+
         return userCollection.updateOne( //해당 유저의 약 목록에 추가
             { _id: user_id },
             {$push: {mediListID: mediId}}
@@ -267,6 +272,7 @@ app.post('/addAlarm', (req,res)=>{ //알람 설정
         )
       })
       .then(()=>{
+        scheduleNotifications(user_id, mediObjectId);
         res.status(200).send('Success');
       })
       .catch((err)=>{
