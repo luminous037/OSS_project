@@ -151,7 +151,7 @@ const callApi = async () => {
 
           {modalState[`modalOpen${buttonId}`] && (
             <div className="modal_info3">
-              <div className="modal-content">
+              <div className="modal-content-info3">
                 <h5>시간설정</h5>
                 <div className='setTime'>
 

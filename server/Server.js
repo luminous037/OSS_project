@@ -61,7 +61,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'plant' : 0, //씨앗 심은 상태
       'rain': 0, //비 내린 횟수 = 씨앗 성장 상태
       'cloud': 0, //구름 퍼센티지
-      'stamp': 0, //스탬프
+      'stamp': 4, //스탬프
       'clothes':0, //옷 착용 정보 (0은 기본상태)
       'mediListID':[], // 약 정보
       'itemID':'', //아이템 정보
@@ -333,8 +333,8 @@ app.post('/stampUpdate', (req, res) => { // 스탬프 정보 저장
   const database = getDatabase();
   const userCollection = database.collection("user");
 
-  console.log('스탬프 카운트', stampCount);
-  console.log('스탬프 카운트',user_id);
+  console.log('스탬프 카운트 스탬스', stampCount);
+  console.log('스탬프 카운트 유저아이디',user_id);
 
   userCollection.updateOne(
     { _id: user_id }, // userId 사용
@@ -477,4 +477,19 @@ app.post('/updatePoint',(req,res)=>{
       res.status(500).send('Error retrieving user');
   })
 
+})
+
+app.post('/givePoint',(req,res)=>{ //위클리 포인트 업데이트
+  const point =req.body.points;
+  const database = getDatabase(); //db 가져오기
+  const userCollection = database.collection("user");
+
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {points: point} }
+  ).then(()=>{
+    res.status(200).send('Point 업데이트 Success')
+  }).catch((err)=>{
+    console.log('Point 업데이트 오류: ',err);
+  })
 })

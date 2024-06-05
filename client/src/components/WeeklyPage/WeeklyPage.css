@@ -9,7 +9,7 @@ body {height:100%; overflow:hidden;}
   font-size:40px;
     position: absolute;
     top: 3%;
-    left: 30%;
+    left: 18%;
     transform: translate(-50%, -50%);
     color: rgb(39, 39, 39);
     z-index: 1;
@@ -136,7 +136,6 @@ body {height:100%; overflow:hidden;}
 
 .modal-backdrop h2{
   color:rgb(255, 0, 225);
-  
 }
 
 .modal-get-point {

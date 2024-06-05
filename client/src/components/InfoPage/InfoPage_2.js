@@ -133,6 +133,13 @@ function InfoPage_2() {
 
   const areInputsDisabled = time.trim() !== '';
 
+  const handleDateChange = (e) => {
+    const { value } = e.target;
+    if (value === '' || (Number(value) > 0 && Number(value) <= 31)) {
+      setMediData({ ...mediData, date: value });
+    }
+  };
+
   return (
     <div className="Page2">
       <div className="title_info">
@@ -237,10 +244,10 @@ function InfoPage_2() {
         <input
           type="number"
           min="1"
-          max="12"
+          max="31"
           value={mediData.date}
-          onChange={(e) => setMediData({ ...mediData, date: e.target.value })}
-          placeholder="5"
+          onChange={handleDateChange}
+          placeholder="최대31"
         />
         일 동안 복용
       </div>
