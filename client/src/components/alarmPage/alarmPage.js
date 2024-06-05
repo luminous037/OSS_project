@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './alarmPage.css';
 import chick3 from '../image/chick3.png';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,8 @@ const AlarmPage = () => {
   /*구름 퍼센테이지 관리하는 함수*/
   const [percentage, setPercentage] = useState(() => {
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('/userProfile')
@@ -30,6 +33,7 @@ const AlarmPage = () => {
     setPercentage(prev =>{
       const newPercent=Math.min(prev + 35, 100)
       updateCloud(newPercent);
+      navigate('/Main');
       return newPercent;
     });
   };

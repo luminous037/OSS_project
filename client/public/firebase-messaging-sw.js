@@ -1,6 +1,20 @@
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+          .then((registration) => {
+              console.log('Service Worker registered:', registration);
+          })
+          .catch((error) => {
+              console.error('Service Worker registration failed:', error);
+          });
+  });
+} else {
+  console.log('Service Worker is not supported in this browser.');
+}
+
 self.addEventListener("install", function (e) {
   console.log("Service Worker installed");
   self.skipWaiting();

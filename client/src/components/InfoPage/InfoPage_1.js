@@ -11,6 +11,9 @@ function InfoPage_1() {
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
+  const navigate = useNavigate();
+
+  
   const sendSubscriptionToServer = async (token) => {
     await fetch('http://localhost:4000/subscribe', {
       method: 'POST',
@@ -46,8 +49,6 @@ function InfoPage_1() {
       console.error('Firebase Config Fetch 오류:', error);
     });
   
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     // 이름이 입력되었는지 확인하여 버튼 활성화 상태를 업데이트
