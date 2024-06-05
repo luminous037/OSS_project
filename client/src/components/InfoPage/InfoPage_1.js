@@ -7,26 +7,36 @@ function InfoPage_1() {
     userName: ''
   });
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [warningMessage, setWarningMessage] = useState('');
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 이름이 입력되었는지 확인하여 버튼 활성화 상태를 업데이트
-    setIsButtonDisabled(childName.userName.trim() === '');
+    const nameLength = childName.userName.trim().length;
+    if (nameLength === 0) {
+      setIsButtonDisabled(true);
+      setWarningMessage('');
+    } else if (nameLength > 6) {
+      setIsButtonDisabled(true);
+      setWarningMessage('이름이 6자를 넘을 수 없습니다');
+    } else {
+      setIsButtonDisabled(false);
+      setWarningMessage('');
+    }
   }, [childName.userName]);
 
-  const nameSave = () => { // 데이터베이스에 이름 저장
+  const nameSave = () => {
     fetch('http://localhost:4000/saveName', {
       method: 'POST',
       headers: {
         credentials: 'include',
-        'Content-Type': 'application/json' // JSON 형식으로 전송
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(childName) // 사용자 이름을 body에 저장      
+      body: JSON.stringify(childName)
     })
-      .then(res => res.json()) // 응답을 JSON으로 파싱
+      .then(res => res.json())
       .then(data => {
-        navigate(`/InfoPage_1/InfoPage_2?userID=${data._id}`); // 파싱된 데이터에서 _id 사용
+        navigate(`/InfoPage_1/InfoPage_2?userID=${data._id}`);
       })
       .catch(err => {
         console.error('namePost 중 오류: ', err);
@@ -46,8 +56,11 @@ function InfoPage_1() {
           type="text"
           value={childName.userName}
           onChange={(e) => setChildName({ userName: e.target.value })}
+          maxLength={7} // 최대 입력 길이를 7로 설정
         />
       </div>
+      {warningMessage && <div className="warning">{warningMessage}</div>} {
+      }
       <div className="text3">
         어린이
       </div>

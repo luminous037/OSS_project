@@ -105,7 +105,13 @@
   cursor: pointer; /* 마우스 커서를 포인터로 변경하여 버튼임을 나타냄 */
   color:#ffffff ;
 }
-
+.warning{
+  position:absolute;
+  font-family: on;
+  color:gray;
+  top:23%;
+  left: 44%;
+}
 @font-face {
   font-family: "on";
   font-weight: 50;

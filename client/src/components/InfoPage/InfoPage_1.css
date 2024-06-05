@@ -72,8 +72,14 @@ input[type="text"] {
   left: 60%;
   transform: translateX(-50%);
 }
+.warning{
+  position:absolute;
+  font-family: on;
+  color:gray;
+  top:23%;
+  left: 44%;
+}
 
-  
 @font-face {
   font-family: "on";
   font-weight: 50;
