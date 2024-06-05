@@ -255,8 +255,12 @@ h1{
   left: 60%;
 }
 
-.img-custom-style{
+.item1-image-main{
   position: absolute;
   z-index:900;
+  width: 40px;
+  height: 40px;
+  top:370px;
+  left:374px;
 }
 
