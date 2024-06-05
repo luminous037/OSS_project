@@ -34,7 +34,7 @@ input[type="number"] {
 }
 
 /*모달 요소들*/
-.modal-content {
+.modal-content-info3 {
   background: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 5px;
