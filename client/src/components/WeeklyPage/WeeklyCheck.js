@@ -18,6 +18,7 @@ function WeeklyCheck() {
   const [stampStatusValue, setStampStatusValue] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [userID, setUserID] = useState();
+  const [addPoint, setAddPoint] = useState ();
 
   useEffect(() => {
     fetch('http://localhost:4000/userProfile')
@@ -26,12 +27,14 @@ function WeeklyCheck() {
         console.log('Fetched user data:', data);
         const stampStatusValue = data[0].stamp;
         const userId = data[0].user_id;
+        const points = data[0].points;
         const newStampStatus = {};
         if (stampStatusValue !== 0) {
           for (let i = 1; i <= stampStatusValue; i++) {
             newStampStatus[i] = true;
           }
         }
+        setAddPoint(points);
         setStampStatus(newStampStatus);
         setStampStatusValue(stampStatusValue);
         setUserID(userId);
@@ -55,6 +58,25 @@ function WeeklyCheck() {
       explodeAnimation.remove();
     }, 1100);
   };
+
+  const setPoint = (newP) => {
+    fetch('http://localhost:4000/updatePoint', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ points : newP }) 
+    })
+      .then(response => response.json())
+      .catch(err => {
+        console.error('포인트 부여 오류: ', err);
+      });
+  }
+
+  const givePoint =() => {
+    const newpoint = points + 500 ;
+    setPoint(newpoint);
+  }
 
   const resetStamp = () => {
     fetch('http://localhost:4000/stampUpdate', {
