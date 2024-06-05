@@ -6,9 +6,10 @@ const { dbConnect, getDatabase } = require('./DbConnect');
 const { ObjectId } = require('mongodb');
 const cookieParser = require('cookie-parser');
 require('dotenv').config(); //환경 변수
-const admin = require('./FireBase');
-const port = process.env.PORT || 4000; //서버 포트 번호
+const port = process.env.PORT; //서버 포트 번호
 const fs =require('fs');
+const scheduleNotifications = require('./PushAlarm');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,71 +19,38 @@ app.use(cookieParser());
 let user_id;
 let token;
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId:process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId:process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-  vapidKey: process.env.REACT_APP_VAPID_KEY
+const firebaseConfig = { //firebase 설정 및 vapidKey
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId:process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId:process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+  //vapidKey: process.env.VAPID_KEY
 };
 
 app.listen(port, () => {
     console.log("listen") // 정상 작동
     dbConnect(); //DB 연결
-    console.log('API Key:', process.env.REACT_APP_FIREBASE_API_KEY);
-    console.log('Auth Domain:', process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
-    console.log('Project ID:', process.env.REACT_APP_FIREBASE_PROJECT_ID);
-    console.log('Storage Bucket:', process.env.REACT_APP_FIREBASE_STORAGE_BUCKET);
-    console.log('Messaging Sender ID:', process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID);
-    console.log('App ID:', process.env.REACT_APP_FIREBASE_APP_ID);
-    console.log('Measurement ID:', process.env.REACT_APP_FIREBASE_MEASUREMENT_ID);
+    //scheduleNotifications();
+    //console.log(firebaseConfig);
 }); 
 
 
-app.get('/firebase-config', (req, res) => { //firebase 구성 정보 보냄
+app.get("/firebase-config", (req, res) => { //firebase 구성 정보 보냄
   res.json(firebaseConfig);
 });
 
-app.post('/subscribe', (req, res) => { //토큰 저장
+app.post("/subscribe", (req, res) => { //토큰 저장
     token = req.body;
+   // console.log('토큰: ', token);
   res.status(200).send('토큰 저장 완료');
 });
-
-  // const sendPushNotifications = () => { //푸시알람
-  //   const message = {
-  //     notification: {
-  //       title: 'MeddyBaby',
-  //       body: '약 먹을 시간이에요!'
-  //     },
-  //     tokens: token //토큰 설정하기
-  //   };
-  
-  //   admin.messaging().sendMulticast(message)
-  //     .then((response) => {
-  //       console.log('메세지 전송 선공:', response);
-  //     })
-  //     .catch((error) => {
-  //       console.error('메세지 전송 실패:', error);
-  //     });
-  // };
-  
-  // cron.schedule('0 9 * * *', () => {
-  //   //첫 번째 요소(분):
-  //   // 두 번째 요소(시간): 
-  //   // 세 번째 요소(일): 모든 날짜를 나타내는 * 기호
-  //   // 네 번째 요소(월): 모든 달을 나타내는 * 기호
-  //   // 다섯 번째 요소(요일): 모든 요일을 나타내는 * 기호
-  //   // '0 9 * * *' => "매일 오전 9시"
-  //   sendPushNotifications();
-  // });
   
 
 app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
     const database = getDatabase();
-
     const userCollection = database.collection("user");
     const userName = req.body.userName;
   
@@ -94,7 +62,7 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'rain': 0, //비 내린 횟수 = 씨앗 성장 상태
       'cloud': 0, //구름 퍼센티지
       'stamp': 0, //스탬프
-      'mediListID':'', // 약 정보
+      'mediListID':[], // 약 정보
       'itemID':'', //아이템 정보
       'attendanceCheck': false //출석상태 체크
     })
@@ -180,6 +148,7 @@ cron.schedule('0 6 * * *', () => {
 app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록 불러옴
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    const userCollection = database.collection("user");// 유저 컬렉션
 
     //const userId = req.cookies.userId;
     // if (!userId) {
@@ -189,42 +158,33 @@ app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록
     // }
 
 
-    // userCollection.findOne({ _id: new ObjectId(user_id) }) //사용자 정보 찾기
-    //     .then(user => {
-    //         if (!user) {
-    //             res.status(404).send('User not found');
-    //             return;
-    //         }
+    userCollection.findOne({ _id: user_id }) //사용자 정보 찾기
+        .then(user => { //유저 정보
+            if (!user) {
+                res.status(404).send('User not found');
+                return;
+            }
 
-    //         const mediListIDs = user.mediListID; // 사용자 정보에서 mediListID 배열 가져오기
+            const mediIDs = user.mediListID; // 사용자 정보에서 mediListID 배열 가져오기
 
-    //         if (!Array.isArray(mediListIDs) || mediListIDs.length === 0) {
-    //             res.status(404).send('약 정보 못 찾음');
-    //             return;
-    //         }
+            if (!Array.isArray(mediIDs) || mediIDs.length === 0) { //약 정보가 없을 경우
+                res.status(404).send('약 정보 못 찾음');
+                return;
+            }
 
-    //         mediListcollection.find({ _id: { $in: mediListIDs.map(id => new ObjectId(id)) } }, { projection: { _id: 1, mediName: 1 } }) // mediListID 배열에 포함된 약 목록 찾기
-    //             .toArray()
-    //             .then(queryResult => {
-    //                 res.send(queryResult); // 조회된 약 목록
-    //             })
-    //             .catch(err => {
-    //                 console.error("약 목록 조회 오류: ", err);
-    //                 res.status(500).send('Error retrieving medicine list');
-    //             });
-    //     })
-    //     .catch(err => {
-    //         console.error("사용자 조회 오류: ", err);
-    //         res.status(500).send('Error retrieving user');
-    //     });
-
-    mediListcollection.find({ }, { projection: { _id: 1, mediName: 1 } }) // db내의 모든 mediName을 가져와서 queryResult에 저장
-        .toArray()
-        .then(queryResult => {
-            res.send(queryResult);
+            mediListcollection.find({ _id: { $in: mediIDs.map(id => new ObjectId(id)) } }, { projection: { _id: 1, mediName: 1 } }) // mediListID 배열에 포함된 약 목록 찾기
+                .toArray()
+                .then(queryResult => {
+                    res.send(queryResult); // 조회된 약 목록
+                })
+                .catch(err => {
+                    console.error("약 목록 조회 오류: ", err);
+                    res.status(500).send('Error retrieving medicine list');
+                });
         })
         .catch(err => {
-            console.error("약 목록 조회 오류: ", err);
+            console.error("사용자 조회 오류: ", err);
+            res.status(500).send('Error retrieving user');
         });
 });
 
@@ -249,15 +209,16 @@ app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이�
 
     const database = getDatabase(); //db 가져오기
     const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+    const userCollection  = database.collection("user");
     console.log( "현재 id: ", id);
 
 
     mediListcollection.deleteOne({ _id: new ObjectId(id)})
     .then(() => {
-      // return userCollection.updateOne(
-      //     { mediListID: new ObjectId(id) },
-      //     { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
-      // );
+      return userCollection.updateOne(
+          { _id: user_id },
+          { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
+      );
   })
     .catch((err)=>{
         console.log("삭제 오류: ", err, "현재 id: ", id);
@@ -273,7 +234,7 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
     const userCollection = database.collection("user");
 
     // const userId = req.cookies.userId; //쿠키에서 유저 아이디 추출
-    let mediListId;
+    let mediId;
     const {mediName, time, date, detail}=req.body;
 
     // if (!userId) {
@@ -289,17 +250,17 @@ app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사�
         'detail' : detail
     })        
     .then((result) => { //데이터 확인
-        console.log(result);
+        //console.log(result);
 
-        mediListId = result.insertedId;
+        mediId = result.insertedId; //추가된 약 데이터의 _id
 
-        // return userCollection.updateOne( //해당 유저의 약 목록에 추가
-        //     { _id: new ObjectId(userId) },
-        //     {$push: {"medicineLists": medicineListId}}
-        // );
+        return userCollection.updateOne( //해당 유저의 약 목록에 추가
+            { _id: user_id },
+            {$push: {mediListID: mediId}}
+        );
     })
     .then(()=>{
-        res.send({ _id: mediListId}); // 생성된 _id 반환
+        res.send({ _id: mediId}); // 생성된 _id 반환
     })
     .catch((err) => { //에러 발생 시
     console.error("약 추가 중 오류: ", err);
@@ -385,7 +346,7 @@ app.post('/plantUpdate', (req,res)=>{
   const{plant, point}=req.body;
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {plant: plant, points: point }}
+    {$set: {plant: plant, points: point, }}
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{
