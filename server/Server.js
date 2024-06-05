@@ -1,4 +1,5 @@
 const express = require('express');
+const cron = require('node-cron');
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
@@ -62,10 +63,12 @@ app.post('/saveName', (req, res) => { //infoPage_1 에서 이용, 이름 저장
       'rain': 0, //비 내린 횟수 = 씨앗 성장 상태
       'cloud': 0, //구름 퍼센티지
       'stamp': 0, //스탬프
+      'clothes':0, //옷 착용 정보 (0은 기본상태)
       'mediListID':[], // 약 정보
       'itemID':'', //아이템 정보
       'token' : token, //토큰
-      'scheduleID':[]
+      'scheduleID':[],
+      'attendanceCheck': false //출석상태 체크
     })
     .then((result) => {
       res.cookie('userId', result.insertedId, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true }); //쿠키 설정
@@ -116,7 +119,9 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
           stamp: 1,
           mediListID:1,
           itemID:1,
-          seedID:1
+          seedID:1,
+          attendanceCheck:1,
+          clothes:1,
         }})
     .toArray()
     .then(result=>{
@@ -126,48 +131,66 @@ app.get('/userProfile',(req,res)=>{ //사용자의 정보 불러옴
     })
 })
 
+cron.schedule('0 6 * * *', () => {
+  const database = getDatabase();
+    const userCollection = database.collection("user");
+    userCollection.updateOne(
+      { _id: user_id }, // 기존 이름으로 문서 찾기
+      { $set: { attendanceCheck: false} // 6시에 출석 초기화
+      })
+    .then(() => {
+      res.status(200).send('Success');
+      console.log('출석 체크 상태가 초기화되었습니다.');
+    })
+    .catch((err) => {
+      console.log('출첵 오류: ', err);
+      res.status(500).send('Error');
+    });
+
+});
+
 
 app.get('/list', (req, res) => { //myPage 에서 이용, 사용자의 약 목록 불러옴
-    const database = getDatabase(); //db 가져오기
-    const mediListcollection = database.collection("medicineList"); //컬렉션 참조
-    const userCollection = database.collection("user");// 유저 컬렉션
+  const database = getDatabase(); //db 가져오기
+  const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+  const userCollection = database.collection("user");// 유저 컬렉션
 
-    //const userId = req.cookies.userId;
-    // if (!userId) {
-    //     res.status(400).send('User ID not found in cookies');
-    //     console.log('쿠키 없음');
-    //     return;
-    // }
+  //const userId = req.cookies.userId;
+  // if (!userId) {
+  //     res.status(400).send('User ID not found in cookies');
+  //     console.log('쿠키 없음');
+  //     return;
+  // }
 
 
-    userCollection.findOne({ _id: user_id }) //사용자 정보 찾기
-        .then(user => { //유저 정보
-            if (!user) {
-                res.status(404).send('User not found');
-                return;
-            }
+  userCollection.findOne({ _id: user_id }) //사용자 정보 찾기
+      .then(user => { //유저 정보
+          if (!user) {
+              res.status(404).send('User not found');
+              return;
+          }
 
-            const mediIDs = user.mediListID; // 사용자 정보에서 mediListID 배열 가져오기
+          const mediIDs = user.mediListID; // 사용자 정보에서 mediListID 배열 가져오기
 
-            if (!Array.isArray(mediIDs) || mediIDs.length === 0) { //약 정보가 없을 경우
-                res.status(404).send('약 정보 못 찾음');
-                return;
-            }
+          if (!Array.isArray(mediIDs) || mediIDs.length === 0) { //약 정보가 없을 경우
+              res.status(404).send('약 정보 못 찾음');
+              return;
+          }
 
-            mediListcollection.find({ _id: { $in: mediIDs.map(id => new ObjectId(id)) } }, { projection: { _id: 1, mediName: 1 } }) // mediListID 배열에 포함된 약 목록 찾기
-                .toArray()
-                .then(queryResult => {
-                    res.send(queryResult); // 조회된 약 목록
-                })
-                .catch(err => {
-                    console.error("약 목록 조회 오류: ", err);
-                    res.status(500).send('Error retrieving medicine list');
-                });
-        })
-        .catch(err => {
-            console.error("사용자 조회 오류: ", err);
-            res.status(500).send('Error retrieving user');
-        });
+          mediListcollection.find({ _id: { $in: mediIDs.map(id => new ObjectId(id)) } }, { projection: { _id: 1, mediName: 1 } }) // mediListID 배열에 포함된 약 목록 찾기
+              .toArray()
+              .then(queryResult => {
+                  res.send(queryResult); // 조회된 약 목록
+              })
+              .catch(err => {
+                  console.error("약 목록 조회 오류: ", err);
+                  res.status(500).send('Error retrieving medicine list');
+              });
+      })
+      .catch(err => {
+          console.error("사용자 조회 오류: ", err);
+          res.status(500).send('Error retrieving user');
+      });
 });
 
 app.get('/list/:id',(req,res)=>{ //Detail페이지에서 이용, 사용자가 작성한 약에 대한 정보 제공
@@ -187,12 +210,12 @@ app.get('/list/:id',(req,res)=>{ //Detail페이지에서 이용, 사용자가 �
 
 app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이터 삭제
 
-    const id = req.params.id;
+  const id = req.params.id;
 
-    const database = getDatabase(); //db 가져오기
-    const mediListcollection = database.collection("medicineList"); //컬렉션 참조
-    const userCollection  = database.collection("user");
-    console.log( "현재 id: ", id);
+  const database = getDatabase(); //db 가져오기
+  const mediListcollection = database.collection("medicineList"); //컬렉션 참조
+  const userCollection  = database.collection("user");
+  console.log( "현재 id: ", id);
 
 
     mediListcollection.deleteOne({ _id: new ObjectId(id)})
@@ -203,39 +226,36 @@ app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이�
           { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
       );
   })
-    .catch((err)=>{
-        console.log("삭제 오류: ", err, "현재 id: ", id);
-    })
 
 })
 
 
 app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사용
-    const database = getDatabase();
+  const database = getDatabase();
 
-    const mediListCollection = database.collection("medicineList"); //컬렉션 참조
-    const userCollection = database.collection("user");
+  const mediListCollection = database.collection("medicineList"); //컬렉션 참조
+  const userCollection = database.collection("user");
 
-    // const userId = req.cookies.userId; //쿠키에서 유저 아이디 추출
-    let mediId;
-    const {mediName, time, date, detail}=req.body;
+  // const userId = req.cookies.userId; //쿠키에서 유저 아이디 추출
+  let mediId;
+  const {mediName, time, date, detail}=req.body;
 
-    // if (!userId) {
-    //     res.status(400).send('User ID not found in cookies');
-    //     console.log('쿠키 없음');
-    //     return;
-    // }
+  // if (!userId) {
+  //     res.status(400).send('User ID not found in cookies');
+  //     console.log('쿠키 없음');
+  //     return;
+  // }
 
-    mediListCollection.insertOne({ //db에 내용 삽입
-        'mediName' : mediName,
-        'time' : time,
-        'date' :date,
-        'detail' : detail
-    })        
-    .then((result) => { //데이터 확인
-        //console.log(result);
+  mediListCollection.insertOne({ //db에 내용 삽입
+      'mediName' : mediName,
+      'time' : time,
+      'date' :date,
+      'detail' : detail
+  })        
+  .then((result) => { //데이터 확인
+      //console.log(result);
 
-        mediId = result.insertedId; //추가된 약 데이터의 _id
+      mediId = result.insertedId; //추가된 약 데이터의 _id
 
         scheduleNotifications(user_id, mediId); //알림 추가
 
@@ -295,6 +315,41 @@ app.post('/rainUpdate',(req,res)=>{ //비 내린 횟수
   })
 })
 
+app.post('/presentUpdate',(req,res)=>{ // 출석정보 저장
+  const { presentCount } = req.body;
+  const database = getDatabase();
+  const userCollection = database.collection("user");
+  console.log('출석 확인',presentCount);
+  userCollection.updateOne(
+    {_id:user_id},
+    {$set: {attendanceCheck : presentCount} }
+  ).then(()=>{
+    res.status(200).send('Success')
+  }).catch((err)=>{
+    console.log('present 오류: ',err);
+  })
+})
+
+app.post('/stampUpdate', (req, res) => { // 스탬프 정보 저장
+  const { stampCount } = req.body; // userId를 함께 전달받음
+  const database = getDatabase();
+  const userCollection = database.collection("user");
+
+  console.log('스탬프 카운트', stampCount);
+  console.log('스탬프 카운트',user_id);
+
+  userCollection.updateOne(
+    { _id: user_id }, // userId 사용
+    { $set: { stamp : stampCount } }
+  ).then(() => {
+    res.status(200).send('Success');
+  }).catch((err) => {
+    console.log('stampUpdate 오류: ', err);
+    res.status(500).send('Error updating stamp');
+  });
+});
+
+
 app.post('/cloudUpdate',(req,res)=>{ //구름 퍼센트
   const cloud = req.body.cloudPercent;
   const database = getDatabase(); //db 가져오기
@@ -317,7 +372,7 @@ app.post('/plantUpdate', (req,res)=>{
   const{plant, point}=req.body;
   userCollection.updateOne(
     {_id:user_id},
-    {$set: {plant: plant, points: point, }}
+    {$set: {plant: plant, points: point }}
   ).then(()=>{
     res.status(200).send('Success')
   }).catch((err)=>{
@@ -358,6 +413,21 @@ app.get('/item',(req,res)=>{
             console.error("사용자 조회 오류: ", err);
             res.status(500).send('Error retrieving user');
         })
+    })
+
+    app.post('/updateUserProfile',(req,res)=>{ //옷 업데이트
+      const changeClothes =req.body.clothes;
+      const database = getDatabase(); //db 가져오기
+      const userCollection = database.collection("user");
+    
+      userCollection.updateOne(
+        {_id:user_id},
+        {$set: {clothes: changeClothes} }
+      ).then(()=>{
+        res.status(200).send('Clothes 업데이트 Success')
+      }).catch((err)=>{
+        console.log('Clothes 업데이트 오류: ',err);
+      })
     })
 
 app.post('/updatePoint',(req,res)=>{

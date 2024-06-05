@@ -1,19 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import InstructionModal from './Guidebook.js';
 import './Main.css';
 import Cloud from './cloud.js';
 import Seed from './seed.js';
+import PresentCheckModal from './present_check.js'; // 출석체크 모달 컴포넌트 임포트
 import moon from '../image/moon.png';
 import sun from '../image/sun.png';
 import bench from '../image/bench.png';
 import star from '../image/star.png';
 import cloud5 from '../image/cloud5.png';
 import chicken from '../image/chicken.png';
+import item1 from '../image/plant.png';
+import item2 from '../image/santa.png';
+import item3 from '../image/dragon.png';
+import item4 from '../image/witch.png';
+import item5 from '../image/ribbon.png';
+import item6 from '../image/crown.png';
+
 
 const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rainCount, setRainCount] = useState(null);
   const [isMorning, setIsMorning] = useState(true);
+  const [isAttendanceModalOpen, setIsAttendanceModalOpen] = useState(false); // 출석확인 모달창
+  const [isAttendanceChecked, setIsAttendanceChecked] = useState(false); // 출석 상태 확인
+  const [stampCount, setStampCount] = useState(0); // 출석 횟수 상태 추가
+  const [userId, setUserId] = useState(null); // 사용자 ID 상태 추가
+  const [clothesId, setClothesId] = useState(null); 
+
 
   useEffect(() => {
     fetch('/userProfile')
@@ -21,20 +35,52 @@ const MainPage = () => {
       .then(data => {
         console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
         const userRain = parseInt(data[0].rain, 10); // 정수로 변환  
+        const PCheck = data[0].attendanceCheck;
+        const stamp = data[0].stamp;
+        const id = data[0]._id; // 스탬프에 제대로 전달하려고 추가
+        const clothesId = data[0].clothes; 
+        setClothesId(clothesId); // setClothesId 함수를 호출하여 clothesId 설정
         setRainCount(userRain);
+        setStampCount(stamp); // DB 의 stamp 값을 코드에서 설정할 수 있도록
+        setIsAttendanceChecked(PCheck); // 출석 상태 설정
+        setIsAttendanceModalOpen(!PCheck); // 출석 상태에 따라 모달창 열기
+        setUserId(id); // 사용자 ID 설정
+        console.log('colthes 불러옴:', clothesId);
       })
       .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
       });
   }, []);
 
-  useEffect(()=>{
-    if(rainCount===null) return;
+
+  const checkAndPrintClothes = () => {
+    let imageSrc = null;
+    let imageClassName = null;
+  
+    if (clothesId === 1) {
+      imageSrc = item1; imageClassName = 'item1-image-main';
+    } else if (clothesId === 2) {
+      imageSrc = item2;imageClassName = 'item2-image-main';
+    } else if (clothesId === 3) {
+      imageSrc = item3;imageClassName = 'item3-image-main';
+    } else if (clothesId === 4) {
+      imageSrc = item4;imageClassName = 'item4-image-main';
+    } else if (clothesId === 5) {
+      imageSrc = item5;imageClassName = 'item5-image-main';
+    } else if (clothesId === 6) {
+      imageSrc = item6;imageClassName = 'item6-image-main';
+    } 
+  
+    return <img src={imageSrc} alt={`Image${clothesId}`} className={imageClassName} />;
+  };
+
+  useEffect(() => {
+    if (rainCount === null) return;
     else updateRain(rainCount);
-  },[rainCount])
+  }, [rainCount]);
 
   const handleRain = () => {
-    if(rainCount >=4 ){
+    if (rainCount >= 4) {
       setRainCount(0);
       updateRain(0);
     }
@@ -62,8 +108,49 @@ const MainPage = () => {
       });
   };
 
+  const presentCheck = (check) => { // 출석상태 지정
+    fetch(`http://localhost:4000/presentUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(check)
+    })
+      .then(() => {
+        console.log('출석체크: ', check.presentCount);
+      })
+      .catch(err => {
+        console.error('presentUpdate중 오류: ', err);
+      });
+  };
+
+  const handleStamp = () => { // 스탬프 부여
+    setStampCount((prevStampCount) => {
+      const newCount = prevStampCount >= 5 ? 0 : prevStampCount + 1;
+      giveStamp(newCount);
+      return newCount;
+    });
+    console.log(stampCount);
+  };
+
+  const giveStamp = (count) => { // 스탬프 불러오기
+    fetch(`http://localhost:4000/stampUpdate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ stampCount: count, userId }) // userId를 함께 전송하도록 수정
+    })
+      .then(() => {
+        console.log('present count updated');
+      })
+      .catch(err => {
+        console.error('presentUpdate중 오류: ', err);
+      });
+  };
+
   useEffect(() => {
-    setIsModalOpen(true);
+    setIsModalOpen(false);
 
     const currentHour = new Date().getHours();
     if (currentHour >= 6 && currentHour < 18) {
@@ -72,6 +159,22 @@ const MainPage = () => {
       setIsMorning(false);
     }
   }, []);
+
+  const handleAttendanceCheck = () => {
+    setIsAttendanceChecked((prev) => {
+      const newCheck = !prev;
+      presentCheck({ presentCount: newCheck }); // 모달창 초기화를 위한 출석체크 상태 저장
+      return newCheck;
+    }); 
+    setIsAttendanceModalOpen(false);
+    handleStamp(); // 스탬프 갯수 추가 함수 실행
+  };
+
+  const checkAttendanceState = () => {
+    if (!isAttendanceChecked) {
+      setIsAttendanceModalOpen(true);
+    }
+  };
 
   const phrases = [
     "안녕!",
@@ -130,9 +233,19 @@ const MainPage = () => {
       </div>
       <div className='chick-conainer'>
         <img src={chicken} alt="chicken" className="chicken" />
+        
         <div className="balloon">
           <p>{currentPhrase}</p>
         </div>
+      </div>
+      <PresentCheckModal 
+        isOpen={isAttendanceModalOpen} 
+        onClose={() => setIsAttendanceModalOpen(false)}
+        onPresentCheck={handleAttendanceCheck}
+      />
+
+      <div>
+        {checkAndPrintClothes()}
       </div>
     </div>
   );
