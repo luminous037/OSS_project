@@ -53,16 +53,16 @@ const updateAlarm = () => { //알람 시간 저장을 위한 fetch
         body: JSON.stringify({ mediID, userID, time: timeSettings, alarm })
     })
     .then(() => {
-      console.log(timeSettings);
+      //console.log(timeSettings);
       navigate('/Main'); // 저장 후 페이지 이동
     })
     .catch(err => {
-        console.error('fetchData 중 오류: ', err);
+        //console.error('fetchData 중 오류: ', err);
     });
 };
 
 useEffect(() => {
-  console.log(alarm);
+  //console.log(alarm);
 }, [alarm]); // alarm 상태가 변경될 때마다 호출
 
 useEffect(() => { //이전 약 정보 불러옴
@@ -75,7 +75,7 @@ useEffect(() => { //이전 약 정보 불러옴
         setMediData(res);
       }
     } catch (err) {
-      console.log("클라이언트에서 약 불러오기 중: ", err);
+      //console.log("클라이언트에서 약 불러오기 중: ", err);
     }
   };
 

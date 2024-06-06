@@ -47,7 +47,7 @@ function InfoPage_1() {
   
     })
     .catch(error => {
-      console.error('Firebase Config Fetch 오류:', error);
+      //console.error('Firebase Config Fetch 오류:', error);
     });
   
 
@@ -79,7 +79,7 @@ function InfoPage_1() {
         navigate(`/InfoPage_1/InfoPage_2?userID=${data._id}`);
       })
       .catch(err => {
-        console.error('namePost 중 오류: ', err);
+        //console.error('namePost 중 오류: ', err);
       });
   }
 

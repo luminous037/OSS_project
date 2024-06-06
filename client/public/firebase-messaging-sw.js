@@ -24,7 +24,7 @@ self.addEventListener("activate", function (e) {
   console.log("Service Worker activated");
 });
 
-// 푸시 알림을 클릭했을 때 실행됩니다.
+// 푸시 알림을 클릭했을 때 실행
 self.addEventListener("notificationclick", function (event) {
   const url = "http://localhost:3000/Alarm"; // 이동할 URL 설정
   event.notification.close();

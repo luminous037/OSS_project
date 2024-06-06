@@ -31,7 +31,7 @@ function InfoPage_2() {
         setUserName(userName);
       })
       .catch(error => {
-        console.error('유저 정보를 가져오는 중 에러:', error);
+        //console.error('유저 정보를 가져오는 중 에러:', error);
       });
   }, []);
 
@@ -62,7 +62,7 @@ function InfoPage_2() {
         navigate(`/InfoPage_1/InfoPage_2/InfoPage_3?mediID=${id}&userID=${userID}`); // 저장 후 페이지 이동
       })
       .catch(err => {
-        console.error('fetchData 중 오류: ', err);
+        //console.error('fetchData 중 오류: ', err);
       });
   };
 

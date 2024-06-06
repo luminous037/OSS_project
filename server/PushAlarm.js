@@ -8,10 +8,14 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
+const generateTaskId= ()=> { //고유 id 생성
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+
 
 // 푸시 알림 보내는 함수
 const sendPushNotifications = (token) => {
-  console.log(token);
+  //console.log(token);
   const message = {
     notification: {
       title: 'MeddyBaby',
@@ -29,7 +33,7 @@ const sendPushNotifications = (token) => {
   };
   admin.messaging().send(message)
     .then((response) => {
-      console.log('메세지 전송 성공:', response);
+      console.log('메세지 전송 성공',response);
     })
     .catch((error) => {
       console.error('메세지 전송 실패:', error);
@@ -84,7 +88,10 @@ const scheduleNotifications = async (user_id, medi_id) => {
           sendPushNotifications(user.token); // 사용자의 토큰으로 푸시 알림 전송
         });
 
+        const taskID = generateTaskId();
+
         try {
+          task.id = taskID;
           // 스케줄링된 작업과 관련된 정보를 배열에 추가
           const result = await scheduleCollection.insertOne({
             taskId: task.id,
@@ -117,11 +124,11 @@ const cancelAndDeleteSchedules = async (medi_id) => {
     const database = getDatabase();
     const scheduleCollection = database.collection("schedule");
 
-    const schedules = await scheduleCollection.find({ mediId: medi_id }).toArray();
+    const schedules = await scheduleCollection.find({ mediId:new ObjectId(medi_id) }).toArray();
 
     schedules.forEach(async (schedule) => {
       // 작업 중지
-      const task = cron.getTask(schedule.taskId);
+      const task = cron.getTasks({ taskId: schedule.taskId })[0];
       if (task) {
         task.destroy();
         console.log(`스케줄 작업 중지: ${schedule.taskId}`);
@@ -130,7 +137,7 @@ const cancelAndDeleteSchedules = async (medi_id) => {
       // 데이터베이스에서 스케줄링 정보 삭제
       await scheduleCollection.deleteOne({ _id: schedule._id })
         .then(() => {
-          console.log(`스케줄 삭제: ${schedule._id}`);
+          console.log('스케줄 삭제');
         })
     });
   } catch (err) {
@@ -149,7 +156,7 @@ const initializeScheduledTasks = async (data) => {
     const users = await userCollection.find({ token: data }, { projection: { _id: 0, scheduleId: 1 } }).toArray();
     
     if (users.length === 0) {
-      console.error('사용자 없음');
+      //console.error('사용자 없음');
       return;
     }
 
