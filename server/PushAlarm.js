@@ -12,6 +12,7 @@ const generateTaskId= ()=> { //고유 id 생성
   return '_' + Math.random().toString(36).substr(2, 9);
 }
 
+const scheduledTasks = []; //작업 관리
 
 // 푸시 알림 보내는 함수
 const sendPushNotifications = (token) => {
@@ -26,7 +27,7 @@ const sendPushNotifications = (token) => {
         link: 'http://localhost:3000/Alarm', // 사용자가 알림을 클릭했을 때 이동할 링크
       },
       notification: {
-        icon: '/favicon.ico', // 아이콘 경로
+        icon: '/myPage_profile1.png', // 아이콘 경로
       },
     },
     token: token
@@ -36,7 +37,7 @@ const sendPushNotifications = (token) => {
       console.log('메세지 전송 성공',response);
     })
     .catch((error) => {
-      console.error('메세지 전송 실패:', error);
+      //console.error('메세지 전송 실패:', error);
     });
 };
 
@@ -78,7 +79,7 @@ const scheduleNotifications = async (user_id, medi_id) => {
 
         // 유효한 hour 값 확인
         if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
-          console.error('잘못된 시간 값:', { hour, minute });
+          //console.error('잘못된 시간 값:', { hour, minute });
           return;
         }
 
@@ -89,10 +90,11 @@ const scheduleNotifications = async (user_id, medi_id) => {
         });
 
         const taskID = generateTaskId();
+        task.id = taskID;
+        scheduledTasks.push(task);
 
         try {
-          task.id = taskID;
-          // 스케줄링된 작업과 관련된 정보를 배열에 추가
+          // 스케줄링된 작업과 관련된 정보 추가
           const result = await scheduleCollection.insertOne({
             taskId: task.id,
             mediId: new ObjectId(medi_id),
@@ -114,7 +116,7 @@ const scheduleNotifications = async (user_id, medi_id) => {
       });
     });
   } catch (err) {
-    console.error('알람 스케줄링 중 오류 발생:', err);
+    //console.error('알람 스케줄링 중 오류 발생:', err);
   }
 };
 
@@ -123,25 +125,34 @@ const cancelAndDeleteSchedules = async (medi_id) => {
   try {
     const database = getDatabase();
     const scheduleCollection = database.collection("schedule");
+    const userCollection = database.collection("user");
 
     const schedules = await scheduleCollection.find({ mediId:new ObjectId(medi_id) }).toArray();
 
-    schedules.forEach(async (schedule) => {
-      // 작업 중지
-      const task = cron.getTasks({ taskId: schedule.taskId })[0];
-      if (task) {
-        task.destroy();
-        console.log(`스케줄 작업 중지: ${schedule.taskId}`);
+    schedules.forEach(async (schedule) => {  // 작업 중지
+     
+      const taskID = schedule.taskId;
+      const taskIndex = scheduledTasks.findIndex(task => task.id === taskID);
+      
+      if (taskIndex !== -1) {
+        const task = scheduledTasks[taskIndex];
+        task.stop();
+        scheduledTasks.splice(taskIndex, 1);  // 작업을 중지한 후 배열에서 삭제
+        //console.log(`스케줄 작업 중지: ${taskID}`);
+      } else {
+        //console.log(`작업을 찾을 수 없습니다: ${taskID}`);
       }
 
+      await userCollection.deleteOne({scheduleID: schedule._id});
+      
       // 데이터베이스에서 스케줄링 정보 삭제
       await scheduleCollection.deleteOne({ _id: schedule._id })
         .then(() => {
-          console.log('스케줄 삭제');
+          //console.log('스케줄 삭제');
         })
     });
   } catch (err) {
-    console.error('알림 스케줄링 삭제 중 오류 발생:', err);
+    //console.error('알림 스케줄링 삭제 중 오류 발생:', err);
   }
 };
 
@@ -169,10 +180,10 @@ const initializeScheduledTasks = async (data) => {
       cron.schedule(schedule.time, () => {
         sendPushNotifications(data); // 주어진 토큰을 푸시 알림에 사용
       });
-      console.log('알림 설정 완료');
+      //console.log('알림 설정 완료');
     });
   } catch (error) {
-    console.error('Error initializing scheduled tasks:', error);
+    //console.error('Error initializing scheduled tasks:', error);
   }
 }
 
