@@ -31,15 +31,28 @@ self.addEventListener("notificationclick", function (event) {
   event.waitUntil(clients.openWindow(url)); // 클라이언트 창을 열고 URL로 이동합니다.
 });
 
+// 푸시 알림 수신
+self.addEventListener('push', function(event) {
+  console.log('Push notification received');
+
+  const payload = event.data ? event.data.json() : {}; // 푸시 알림 데이터 가져오기
+
+  // 푸시 알림 표시
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: payload.notification.icon
+  };
+  event.waitUntil(self.registration.showNotification(notificationTitle, notificationOptions));
+});
+
 fetch('/firebase-config')
   .then(response => response.json())
   .then(firebaseConfig => {
-    //console.log(firebaseConfig);
     firebase.initializeApp(firebaseConfig);
     const messaging = firebase.messaging();
 
     messaging.onBackgroundMessage((payload) => {
-      //console.log('[firebase-messaging-sw.js] Received background message ', payload);
       const notificationTitle = payload.notification.title;
       const notificationOptions = {
         body: payload.notification.body,
