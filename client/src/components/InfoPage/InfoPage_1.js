@@ -13,7 +13,31 @@ function InfoPage_1() {
   const [warningMessage, setWarningMessage] = useState('');
 
   const navigate = useNavigate();
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
 
+     // 'beforeinstallprompt' 이벤트 처리
+     const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+  
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    const handleAddToHomeScreen = () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(choiceResult => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          setDeferredPrompt(null);
+        });
+      }
+    };
+    
   
   const sendSubscriptionToServer = async (token) => {
     await fetch('http://localhost:4000/subscribe', {
@@ -104,6 +128,11 @@ function InfoPage_1() {
       <div className="text3">
         어린이
       </div>
+
+      {deferredPrompt && (
+          <button className="add-to-home-screen-button" onClick={handleAddToHomeScreen}>Add to Home Screen</button>
+        )}
+
       <div className="navigator">
         <button onClick={nameSave} className="nav-item" disabled={isButtonDisabled}>다음</button>
       </div>
