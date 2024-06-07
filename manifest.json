@@ -1,6 +1,6 @@
 {
-    "name": "My Alarm App",
-    "short_name": "AlarmApp",
+    "name": "MeddyBaby",
+    "short_name": "MeddyBaby",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
