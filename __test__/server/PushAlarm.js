@@ -188,4 +188,4 @@ const initializeScheduledTasks = async (data) => {
 }
 
 
-module.exports = { scheduleNotifications, cancelAndDeleteSchedules, initializeScheduledTasks }
+module.exports = { scheduleNotifications, cancelAndDeleteSchedules, initializeScheduledTasks, sendPushNotifications }
