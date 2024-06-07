@@ -10,10 +10,13 @@ function InfoPage_3() {
   const mediID = searchParams.get('mediID'); // 쿼리 파라미터로부터 id 값을 가져옴
   const userID = searchParams.get('userID'); // 쿼리 파라미터로부터 id 값을 가져옴
 
+
   const navigate=useNavigate();
   const navigateBack = () => {
     navigate(-1); // 이전 페이지로 이동
   };
+
+  
 
 
 const [alarm, setalarm] = useState(false);
@@ -134,9 +137,10 @@ const callApi = async () => {
     handleModalClose(buttonId);
   };
 
-  const setAlarm = () => {
+  const setAlarm = () => { 
     alert("알람이 설정되었습니다.");
     setalarm(true);
+    localStorage.setItem('isAlarmSet', true); // 알람 설정을 로컬 스토리지에 저장
   };
 
  
@@ -192,10 +196,10 @@ const callApi = async () => {
         {renderButtonIfTrue(mediData.detail.evening, 3)}
       </div>
 
-      <div className="confirm">
-        <button onClick={setAlarm}>이대로 설정!</button>
       </div>
 
+      <div className="confirm">
+        <button onClick={setAlarm}>이대로 설정!</button>
       </div>
 
       <div className="navigator">
