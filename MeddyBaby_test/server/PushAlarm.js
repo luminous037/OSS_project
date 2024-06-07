@@ -16,7 +16,6 @@ const scheduledTasks = []; //작업 관리
 
 // 푸시 알림 보내는 함수
 const sendPushNotifications = (token) => {
-  //console.log(token);
   const message = {
     notification: {
       title: 'MeddyBaby',
@@ -32,14 +31,10 @@ const sendPushNotifications = (token) => {
     },
     token: token
   };
-  admin.messaging().send(message)
-    .then((response) => {
-      console.log('메세지 전송 성공',response);
-    })
-    .catch((error) => {
-      //console.error('메세지 전송 실패:', error);
-    });
+  
+  return admin.messaging().send(message);
 };
+
 
 // 알림 스케줄링 함수
 const scheduleNotifications = async (user_id, medi_id) => {
@@ -188,4 +183,4 @@ const initializeScheduledTasks = async (data) => {
 }
 
 
-module.exports = { scheduleNotifications, cancelAndDeleteSchedules, initializeScheduledTasks }
+module.exports = { scheduleNotifications, cancelAndDeleteSchedules, initializeScheduledTasks, sendPushNotifications }
