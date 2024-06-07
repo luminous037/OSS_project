@@ -15,10 +15,12 @@ import Seed from './mainPage/seed.js';
 import Cloud from './mainPage/cloud.js';
 import WeeklyCheck from './WeeklyPage/WeeklyCheck.js';
 import Shop from './shopPage/Shop.js';
+import { PromptProvider } from '../PromptContext.js';
 
 function App() {
 
   return (
+    <PromptProvider>
     <Router>
       <div>
       <Routes>
@@ -40,6 +42,7 @@ function App() {
         <ShowNavigationBar /> {/* 하단 네비게이션 바를 추가합니다. */}
       </div>
     </Router>
+    </PromptProvider>
   );
 }
 
