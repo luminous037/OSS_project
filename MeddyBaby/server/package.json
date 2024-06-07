@@ -1,0 +1,24 @@
+{
+    "name": "meddy",
+    "version": "1.0.0",
+    "scripts": {
+        "client": " cd .. && cd client && npm start",
+        "server": "nodemon Server.js",
+        "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "firebase-admin": "^12.1.1",
+        "mongoose": "^8.4.0",
+        "node-cron": "^3.0.3",
+        "nodemon": "^3.1.0",
+        "react-router-dom": "^6.23.1"
+    },
+    "devDependencies": {
+        "concurrently": "^4.1.2"
+    }
+}

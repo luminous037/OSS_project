@@ -1,0 +1,96 @@
+.alarm-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100vh;
+    background-image: url('../image/back.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+  }
+  
+  .top-container{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    width: 100%;
+    padding-top: 150px;
+   
+  }
+  .middle-container{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+    
+
+  }
+  .bottom-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    
+
+  }
+  
+  .animated-circle {
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    background-color: rgba(115, 174, 242, 0.863); 
+    background-image: url('../image/6.jpeg');
+    background-size: contain;
+    animation: pulse 2s infinite;
+    
+  }
+
+  
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .chick3{
+    width: 30%;
+    padding-left: 160px;
+    padding-top: 130px;
+  }
+  
+ .wirting-box{
+    padding-top: 5px;
+    width: 100%;
+    padding-left: 110px;
+   
+ }
+
+ .close-button {
+    width: 200px;
+    height: 100px;
+    font-size: 40px;
+    color: #5B5859;
+    font-family: "on";
+    cursor: pointer;
+    padding-left: 20px;
+    background-color: rgba(255, 255, 255, 0.863);
+    background-image: url('../image/cloud2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: pulse 2s infinite;
+  }
+
+  

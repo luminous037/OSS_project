@@ -1,0 +1,216 @@
+.Seed {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 중앙 정렬을 원한다면 추가 */
+}
+
+.seedcancelbutton{
+  color: black;
+  font-family: "np";
+  background-color: #F5F5DC;
+  position: relative;
+  left: 20px;
+}
+
+
+.modaldal {
+  background-color: #F5F5DC;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+p5{
+font-family: "np";
+color: black;
+ font-size: 20px;
+}
+
+
+/*모달창에 커서를 가져갔을 때 색상 변화*/
+.seed-list-item:hover {
+  background-color: #f4f4c6
+}
+
+/*씨앗 이미지랑 텍스트 옮기고 싶으면 여기*/
+.seed-list-item {
+  
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 텍스트와 이미지 사이의 간격 */
+  cursor: pointer;
+  padding: 10px;
+  font-family: np;
+  color: black;
+  position: relative;
+  top:-10px;
+  left: -25px;
+
+ 
+}
+
+.seed-image-container {
+  border-radius: 5px;
+  width: 50px; 
+  height: 50px; 
+  background-color: white; 
+  border: 2px solid black; /* 사각형 테두리 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seed-image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+h7{
+  color: black;
+  font-family: np;
+}
+
+p3{
+  color: black;
+  font-family: np;
+
+}
+
+.moneycancelbutton{
+  color: black;
+  font-family: "np";
+  background-color: #F5F5DC;
+
+}
+
+.seed-plant-animation {
+  animation: plantSeed 0.5s forwards;
+}
+
+@keyframes plantSeed {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes plantSeedAnimation {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+
+.seed-planted {
+  animation: plantSeedAnimation 1s ease-in-out forwards;
+}
+
+@keyframes sproutAnimation {
+  from {
+    transform: scale(1);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.sprout {
+  width: 50px;
+  animation: sproutAnimation 0.5s ease-in-out forwards;
+}
+
+.reward-tree {
+  width: 100px;
+}
+
+.reward-tree + button {
+  display: block;
+  margin-top: 10px;
+}
+
+.plantbutton{
+  background-image: url('../image/seedsign.png');
+  width: 100px;
+  height: 90px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #def0a0;
+
+}
+
+.moneybutton{
+  background-image: url('../image/bagsign.png');
+  background-color: #def0a0;
+  width: 100px;
+  height: 90px;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+}
+
+.button-hover{
+  background-color: #def0a0;
+}
+
+.sign-container {
+  display: flex;
+  justify-content: center; /* 중앙 정렬을 원한다면 추가 */
+  gap: 60px; /* 버튼 사이의 간격 조정 */
+}
+
+
+/* 씨앗 이미지 크기 조절 */
+.seed-planted {
+  width: 50px; /* 원하는 크기로 조절 */
+  height: auto;
+}
+
+.sprout {
+  width: 100px; 
+  height: auto;
+}
+
+/* 꽃 이미지 크기 조절 */
+.flower{
+  width: 100px; 
+  height: 90px;
+}
+
+/* 나무 이미지 크기 조절 */
+.tree {
+  width: 150px; 
+  height: 120px;
+}
+
+/* 보상 열린 나무 이미지 크기 조절 */
+.reward-tree {
+  width: 100px; 
+  height: auto;
+}
+
+.accept{
+  background-color: rgb(213, 227, 149);
+  color: black;
+  font-size: 15px;
+  font-family: "np";
+  border: 2px solid #cae274; /* 테두리 색상과 두께 */
+  
+  
+}
