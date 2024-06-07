@@ -8,6 +8,7 @@ module.exports = {
       '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
       '\\.(jpg|jpeg|png|gif|webp|svg)$': 'jest-transform-stub'
     },
-    setupFilesAfterEnv: ['@testing-library/jest-dom']
+    setupFilesAfterEnv: ['@testing-library/jest-dom'],
+    
   };
   
