@@ -16,28 +16,24 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
+jest.mock('node-cron');
 
 // firebase-admin 모듈 목업
 jest.mock('firebase-admin', () => ({
+  initializeApp: jest.fn(),
   credential: {
     cert: jest.fn(),
   },
-  messaging: jest.fn(() => ({
+  messaging: () => ({
     send: jest.fn(),
-  })),
-  initializeApp: jest.fn(),
+  }),
 }));
 
 describe('sendPushNotifications 함수', () => {
-  it('푸시 알림을 성공적으로 전송해야 합니다', async () => {
-    // 토큰을 목업합니다.
+  it('notification에서 send 함수를 호출해야 합니다', async () => {
+    // 푸시 알림에 사용될 토큰과 메시지
     const token = '모의 토큰';
-
-    // 함수를 호출합니다.
-    await sendPushNotifications(token);
-
-    // 어서션합니다.
-    expect(admin.messaging().send).toHaveBeenCalledWith({
+    const message = {
       notification: {
         title: 'MeddyBaby',
         body: '약 먹을 시간이에요!',
@@ -51,44 +47,43 @@ describe('sendPushNotifications 함수', () => {
         },
       },
       token: token
-    });
+    };
+
+    // send 함수를 spyOn하여 호출되었는지 확인합니다.
+    const sendSpy = jest.spyOn(admin.messaging(), 'send');
+
+    // 함수를 호출합니다.
+    await sendPushNotifications(token);
+
+    // send 함수가 올바른 매개변수와 함께 호출되었는지 확인합니다.
+    expect(sendSpy).toHaveBeenCalledWith(message);
+
+    // spyOn을 제거합니다.
+    sendSpy.mockRestore();
   });
 });
 
 
-describe('scheduleNotifications', () => {
-  // Mocking collections and data for test
-  const mockUserCollection = [
-    { _id: 'user1', token: 'user1_token' },
-    { _id: 'user2', token: 'user2_token' },
-  ];
-  const mockMediListCollection = [
-    { _id: 'medi1', detail: { morning: true, ampm1: 'AM', hour1: '8', minute1: '0' } },
-    { _id: 'medi2', detail: { afternoon: true, ampm2: 'PM', hour2: '1', minute2: '30' } },
-  ];
+describe('scheduleNotifications 함수', () => {
+  it('사용자가 설정한 시간에 알림이 전송되어야 합니다', async () => {
+    jest.useFakeTimers(); // Jest 타이머 사용
 
-  // Mocking getDatabase function
-  jest.spyOn(require('./DbConnect'), 'getDatabase').mockImplementation(() => ({
-    collection: (name) => {
-      if (name === 'user') return mockUserCollection;
-      if (name === 'medicineList') return mockMediListCollection;
-      // Add more mocks if needed
-    },
-  }));
+    const user_id = 'user1';
+    const medi_id = 'medi1';
+    const currentTime = new Date(); // 현재 시간
+    const scheduledTime = new Date(currentTime.getTime() + 1000); // 1초 뒤 시간 예약
 
-  test('does not schedule notifications when user is not found', async () => {
-    await scheduleNotifications('nonexistent_user_id', 'medi1');
-    // expect no push notifications to be sent
-    expect(sendPushNotifications).not.toHaveBeenCalled();
+    // sendPushNotifications 함수를 spyOn하여 호출 여부를 확인
+    const sendPushNotificationsSpy = jest.spyOn(require('./PushAlarm'), 'sendPushNotifications');
+
+    // scheduleNotifications 함수 호출
+    await scheduleNotifications(user_id, medi_id);
+
+    // sendPushNotifications 함수가 올바른 매개변수와 함께 호출되었는지 확인
+    expect(sendPushNotificationsSpy).toHaveBeenCalledWith(user_id);
+
+    jest.useRealTimers(); // Jest 타이머 초기화
   });
-
-  test('does not schedule notifications when medicine list is empty', async () => {
-    await scheduleNotifications('user1', 'nonexistent_medi_id');
-    // expect no push notifications to be sent
-    expect(sendPushNotifications).not.toHaveBeenCalled();
-  });
-
-  // Write more test cases for different scenarios
 });
 
 

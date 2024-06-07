@@ -17,7 +17,7 @@ describe('AddMedi 컴포넌트', () => {
     const { getByText, getByLabelText } = render(<AddMedi />);
     
     // 약 정보 입력
-    fireEvent.change(getByLabelText('먹는 약'), { target: { value: '파르메노' } });
+    fireEvent.change(getByLabelText('먹는 약'), { target: { value: '약' } });
     fireEvent.change(getByLabelText('시간 입력'), { target: { value: '10:00' } });
     fireEvent.click(getByText('아침'));
 
@@ -33,7 +33,7 @@ describe('AddMedi 컴포넌트', () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          mediName: '파르메노',
+          mediName: '약',
           time: '10:00',
           detail: {
             morning: true,
