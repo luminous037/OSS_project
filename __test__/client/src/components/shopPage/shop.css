@@ -1,0 +1,300 @@
+body {height:100%; overflow:hidden;}
+.scene{height: 100%; position : relative}
+
+
+.background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('../image/background_shop.png');
+    background-size: auto 100%;
+    z-index: 0; 
+  }
+/*상점 타이틀*/
+.title_shop{
+  font-family: on;
+  font-size: 40px;
+    position: absolute;
+    left: 5%;
+}
+/*병아리 캐릭터*/
+.chick4{
+    position: absolute;
+    padding-right: 10%;
+    top:-7%;
+    left:0%; 
+    transform: scale(0.55);
+    z-index: 0;
+  }
+/*포인트 박스 이미지*/
+  .pointBox{
+    position: absolute;
+    padding-right: 90%;
+    top:-24%;
+
+    transform: scale(0.3);
+    z-index: 0;
+  }
+/*포인트 텍스트*/
+  .point {
+    font-family: on;
+    position: absolute;
+    top: 3.3%;
+    left: 88%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0);
+    font-size: 25px;
+    z-index: 1;
+    display:flex;
+    z-index: 1;
+  }
+/*코인이미지*/
+  .coin{
+    position: absolute;
+    top: -14.3%;
+    left: 37.5%;
+    transform: scale(0.08);
+  }
+
+  .items{
+    display: flex; /* flexbox 사용 */
+    flex-wrap: wrap; /* 아이템들이 컨테이너 너비를 초과할 경우 다음 줄로 넘어감 */
+    position: absolute;
+    top: 39%;
+    left: 8%;
+    width: 400px; /* 컨테이너의 너비 - 이 값을 조절하여 한 줄에 표시될 아이템 수 조절 */
+    margin: 55px;
+    font-size: 15px;
+  }
+
+/* 아이템 이름과 가격 사이의 간격 추가 */
+.item h3{
+  font-family: on;
+  font-size:25px;
+    margin-top:0px;
+    margin-bottom:90px;
+    margin-right:50px; /* 원하는 간격으로 조절하세요 */
+    font-weight: normal;
+  }
+  
+  .item-image{
+    position: absolute;
+    transform: scale(0.2);
+    margin-top: -300px; 
+    margin-left:-240px;
+    margin-right:-50px;
+  }
+
+/*가격 텍스트*/
+  .price{
+    font-family: on;
+  font-size:20px;
+  font-weight: normal;
+  }
+  .equipped-plant {
+    position: absolute;
+    background-color: green;
+  }
+  
+  .equipped-santa {
+    background-color: red;
+  }
+  
+  .equipped-dragon {
+    background-color: yellow;
+  }
+  
+  .equipped-witch {
+    background-color: purple;
+  }
+  
+  .equipped-ribbon {
+    background-color: pink;
+  }
+  
+  .equipped-crown {
+    background-color: gold;
+  }
+  
+  /*구매완료 텍스트*/
+  .purchased{
+    font-family: on;
+    font-size:20px;
+    font-weight: normal;
+    color:gray;
+  }
+  
+
+  .modal{
+    position: absolute;
+    top : 30%;
+    left: 15%;
+  }
+
+  .modal-content {
+    font-family: on;
+    font-size: 25px;
+    font-weight: normal;
+    background-color: #fff5d2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(111, 111, 111, 0.5);
+    text-align: center;
+    background-image: url('../image/what_shop.png');
+    background-repeat: no-repeat;
+    background-size: 380px 190px;
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+  
+  .modal-buttons button {
+    background-color: #ead899;
+    border: 2px solid black;
+    color:black;
+    margin: 0 10px;
+  }
+
+  .modal-denied h2{
+    font-weight: normal;
+    position: absolute;
+    top :-3%;
+    left:30%;
+  }
+
+  .modal-denied p{
+    padding-top:10%;
+  }
+
+
+  .modal-denied{
+    width:340px;
+    height:120px;
+  }
+  
+.pannel_shop{
+    position: absolute;
+    top: 37%;
+    height: 58%;
+    width: 520px;
+}
+
+
+
+.explode-animation {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-image: url('../image/fireworks.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: explode 0.9s ease-in-out, slideDown 0.55s ease-in-out 0.55s;
+    opacity: 0;
+    z-index: 1;
+  }
+
+  
+  @keyframes explode {
+    0% {
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 0.1;
+    }
+    10% {
+        transform: translate(-50%, -50%) scale(6);
+        opacity: 1;
+      }
+    80% {
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 1;
+    }
+    90%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.5;
+    }
+    95%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.8;
+    }
+    100%{
+        transform: translate(-50%, -50%) scale(6);
+      opacity: 0.1;
+    }
+  }
+
+
+/*새싹모자 착용시 이미지 조정*/
+  .image-1 {
+    position: absolute;
+    top: 3%;
+    left: 42%;
+    height: 80px;;
+    width: 80px;
+  }
+  /*산타모자 착용시 이미지 조정*/
+  .image-2 {
+    position: absolute;
+    top: 3%;
+    left: 41%;
+    height: 100px;;
+    width: 100px;
+  }
+  /*용머리띠 착용시 이미지 조정*/
+  .image-3 {
+    position: absolute;
+    top: 4%;
+    left: 152px;
+    height: 150px;;
+    width: 204px;
+  }
+  /*마녀모자 착용시 이미지 조정*/
+  .image-4 {
+    position: absolute;
+    top: 10px;
+    left: 183px;
+    height: 120px;;
+    width: 140px;
+  }
+
+  /*분홍리본 착용시 이미지 조정*/
+  .image-5 {
+    position: absolute;
+    top: 75px;
+    left: 260px;
+    height: 50px;;
+    width: 50px;
+  }
+
+   /*황금왕관 착용시 이미지 조정*/
+   .image-6 {
+    position: absolute;
+    top: 5px;
+    left: 183px;
+    height: 120px;;
+    width: 140px;
+  }
+
+
+  
+  
+  
+  @keyframes slideDown {
+    0% {
+    transform: translate(-50%, -50%) scale(5);
+      opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(5);
+      opacity: 0;
+    }
+  }
+  
+
+  @font-face {
+    font-family: "on";
+    font-weight: 50;
+    src: url("../../fonts/온글잎 밑미.ttf");
+  }
