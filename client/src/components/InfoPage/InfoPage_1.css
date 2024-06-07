@@ -144,3 +144,13 @@ left: 10%;
 .modal-button:hover {
   background-color: #0056b3;
 }
+
+.modal_info1_content p{
+  font-weight: bolder;
+  color:rgb(0, 0, 0);
+}
+
+
+.modal_info1_content h44{
+  color:gray;
+}

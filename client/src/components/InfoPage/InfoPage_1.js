@@ -141,10 +141,11 @@ useEffect(() => {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal_info1">
-            <div className="moda_info1_content">
+            <div className="modal_info1_content">
               <h2>MeddyBaby를 <br />앱으로 사용합니다.</h2>
               <p>앱을 다운로드하여 알람소리를 허용합니다.</p>
-              
+              <h44>다운로드 버튼이 표시되지 않을 시, 새로고침 버튼을 누르세요.</h44>
+              <br></br>
               {deferredPrompt && (
               <button  onClick={handleAddToHomeScreen}className='modal-button'>다운로드로 이동</button>
                )}
