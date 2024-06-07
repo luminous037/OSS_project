@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "client": " cd .. && cd client && npm start",
+        "test" : "jest",
         "server": "nodemon Server.js",
         "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
     },
