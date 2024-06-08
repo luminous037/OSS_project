@@ -1,0 +1,22 @@
+{
+    "name": "MeddyBaby",
+    "short_name": "MeddyBaby",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "description": "A web app for alarm notifications with background music",
+    "icons": [
+      {
+        "src": "/path/to/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/path/to/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#ffffff"
+  }
+  

@@ -1,37 +1,32 @@
-
 import React, { useState, useEffect } from 'react';
 import './alarmPage.css';
 import chick3 from '../image/chick3.png';
 import { useNavigate } from 'react-router-dom';
-
-
-
+import music from "./meddy_baby_ver3.mp3";
 
 const AlarmPage = () => {
-
-  /*구름 퍼센테이지 관리하는 함수*/
-  const [percentage, setPercentage] = useState(() => {
-  });
-
+  const [percentage, setPercentage] = useState(0);
   const navigate = useNavigate();
+  const audio = new Audio(music); // 오디오 객체 생성
 
   useEffect(() => {
     fetch('/userProfile')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Fetched user data:', data); // 서버에서 받은 데이터 출력
-      const userCloud = parseInt(data[0].cloud, 10);
-      setPercentage(userCloud);
-    })
-    .catch(error => {
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched user data:', data);
+        const userCloud = parseInt(data[0].cloud, 10);
+        setPercentage(userCloud);
+      })
+      .catch(error => {
         console.error('유저 정보를 가져오는 중 에러:', error);
-    });
+      });
+
+    audio.play().catch(err => console.log("오디오 재생 오류:", err)); // 컴포넌트가 마운트될 때 오디오 재생
   }, []);
 
-  /*구름을 클릭했을 경우 퍼센테이지가 상승함 최대 100*/
   const handleClearClick = () => {
-    setPercentage(prev =>{
-      const newPercent=Math.min(prev + 35, 100)
+    setPercentage(prev => {
+      const newPercent = Math.min(prev + 35, 100);
       updateCloud(newPercent);
       navigate('/Main');
       return newPercent;
@@ -44,46 +39,35 @@ const AlarmPage = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(({ cloudPercent: newPercent }))
-    })
-    .then(() => {
+      body: JSON.stringify({ cloudPercent: newPercent })
     })
     .catch(err => {
       console.error('rainUpdate중 오류: ', err);
     });
   };
 
-    /*구름 퍼센테이지 텍스트 css*/
-    const textStyle = {
-        fontSize: '40px', 
-        fontFamily: 'on', 
-        color: '#5B5859', 
-      };
+  const textStyle = {
+    fontSize: '40px',
+    fontFamily: 'on',
+    color: '#5B5859',
+  };
 
-      /*AlarmPage를 임포트 했을 경우 return되는 요소들*/
   return (
     <div className="alarm-container">
-
       <div className="top-container">
-      <div className="animated-circle"> 
-      <img src={chick3} alt="chick3" className="chick3" />
-      <div className='wirting-box'>
-      <div className="writing" style={textStyle}>약 먹을 시간이에요!</div>
-      </div>
+        <div className="animated-circle">
+          <img src={chick3} alt="chick3" className="chick3" />
+          <div className='wirting-box'>
+            <div className="writing" style={textStyle}>약 먹을 시간이에요!</div>
+          </div>
         </div>
       </div>
-      
-
       <div className="middle-container">
-      <button className="close-button" onClick={handleClearClick}>clear!</button>
+        <button className="close-button" onClick={handleClearClick}>clear!</button>
       </div>
-      
-      <div className="bottom-container">
-    
-      </div>
+      <div className="bottom-container"></div>
     </div>
   );
 };
 
 export default AlarmPage;
-
