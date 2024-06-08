@@ -6,23 +6,50 @@
 # 설치 방법
 
 **1. node.js 설치**
+- node.js 공식 홈페이지에서 설치하기
+https://nodejs.org/ko/
+
+- node.js 버전 확인하기
 ```sh
 ~$ node -v
 ```
-=> node.js 버전 확인하기
 
-**2 react 설치**
+**2. yarn 패키지 매니저 설치**
+- yarn 설치
+```sh
+~$ npm install --global yarn
+```
+
+- yarn 버전 확인하기
+- yarn 설치
+```sh
+~$ yarn --version
+```
+
+
+**3. react 설치**
+- react 설치하기
 ```sh
 ~$ npx create-react-app blog
 ```
+
+- macos에서 permission error 발생 시 입력하기
 ```sh
 ~$ sudo npx create-react-app blog
 ```
-=> macos에서 permission error 발생 시 입력하기
 
-**3. mongoDB 연결**
+
+**4. mongoDB 연결**
 ```sh
 ```
+
+
+**5. firebase 연결**
+1. firebase 콘솔에서 프로젝트 생성
+2. 프로젝트 설정에서 SDK 설정 env 파일에 저장 (파일 형식은 제공할 것)
+3. 프로젝트 설정의 서비스 계정에서 비공개 키 다운
+4. 위 2,3 번 내용의 파일을 서버 폴더에 저장
+
 <p><br></p>
 
 # 의존성
