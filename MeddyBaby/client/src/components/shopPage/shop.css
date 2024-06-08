@@ -41,8 +41,8 @@ body {height:100%; overflow:hidden;}
   .point {
     font-family: on;
     position: absolute;
-    top: 3.3%;
-    left: 88%;
+    top: 1.5%;
+    left: 85%;
     transform: translate(-50%, -50%);
     color: rgb(0, 0, 0);
     font-size: 25px;
@@ -230,15 +230,15 @@ body {height:100%; overflow:hidden;}
   .image-1 {
     position: absolute;
     top: 3%;
-    left: 42%;
+    left: 39%;
     height: 80px;;
     width: 80px;
   }
   /*산타모자 착용시 이미지 조정*/
   .image-2 {
     position: absolute;
-    top: 3%;
-    left: 41%;
+    top: 2%;
+    left: 39%;
     height: 100px;;
     width: 100px;
   }

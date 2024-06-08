@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,5 +42,15 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000/"
+  "proxy": "http://localhost:4000/",
+  "devDependencies": {
+    "@babel/preset-react": "^7.24.7",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    }
+  }
 }

@@ -109,7 +109,7 @@ function MyPage() {  //마이페이지 기본 틀
                 <div className={'modal_content'}>
                   <h3 className={'modal_text'}>이름 수정</h3>
                   <input className="modal_input" onChange={e => setNewData(prevData => ({...prevData, newName: e.target.value }))}></input>
-                  <button className={'modal_close_button'} onClick={() => handleModalSave()}>
+                  <button className={'modal_save_button'} onClick={() => handleModalSave()}>
                    저장
                   </button>
                 </div>
@@ -120,9 +120,6 @@ function MyPage() {  //마이페이지 기본 틀
 
           </>
           <br></br>
-          <div className="text_setting"><h2 >알람 소리 설정</h2>
-          <div className="button_alarm_myPage"><Switch onChange={handleChange} checked={userData.alarm}  onColor="#8CD7F2" className="switch" />
-          </div></div>
         </div>
 
         <div className='MedicineList'>
