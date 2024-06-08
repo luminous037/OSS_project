@@ -7,12 +7,14 @@
 
 **1. node.js 설치**
 - node.js 공식 홈페이지에서 설치하기
-https://nodejs.org/ko/
+  
+  https://nodejs.org/ko/
 
 - node.js 버전 확인하기
 ```sh
 ~$ node -v
 ```
+<p><br></p>
 
 **2. yarn 패키지 매니저 설치**
 - yarn 설치
@@ -24,7 +26,7 @@ https://nodejs.org/ko/
 ```sh
 ~$ yarn --version
 ```
-
+<p><br></p>
 
 **3. react 설치**
 - react 설치하기
@@ -36,12 +38,19 @@ https://nodejs.org/ko/
 ```sh
 ~$ sudo npx create-react-app blog
 ```
-
+<p><br></p>
 
 **4. mongoDB 연결**
+
+https://cloud.mongodb.com/v2/6631e2bb64691845a57096a3#/overview
+
+1. vs code에서 mongoDB 확장 설치
+2. mongoDB 연동하기
 ```sh
+mongodb+srv://Gaudul:<password>@meddybaby.plkzmsm.mongodb.net/
 ```
 
+<p><br></p>
 
 **5. firebase 연결**
 1. firebase 콘솔에서 프로젝트 생성
@@ -66,10 +75,14 @@ https://nodejs.org/ko/
 
 # 실행 방법
 
+- repository 복제
 ```sh
 ~$ git clone https://github.com/luminous037/OSS_project.git
 ```
+- .env 파일 추가 (파일 내용은 github repo를 참조)
+- serviceAccountKey.json 파일 추가
 
+- Module 및 library 설치
 ```sh
 ~$ npm install
 ~$ npm install dotenv
