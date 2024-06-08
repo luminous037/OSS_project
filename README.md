@@ -42,8 +42,6 @@
 
 **4. mongoDB 연결**
 
-https://cloud.mongodb.com/v2/6631e2bb64691845a57096a3#/overview
-
 1. vs code에서 mongoDB 확장 설치
 2. mongoDB 연동하기
 ```sh
@@ -54,9 +52,22 @@ mongodb+srv://Gaudul:<password>@meddybaby.plkzmsm.mongodb.net/
 
 **5. firebase 연결**
 1. firebase 콘솔에서 프로젝트 생성
-2. 프로젝트 설정에서 SDK 설정 env 파일에 저장 (파일 형식은 제공할 것)
+2. 프로젝트 설정에서 SDK 설정 env 파일에 저장
 3. 프로젝트 설정의 서비스 계정에서 비공개 키 다운
 4. 위 2,3 번 내용의 파일을 서버 폴더에 저장
+
+SDK설정 .env 파일 형식
+```sh
+FIREBASE_API_KEY = "your Firebase Api Key"
+FIREBASE_AUTH_DOMAIN = "your Firebase Auth Domain"
+FIREBASE_PROJECT_ID = "your Firebase Project Id"
+FIREBASE_STORAGE_BUCKET = "your Firebase Storage Bucket"
+FIREBASE_MESSAGING_SENDER_ID = "your Firebase Messaging Sender Id"
+FIREBASE_APP_ID = "your Firebase App Id"
+FIREBASE_MEASUREMENT_ID = "your FireBase Measurement Id"
+
+PORT='your port Number'
+```
 
 <p><br></p>
 
