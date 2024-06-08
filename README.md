@@ -21,7 +21,6 @@ https://nodejs.org/ko/
 ```
 
 - yarn 버전 확인하기
-- yarn 설치
 ```sh
 ~$ yarn --version
 ```
@@ -55,7 +54,7 @@ https://nodejs.org/ko/
 # 의존성
 
 <h10>**OS**</h10>
-<p>windows Mac Linux</p>
+<p>windows / Mac / Linux</p>
 
 <h10>**Library**</h10>
 <p>Node.js / React</p>
@@ -69,10 +68,34 @@ https://nodejs.org/ko/
 
 ```sh
 ~$ git clone https://github.com/luminous037/OSS_project.git
-~$ cd server
-~$ yarn dev
+```
+
+```sh
+~$ npm install
+~$ npm install dotenv
+~$ npm install node-cron
+~$ npm install firebase-admin
+~$ npm install express
+```
+- client 경로로 이동한 후
+```sh
+npm install firebase 
+```
+- server 경로로 이동한 후
+```sh
+npm install concurrently --save-dev
+```
+  
+```sh
+cd server
+yarn dev
 ```
 <p><br></p>
+
+
+
+
+
 
 
 # 구성원
