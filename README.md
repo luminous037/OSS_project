@@ -90,8 +90,9 @@ PORT='your port Number'
 ```sh
 ~$ git clone https://github.com/luminous037/OSS_project.git
 ```
-- .env 파일 추가 (파일 내용은 github repo를 참조)
-- serviceAccountKey.json 파일 추가
+
+
+- 서버 폴더에 sdk설정한 .env 파일과 serviceAccountKey.json 파일 추가
 
 - Module 및 library 설치
 - 루트 디렉토리, server 폴더, client폴더에서
