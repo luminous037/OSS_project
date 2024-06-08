@@ -24,6 +24,15 @@ self.addEventListener("activate", function (e) {
   console.log("Service Worker activated");
 });
 
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
+});
+
+
 // 푸시 알림을 클릭했을 때 실행
 self.addEventListener("notificationclick", function (event) {
   const url = "http://localhost:3000/Alarm"; // 이동할 URL 설정
