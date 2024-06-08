@@ -114,7 +114,7 @@ npm install firebase
 ```sh
 npm install concurrently --save-dev
 ```
-  
+-실행 명령어
 ```sh
 cd server
 yarn dev
