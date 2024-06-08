@@ -124,15 +124,14 @@ const cancelAndDeleteSchedules = async (medi_id) => {
 
     const schedules = await scheduleCollection.find({ mediId:new ObjectId(medi_id) }).toArray();
 
-    schedules.forEach(async (schedule) => {  // 작업 중지
-     
+    for (const schedule of schedules) {
       const taskID = schedule.taskId;
       const taskIndex = scheduledTasks.findIndex(task => task.id === taskID);
       
       if (taskIndex !== -1) {
         const task = scheduledTasks[taskIndex];
         task.stop();
-        scheduledTasks.splice(taskIndex, 1);  // 작업을 중지한 후 배열에서 삭제
+        scheduledTasks.splice(taskIndex, 1);
         //console.log(`스케줄 작업 중지: ${taskID}`);
       } else {
         //console.log(`작업을 찾을 수 없습니다: ${taskID}`);
@@ -141,11 +140,9 @@ const cancelAndDeleteSchedules = async (medi_id) => {
       await userCollection.deleteOne({scheduleID: schedule._id});
       
       // 데이터베이스에서 스케줄링 정보 삭제
-      await scheduleCollection.deleteOne({ _id: schedule._id })
-        .then(() => {
-          //console.log('스케줄 삭제');
-        })
-    });
+      await scheduleCollection.deleteOne({ _id: schedule._id });
+      //console.log('스케줄 삭제');
+    }
   } catch (err) {
     //console.error('알림 스케줄링 삭제 중 오류 발생:', err);
   }

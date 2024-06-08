@@ -41,7 +41,8 @@ self.addEventListener('push', function(event) {
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
-    icon: payload.notification.icon
+    icon: payload.notification.icon,
+    sound: payload.data.sound
   };
   event.waitUntil(self.registration.showNotification(notificationTitle, notificationOptions));
 });
@@ -56,7 +57,8 @@ fetch('/firebase-config')
       const notificationTitle = payload.notification.title;
       const notificationOptions = {
         body: payload.notification.body,
-        icon: payload.notification.icon
+        icon: payload.notification.icon,
+        sound: payload.data.sound
       };
       self.registration.showNotification(notificationTitle, notificationOptions);
     });

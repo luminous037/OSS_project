@@ -28,6 +28,8 @@ const AlarmPage = () => {
     setPercentage(prev => {
       const newPercent = Math.min(prev + 35, 100);
       updateCloud(newPercent);
+      audio.pause();
+      audio.currentTime = 0;
       navigate('/Main');
       return newPercent;
     });
