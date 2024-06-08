@@ -94,8 +94,12 @@ PORT='your port Number'
 - serviceAccountKey.json 파일 추가
 
 - Module 및 library 설치
+- 루트 디렉토리, server 폴더, client폴더에서
 ```sh
 ~$ npm install
+```
+- * 위 방법으로 해결이 안될 시
+```sh
 ~$ npm install dotenv
 ~$ npm install node-cron
 ~$ npm install firebase-admin
