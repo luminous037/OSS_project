@@ -260,8 +260,8 @@ h1{
   z-index:900;
   width: 40px;
   height: 40px;
-  top:370px;
-  left:374px;
+  top:51%;
+  left:75%;
 }
 
 .item2-image-main{
@@ -269,8 +269,8 @@ h1{
   z-index:900;
   width: 44px;
   height: 40px;
-  top:373px;
-  left:374px;
+  top:51%;
+  left:76%;
 }
 
 .item3-image-main{
@@ -278,32 +278,32 @@ h1{
   z-index:900;
   width: 69px;
   height: 40px;
-  top:387px;
-  left:359px;
+  top:53%;
+  left:72.5%;
 }
 .item4-image-main{
   position: absolute;
   z-index:900;
   width: 69px;
   height: 55px;
-  top:365px;
-  left:359px;
+  top:50.5%;
+  left:72.5%;
 }
 .item5-image-main{
   position: absolute;
   z-index:900;
   width: 30px;
   height: 30px;
-  top:388px;
-  left:390px;
+  top:53%;
+  left:78%;
 }
 .item6-image-main{
   position: absolute;
   z-index:900;
   width: 69px;
   height: 50px;
-  top:370px;
-  left:359px;
+  top:51%;
+  left:72.5%;
 }
 
 
