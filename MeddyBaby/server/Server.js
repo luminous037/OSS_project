@@ -198,8 +198,8 @@ app.get('/list/:id',(req,res)=>{ //Detail페이지에서 이용, 사용자가 �
     })
 })
 
-app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이터 삭제
-
+app.delete('/delete_list/:id', async (req,res)=>{ // myPage에서 이용, 약 데이터 삭제
+  
   const id = req.params.id;
 
   const database = getDatabase(); //db 가져오기
@@ -207,16 +207,22 @@ app.delete('/delete_list/:id', (req,res)=>{ // myPage에서 이용, 약 데이�
   const userCollection  = database.collection("user");
   //console.log( "현재 id: ", id);
 
+  try {
+    await mediListcollection.deleteOne({ _id: new ObjectId(id) });
 
-    mediListcollection.deleteOne({ _id: new ObjectId(id)})
-    .then(() => {
-      cancelAndDeleteSchedules(id); //알림 삭제
-      return userCollection.updateOne(
-          { _id: user_id },
-          { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
-      );
-  })
-})
+    await userCollection.updateOne(
+      { _id: user_id },
+      { $pull: { mediListID: new ObjectId(id) } } // mediListID 배열에서 id 제거
+    );
+
+    await cancelAndDeleteSchedules(id); //알림 삭제
+
+    res.status(200).send("약 데이터 삭제 완료");
+  } catch (error) {
+    //console.error("약 데이터 삭제 중 오류 발생:", error);
+    res.status(500).send("서버 오류 발생");
+  }
+});
 
 
 app.post('/addList', (req, res)=>{ //myPage에서 이용, 약 추가할 때 사용

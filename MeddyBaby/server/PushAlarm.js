@@ -107,7 +107,7 @@ const scheduleNotifications = async (user_id, medi_id) => {
             { $push: { scheduleID: schedule_id } }
           );
 
-          console.log('알림 설정 완료');
+          //console.log('알림 설정 완료');
         } catch (dbError) {
           //console.error('데이터베이스 작업 중 오류 발생:', dbError);
         }
@@ -141,10 +141,12 @@ const cancelAndDeleteSchedules = async (medi_id) => {
       }
 
       await userCollection.deleteOne({scheduleID: schedule._id});
+      //await console.log('사용자')
       
       // 데이터베이스에서 스케줄링 정보 삭제
       await scheduleCollection.deleteOne({ _id: schedule._id });
-      //console.log('스케줄 삭제');
+      //await console.log('스케줄')
+
     }
   } catch (err) {
     //console.error('알림 스케줄링 삭제 중 오류 발생:', err);
